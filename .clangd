@@ -1,0 +1,7 @@
+CompileFlags:
+  Add: [-Wall, -Wextra, -Werror, -std=c11, -I./headers, -I/libft/headers]
+
+Index:
+  Threads: 4
+
+FallbackStyle: file
