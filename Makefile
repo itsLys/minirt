@@ -13,9 +13,7 @@ LIBFT_DIR	= libft
 LIBFT		= $(addprefix $(LIBFT_DIR)/, libft.a)
 SRC_DIR		= src
 BONUS_DIR	= src_bonus
-SRC			= file1.c \
-			  file2.c \
-			  file3.c 
+SRC			= main.c 
 
 SRC_BONUS	= bonus_1.c \
 			  bonus_2.c \
