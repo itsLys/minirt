@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:09:09 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/09 10:11:02 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/09 11:33:25 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-extern char *s;
-int main()
+int main(int ac, char **av)
 {
-	s = "321";
-	ft_printf("Hello World! %d\n", ft_atoi("321"));
+	
 }
