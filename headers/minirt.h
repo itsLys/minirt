@@ -14,6 +14,11 @@
 # define MINIRT_H
 
 #include "libft.h"
+#include "get_next_line.h"
+#include <fcntl.h>
+#include <errno.h>
+#include <string.h>
+#include <stdio.h>
 
 typedef	struct s_coords
 {
@@ -60,7 +65,7 @@ typedef struct s_pl
 	t_coords	pos;
 	t_coords	norm;
 	t_rgb		color;
-}	t_sp;
+}	t_pl;
 
 typedef struct s_cy
 {
@@ -69,6 +74,6 @@ typedef struct s_cy
 	double		d;
 	double		h;
 	t_rgb		color;
-}	t_sp;
+}	t_cy;
 
 #endif
