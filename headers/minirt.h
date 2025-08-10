@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/09 12:25:18 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/08/10 16:08:46 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <errno.h>
 #include <string.h>
 #include <stdio.h>
+
+# define MAX_OBJECT 99
 
 typedef	struct s_coords
 {
@@ -75,5 +77,16 @@ typedef struct s_cy
 	double		h;
 	t_rgb		color;
 }	t_cy;
+
+typedef struct s_data
+{
+	t_light			amb;
+	t_cam			cam;
+	t_light_source	light[MAX_OBJECT];
+	t_pl			pl[MAX_OBJECT];
+	t_sp			sp[MAX_OBJECT];
+	t_cy			cy[MAX_OBJECT];
+}	t_data;
+
 
 #endif

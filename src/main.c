@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:09:09 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/09 11:33:25 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/08/10 15:41:54 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void print_error(char *err)
 	write(STDERR_FILENO, err, ft_strlen(err));
 }
 
-int	parse_file(char *filename)
+int	parse_file(char *filename, t_data *data)
 {
 	int	fd;
 
