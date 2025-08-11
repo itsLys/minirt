@@ -11,20 +11,11 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include <math.h>
 
-#define ERR ""
-#define ERR_MALLOC ""
-
-void	exit_error(char *str);
-t_coords	get_coords(char **line);
-t_rgb	get_color(char **line);
-
-double	vector_len(t_coords v)
+double	vec3_len(t_coords v)
 {
 	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
 }
-
 
 void	init_plane(char *line, t_data *data)
 {
@@ -34,20 +25,18 @@ void	init_plane(char *line, t_data *data)
 	t_rgb		color;   // obj
 	t_coords	norm;
 
-	point = get_coords(&line);
-	color = get_color(&line);
-	norm = get_coords(&line);
-	if (color.rgba < 0 || color.rgba > 255)
-		exit_error(ERR);
-	if (vector_len(norm) != 1)
-		exit_error(ERR);
-	obj = malloc(sizeof(obj)); // s
+	point = get_vec3(&line);
+	color = get_rgba(&line);
+	norm = get_vec3(&line);
+	if (vec3_len(norm) != 1)
+		exit_error(ERR_PL ERR_NORM_VAL);
+	obj = malloc(sizeof(t_obj)); // s
 	pl = malloc(sizeof(t_pl));
 	if (!obj || !pl)
-		exit_error(ERR_MALLOC);
+		exit_error(NULL);
 	obj->color = color;
 	obj->pos = point;
-	obj->type = OBJ_PL;
+	obj->type = T_PL;
 	pl->norm = norm;
 	obj->shape = pl;
 }
@@ -60,22 +49,19 @@ void	init_sphere(char *line, t_data *data)
 	t_rgb		color;   // obj
 	double		diameter;
 
-	center = get_coords(&line);
+	center = get_vec3(&line);
 	diameter = get_double(&line);
-	color = get_color(&line);
-	if (color.rgba < 0 || color.rgba > 255)
-		exit_error(ERR);
-	obj = malloc(sizeof(obj)); // s
+	color = get_rgba(&line);
+	obj = malloc(sizeof(t_obj)); // s
 	sp = malloc(sizeof(t_sp));
 	if (!obj || !sp)
-		exit_error(ERR_MALLOC);
+		exit_error(NULL);
 	obj->color = color;
 	obj->pos = center;
-	obj->type = OBJ_SP;
+	obj->type = T_SP;
 	sp->d = diameter;
 	obj->shape = sp;
 }
-
 
 void	init_cylinder(char *line, t_data *data)
 {
@@ -87,25 +73,23 @@ void	init_cylinder(char *line, t_data *data)
 	double		diameter;
 	double		 height;
 
-	center = get_coords(&line);
-	norm = get_coords(&line); // 
+	center = get_vec3(&line);
+	norm = get_vec3(&line); // 
 	diameter = get_double(&line);
 	height = get_double(&line);
-	color = get_color(&line);
-	if (vector_len(norm) != 1.0) // range [-1, 1] ?
-		exit_error(ERR);
-	if (color.rgba < 0 || color.rgba > 255)
-		exit_error(ERR);
-	obj = malloc(sizeof(obj)); // s
+	color = get_rgba(&line);
+	if (vec3_len(norm) != 1.0) // range [-1, 1] ?
+		exit_error(ERR_CY ERR_NORM_VAL);
+	obj = malloc(sizeof(t_obj)); // s
 	cy = malloc(sizeof(t_cy));
 	if (!obj || !cy)
-		exit_error(ERR_MALLOC);
-	data->scene.objs->pos = center;
-	data->scene.objs->color = color;
-	data->scene.objs->type = OBJ_CY;
+		exit_error(NULL);
+	obj->pos = center;
+	obj->color = color;
+	obj->type = T_CY;
 	cy->d = diameter;
 	cy->h =  height;
 	cy->norm = norm;
-	data->scene.objs->shape = cy;
+	obj->shape = cy;
 }
 

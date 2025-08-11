@@ -1,5 +1,6 @@
 SRC =				src/ft_char/ft_isalnum.c \
 					src/ft_char/ft_isalpha.c \
+					src/ft_char/ft_isspace.c \
 					src/ft_char/ft_isascii.c \
 					src/ft_char/ft_isdigit.c \
 					src/ft_char/ft_isprint.c \

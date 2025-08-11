@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/09 10:09:09 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/11 16:06:48 by ihajji           ###   ########.fr       */
+/*   Created: 2025/08/11 15:55:39 by ihajji            #+#    #+#             */
+/*   Updated: 2025/08/11 16:08:14 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int main(int ac, char **av)
+void print_error(char *err)
 {
-	t_data	data;
+	write(STDERR_FILENO, "Error\n", 6);
+	write(STDERR_FILENO, err, ft_strlen(err));
+}
 
-	if (ac != 2)
-		return print_error("Multiple args\n"), FAILIURE;
-	if (parse_file(av[1], &data) == ERROR)
-		return (EXIT_FAILURE);
+void	exit_error(char *msg) 
+{
+	// free_all
+	print_error(msg);
+	exit(FAILIURE);
 }

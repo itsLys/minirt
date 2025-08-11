@@ -1,0 +1,60 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   file1.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/11 11:05:16 by ihajji            #+#    #+#             */
+/*   Updated: 2025/08/11 12:08:46 by ihajji           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minirt.h"
+
+// WARN: need to check repitition of object that should be repeated
+// void	init_camera(char *line, t_data *data)
+// {
+// 	t_coords	pos;
+// 	t_coords	norm;
+// 	int			fov;
+//
+// 	pos = get_vec3(&line);
+// 	norm = get_vec3(&line);
+// 	fov = get_integer(&line);
+// 	if (vec3_len(norm) != 1.0)
+// 		exit_error(ERR_CAM ERR_NORM_VAL);
+// 	if (fov < 0 || fov > 180)
+// 		exit_error(ERR_CAM ERR_FOV);
+// 	data->scene.cam.pos = pos;
+// 	data->scene.cam.norm = norm;
+// 	data->scene.cam.fov = fov;
+// }
+
+// void	init_source_light(char *line, t_data *data)
+// {
+// 	t_obj			*obj;
+// 	t_light_src		*source;
+// 	t_coords		pos;
+// 	double			ratio;
+// 	t_rgb			rgba;
+//
+// 	pos = get_vec3(&line);
+// 	ratio = get_double(&line);
+// 	rgba = get_rgba(&line);
+// 	obj = malloc(sizeof(t_obj));
+// 	source = malloc(sizeof(t_light_src));
+// 	if (obj == NULL || source == NULL)
+// 		exit_error(NULL);
+// 	if (ratio < 0.0 || ratio > 1.0)
+// 		exit_error(ERR_LIGHT ERR_RATIO);
+// 	if ((int) rgba.a == ERROR)
+// 		exit_error(ERR_LIGHT ERR_RGB);
+// 	// NOTE: change enum types to T_PL
+// 	obj->type = T_LS;
+// 	obj->pos = pos;
+// 	obj->color = rgba;
+// 	source->ratio = ratio;
+// 	// obj_list_add ( source);
+// 	// NOTE: CHANGE light_source to l
+// }

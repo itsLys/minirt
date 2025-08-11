@@ -1,96 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file.c                                             :+:      :+:    :+:   */
+/*   init_config.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/10 15:35:07 by yel-guad          #+#    #+#             */
-/*   Updated: 2025/08/10 18:04:34 by yel-guad         ###   ########.fr       */
+/*   Created: 2025/08/11 15:56:27 by ihajji            #+#    #+#             */
+/*   Updated: 2025/08/11 16:00:19 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int ft_isspace(int c)
-{
-	return (c == ' ' || c == '\t');
-}
-
-int	get_vect(char *line, t_light amb)
-{
-
-}
-
-int	get_number(char **line, int l)
-{
-	int (i), (j), (n);
-
-	i = 0;
-	n = 0;
-	while (ft_isdigit(*line[i]))
-		i++;
-	if (l && line[i] != ',')
-		return ERROR;
-	j = 0;
-	while (j < i)
-	{
-		n = n * 10 + *line[j] - '0';
-		j++;
-	}
-	return (n);
-}
-
-int	get_color(char *line, t_rgb *color)
-{
-	color->r = get_number(&line, TRUE);
-	if (color->r == ERROR)
-		return (ERROR);
-	color->g = get_number(&line, TRUE);
-	if (color->g == ERROR)
-		return (ERROR);
-	color->b = get_number(&line, FALSE);
-	if (color->b == ERROR)
-		return (ERROR);
-}
-
-double	get_double(char **line) // 12.34
-{
-	double	db;
-
-	int (i), (j);
-	i = 0;
-	db = 0;
-	while (ft_isdigit(*line[i]))
-		i++;
-	if (*line[i] != '.')
-		return (ERROR);
-	// if (l && line[i] != ',')
-	// 	return ERROR;
-	j = 0;
-	while (j < i)
-	{
-		db = db * 10 + *line[j] - '0';
-		j++;
-	}
-	return (db);
-}
-#define ERR_AMB_LIGHT "Ambient light is not correct\n"
-#define ERR_RGB "RGB is not correct\n"
-
 void	init_ambient_light(char *line, t_data *data)
 {
-	double	amb_light;
+	double	ratio;
 	t_rgb	rgba;
 
-	amb_light = get_double(&line);;
-	if  (amb_light < 0.0 || amb_light > 1.0)
+	ratio = get_double(&line);;
+	if  (ratio < 0.0 || ratio > 1.0)
 		exit_error(ERR_AMB_LIGHT);
 	rgba = get_rgba(&line);
-	if (rgba == ERROR)
+	if ((int) rgba.a == ERROR)
 		exit_error(ERR_RGB);
-	data->scene.amb_light.ratio = amb_light;
-	data->scene.amb_light.color.rgba = rgba;
+	data->scene.amb_light.ratio = ratio;
+	data->scene.amb_light.color = rgba;
+}
+
+void	init_camera(char *line, t_data *data)
+{
+	t_coords	pos;
+	t_coords	norm;
+	int			fov;
+
+	pos = get_vec3(&line);
+	norm = get_vec3(&line);
+	fov = get_integer(&line);
+	if (vec3_len(norm) != 1.0)
+		exit_error(ERR_CAM ERR_NORM_VAL);
+	if (fov < 0 || fov > 180)
+		exit_error(ERR_CAM ERR_FOV);
+	data->scene.cam.pos = pos;
+	data->scene.cam.norm = norm;
+	data->scene.cam.fov = fov;
 }
 
 int init_config(char *line, t_data *data)
@@ -124,4 +76,5 @@ int	process_line(char *line, t_data *data)
 		i++;
 	if (init_config(line + i, data) == ERROR)
 		return ERROR;
+	return SUCCESS;
 }
