@@ -19,6 +19,7 @@
 #include <errno.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdint.h>
 
 // # define MAX_OBJECT 99
 typedef enum s_obj_type
@@ -35,11 +36,16 @@ typedef	struct s_coords
 	double	z;
 }	t_coords;
 
-typedef struct s_rgb
+typedef union u_rgb
 {
-	int	r;
-	int	g;
-	int	b;
+	struct
+	{
+		uint8_t	a;
+		uint8_t	b;
+		uint8_t	g;
+		uint8_t	r;
+	};
+	uint32_t	rgba;
 }	t_rgb;
 
 typedef struct s_light

@@ -19,7 +19,7 @@ int ft_isspace(int c)
 
 int	get_vect(char *line, t_light amb)
 {
-	
+
 }
 
 int	get_number(char **line, int l)
@@ -36,7 +36,7 @@ int	get_number(char **line, int l)
 	while (j < i)
 	{
 		n = n * 10 + *line[j] - '0';
-		j++; 
+		j++;
 	}
 	return (n);
 }
@@ -75,49 +75,41 @@ double	get_double(char **line) // 12.34
 	}
 	return (db);
 }
+#define ERR_AMB_LIGHT "Ambient light is not correct\n"
+#define ERR_RGB "RGB is not correct\n"
 
-int	init_ambient_light(char *line, t_data *data)
+void	init_ambient_light(char *line, t_data *data)
 {
-	// int	i;
-	//
-	// i = 0;
-	// while (ft_isspace(line[i]))
-	// 	i++;
-	// while (ft_isspace(line[i]))
-	// 	i++;
-	data->scene.amb_light.ratio = get_double(&line);
-	if (get_color(line + i, &amb->color))
-		return (ERROR);
+	double	amb_light;
+	t_rgb	rgba;
+
+	amb_light = get_double(&line);;
+	if  (amb_light < 0.0 || amb_light > 1.0)
+		exit_error(ERR_AMB_LIGHT);
+	rgba = get_rgba(&line);
+	if (rgba == ERROR)
+		exit_error(ERR_RGB);
+	data->scene.amb_light.ratio = amb_light;
+	data->scene.amb_light.color.rgba = rgba;
 }
-// A 	0.2							255,255,255
-// data-light_raio = get_double()
-// data-light_color = get_colors()
-// data-light_color = get_colors()
-// data-light_color = get_colors()
 
 int init_config(char *line, t_data *data)
 {
 	int	i;
 
 	i = 0;
-	if (line[i] == 'A' && ft_isspace(line[i + 1])
-			&& !init_ambient_light(line + 1, data))
-		return ERROR;
-	else if (line[i] == 'C' && ft_isspace(line[i + 1])
-			&& !init_camera(line + 1, data))
-		return ERROR;
-	else if (line[i] == 'L' && ft_isspace(line[i + 1])
-			&& !init_source_light(line + 1, data))
-		return ERROR;
-	else if (ft_strncmp(line, "pl", 2) && ft_isspace(line[i + 2])
-			&& !init_plane(line + 2, data))
-		return ERROR;
-	else if (ft_strncmp(line, "sp", 2) && ft_isspace(line[i + 2])
-			&& !init_sphere(line + 2, data))
-		return ERROR;
-	else if (ft_strncmp(line, "cy", 2) && ft_isspace(line[i + 2])
-			&& !init_cylinder(line + 2, data))
-		return ERROR;
+	if (line[i] == 'A' && ft_isspace(line[i + 1]))
+		init_ambient_light(line + 1, data);
+	else if (line[i] == 'C' && ft_isspace(line[i + 1]))
+		init_camera(line + 1, data);
+	else if (line[i] == 'L' && ft_isspace(line[i + 1]))
+		init_source_light(line + 1, data);
+	else if (ft_strncmp(line, "pl", 2) && ft_isspace(line[i + 2]))
+		init_plane(line + 2, data);
+	else if (ft_strncmp(line, "sp", 2) && ft_isspace(line[i + 2]))
+		init_sphere(line + 2, data);
+	else if (ft_strncmp(line, "cy", 2) && ft_isspace(line[i + 2]))
+		init_cylinder(line + 2, data);
 	else
 		return ERROR;
 	return SUCCESS;
@@ -126,7 +118,7 @@ int init_config(char *line, t_data *data)
 int	process_line(char *line, t_data *data)
 {
 	int	i;
-	
+
 	i = 0;
 	while (ft_isspace(line[i]))
 		i++;
