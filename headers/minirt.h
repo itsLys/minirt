@@ -20,7 +20,13 @@
 #include <string.h>
 #include <stdio.h>
 
-# define MAX_OBJECT 99
+// # define MAX_OBJECT 99
+typedef enum s_obj_type
+{
+	OBJ_SP,
+	OBJ_PL,
+	OBJ_CY,
+}	t_obj_type;
 
 typedef	struct s_coords
 {
@@ -57,36 +63,40 @@ typedef struct s_light_source
 
 typedef struct s_sp
 {
-	t_coords	pos;
 	double		d;
-	t_rgb		color;
 }	t_sp;
 
 typedef struct s_pl
 {
-	t_coords	pos;
 	t_coords	norm;
-	t_rgb		color;
 }	t_pl;
 
 typedef struct s_cy
 {
-	t_coords	pos;
 	t_coords	norm;
 	double		d;
 	double		h;
-	t_rgb		color;
 }	t_cy;
+
+typedef struct s_obj
+{
+	t_obj_type	type;
+	t_coords	pos;
+	t_rgb		color;
+	void		*shape;
+}	t_obj;
+
+typedef struct s_scene
+{
+	t_light_source *lights;
+	t_light			amb_light;
+	t_cam			cam;
+	t_obj			*objs;
+}	t_scene;
 
 typedef struct s_data
 {
-	t_light			amb;
-	t_cam			cam;
-	t_light_source	light[MAX_OBJECT];
-	t_pl			pl[MAX_OBJECT];
-	t_sp			sp[MAX_OBJECT];
-	t_cy			cy[MAX_OBJECT];
-}	t_data;
-
+	t_scene scene;
+}	t_data ;
 
 #endif

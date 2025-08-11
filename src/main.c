@@ -59,8 +59,6 @@ int	parse_file(char *filename, t_data *data)
 			return ERROR;
 		free(line);
 	}
-
-
 }
 
 int main(int ac, char **av)
