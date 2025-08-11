@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:04:43 by yel-guad          #+#    #+#             */
-/*   Updated: 2025/08/11 13:10:20 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:14:24 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_plane(char *line, t_data *data)
 	norm = get_coords(&line);
 	if (color.rgba < 0 || color.rgba > 255)
 		exit_error(ERR);
-	if (vector_len(norm) > 1)
+	if (vector_len(norm) != 1)
 		exit_error(ERR);
 	obj = malloc(sizeof(obj)); // s
 	pl = malloc(sizeof(t_pl));
@@ -87,7 +87,7 @@ void	init_cylinder(char *line, t_data *data)
 	diameter = get_double(&line);
 	height = get_double(&line);
 	color = get_color(&line);
-	if (vector_len(norm) > 1.0) // range [-1, 1] ?
+	if (vector_len(norm) != 1.0) // range [-1, 1] ?
 		exit_error(ERR);
 	if (color.rgba < 0 || color.rgba > 255)
 		exit_error(ERR);
