@@ -6,11 +6,12 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 11:04:43 by yel-guad          #+#    #+#             */
-/*   Updated: 2025/08/11 13:14:24 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/08/11 14:37:17 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <math.h>
 
 #define ERR ""
 #define ERR_MALLOC ""
@@ -18,7 +19,11 @@
 void	exit_error(char *str);
 t_coords	get_coords(char **line);
 t_rgb	get_color(char **line);
-double	vector_len(t_coords vect);
+
+double	vector_len(t_coords v)
+{
+	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
+}
 
 
 void	init_plane(char *line, t_data *data)
