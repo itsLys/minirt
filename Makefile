@@ -20,7 +20,8 @@ SRC			= src/main.c \
 			  src/init/init_objs.c \
 			  src/init/init_scene.c \
 			  src/init/parse_file.c \
-			  src/vec3/vec3_ops.c
+			  src/vec3/vec3_ops.c \
+			  src/objects/obj_utils.c
 OBJ			= $(patsubst src/%.c, obj/%.o, $(SRC))
 all: $(NAME)
 	@echo "$(GREEN)$(BOLD)$(NAME) done!$(RESET)"

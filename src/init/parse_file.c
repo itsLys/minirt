@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:53:50 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/11 16:06:58 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/12 16:11:24 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	parse_file(char *filename, t_data *data)
 	int	fd;
 	char *line;
 
+	data->scene.obj_list = malloc(sizeof(t_obj *));
+	*(data->scene.obj_list) = NULL;
 	if (check_file_ext(filename) == ERROR)
 		return ERROR;
 	fd = open(filename, O_RDONLY);

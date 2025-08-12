@@ -6,13 +6,13 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:58:29 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/12 08:09:04 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/08/12 16:03:14 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	init_source_light(char *line, t_data *data __attribute__((unused)))
+void	init_source_light(char *line, t_data *data)
 {
 	t_obj			*obj;
 	t_light_src		*source;
@@ -22,7 +22,8 @@ void	init_source_light(char *line, t_data *data __attribute__((unused)))
 	if (obj == NULL || source == NULL)
 		return (free(source), exit_error(NULL));
 	obj->shape = source;
-	// obj_list_add ( source);
+	obj->type = T_LS;
+	obj_lst_add(obj, data->scene.obj_list);
 	obj->pos = get_vec3(&line);
 	source->ratio = get_double(&line);
 	obj->color = get_rgba(&line);
@@ -30,10 +31,9 @@ void	init_source_light(char *line, t_data *data __attribute__((unused)))
 		exit_error(ERR_LIGHT ERR_RATIO);
 	if ((int) obj->color.a == ERROR)
 		exit_error(ERR_LIGHT ERR_RGB);
-	obj->type = T_LS;
 }
 
-void	init_plane(char *line, t_data *data __attribute__((unused)))
+void	init_plane(char *line, t_data *data)
 {
 	t_obj	*obj;
 	t_pl	*pl;
@@ -43,16 +43,16 @@ void	init_plane(char *line, t_data *data __attribute__((unused)))
 	if (!obj || !pl)
 		return (free(pl), exit_error(NULL));
 	obj->shape = pl;
-	// obj list add (obj)
+	obj->type = T_PL;
+	obj_lst_add(obj, data->scene.obj_list);
 	obj->pos = get_vec3(&line);
 	pl->norm = get_vec3(&line);
 	if (vec3_len(pl->norm) != 1)
 		exit_error(ERR_PL ERR_NORM_VAL);
 	obj->color = get_rgba(&line);
-	obj->type = T_PL;
 }
 
-void	init_sphere(char *line, t_data *data __attribute__((unused)))
+void	init_sphere(char *line, t_data *data)
 {
 	t_obj	*obj;
 	t_sp	*sp;
@@ -62,14 +62,14 @@ void	init_sphere(char *line, t_data *data __attribute__((unused)))
 	if (!obj || !sp)
 		return (free(sp), exit_error(NULL));
 	obj->shape = sp;
-	// obj list add (obj)
+	obj->type = T_SP;
+	obj_lst_add(obj, data->scene.obj_list);
 	obj->pos = get_vec3(&line);
 	sp->d = get_double(&line);
 	obj->color = get_rgba(&line);
-	obj->type = T_SP;
 }
 
-void	init_cylinder(char *line, t_data *data __attribute__((unused)))
+void	init_cylinder(char *line, t_data *data)
 {
 	t_obj		*obj;
 	t_cy		*cy;
@@ -79,7 +79,8 @@ void	init_cylinder(char *line, t_data *data __attribute__((unused)))
 	if (obj == NULL || cy == NULL)
 		return free(cy), exit_error(NULL);
 	obj->shape = cy;
-	// obj list add (obj)
+	obj->type = T_CY;
+	obj_lst_add(obj, data->scene.obj_list);
 	obj->pos = get_vec3(&line);
 	cy->norm = get_vec3(&line);
 	if (vec3_len(cy->norm) != 1.0) // range [-1, 1] ?

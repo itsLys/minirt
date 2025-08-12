@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:55:39 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/11 16:08:14 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/12 16:19:49 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,14 @@ void print_error(char *err)
 	write(STDERR_FILENO, err, ft_strlen(err));
 }
 
-void	exit_error(char *msg) 
+void	exit_error(char *msg, t_data *data) 
 {
-	// free_all
+	obj_lst_free(data->scene.obj_list);
 	print_error(msg);
 	exit(FAILIURE);
+}
+
+void clean_exit(t_data *data)
+{
+	obj_lst_free(data->scene.obj_list);
 }

@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/11 16:07:24 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/12 16:20:15 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,17 +108,18 @@ typedef struct s_cy
 
 typedef struct s_obj
 {
-	t_obj_type	type;
-	t_coords	pos;
-	t_rgb		color;
-	void		*shape;
+	t_obj_type		type;
+	t_coords		pos;
+	t_rgb			color;
+	void			*shape;
+	struct s_obj	*next;
 }	t_obj;
 
 typedef struct s_scene
 {
 	t_light			amb_light;
 	t_cam			cam;
-	t_obj			*objs;
+	t_obj			**obj_list;
 }	t_scene;
 
 typedef struct s_data
@@ -126,13 +127,19 @@ typedef struct s_data
 	t_scene scene;
 }	t_data ;
 
+// object
+void		obj_lst_add(t_obj *obj, t_obj **list);
+void		obj_free(t_obj *obj);
+void		obj_lst_free(t_obj **obj);
+
 // parse
 int			process_line(char *line, t_data *data);
 int			parse_file(char *filename, t_data *data);
 
 // error and exit
 void		print_error(char *err);
-void		exit_error(char *msg);
+void		exit_error(char *msg, t_data *data);
+void		clean_exit(t_data *data);
 
 // geters
 double		get_double(char **line);
