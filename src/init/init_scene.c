@@ -17,12 +17,12 @@ void	init_ambient_light(char *line, t_data *data)
 	double	ratio;
 	t_rgb	rgba;
 
-	ratio = get_double(&line);;
+	ratio = get_double(&line, data);;
 	if  (ratio < 0.0 || ratio > 1.0)
-		exit_error(ERR_AMB_LIGHT);
-	rgba = get_rgba(&line);
+		exit_error(ERR_AMB_LIGHT, data);
+	rgba = get_rgba(&line, data);
 	if ((int) rgba.a == ERROR)
-		exit_error(ERR_RGB);
+		exit_error(ERR_RGB, data);
 	data->scene.amb_light.ratio = ratio;
 	data->scene.amb_light.color = rgba;
 }
@@ -33,13 +33,13 @@ void	init_camera(char *line, t_data *data)
 	t_coords	norm;
 	int			fov;
 
-	pos = get_vec3(&line);
-	norm = get_vec3(&line);
-	fov = get_integer(&line);
+	pos = get_vec3(&line, data);
+	norm = get_vec3(&line, data);
+	fov = get_integer(&line, data);
 	if (vec3_len(norm) != 1.0)
-		exit_error(ERR_CAM ERR_NORM_VAL);
+		exit_error(ERR_CAM ERR_NORM_VAL, data);
 	if (fov < 0 || fov > 180)
-		exit_error(ERR_CAM ERR_FOV);
+		exit_error(ERR_CAM ERR_FOV, data);
 	data->scene.cam.pos = pos;
 	data->scene.cam.norm = norm;
 	data->scene.cam.fov = fov;
@@ -64,7 +64,7 @@ int init_config(char *line, t_data *data)
 	else if (!ft_strncmp(line, "cy", 2) && ft_isspace(line[i + 2]))
 		init_cylinder(line + 2, data);
 	else
-		return exit_error(ERR_PARAM), ERROR;
+		return exit_error(ERR_PARAM, data), ERROR;
 	return SUCCESS;
 }
 

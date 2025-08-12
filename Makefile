@@ -14,6 +14,7 @@ LIBFT_DIR	= libft
 LIBFT		= $(addprefix $(LIBFT_DIR)/, libft.a)
 SRC			= src/main.c \
 			  src/error.c \
+			  src/testing.c \
 			  src/gnl/get_next_line.c \
 			  src/gnl/get_next_line_utils.c \
 			  src/init/get_values.c \

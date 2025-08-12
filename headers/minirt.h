@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/12 16:20:15 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/12 20:12:15 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,10 @@ typedef struct s_data
 	t_scene scene;
 }	t_data ;
 
+
+// BUG: testing debugging
+void	print_scene(t_data *data);
+
 // object
 void		obj_lst_add(t_obj *obj, t_obj **list);
 void		obj_free(t_obj *obj);
@@ -142,10 +146,10 @@ void		exit_error(char *msg, t_data *data);
 void		clean_exit(t_data *data);
 
 // geters
-double		get_double(char **line);
-t_rgb		get_rgba(char **line);
-t_coords	get_vec3(char **line);
-int			get_integer(char **line);
+double		get_double(char **line, t_data *data);
+t_rgb		get_rgba(char **line, t_data *data);
+t_coords	get_vec3(char **line, t_data *data);
+int			get_integer(char **line, t_data *data);
 
 // init
 void		init_ambient_light(char *line, t_data *data);

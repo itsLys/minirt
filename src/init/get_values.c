@@ -26,7 +26,7 @@ int	parse_num(char *str)
 	return (n);
 }
 
-int	get_integer(char **line)
+int	get_integer(char **line, t_data *data)
 {
 	int		n;
 	int		i;
@@ -41,25 +41,25 @@ int	get_integer(char **line)
 		i = 1;
 	}
 	if (i == 0)
-		exit_error(ERR_INT);
+		exit_error(ERR_INT, data);
 	return (n);
 }
 
-t_rgb	get_rgba(char **line)
+t_rgb	get_rgba(char **line, t_data *data)
 {
 	t_rgb	rgba;
 
-	rgba.r = get_integer(line);
+	rgba.r = get_integer(line, data);
 	if (*(*line)++ != ',')
-		exit_error(ERR_RGB);
-	rgba.g = get_integer(line);
+		exit_error(ERR_RGB, data);
+	rgba.g = get_integer(line, data);
 	if (*(*line)++ != ',')
-		exit_error(ERR_RGB);
-	rgba.b = get_integer(line);
+		exit_error(ERR_RGB, data);
+	rgba.b = get_integer(line, data);
 	return (rgba);
 }
 
-double	get_double(char **line)
+double	get_double(char **line, t_data *data)
 {
 	double	f;
 	int		i;
@@ -80,20 +80,20 @@ double	get_double(char **line)
 	while (ft_isdigit(**line))
 		(*line)++;
 	if (i == 0)
-		exit_error(ERR_DBL);
+		exit_error(ERR_DBL, data);
 	return (f);
 }
 
-t_coords    get_vec3(char **line) // case 1,,0 or 1,, check inside get double if **line is digit or '+/-'digit 
+t_coords    get_vec3(char **line, t_data *data) // case 1,,0 or 1,, check inside get double if **line, t_data *data is digit or '+/-'digit 
 {
 	t_coords	vec3;
 
-	vec3.x = get_double(line);
+	vec3.x = get_double(line, data);
 	if (*(*line)++ != ',')
-		exit_error(ERR_COORDS);
-	vec3.y = get_double(line);
+		exit_error(ERR_COORDS, data);
+	vec3.y = get_double(line, data);
 	if (*(*line)++ != ',')
-		exit_error(ERR_COORDS);
-	vec3.z = get_double(line);
+		exit_error(ERR_COORDS, data);
+	vec3.z = get_double(line, data);
 	return (vec3);
 }
