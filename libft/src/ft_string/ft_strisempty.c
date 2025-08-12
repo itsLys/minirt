@@ -12,7 +12,7 @@
 
 int	ft_strisempty(char *str)
 {
-	while (*str && *str == ' ' && *str == '\t' && *str == '\n')
+	while (*str && (*str == ' ' || *str == '\t' || *str == '\n'))
 		str++;
 	return (!*str);
 }

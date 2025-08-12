@@ -7,14 +7,20 @@ CLEAR		= \033[K\r
 NAME		= minirt
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g3
-LFLAGS		= -lreadline
+LFLAGS		= -lm
 AR			= ar rcs
 INCLUDES	= -I./headers/ -I./libft/headers/
 LIBFT_DIR	= libft
 LIBFT		= $(addprefix $(LIBFT_DIR)/, libft.a)
 SRC			= src/main.c \
-			  src/init/init_obj.c \
-			  src/parser/parse_line.c
+			  src/error.c \
+			  src/gnl/get_next_line.c \
+			  src/gnl/get_next_line_utils.c \
+			  src/init/get_values.c \
+			  src/init/init_objs.c \
+			  src/init/init_scene.c \
+			  src/init/parse_file.c \
+			  src/vec3/vec3_ops.c
 OBJ			= $(patsubst src/%.c, obj/%.o, $(SRC))
 all: $(NAME)
 	@echo "$(GREEN)$(BOLD)$(NAME) done!$(RESET)"

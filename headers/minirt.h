@@ -13,31 +13,35 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-#include "libft.h"
-#include "get_next_line.h"
-#include <fcntl.h>
-#include <errno.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdint.h>
-#include <math.h>
-#include <stdbool.h>
+# include "libft.h"
+# include "get_next_line.h"
+# include <fcntl.h>
+# include <errno.h>
+# include <string.h>
+# include <stdio.h>
+# include <stdint.h>
+# include <math.h>
+# include <stdbool.h>
 
-#define EXT ".rt"
+# define EXT ".rt"
 
 // ERR OBJS
-#define ERR_AMB_LIGHT "Ambient: "
-#define ERR_CAM "Camera: "
-#define ERR_CY "Cylinder: "
-#define ERR_PL "Plane: "
+# define ERR_AMB_LIGHT "Ambient: "
+# define ERR_CAM "Camera: "
+# define ERR_CY "Cylinder: "
+# define ERR_PL "Plane: "
+# define ERR_LIGHT "Light: "
+# define ERR_PARAM "Wrong parameter field\n"
 
 
 // ERR PARAMS
-#define ERR_RGB "RGB is not correct\n"
-#define ERR_LIGHT "Light: "
-#define ERR_RATIO "Ratio is not correct"
-#define ERR_NORM_VAL "Normalized value is not correct\n"
-#define ERR_FOV "Fov is not correct\n"
+# define ERR_RGB "RGB is not correct\n"
+# define ERR_DBL "Double is not correct\n"
+# define ERR_INT "Integer is not correct\n"
+# define ERR_RATIO "Ratio is not correct"
+# define ERR_NORM_VAL "Normalized value is not correct\n"
+# define ERR_FOV "Fov is not correct\n"
+# define ERR_COORDS "Wrong coordination form\n"
 
 // # define MAX_OBJECT 99
 typedef enum s_obj_type

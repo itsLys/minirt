@@ -12,13 +12,6 @@
 
 #include "libft.h"
 
-static int	ft_isspace(char c)
-{
-	if (c == ' ' || (c >= '\t' && c <= '\r'))
-		return (1);
-	return (0);
-}
-
 static const char	*skip_spaces(const char *nptr)
 {
 	while (*nptr && ft_isspace(*nptr))

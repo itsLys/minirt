@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-void	init_source_light(char *line, t_data *data)
+void	init_source_light(char *line, t_data *data __attribute__((unused)))
 {
 	t_obj			*obj;
 	t_light_src		*source;
@@ -21,6 +21,8 @@ void	init_source_light(char *line, t_data *data)
 	obj = malloc(sizeof(t_obj));
 	if (obj == NULL || source == NULL)
 		return (free(source), exit_error(NULL));
+	obj->shape = source;
+	// obj_list_add ( source);
 	obj->pos = get_vec3(&line);
 	source->ratio = get_double(&line);
 	obj->color = get_rgba(&line);
@@ -29,11 +31,9 @@ void	init_source_light(char *line, t_data *data)
 	if ((int) obj->color.a == ERROR)
 		exit_error(ERR_LIGHT ERR_RGB);
 	obj->type = T_LS;
-	obj->shape = source;
-	// obj_list_add ( source);
 }
 
-void	init_plane(char *line, t_data *data)
+void	init_plane(char *line, t_data *data __attribute__((unused)))
 {
 	t_obj	*obj;
 	t_pl	*pl;
@@ -42,16 +42,17 @@ void	init_plane(char *line, t_data *data)
 	obj = malloc(sizeof(t_obj));
 	if (!obj || !pl)
 		return (free(pl), exit_error(NULL));
+	obj->shape = pl;
+	// obj list add (obj)
 	obj->pos = get_vec3(&line);
-	obj->color = get_rgba(&line);
 	pl->norm = get_vec3(&line);
 	if (vec3_len(pl->norm) != 1)
 		exit_error(ERR_PL ERR_NORM_VAL);
+	obj->color = get_rgba(&line);
 	obj->type = T_PL;
-	obj->shape = pl;
 }
 
-void	init_sphere(char *line, t_data *data)
+void	init_sphere(char *line, t_data *data __attribute__((unused)))
 {
 	t_obj	*obj;
 	t_sp	*sp;
@@ -60,14 +61,15 @@ void	init_sphere(char *line, t_data *data)
 	obj = malloc(sizeof(t_obj)); // s
 	if (!obj || !sp)
 		return (free(sp), exit_error(NULL));
+	obj->shape = sp;
+	// obj list add (obj)
 	obj->pos = get_vec3(&line);
 	sp->d = get_double(&line);
 	obj->color = get_rgba(&line);
 	obj->type = T_SP;
-	obj->shape = sp;
 }
 
-void	init_cylinder(char *line, t_data *data)
+void	init_cylinder(char *line, t_data *data __attribute__((unused)))
 {
 	t_obj		*obj;
 	t_cy		*cy;

@@ -12,19 +12,75 @@
 
 #include "minirt.h"
 
-# define ERR_COORDS "Wrong coordination form\n"
+int	parse_num(char *str)
+{
+	int	n;
+
+	n = 0;
+	if (*str == '\0')
+		return (ERROR);
+	while (*str && *str >= '0' && *str <= '9')
+		n = (*(str++) - '0') + n * 10;
+	// if (*str)
+	// 	return (ERROR);
+	return (n);
+}
+
+int	get_integer(char **line)
+{
+	int		n;
+	int		i;
+
+	i = 0;
+	while (ft_isspace(**line))
+		(*line)++;
+	n = parse_num(*line);
+	while (ft_isdigit(**line))
+	{
+		(*line)++;
+		i = 1;
+	}
+	if (i == 0)
+		exit_error(ERR_INT);
+	return (n);
+}
+
+t_rgb	get_rgba(char **line)
+{
+	t_rgb	rgba;
+
+	rgba.r = get_integer(line);
+	if (*(*line)++ != ',')
+		exit_error(ERR_RGB);
+	rgba.g = get_integer(line);
+	if (*(*line)++ != ',')
+		exit_error(ERR_RGB);
+	rgba.b = get_integer(line);
+	return (rgba);
+}
 
 double	get_double(char **line)
 {
-	int		i;
 	double	f;
+	int		i;
 
 	i = 0;
-	if (*line[i] == '-' || *line[i] == '+')
-		i++;
-	if (!ft_isdigit(*line[i]))
-		exit_error(ERR_COORDS);
-	f = ft_atof(*line); // atof take (char *) not (char **)!
+	while (ft_isspace(**line))
+		(*line)++;
+	f = ft_atof(*line);
+	if (**line == '-' || **line == '+')
+		(*line)++;
+	while (ft_isdigit(**line))
+	{
+		(*line)++;
+		i = 1;
+	}
+	if (*(*line) == '.')
+		(*line)++;
+	while (ft_isdigit(**line))
+		(*line)++;
+	if (i == 0)
+		exit_error(ERR_DBL);
 	return (f);
 }
 
@@ -32,15 +88,12 @@ t_coords    get_vec3(char **line) // case 1,,0 or 1,, check inside get double if
 {
 	t_coords	vec3;
 
-	while (ft_isspace(**line))
-		(*line)++;
-	vec3.x = get_double(**line);
-	if (**line != ',')
+	vec3.x = get_double(line);
+	if (*(*line)++ != ',')
 		exit_error(ERR_COORDS);
-	vec3.y = get_double(**line);
-	if (**line != ',')
+	vec3.y = get_double(line);
+	if (*(*line)++ != ',')
 		exit_error(ERR_COORDS);
-	vec3.z = get_double(**line);
+	vec3.z = get_double(line);
 	return (vec3);
 }
-

@@ -21,7 +21,13 @@ double	ft_atof(char *str)
 	sign = 1;
 	exp = 10;
 	f = 0;
-	f = ft_atoi(str);
+	if (*str == '-' ||  *str == '+')
+	{
+		sign = (*str == '-') * -1 + (*str == '+') * 1;
+		str++;
+	}
+	while (ft_isdigit(*str))
+		f = f * 10 + (*str++ - '0');
 	if (*str == '.')
 		str++;
 	while (ft_isdigit(*str))

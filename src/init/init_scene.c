@@ -50,20 +50,21 @@ int init_config(char *line, t_data *data)
 	int	i;
 
 	i = 0;
+	// printf("init config: line	|%s|\n", line);
 	if (line[i] == 'A' && ft_isspace(line[i + 1]))
 		init_ambient_light(line + 1, data);
 	else if (line[i] == 'C' && ft_isspace(line[i + 1]))
 		init_camera(line + 1, data);
 	else if (line[i] == 'L' && ft_isspace(line[i + 1]))
 		init_source_light(line + 1, data);
-	else if (ft_strncmp(line, "pl", 2) && ft_isspace(line[i + 2]))
+	else if (!ft_strncmp(line, "pl", 2) && ft_isspace(line[i + 2]))
 		init_plane(line + 2, data);
-	else if (ft_strncmp(line, "sp", 2) && ft_isspace(line[i + 2]))
+	else if (!ft_strncmp(line, "sp", 2) && ft_isspace(line[i + 2]))
 		init_sphere(line + 2, data);
-	else if (ft_strncmp(line, "cy", 2) && ft_isspace(line[i + 2]))
+	else if (!ft_strncmp(line, "cy", 2) && ft_isspace(line[i + 2]))
 		init_cylinder(line + 2, data);
 	else
-		return ERROR;
+		return exit_error(ERR_PARAM), ERROR;
 	return SUCCESS;
 }
 

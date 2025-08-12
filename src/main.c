@@ -17,7 +17,8 @@ int main(int ac, char **av)
 	t_data	data;
 
 	if (ac != 2)
-		return print_error("Multiple args\n"), FAILIURE;
+		return print_error("Wrong args\n"), FAILIURE;
 	if (parse_file(av[1], &data) == ERROR)
 		return (EXIT_FAILURE);
+	printf("Hello\n");
 }

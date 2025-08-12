@@ -27,20 +27,17 @@ static int	check_file_ext(char *filename)
 int	parse_file(char *filename, t_data *data)
 {
 	int	fd;
+	char *line;
 
 	if (check_file_ext(filename) == ERROR)
 		return ERROR;
 	fd = open(filename, O_RDONLY);
 	if (fd == ERROR)
 		return print_error(strerror(errno)), ERROR;
-
-	char *line;
-
-	
 	while (1)
 	{
 		line = get_next_line(fd);
-		while (ft_strisempty(line))
+		while (line && ft_strisempty(line))
 		{
 			free(line);
 			line = get_next_line(fd);
@@ -51,4 +48,5 @@ int	parse_file(char *filename, t_data *data)
 			return ERROR;
 		free(line);
 	}
+	return SUCCESS;
 }
