@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_objs.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:58:29 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/11 16:52:42 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/12 08:09:04 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,20 @@ void	init_source_light(char *line, t_data *data)
 {
 	t_obj			*obj;
 	t_light_src		*source;
-	t_coords		pos;
-	double			ratio;
-	t_rgb			rgba;
 
-	pos = get_vec3(&line);
-	ratio = get_double(&line);
-	rgba = get_rgba(&line);
-	obj = malloc(sizeof(t_obj));
 	source = malloc(sizeof(t_light_src));
+	obj = malloc(sizeof(t_obj));
 	if (obj == NULL || source == NULL)
-		exit_error(NULL);
-	if (ratio < 0.0 || ratio > 1.0)
+		return (free(source), exit_error(NULL));
+	obj->pos = get_vec3(&line);
+	source->ratio = get_double(&line);
+	obj->color = get_rgba(&line);
+	if (source->ratio < 0.0 || source->ratio > 1.0)
 		exit_error(ERR_LIGHT ERR_RATIO);
-	if ((int) rgba.a == ERROR)
+	if ((int) obj->color.a == ERROR)
 		exit_error(ERR_LIGHT ERR_RGB);
 	obj->type = T_LS;
-	obj->pos = pos;
-	obj->color = rgba;
-	source->ratio = ratio;
+	obj->shape = source;
 	// obj_list_add ( source);
 }
 
@@ -42,23 +37,17 @@ void	init_plane(char *line, t_data *data)
 {
 	t_obj	*obj;
 	t_pl	*pl;
-	t_coords	point;  // obj
-	t_rgb		color;   // obj
-	t_coords	norm;
 
-	point = get_vec3(&line);
-	color = get_rgba(&line);
-	norm = get_vec3(&line);
-	if (vec3_len(norm) != 1)
-		exit_error(ERR_PL ERR_NORM_VAL);
-	obj = malloc(sizeof(t_obj)); // s
 	pl = malloc(sizeof(t_pl));
+	obj = malloc(sizeof(t_obj));
 	if (!obj || !pl)
-		exit_error(NULL);
-	obj->color = color;
-	obj->pos = point;
+		return (free(pl), exit_error(NULL));
+	obj->pos = get_vec3(&line);
+	obj->color = get_rgba(&line);
+	pl->norm = get_vec3(&line);
+	if (vec3_len(pl->norm) != 1)
+		exit_error(ERR_PL ERR_NORM_VAL);
 	obj->type = T_PL;
-	pl->norm = norm;
 	obj->shape = pl;
 }
 
@@ -66,21 +55,15 @@ void	init_sphere(char *line, t_data *data)
 {
 	t_obj	*obj;
 	t_sp	*sp;
-	t_coords	center;  // obj
-	t_rgb		color;   // obj
-	double		diameter;
 
-	center = get_vec3(&line);
-	diameter = get_double(&line);
-	color = get_rgba(&line);
-	obj = malloc(sizeof(t_obj)); // s
 	sp = malloc(sizeof(t_sp));
+	obj = malloc(sizeof(t_obj)); // s
 	if (!obj || !sp)
-		exit_error(NULL);
-	obj->color = color;
-	obj->pos = center;
+		return (free(sp), exit_error(NULL));
+	obj->pos = get_vec3(&line);
+	sp->d = get_double(&line);
+	obj->color = get_rgba(&line);
 	obj->type = T_SP;
-	sp->d = diameter;
 	obj->shape = sp;
 }
 
