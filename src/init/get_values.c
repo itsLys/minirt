@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 08:12:10 by yel-guad          #+#    #+#             */
-/*   Updated: 2025/08/12 08:47:04 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/08/13 09:49:50 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,24 @@ int	get_integer(char **line, t_data *data)
 t_rgb	get_rgba(char **line, t_data *data)
 {
 	t_rgb	rgba;
+	int		tmp;
 
-	rgba.r = get_integer(line, data);
+	tmp = get_integer(line, data);
+	if (tmp > 255)
+		exit_error(ERR_RGB, data);
+	rgba.r = tmp;
 	if (*(*line)++ != ',')
 		exit_error(ERR_RGB, data);
-	rgba.g = get_integer(line, data);
+	tmp = get_integer(line, data);
+	if (tmp > 255)
+		exit_error(ERR_RGB, data);
+	rgba.g = tmp;
 	if (*(*line)++ != ',')
 		exit_error(ERR_RGB, data);
-	rgba.b = get_integer(line, data);
+	tmp = get_integer(line, data);
+	if (tmp > 255)
+		exit_error(ERR_RGB, data);
+	rgba.b = tmp;
 	return (rgba);
 }
 

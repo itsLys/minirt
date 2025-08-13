@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:56:27 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/12 16:11:37 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/13 09:29:45 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+# define ERR_EXTRA_PARAM "Extra parameter!"
 
 void	init_ambient_light(char *line, t_data *data)
 {
@@ -21,6 +23,10 @@ void	init_ambient_light(char *line, t_data *data)
 	if  (ratio < 0.0 || ratio > 1.0)
 		exit_error(ERR_AMB_LIGHT, data);
 	rgba = get_rgba(&line, data);
+	while (ft_isspace(*line))
+		line++;
+	if (*line != '\n' && *line != '\0')
+		exit_error(ERR_EXTRA_PARAM, data);
 	if ((int) rgba.a == ERROR)
 		exit_error(ERR_RGB, data);
 	data->scene.amb_light.ratio = ratio;
@@ -36,6 +42,10 @@ void	init_camera(char *line, t_data *data)
 	pos = get_vec3(&line, data);
 	norm = get_vec3(&line, data);
 	fov = get_integer(&line, data);
+	while (ft_isspace(*line))
+		line++;
+	if (*line != '\n' && *line != '\0')
+		exit_error(ERR_EXTRA_PARAM, data);
 	if (vec3_len(norm) != 1.0)
 		exit_error(ERR_CAM ERR_NORM_VAL, data);
 	if (fov < 0 || fov > 180)
