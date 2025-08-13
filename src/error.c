@@ -15,14 +15,15 @@
 void print_error(char *err)
 {
 	write(STDERR_FILENO, "Error\n", 6);
-	write(STDERR_FILENO, err, ft_strlen(err));
+	if (err)
+		write(STDERR_FILENO, err, ft_strlen(err));
+	write(STDERR_FILENO, ERR_USAGE, ft_strlen(ERR_USAGE));
 }
 
 void	exit_error(char *msg, t_data *data)
 {
 	obj_lst_free(data->scene.obj_list);
-	if (msg)
-		print_error(msg);
+	print_error(msg);
 	exit(FAILIURE);
 }
 
