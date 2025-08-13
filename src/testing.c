@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 20:10:45 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/12 20:10:59 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/13 12:05:11 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void print_ambient_light(t_scene scene)
 	uint8_t r			= scene.amb_light.color.r;
 	uint8_t g			= scene.amb_light.color.g;
 	uint8_t b			= scene.amb_light.color.b;
+	printf("------------------------------------------\n");
 	printf("[Ambient Light]\n");
 	printf("Ratio:			%.2lf\n", light_ratio);
 	printf("Color:			(%d, %d, %d)\n", r, g, b);
@@ -56,6 +57,7 @@ void print_camera(t_scene scene)
 	double	cam_ny		= scene.cam.norm.y;
 	double	cam_nz		= scene.cam.norm.z;
 	int		fov			= scene.cam.fov;
+	printf("------------------------------------------\n");
 	printf("[Camera]\n");
 	printf("Position:		(%.2lf, %.2lf, %.2lf)\n", cam_x, cam_y, cam_z);
 	printf("Orientation:		(%.2lf, %.2lf, %.2lf)\n", cam_nx, cam_ny, cam_nz);
@@ -67,6 +69,7 @@ void	print_lights(t_scene scene)
 {
 	t_obj	*obj		= *(scene.obj_list);
 
+	printf("------------------------------------------\n");
 	printf("[Lights]\n");
 	int i = 0;
 	while (obj)
@@ -94,6 +97,7 @@ void	print_sp(t_scene scene)
 {
 	t_obj	*obj		= *(scene.obj_list);
 
+	printf("------------------------------------------\n");
 	printf("[Spheres]\n");
 	int i = 0;
 	while (obj)
@@ -121,6 +125,7 @@ void	print_cy(t_scene scene)
 {
 	t_obj	*obj		= *(scene.obj_list);
 
+	printf("------------------------------------------\n");
 	printf("[Cylinders]\n");
 	int i = 0;
 	while (obj)
@@ -154,6 +159,7 @@ void	print_pl(t_scene scene)
 {
 	t_obj	*obj		= *(scene.obj_list);
 
+	printf("------------------------------------------\n");
 	printf("[Planes]\n");
 	int i = 0;
 	while (obj)
