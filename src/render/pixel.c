@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   pixel.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 15:55:39 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/14 16:09:11 by ihajji           ###   ########.fr       */
+/*   Created: 2025/08/14 16:01:20 by ihajji            #+#    #+#             */
+/*   Updated: 2025/08/14 16:01:30 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void print_error(char *err)
+void	img_put_pixel(t_data *data, int x, int y, int color)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	if (err)
-		write(STDERR_FILENO, err, ft_strlen(err));
-	write(STDERR_FILENO, ERR_USAGE, ft_strlen(ERR_USAGE));
-}
+	char	*pixel;
+	t_img	*img;
 
-void	exit_error(char *msg, t_data *data)
-{
-	print_error(msg);
-	clean_exit(FAILIURE, data);
+	img = &(data->img);
+	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	*(int *)pixel = color;
 }

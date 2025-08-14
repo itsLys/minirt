@@ -6,7 +6,7 @@ BOLD		= \033[1m
 CLEAR		= \033[K\r
 NAME		= minirt
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g3
+CFLAGS		= -Wall -Wextra -Werror -g3 -Ofast
 LFLAGS		= -lmlx -lX11 -lXext -lm
 AR			= ar rcs
 INCLUDES	= -I./headers/ -I./libft/headers/
@@ -23,7 +23,13 @@ SRC			= src/main.c \
 			  src/init/parse_file.c \
 			  src/vec3/vec3_ops.c \
 			  src/objects/obj_utils.c \
-			  src/mlx/init_mlx.c
+			  src/mlx/events.c \
+			  src/mlx/window.c \
+			  src/events/keys.c \
+			  src/events/loop.c \
+			  src/events/mouse.c \
+			  src/render/draw.c \
+			  src/render/pixel.c 
 OBJ			= $(patsubst src/%.c, obj/%.o, $(SRC))
 all: $(NAME)
 	@echo "$(GREEN)$(BOLD)$(NAME) done!$(RESET)"

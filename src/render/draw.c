@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 15:55:39 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/14 16:09:11 by ihajji           ###   ########.fr       */
+/*   Created: 2025/08/14 16:00:53 by ihajji            #+#    #+#             */
+/*   Updated: 2025/08/14 16:00:59 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void print_error(char *err)
+void draw_image(t_data *data)
 {
-	write(STDERR_FILENO, "Error\n", 6);
-	if (err)
-		write(STDERR_FILENO, err, ft_strlen(err));
-	write(STDERR_FILENO, ERR_USAGE, ft_strlen(ERR_USAGE));
-}
+	int x;
+	int y;
 
-void	exit_error(char *msg, t_data *data)
-{
-	print_error(msg);
-	clean_exit(FAILIURE, data);
+	x = 0;
+	while (x < WIDTH)
+	{
+		y = 0;
+		while (y < HEIGHT)
+		{
+			img_put_pixel(data, x, y, 0xFFFF0000);
+			y++;
+		}
+		x++;
+	}
 }

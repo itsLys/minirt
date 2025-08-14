@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_mlx.c                                         :+:      :+:    :+:   */
+/*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/13 11:45:04 by yel-guad          #+#    #+#             */
-/*   Updated: 2025/08/14 13:24:43 by yel-guad         ###   ########.fr       */
+/*   Created: 2025/08/14 15:54:12 by ihajji            #+#    #+#             */
+/*   Updated: 2025/08/14 15:55:58 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ void	init_mlx(t_data *data)
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, HEIGHT, WIDTH, MINIRT_PROJECT);
 	data->img.img_ptr = mlx_new_image(data->mlx, HEIGHT, WIDTH);
-	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp, &data->img.sl, &data->img.end);
+	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp, &data->img.line_len, &data->img.endian);
 }
 
-// void	map_screen(t_data *data)
-// {
-	
-// }
-
+void	destroy_mlx(t_data *data)
+{
+	mlx_destroy_image(data->mlx, data->img.img_ptr);
+	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_display(data->mlx);
+}
