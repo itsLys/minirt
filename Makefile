@@ -7,7 +7,7 @@ CLEAR		= \033[K\r
 NAME		= minirt
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror -g3
-LFLAGS		= -lm
+LFLAGS		= -lmlx -lX11 -lXext -lm
 AR			= ar rcs
 INCLUDES	= -I./headers/ -I./libft/headers/
 LIBFT_DIR	= libft
@@ -22,7 +22,8 @@ SRC			= src/main.c \
 			  src/init/init_scene.c \
 			  src/init/parse_file.c \
 			  src/vec3/vec3_ops.c \
-			  src/objects/obj_utils.c
+			  src/objects/obj_utils.c \
+			  src/mlx/init_mlx.c
 OBJ			= $(patsubst src/%.c, obj/%.o, $(SRC))
 all: $(NAME)
 	@echo "$(GREEN)$(BOLD)$(NAME) done!$(RESET)"

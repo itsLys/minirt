@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:09:09 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/13 11:13:49 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/14 13:27:31 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ int main(int ac, char **av)
 	if (parse_file(av[1], &data) == ERROR)
 		return (EXIT_FAILURE);
 	print_scene(&data);
+	init_mlx(&data);
+	
+	mlx_put_image_to_window(data.mlx, data.win, data.img.img_ptr, WIDTH, HEIGHT);
+	mlx_loop(data.mlx);
 	clean_exit(&data);
-	printf("Hello\n");
+	// printf("Hello\n");
 }

@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/12 20:12:15 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/14 13:19:42 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,14 @@
 # include <stdint.h>
 # include <math.h>
 # include <stdbool.h>
+# include <mlx.h>
 
 # define EXT ".rt"
+
+# define HEIGHT 900
+# define WIDTH	900
+# define MINIRT_PROJECT	"miniRT"
+
 
 // ERR OBJS
 # define ERR_AMB_LIGHT "Ambient: "
@@ -132,14 +138,28 @@ typedef struct s_scene
 	t_obj			**obj_list;
 }	t_scene;
 
+typedef struct s_img {
+	void	*img_ptr;
+	char	*addr;
+	int		bpp;
+	int		sl;
+	int		end;
+}	t_img;
+
 typedef struct s_data
 {
 	t_scene scene;
+	void	*mlx;
+	void	*win;
+	t_img	img;
 }	t_data ;
 
 
 // BUG: testing debugging
-void	print_scene(t_data *data);
+void		print_scene(t_data *data);
+
+// mlx
+void		init_mlx(t_data *data);
 
 // object
 void		obj_lst_add(t_obj *obj, t_obj **list);
