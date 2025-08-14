@@ -6,13 +6,13 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:09:09 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/14 16:09:25 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/14 16:27:53 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int clean_exit(int status, t_data *data)
+int clean_exit(t_data *data, int status)
 {
 
 	destroy_mlx(data);
@@ -52,6 +52,6 @@ int main(int ac, char **av)
 		return (EXIT_FAILURE);
 	print_scene(&data);
 	setup_mlx(&data);
-	clean_exit(0, &data);
+	clean_exit(&data, 0);
 	// printf("Hello\n");
 }

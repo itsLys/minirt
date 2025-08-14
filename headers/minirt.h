@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/14 16:08:16 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/14 16:27:23 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,7 @@ void		print_error(char *err);
 void		exit_error(char *msg, t_data *data);
 
 // exit
-int			clean_exit(int status, t_data *data);
+int			clean_exit(t_data *data, int status);
 
 // geters
 double		get_double(char **line, t_data *data);
