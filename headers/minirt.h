@@ -6,13 +6,16 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/12 20:12:15 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/14 16:08:16 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
+
+# include <X11/X.h>
+# include <X11/keysym.h>
 # include "libft.h"
 # include "get_next_line.h"
 # include <fcntl.h>
@@ -22,8 +25,14 @@
 # include <stdint.h>
 # include <math.h>
 # include <stdbool.h>
+# include <mlx.h>
 
 # define EXT ".rt"
+
+# define HEIGHT 900
+# define WIDTH	900
+# define MINIRT_PROJECT	"miniRT"
+
 
 // ERR OBJS
 # define ERR_AMB_LIGHT "Ambient: "
@@ -132,14 +141,39 @@ typedef struct s_scene
 	t_obj			**obj_list;
 }	t_scene;
 
+typedef struct s_img {
+	void	*img_ptr;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
+
 typedef struct s_data
 {
 	t_scene scene;
+	void	*mlx;
+	void	*win;
+	t_img	img;
 }	t_data ;
 
 
 // BUG: testing debugging
-void	print_scene(t_data *data);
+void		print_scene(t_data *data);
+
+// mlx
+void		destroy_mlx(t_data *data);
+void		init_mlx(t_data *data);
+void		setup_mlx(t_data *data);
+void		img_put_pixel(t_data *data, int x, int y, int color);
+int			render_img(t_data *data);
+
+// hooks
+int			handle_keypress(int code, t_data *data);
+int			handle_button(int code, int x, int y, t_data *data);
+
+// render
+void		draw_image(t_data *data);
 
 // object
 void		obj_lst_add(t_obj *obj, t_obj **list);
@@ -150,10 +184,12 @@ void		obj_lst_free(t_obj **obj);
 int			process_line(char *line, t_data *data);
 int			parse_file(char *filename, t_data *data);
 
-// error and exit
+// error
 void		print_error(char *err);
 void		exit_error(char *msg, t_data *data);
-void		clean_exit(t_data *data);
+
+// exit
+int			clean_exit(int status, t_data *data);
 
 // geters
 double		get_double(char **line, t_data *data);

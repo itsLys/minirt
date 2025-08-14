@@ -6,11 +6,20 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:09:09 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/13 11:13:49 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/14 16:09:25 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+int clean_exit(int status, t_data *data)
+{
+
+	destroy_mlx(data);
+	free(data->mlx);
+	obj_lst_free(data->scene.obj_list);
+	exit(status);
+}
 
 void	print_help(void)
 {
@@ -42,6 +51,7 @@ int main(int ac, char **av)
 	if (parse_file(av[1], &data) == ERROR)
 		return (EXIT_FAILURE);
 	print_scene(&data);
-	clean_exit(&data);
-	printf("Hello\n");
+	setup_mlx(&data);
+	clean_exit(0, &data);
+	// printf("Hello\n");
 }
