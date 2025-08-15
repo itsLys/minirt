@@ -35,8 +35,8 @@ void	init_ambient_light(char *line, t_data *data)
 
 void	init_camera(char *line, t_data *data)
 {
-	t_coords	pos;
-	t_coords	norm;
+	t_vec3	pos;
+	t_vec3	norm;
 	int			fov;
 
 	pos = get_vec3(&line, data);

@@ -76,7 +76,7 @@ typedef	struct s_coords
 	double	x;
 	double	y;
 	double	z;
-}	t_coords;
+}	t_vec3;
 
 typedef union u_rgb
 {
@@ -98,9 +98,12 @@ typedef struct s_light
 
 typedef struct s_cam
 {
-	t_coords	pos;
-	t_coords	norm;
-	int			fov;
+	t_vec3	pos;
+	t_vec3	norm;
+	t_vec3	up;
+	int		fov;
+	int		viewport_h;
+	int		viewport_w;
 }	t_cam;
 
 typedef struct s_light_src
@@ -115,12 +118,12 @@ typedef struct s_sp
 
 typedef struct s_pl
 {
-	t_coords	norm;
+	t_vec3	norm;
 }	t_pl;
 
 typedef struct s_cy
 {
-	t_coords	norm;
+	t_vec3	norm;
 	double		d;
 	double		h;
 }	t_cy;
@@ -128,7 +131,7 @@ typedef struct s_cy
 typedef struct s_obj
 {
 	t_obj_type		type;
-	t_coords		pos;
+	t_vec3		pos;
 	t_rgb			color;
 	void			*shape;
 	struct s_obj	*next;
@@ -148,6 +151,12 @@ typedef struct s_img {
 	int		line_len;
 	int		endian;
 }	t_img;
+
+typedef struct s_ray 
+{
+	t_vec3 orign;
+	t_vec3 dir;
+}	t_ray ;
 
 typedef struct s_data
 {
@@ -194,7 +203,7 @@ int			clean_exit(t_data *data, int status);
 // geters
 double		get_double(char **line, t_data *data);
 t_rgb		get_rgba(char **line, t_data *data);
-t_coords	get_vec3(char **line, t_data *data);
+t_vec3		get_vec3(char **line, t_data *data);
 int			get_integer(char **line, t_data *data);
 
 // init
@@ -206,6 +215,6 @@ void		init_sphere(char *line, t_data *data);
 void		init_cylinder(char *line, t_data *data);
 
 // vec3 ops
-double		vec3_len(t_coords v);
+double		vec3_len(t_vec3 v);
 
 #endif

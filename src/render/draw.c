@@ -12,20 +12,33 @@
 
 #include "minirt.h"
 
+// t_ray	map_pixel(int x, int y, t_data *data)
+// {
+// 	
+// }
+
 void draw_image(t_data *data)
 {
 	int x;
 	int y;
+	int	color;
+	// t_vec3 ray;
 
 	x = 0;
+	color = 0x0000FF00;
 	while (x < WIDTH)
 	{
 		y = 0;
 		while (y < HEIGHT)
 		{
-			img_put_pixel(data, x, y, 0xFFFF0000);
+			// ray = map_pixel(x, y, data);
+			// color = compute_color(ray, data);
+			// map_each_pixel
+			// compute_color
+			img_put_pixel(data, x, y, color);
 			y++;
 		}
 		x++;
 	}
 }
+//

@@ -94,9 +94,9 @@ double	get_double(char **line, t_data *data)
 	return (f);
 }
 
-t_coords    get_vec3(char **line, t_data *data) // case 1,,0 or 1,, check inside get double if **line, t_data *data is digit or '+/-'digit 
+t_vec3    get_vec3(char **line, t_data *data) // case 1,,0 or 1,, check inside get double if **line, t_data *data is digit or '+/-'digit 
 {
-	t_coords	vec3;
+	t_vec3	vec3;
 
 	vec3.x = get_double(line, data);
 	if (*(*line)++ != ',')

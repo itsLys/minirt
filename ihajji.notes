@@ -1,1 +1,2 @@
 SP and CY, diameter (or height) must be positive or 0
+Camera FOV cause segv when given 70.3
