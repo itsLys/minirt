@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/15 11:35:52 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/08/16 14:34:28 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,11 @@ typedef struct s_cam
 {
 	t_vec3	pos;
 	t_vec3	norm;
+	t_vec3	right;
 	t_vec3	up;
 	int		fov;
-	int		viewport_h;
-	int		viewport_w;
+	double		viewport_w;
+	double		viewport_h;
 }	t_cam;
 
 typedef struct s_light_src
@@ -215,10 +216,15 @@ void		init_sphere(char *line, t_data *data);
 void		init_cylinder(char *line, t_data *data);
 
 // vec3 ops
-t_vec3		vec3(int x, int y, int z);
+t_vec3 vec3(double x, double y, double z);
 t_vec3		vec3_norm(t_vec3 v);
 t_vec3		vec3_cross(t_vec3 v1, t_vec3 v2);
+t_vec3		vec3_add(t_vec3 v1, t_vec3 v2);
+t_vec3		vec3_scale(t_vec3 v, double l);
 double		vec3_len(t_vec3 v);
 double		vec3_dot(t_vec3 v1, t_vec3 v2);
+
+// get ray
+t_ray	get_ray(int x, int y, t_cam *cam);
 
 #endif
