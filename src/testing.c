@@ -53,9 +53,9 @@ void print_camera(t_scene scene)
 	double	cam_x		= scene.cam.pos.x;
 	double	cam_y		= scene.cam.pos.y;
 	double	cam_z		= scene.cam.pos.z;
-	double	cam_nx		= scene.cam.norm.x;
-	double	cam_ny		= scene.cam.norm.y;
-	double	cam_nz		= scene.cam.norm.z;
+	double	cam_nx		= scene.cam.forward.x;
+	double	cam_ny		= scene.cam.forward.y;
+	double	cam_nz		= scene.cam.forward.z;
 	int		fov			= scene.cam.fov;
 	printf("------------------------------------------\n");
 	printf("[Camera]\n");
@@ -201,4 +201,23 @@ void	print_scene(t_data *data)
 	print_ambient_light(scene);
 	print_camera(scene);
 	print_objects(scene);
+}
+
+void	print_ray(int x, int y, t_ray ray)
+{
+	printf("-----\n");
+	printf("pixel:	x:	%d, y:	%d\n", x, y);
+	printf("origin:	[%.2lf, %.2lf, %.2lf] - direction: [%.2lf, %.2lf, %.2lf]\n", 
+			ray.orign.x,
+			ray.orign.y,
+			ray.orign.z,
+			ray.dir.x,
+			ray.dir.y,
+			ray.dir.z
+			);
+}
+
+void	print_vec3(t_vec3 vec)
+{
+	printf("vec:		(%.2lf, %.2lf, %.2lf)\n", vec.x, vec.y, vec.z);
 }

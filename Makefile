@@ -25,11 +25,13 @@ SRC			= src/main.c \
 			  src/objects/obj_utils.c \
 			  src/mlx/events.c \
 			  src/mlx/window.c \
+			  src/camera/cam_setup.c \
 			  src/events/keys.c \
 			  src/events/loop.c \
 			  src/events/mouse.c \
 			  src/render/draw.c \
-			  src/render/pixel.c 
+			  src/render/pixel.c \
+			  src/rays/pixel_map.c 
 OBJ			= $(patsubst src/%.c, obj/%.o, $(SRC))
 all: $(NAME)
 	@echo "$(GREEN)$(BOLD)$(NAME) done!$(RESET)"

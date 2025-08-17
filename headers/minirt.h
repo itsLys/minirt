@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/15 11:35:52 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/08/15 16:19:40 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 
 # define EXT ".rt"
 
-# define HEIGHT 900
-# define WIDTH	900
+# define HEIGHT 400
+# define WIDTH	400
 # define MINIRT_PROJECT	"miniRT"
 
 
@@ -99,11 +99,13 @@ typedef struct s_light
 typedef struct s_cam
 {
 	t_vec3	pos;
-	t_vec3	norm;
+	t_vec3	forward;
+	t_vec3	backward;
+	t_vec3	right;
 	t_vec3	up;
 	int		fov;
-	int		viewport_h;
-	int		viewport_w;
+	double	viewport_h;
+	double	viewport_w;
 }	t_cam;
 
 typedef struct s_light_src
@@ -169,6 +171,10 @@ typedef struct s_data
 
 // BUG: testing debugging
 void		print_scene(t_data *data);
+void		print_ray(int x, int y, t_ray ray);
+void		print_vec3(t_vec3 vec);
+// BUG: END
+
 
 // mlx
 void		destroy_mlx(t_data *data);
@@ -176,6 +182,12 @@ void		init_mlx(t_data *data);
 void		setup_mlx(t_data *data);
 void		img_put_pixel(t_data *data, int x, int y, int color);
 int			render_img(t_data *data);
+
+// map pixel
+t_ray		map_pixel(int x, int y, t_cam cam);
+
+// camera
+void		setup_cam(t_cam *cam);
 
 // hooks
 int			handle_keypress(int code, t_data *data);
@@ -215,10 +227,14 @@ void		init_sphere(char *line, t_data *data);
 void		init_cylinder(char *line, t_data *data);
 
 // vec3 ops
-t_vec3		vec3(int x, int y, int z);
+t_vec3		vec3(double x, double y, double z);
 t_vec3		vec3_norm(t_vec3 v);
 t_vec3		vec3_cross(t_vec3 v1, t_vec3 v2);
 double		vec3_len(t_vec3 v);
 double		vec3_dot(t_vec3 v1, t_vec3 v2);
+t_vec3		vec3_scale(double s, t_vec3 vec);
+t_vec3		vec3_subtract(t_vec3 v1, t_vec3 v2);
+t_vec3		vec3_negate(t_vec3 v);
+t_vec3		vec3_add(t_vec3 v1, t_vec3 v2);
 
 #endif

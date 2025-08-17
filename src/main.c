@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:09:09 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/14 16:27:53 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/08/15 16:20:20 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ int main(int ac, char **av)
 		return print_error("Wrong args\n"), FAILIURE;
 	if (parse_file(av[1], &data) == ERROR)
 		return (EXIT_FAILURE);
+
 	print_scene(&data);
+	setup_cam(&data.scene.cam);
 	setup_mlx(&data);
 	clean_exit(&data, 0);
 	// printf("Hello\n");

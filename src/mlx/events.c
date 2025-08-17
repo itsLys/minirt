@@ -12,12 +12,24 @@
 
 #include "minirt.h"
 
+int	handle_motion(int code, int x, int y, t_data *data)
+{
+	(void) code;
+	// test(x, y, data);
+	print_ray(x, y, map_pixel(x, y, data->scene.cam));
+	return 0;
+}
+
 void	setup_mlx(t_data *data)
 {
 	init_mlx(data);
 	mlx_hook(data->win, DestroyNotify, NoEventMask, &clean_exit, data);
 	mlx_hook(data->win, KeyPress, KeyPressMask, &handle_keypress, data);
-	mlx_hook(data->win, ButtonPress, ButtonPressMask, &handle_button, data);
+	// mlx_hook(data->win, ButtonPress, ButtonPressMask, &handle_button, data);
+	// WARN: FOR TESTING
+	mlx_hook(data->win, ButtonPress, ButtonPressMask, &handle_motion, data);
+	// mlx_hook(data->win, MotionNotify, PointerMotionMask, &handle_motion, data);
+	// WARN: TESTING END
 	mlx_loop_hook(data->mlx, &render_img, data);
 	mlx_loop(data->mlx);
 }
