@@ -29,8 +29,8 @@
 
 # define EXT ".rt"
 
-# define HEIGHT 400
-# define WIDTH	400
+# define HEIGHT 800
+# define WIDTH	800
 # define MINIRT_PROJECT	"miniRT"
 
 
