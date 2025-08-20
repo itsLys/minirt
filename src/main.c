@@ -42,6 +42,7 @@ void	print_help(void)
 
 int main(int ac, char **av)
 {
+	// print_vec3(vec3_norm(vec3(0,0.1,0.9)));
 	t_data	data;
 
 	if (0 /* NOTE: implement -h flag */)

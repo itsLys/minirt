@@ -79,6 +79,13 @@ void	init_sphere(char *line, t_data *data)
 	obj->color = get_rgba(&line, data);
 }
 
+#define EPS 1e-6
+
+bool is_close(double n, double m)
+{
+	return (fabs(n - m) < EPS);
+}
+
 void	init_cylinder(char *line, t_data *data)
 {
 	t_obj		*obj;
@@ -93,7 +100,7 @@ void	init_cylinder(char *line, t_data *data)
 	obj_lst_add(obj, data->scene.obj_list);
 	obj->pos = get_vec3(&line, data);
 	cy->norm = get_vec3(&line, data);
-	if (vec3_len(cy->norm) != 1.0) // range [-1, 1] ?
+	if (!is_close(vec3_len(cy->norm), 1.0)) // range [-1, 1] ?
 		exit_error(ERR_CY ERR_NORM_VAL, data);
 	cy->d = get_double(&line, data);
 	cy->h = get_double(&line, data);

@@ -1,42 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj_utils.c                                        :+:      :+:    :+:   */
+/*   ambient.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 12:32:40 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/12 16:15:56 by ihajji           ###   ########.fr       */
+/*   Created: 2025/08/20 17:07:37 by ihajji            #+#    #+#             */
+/*   Updated: 2025/08/20 17:09:50 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	obj_lst_add(t_obj *obj, t_obj **list)
+t_rgb compute_amb(t_rgb color, t_light amb_light);
+t_rgb compute_amb(t_rgb color, t_light amb_light)
 {
-	t_obj *tmp;
+	t_rgb amb;
 
-	tmp = *list;
-	*list = obj;
-	obj->next = tmp;
-}
-
-void	obj_free(t_obj *obj)
-{
-	free(obj->shape);
-	free(obj);
-}
-
-void	obj_lst_free(t_obj **obj)
-{
-	t_obj *tmp;
-
-	while (*obj)
-	{
-		tmp = (*obj)->next;
-		obj_free(*obj);
-		*obj = tmp;
-	}
-	free(obj);
+	amb.r = (color.r * amb_light.color.r * amb_light.ratio) / 255;
+	amb.g = (color.g * amb_light.color.g * amb_light.ratio) / 255;
+	amb.b = (color.b * amb_light.color.b * amb_light.ratio) / 255;
+	return amb;
 }
 

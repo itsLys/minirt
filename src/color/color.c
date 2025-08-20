@@ -1,42 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj_utils.c                                        :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 12:32:40 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/12 16:15:56 by ihajji           ###   ########.fr       */
+/*   Created: 2025/08/20 17:07:31 by ihajji            #+#    #+#             */
+/*   Updated: 2025/08/20 17:07:35 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	obj_lst_add(t_obj *obj, t_obj **list)
+t_rgb	compute_color(t_hit hit, t_light amb_light)
 {
-	t_obj *tmp;
+	t_rgb	amb;
 
-	tmp = *list;
-	*list = obj;
-	obj->next = tmp;
+	if (hit.hit == false)
+		return (t_rgb){.rgba = BG_COLOR};
+	amb = compute_amb(hit.color, amb_light);
+	return amb;
 }
-
-void	obj_free(t_obj *obj)
-{
-	free(obj->shape);
-	free(obj);
-}
-
-void	obj_lst_free(t_obj **obj)
-{
-	t_obj *tmp;
-
-	while (*obj)
-	{
-		tmp = (*obj)->next;
-		obj_free(*obj);
-		*obj = tmp;
-	}
-	free(obj);
-}
-

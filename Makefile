@@ -31,6 +31,12 @@ SRC			= src/main.c \
 			  src/events/mouse.c \
 			  src/render/draw.c \
 			  src/render/pixel.c \
+			  src/hit/intersect.c \
+			  src/hit/quadratic.c \
+			  src/hit/trace.c \
+			  src/color/ambient.c \
+			  src/color/color.c \
+			  src/color/shading.c \
 			  src/rays/pixel_map.c 
 OBJ			= $(patsubst src/%.c, obj/%.o, $(SRC))
 all: $(NAME)

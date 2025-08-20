@@ -219,5 +219,5 @@ void	print_ray(int x, int y, t_ray ray)
 
 void	print_vec3(t_vec3 vec)
 {
-	printf("vec:		(%.2lf, %.2lf, %.2lf)\n", vec.x, vec.y, vec.z);
+	printf("vec:		(%lf, %lf, %lf)\n", vec.x, vec.y, vec.z);
 }

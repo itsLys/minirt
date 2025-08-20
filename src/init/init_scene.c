@@ -78,6 +78,15 @@ int init_config(char *line, t_data *data)
 	return SUCCESS;
 }
 
+void	init_defaults(t_data *data)
+{
+	data->scene.amb_light.color.rgba = DFLT_AMB_COLOR;
+	data->scene.amb_light.ratio = DFLT_AMB_RATIO;
+	data->scene.cam.pos = vec3(DFLT_CAM_X, DFLT_CAM_Y, DFLT_CAM_Z);
+	data->scene.cam.forward = vec3_norm(vec3_negate(data->scene.cam.pos));
+	data->scene.cam.fov = 90;
+}
+
 int	process_line(char *line, t_data *data)
 {
 	int	i;
@@ -85,6 +94,7 @@ int	process_line(char *line, t_data *data)
 	i = 0;
 	while (ft_isspace(line[i]))
 		i++;
+	// init_defaults(data);
 	if (init_config(line + i, data) == ERROR)
 		return ERROR;
 	return SUCCESS;

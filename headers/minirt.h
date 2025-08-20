@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/15 16:19:40 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/20 17:10:26 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@
 # define WIDTH	800
 # define MINIRT_PROJECT	"miniRT"
 
+// colors
+# define BG_COLOR 0x000F0F0F
+
+// defaults
+# define DFLT_AMB_COLOR 0x00FFFFFF
+# define DFLT_AMB_RATIO 0.5
+# define DFLT_CAM_X 0.0
+# define DFLT_CAM_Y 0.0
+# define DFLT_CAM_Z 9.0
 
 // ERR OBJS
 # define ERR_AMB_LIGHT "Ambient: "
@@ -59,7 +68,7 @@
 	"L <x,y,z> <brightness> <R,G,B>\n" \
 	"sp <x,y,z> <diameter> <R,G,B>\n" \
 	"pl <x,y,z> <norm_x,norm_y,norm_z> <R,G,B>\n" \
-	"cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B>\n" \
+	"cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B>\n" 
 
 
 // # define MAX_OBJECT 99
@@ -80,14 +89,14 @@ typedef	struct s_coords
 
 typedef union u_rgb
 {
+	uint32_t	rgba;
 	struct
 	{
-		uint8_t	a;
 		uint8_t	b;
 		uint8_t	g;
 		uint8_t	r;
+		uint8_t	a;
 	};
-	uint32_t	rgba;
 }	t_rgb;
 
 typedef struct s_light
@@ -159,6 +168,15 @@ typedef struct s_ray
 	t_vec3	orign;
 	t_vec3	dir;
 }	t_ray ;
+
+typedef struct s_quad
+{
+	double	a;
+	double	b;
+	double	c;
+	double	t1;
+	double	t2;
+}	t_quad ;
 
 typedef struct s_hit 
 {
@@ -245,5 +263,21 @@ t_vec3		vec3_scale(double s, t_vec3 vec);
 t_vec3		vec3_subtract(t_vec3 v1, t_vec3 v2);
 t_vec3		vec3_negate(t_vec3 v);
 t_vec3		vec3_add(t_vec3 v1, t_vec3 v2);
+
+// intersect
+t_hit		intersect_sp(t_ray ray, t_obj *obj, t_sp *sp, t_data *data);
+t_hit		intersect_pl(t_ray ray, t_obj *obj, t_pl *pl, t_data *data);
+t_hit		intersect_cy(t_ray ray, t_obj *obj, t_cy *cy, t_data *data);
+
+// hit
+t_hit		record_hit(t_obj *obj, t_ray ray, t_data *data);
+t_rgb		trace_ray(t_ray ray, t_data *data);
+
+// quadratic
+void		solve_quadratic(t_quad *quad);
+
+// color
+t_rgb		compute_color(t_hit hit, t_light amb_light);
+t_rgb		compute_amb(t_rgb color, t_light amb_light);
 
 #endif

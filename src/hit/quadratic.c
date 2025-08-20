@@ -1,42 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj_utils.c                                        :+:      :+:    :+:   */
+/*   quadratic.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 12:32:40 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/12 16:15:56 by ihajji           ###   ########.fr       */
+/*   Created: 2025/08/20 17:05:01 by ihajji            #+#    #+#             */
+/*   Updated: 2025/08/20 17:05:08 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	obj_lst_add(t_obj *obj, t_obj **list)
+void	solve_quadratic(t_quad *quad)
 {
-	t_obj *tmp;
+	double	delta;
 
-	tmp = *list;
-	*list = obj;
-	obj->next = tmp;
-}
-
-void	obj_free(t_obj *obj)
-{
-	free(obj->shape);
-	free(obj);
-}
-
-void	obj_lst_free(t_obj **obj)
-{
-	t_obj *tmp;
-
-	while (*obj)
+	delta = quad->b * quad->b - 4 * quad->a * quad->c;
+	if (delta < 0)
 	{
-		tmp = (*obj)->next;
-		obj_free(*obj);
-		*obj = tmp;
-	}
-	free(obj);
-}
+		quad->t1 = -1.0;
+		quad->t2 = -1.0;
 
+	}
+	else
+	{
+		quad->t1 = (-quad->b - sqrt(delta)) / (2 * quad->a);
+		quad->t2 = (-quad->b + sqrt(delta)) / (2 * quad->a);
+	}
+}
