@@ -156,9 +156,18 @@ typedef struct s_img {
 
 typedef struct s_ray 
 {
-	t_vec3 orign;
-	t_vec3 dir;
+	t_vec3	orign;
+	t_vec3	dir;
 }	t_ray ;
+
+typedef struct s_hit 
+{
+	bool	hit;
+	double	t;
+	t_vec3	point;
+	t_vec3	normal;
+	t_rgb	color;
+}	t_hit ;
 
 typedef struct s_data
 {
