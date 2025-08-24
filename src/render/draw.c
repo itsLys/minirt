@@ -27,7 +27,7 @@ void draw_image(t_data *data)
 		{
 			ray = map_pixel(i, j, data->scene.cam);
 			color = trace_ray(ray, data);
-			img_put_pixel(data, i, j, color.rgba);
+			img_put_pixel(data, i, j, rgb_to_int(color));
 			j++;
 		}
 		i++;

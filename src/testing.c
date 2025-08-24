@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 20:10:45 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/13 12:05:11 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/24 11:53:21 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,200 +24,223 @@ int	count_obj(t_obj *obj, t_obj_type type)
 	return i;
 }
 
-void print_scene_params(t_scene scene)
+void	print_scene_params(t_scene scene)
 {
-	int		light_count	= count_obj(*(scene.obj_list), T_LS);
-	int		obj_count	= count_obj(*(scene.obj_list), T_CY) + count_obj(*(scene.obj_list), T_PL) + count_obj(*(scene.obj_list), T_SP);
+	t_obj	*obj = *(scene.obj_list);
 	printf("======== MINI RT SCENE PARAMETERS ========\n");
-	printf("Light Count:	%d\n", light_count);
-	printf("Object Count:	%d\n", obj_count);
-	printf("------------------------------------------\n");
-	printf("\n");
+	printf("Object count:	%d\n",
+			count_obj(obj, T_SP)
+			+ count_obj(obj, T_PL)
+			+ count_obj(obj, T_CY));
 }
 
-void print_ambient_light(t_scene scene)
+void	print_amb_light(t_light amb_light)
 {
-	double	light_ratio	= scene.amb_light.ratio;
-	uint8_t r			= scene.amb_light.color.r;
-	uint8_t g			= scene.amb_light.color.g;
-	uint8_t b			= scene.amb_light.color.b;
 	printf("------------------------------------------\n");
 	printf("[Ambient Light]\n");
-	printf("Ratio:			%.2lf\n", light_ratio);
-	printf("Color:			(%d, %d, %d)\n", r, g, b);
+	printf("Color:	(%d, %d, %d)\n",
+			(int)(amb_light.color.r * 255.999),
+			(int)(amb_light.color.g * 255.999),
+			(int)(amb_light.color.b * 255.999));
+	printf("Ratio:	%.2lf\n", amb_light.ratio);
 	printf("\n");
 }
 
-void print_camera(t_scene scene)
+void	print_camera(t_cam cam)
 {
-	double	cam_x		= scene.cam.pos.x;
-	double	cam_y		= scene.cam.pos.y;
-	double	cam_z		= scene.cam.pos.z;
-	double	cam_nx		= scene.cam.forward.x;
-	double	cam_ny		= scene.cam.forward.y;
-	double	cam_nz		= scene.cam.forward.z;
-	int		fov			= scene.cam.fov;
 	printf("------------------------------------------\n");
 	printf("[Camera]\n");
-	printf("Position:		(%.2lf, %.2lf, %.2lf)\n", cam_x, cam_y, cam_z);
-	printf("Orientation:		(%.2lf, %.2lf, %.2lf)\n", cam_nx, cam_ny, cam_nz);
-	printf("Field of view:		%d°\n", fov);
+	printf("Position:	(%.2lf, %.2lf, %.2lf)\n",
+			cam.pos.x,
+			cam.pos.y,
+			cam.pos.z);
+	printf("Orientation:	(%.2lf, %.2lf, %.2lf)\n",
+			cam.forward.x,
+			cam.forward.y,
+			cam.forward.z);
+	printf("FOV:		%d°\n", cam.fov);
 	printf("\n");
 }
 
-void	print_lights(t_scene scene)
+void	print_light(t_light light)
 {
-	t_obj	*obj		= *(scene.obj_list);
-
 	printf("------------------------------------------\n");
-	printf("[Lights]\n");
-	int i = 0;
-	while (obj)
-	{
-		double	x			= obj->pos.x;
-		double	y			= obj->pos.y;
-		double	z			= obj->pos.z;
-		uint8_t r			= obj->color.r;
-		uint8_t g			= obj->color.g;
-		uint8_t b			= obj->color.b;
-		if (obj->type == T_LS)
-		{
-			t_light_src	*shape	= (t_light_src *) obj->shape;
-			printf("Number:			%d\n", ++i);
-			printf("Ratio:			%.2lf\n", shape->ratio);
-			printf("Position:		(%.2lf, %.2lf, %.2lf)\n", x, y, z);
-			printf("Color:			(%d, %d, %d)\n", r, g, b);
-			printf("\n");
-		}
-		obj = obj->next;
-	}
+	printf("[Light]\n");
+	printf("Color:	(%d, %d, %d)\n",
+			(int)(light.color.r * 255.999),
+			(int)(light.color.g * 255.999),
+			(int)(light.color.b * 255.999));
+	printf("Ratio:	%.2lf\n", light.ratio);
+	printf("\n");
 }
 
-void	print_sp(t_scene scene)
+void	print_obj_common(t_obj	*obj)
 {
-	t_obj	*obj		= *(scene.obj_list);
+	printf("Position:	(%.2lf, %.2lf, %.2lf)\n",
+			obj->pos.x,
+			obj->pos.y,
+			obj->pos.z);
+	printf("Color:	(%d, %d, %d)\n",
+			(int)(obj->color.r * 255.999),
+			(int)(obj->color.g * 255.999),
+			(int)(obj->color.b * 255.999));
+}
 
+void	print_sp(t_obj	*obj)
+{
 	printf("------------------------------------------\n");
 	printf("[Spheres]\n");
-	int i = 0;
+	int i = 1;
 	while (obj)
 	{
-		double	x			= obj->pos.x;
-		double	y			= obj->pos.y;
-		double	z			= obj->pos.z;
-		uint8_t r			= obj->color.r;
-		uint8_t g			= obj->color.g;
-		uint8_t b			= obj->color.b;
 		if (obj->type == T_SP)
 		{
-			t_sp	*shape	= (t_sp *) obj->shape;
-			printf("Number:			%d\n", ++i);
-			printf("Position:		(%.2lf, %.2lf, %.2lf)\n", x, y, z);
-			printf("Diameter:		%.2lf\n", shape->d);
-			printf("Color:			(%d, %d, %d)\n", r, g, b);
+			t_sp *sp = (t_sp *)(obj->shape);
+			printf("Number:			%d\n", i++);
+			print_obj_common(obj);
+			printf("Diameter:		%.2lf\n", sp->d);
 			printf("\n");
 		}
 		obj = obj->next;
 	}
 }
 
-void	print_cy(t_scene scene)
+void	print_pl(t_obj	*obj)
 {
-	t_obj	*obj		= *(scene.obj_list);
-
-	printf("------------------------------------------\n");
-	printf("[Cylinders]\n");
-	int i = 0;
-	while (obj)
-	{
-		double	x			= obj->pos.x;
-		double	y			= obj->pos.y;
-		double	z			= obj->pos.z;
-		uint8_t r			= obj->color.r;
-		uint8_t g			= obj->color.g;
-		uint8_t b			= obj->color.b;
-		if (obj->type == T_CY)
-		{
-			t_cy	*shape	= (t_cy *) obj->shape;
-			double nx		= shape->norm.x;
-			double ny		= shape->norm.y;
-			double nz		= shape->norm.z;
-			printf("Number:			%d\n", ++i);
-			printf("Position:		(%.2lf, %.2lf, %.2lf)\n", x, y, z);
-			printf("Normalized:		(%.2lf, %.2lf, %.2lf)\n", nx, ny, nz);
-			printf("Diameter:		%.2lf\n", shape->d);
-			printf("Height:			%.2lf\n", shape->h);
-			printf("Color:			(%d, %d, %d)\n", r, g, b);
-			printf("\n");
-		}
-		obj = obj->next;
-	}
-}
-
-
-void	print_pl(t_scene scene)
-{
-	t_obj	*obj		= *(scene.obj_list);
-
 	printf("------------------------------------------\n");
 	printf("[Planes]\n");
-	int i = 0;
+	int i = 1;
 	while (obj)
 	{
-		double	x			= obj->pos.x;
-		double	y			= obj->pos.y;
-		double	z			= obj->pos.z;
-		uint8_t r			= obj->color.r;
-		uint8_t g			= obj->color.g;
-		uint8_t b			= obj->color.b;
 		if (obj->type == T_PL)
 		{
-			t_pl	*shape	= (t_pl *) obj->shape;
-			double nx		= shape->norm.x;
-			double ny		= shape->norm.y;
-			double nz		= shape->norm.z;
-			printf("Number:			%d\n", ++i);
-			printf("Position:		(%.2lf, %.2lf, %.2lf)\n", x, y, z);
-			printf("Normalized:		(%.2lf, %.2lf, %.2lf)\n", nx, ny, nz);
-			printf("Color:			(%d, %d, %d)\n", r, g, b);
+			t_pl *pl = (t_pl *)(obj->shape);
+			printf("Number:			%d\n", i++);
+			print_obj_common(obj);
+			printf("Normalized:	(%.2lf, %.2lf, %.2lf)\n",
+					pl->norm.x,
+					pl->norm.y,
+					pl->norm.z);
 			printf("\n");
 		}
 		obj = obj->next;
 	}
 }
 
-void print_objects(t_scene scene)
+void	print_cy(t_obj	*obj)
 {
-	print_lights(scene);
-	print_sp(scene);
-	print_cy(scene);
-	print_pl(scene);
+	printf("------------------------------------------\n");
+	printf("[Cylinders]\n");
+	int i = 1;
+	while (obj)
+	{
+		if (obj->type == T_CY)
+		{
+			t_cy *cy = (t_cy *)(obj->shape);
+			printf("Number:			%d\n", i++);
+			print_obj_common(obj);
+			printf("Diameter:		%.2lf\n", cy->d);
+			printf("Height:			%.2lf\n", cy->h);
+			printf("Normalized:	(%.2lf, %.2lf, %.2lf)\n",
+					cy->norm.x,
+					cy->norm.y,
+					cy->norm.z);
+			printf("\n");
+		}
+		obj = obj->next;
+	}
+}
+
+void print_objects(t_obj *obj)
+{
+	print_sp(obj);
+	print_pl(obj);
+	print_cy(obj);
 }
 
 void	print_scene(t_data *data)
 {
 	t_scene scene = data->scene;
 	print_scene_params(scene);
-	print_ambient_light(scene);
-	print_camera(scene);
-	print_objects(scene);
+	print_amb_light(scene.amb_light);
+	print_camera(scene.cam);
+	print_light(scene.light);
+	print_objects(*scene.obj_list);
 }
 
 void	print_ray(int x, int y, t_ray ray)
 {
 	printf("-----\n");
 	printf("pixel:	x:	%d, y:	%d\n", x, y);
-	printf("origin:	[%.2lf, %.2lf, %.2lf] - direction: [%.2lf, %.2lf, %.2lf]\n", 
+	printf("origin:	[%.2lf, %.2lf, %.2lf] - direction: [%.2lf, %.2lf, %.2lf]\n",
 			ray.orign.x,
 			ray.orign.y,
 			ray.orign.z,
 			ray.dir.x,
 			ray.dir.y,
 			ray.dir.z
-			);
+		  );
 }
 
 void	print_vec3(t_vec3 vec)
 {
 	printf("vec:		(%lf, %lf, %lf)\n", vec.x, vec.y, vec.z);
 }
+
+// ======== MINI RT SCENE PARAMETERS ========
+// Object Count:   6
+// ------------------------------------------
+//
+// ------------------------------------------
+// [Light]
+// Ratio:          0.10
+// Position:       (0.00, 0.00, 0.00)
+// Color:          (255, 255, 255)
+// ------------------------------------------
+// [Camera]
+// Position:       (-5.00, 0.00, 30.00)
+// Orientation:        (0.00, 0.00, -1.00)
+// Field of view:      70°
+//
+// ------------------------------------------
+// [Light]
+// Ratio:          0.70
+// Position:       (0.00, 10.00, 5.00)
+// Color:          (255, 255, 255)
+// ------------------------------------------
+// [Spheres]
+// Number:         1
+// Position:       (4.00, 0.00, -20.00)
+// Diameter:       18.00
+// Color:          (255, 0, 255)
+//
+// Number:         2
+// Position:       (4.00, 0.00, 20.00)
+// Diameter:       8.00
+// Color:          (255, 255, 0)
+//
+// Number:         3
+// Position:       (4.00, 0.00, 0.00)
+// Diameter:       1.00
+// Color:          (0, 255, 0)
+//
+// Number:         4
+// Position:       (0.00, 0.00, 0.00)
+// Diameter:       3.00
+// Color:          (0, 255, 0)
+//
+// ------------------------------------------
+// [Cylinders]
+// Number:         1
+// Position:       (0.00, 0.00, 0.00)
+// Normalized:     (1.00, 0.00, 0.00)
+// Diameter:       7.00
+// Height:         10.00
+// Color:          (0, 255, 0)
+//
+// ------------------------------------------
+// [Planes]
+// Number:         1
+// Position:       (0.00, -10.00, 0.00)
+// Normalized:     (0.00, 1.00, 0.00)
+// Color:          (50, 200, 200)

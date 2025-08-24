@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 08:12:10 by yel-guad          #+#    #+#             */
-/*   Updated: 2025/08/13 09:49:50 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/08/24 10:48:53 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,28 +45,28 @@ int	get_integer(char **line, t_data *data)
 	return (n);
 }
 
-t_rgb	get_rgba(char **line, t_data *data)
+t_rgb	get_rgb(char **line, t_data *data)
 {
-	t_rgb	rgba;
+	t_rgb	rgb;
 	int		tmp;
 
 	tmp = get_integer(line, data);
 	if (tmp > 255)
 		exit_error(ERR_RGB, data);
-	rgba.r = tmp;
+	rgb.r = tmp / 255.0;
 	if (*(*line)++ != ',')
 		exit_error(ERR_RGB, data);
 	tmp = get_integer(line, data);
 	if (tmp > 255)
 		exit_error(ERR_RGB, data);
-	rgba.g = tmp;
+	rgb.g = tmp / 255.0;
 	if (*(*line)++ != ',')
 		exit_error(ERR_RGB, data);
 	tmp = get_integer(line, data);
 	if (tmp > 255)
 		exit_error(ERR_RGB, data);
-	rgba.b = tmp;
-	return (rgba);
+	rgb.b = tmp / 255.0;
+	return (rgb);
 }
 
 double	get_double(char **line, t_data *data)

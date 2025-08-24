@@ -6,39 +6,68 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:56:27 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/13 09:29:45 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/08/24 10:50:52 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-# define ERR_EXTRA_PARAM "Extra parameter!"
+# define ERR_EXTRA_PARAM "Unrecognized parameter!"
+# define ERR_MULTI "Can only be declared once!"
 
 void	init_ambient_light(char *line, t_data *data)
 {
 	double	ratio;
-	t_rgb	rgba;
+	t_rgb	rgb;
 
+	if (data->scene.amb_light.on == true)
+		exit_error(ERR_AMB_LIGHT ERR_MULTI, data);
 	ratio = get_double(&line, data);;
 	if  (ratio < 0.0 || ratio > 1.0)
 		exit_error(ERR_AMB_LIGHT, data);
-	rgba = get_rgba(&line, data);
+	rgb = get_rgb(&line, data);
 	while (ft_isspace(*line))
 		line++;
 	if (*line != '\n' && *line != '\0')
 		exit_error(ERR_EXTRA_PARAM, data);
-	if ((int) rgba.a == ERROR)
-		exit_error(ERR_RGB, data);
+	data->scene.amb_light.on = true;
 	data->scene.amb_light.ratio = ratio;
-	data->scene.amb_light.color = rgba;
+	data->scene.amb_light.color = rgb;
+}
+
+void	init_light(char *line, t_data *data)
+{
+	double	ratio;
+	t_vec3	pos;
+	t_rgb	rgb;
+
+	if (data->scene.light.on == true)
+		exit_error(ERR_LIGHT ERR_MULTI, data);
+	pos = get_vec3(&line, data);
+	ratio = get_double(&line, data);
+	rgb = get_rgb(&line, data);
+	while (ft_isspace(*line))
+		line++;
+	if (*line != '\n' && *line != '\0')
+		exit_error(ERR_EXTRA_PARAM, data);
+	if (ratio < 0.0 || ratio > 1.0)
+		exit_error(ERR_LIGHT ERR_RATIO, data);
+	// if (color.a == ERROR) // removed the typecasting here, I think unececery
+	// 	exit_error(ERR_LIGHT ERR_RGB, data);
+	data->scene.light.on = true;
+	data->scene.light.pos = pos;
+	data->scene.light.ratio = ratio;
+	data->scene.light.color = rgb;
 }
 
 void	init_camera(char *line, t_data *data)
 {
 	t_vec3	pos;
 	t_vec3	norm;
-	int			fov;
+	int		fov;
 
+	if (data->scene.cam.on == true)
+		exit_error(ERR_CAM ERR_MULTI, data);
 	pos = get_vec3(&line, data);
 	norm = get_vec3(&line, data);
 	fov = get_integer(&line, data);
@@ -53,6 +82,7 @@ void	init_camera(char *line, t_data *data)
 	data->scene.cam.pos = pos;
 	data->scene.cam.forward = norm;
 	data->scene.cam.fov = fov;
+	data->scene.cam.on = true;
 }
 
 int init_config(char *line, t_data *data)
@@ -66,7 +96,7 @@ int init_config(char *line, t_data *data)
 	else if (line[i] == 'C' && ft_isspace(line[i + 1]))
 		init_camera(line + 1, data);
 	else if (line[i] == 'L' && ft_isspace(line[i + 1]))
-		init_source_light(line + 1, data);
+		init_light(line + 1, data);
 	else if (!ft_strncmp(line, "pl", 2) && ft_isspace(line[i + 2]))
 		init_plane(line + 2, data);
 	else if (!ft_strncmp(line, "sp", 2) && ft_isspace(line[i + 2]))
@@ -78,13 +108,11 @@ int init_config(char *line, t_data *data)
 	return SUCCESS;
 }
 
-void	init_defaults(t_data *data)
+void	init_scene(t_data *data)
 {
-	data->scene.amb_light.color.rgba = DFLT_AMB_COLOR;
-	data->scene.amb_light.ratio = DFLT_AMB_RATIO;
-	data->scene.cam.pos = vec3(DFLT_CAM_X, DFLT_CAM_Y, DFLT_CAM_Z);
-	data->scene.cam.forward = vec3_norm(vec3_negate(data->scene.cam.pos));
-	data->scene.cam.fov = 90;
+	data->scene.amb_light.on = false;
+	data->scene.light.on = false;
+	data->scene.cam.on = false;
 }
 
 int	process_line(char *line, t_data *data)
@@ -94,7 +122,6 @@ int	process_line(char *line, t_data *data)
 	i = 0;
 	while (ft_isspace(line[i]))
 		i++;
-	// init_defaults(data);
 	if (init_config(line + i, data) == ERROR)
 		return ERROR;
 	return SUCCESS;

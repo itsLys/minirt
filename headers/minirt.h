@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/20 17:10:26 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/24 10:46:35 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@
 # define MINIRT_PROJECT	"miniRT"
 
 // colors
-# define BG_COLOR 0x000F0F0F
+# define BG_COLOR 0x00101010
+# define AMB_CONST 0.05
 
 // defaults
 # define DFLT_AMB_COLOR 0x00FFFFFF
@@ -61,6 +62,9 @@
 # define ERR_FOV "Fov is not correct\n"
 # define ERR_COORDS "Wrong coordination form\n"
 
+// epsilon
+#define EPS 1e-6
+
 // ERR USAGE
 # define ERR_USAGE \
 	"A <ratio> <R,G,B>\n" \
@@ -68,7 +72,7 @@
 	"L <x,y,z> <brightness> <R,G,B>\n" \
 	"sp <x,y,z> <diameter> <R,G,B>\n" \
 	"pl <x,y,z> <norm_x,norm_y,norm_z> <R,G,B>\n" \
-	"cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B>\n" 
+	"cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B>\n"
 
 
 // # define MAX_OBJECT 99
@@ -87,26 +91,36 @@ typedef	struct s_coords
 	double	z;
 }	t_vec3;
 
-typedef union u_rgb
+// typedef union u_rgb
+// {
+// 	uint32_t	rgba;
+// 	struct
+// 	{
+// 		uint8_t	b;
+// 		uint8_t	g;
+// 		uint8_t	r;
+// 		uint8_t	a;
+// 	};
+// }	t_rgb;
+
+typedef struct s_rgb
 {
-	uint32_t	rgba;
-	struct
-	{
-		uint8_t	b;
-		uint8_t	g;
-		uint8_t	r;
-		uint8_t	a;
-	};
-}	t_rgb;
+	double	r;
+	double	g;
+	double	b;
+}	t_rgb ;
 
 typedef struct s_light
 {
+	bool	on;
 	double	ratio;
 	t_rgb	color;
+	t_vec3	pos;
 }	t_light;
 
 typedef struct s_cam
 {
+	bool	on;
 	t_vec3	pos;
 	t_vec3	forward;
 	t_vec3	backward;
@@ -117,10 +131,10 @@ typedef struct s_cam
 	double	viewport_w;
 }	t_cam;
 
-typedef struct s_light_src
-{
-	double ratio;
-}	t_light_src;
+// typedef struct s_light_src
+// {
+// 	double ratio;
+// }	t_light_src;
 
 typedef struct s_sp
 {
@@ -151,6 +165,7 @@ typedef struct s_obj
 typedef struct s_scene
 {
 	t_light			amb_light;
+	t_light			light;
 	t_cam			cam;
 	t_obj			**obj_list;
 }	t_scene;
@@ -163,7 +178,7 @@ typedef struct s_img {
 	int		endian;
 }	t_img;
 
-typedef struct s_ray 
+typedef struct s_ray
 {
 	t_vec3	orign;
 	t_vec3	dir;
@@ -178,7 +193,7 @@ typedef struct s_quad
 	double	t2;
 }	t_quad ;
 
-typedef struct s_hit 
+typedef struct s_hit
 {
 	bool	hit;
 	double	t;
@@ -241,17 +256,18 @@ int			clean_exit(t_data *data, int status);
 
 // geters
 double		get_double(char **line, t_data *data);
-t_rgb		get_rgba(char **line, t_data *data);
+t_rgb		get_rgb(char **line, t_data *data);
 t_vec3		get_vec3(char **line, t_data *data);
 int			get_integer(char **line, t_data *data);
 
 // init
 void		init_ambient_light(char *line, t_data *data);
 void		init_camera(char *line, t_data *data);
-void		init_source_light(char *line, t_data *data);
+void		init_light(char *line, t_data *data);
 void		init_plane(char *line, t_data *data);
 void		init_sphere(char *line, t_data *data);
 void		init_cylinder(char *line, t_data *data);
+void		init_scene(t_data *data);
 
 // vec3 ops
 t_vec3		vec3(double x, double y, double z);
@@ -269,6 +285,10 @@ t_hit		intersect_sp(t_ray ray, t_obj *obj, t_sp *sp, t_data *data);
 t_hit		intersect_pl(t_ray ray, t_obj *obj, t_pl *pl, t_data *data);
 t_hit		intersect_cy(t_ray ray, t_obj *obj, t_cy *cy, t_data *data);
 
+// intersect utils
+void		resolve_hit(t_hit *hit, t_quad quad);
+int			check_cy_height_intersect(double t, t_ray ray, t_obj *obj, t_cy *cy);
+
 // hit
 t_hit		record_hit(t_obj *obj, t_ray ray, t_data *data);
 t_rgb		trace_ray(t_ray ray, t_data *data);
@@ -277,7 +297,18 @@ t_rgb		trace_ray(t_ray ray, t_data *data);
 void		solve_quadratic(t_quad *quad);
 
 // color
-t_rgb		compute_color(t_hit hit, t_light amb_light);
+t_rgb		compute_color(t_hit hit, t_light amb_light, t_light light);
 t_rgb		compute_amb(t_rgb color, t_light amb_light);
+
+// rgb ops
+t_rgb		rgb(double r, double g, double b);
+t_rgb		rgb_add(t_rgb c1, t_rgb c2);
+t_rgb		rgb_mult(t_rgb c1, t_rgb c2);
+t_rgb		rgb_scale(double k, t_rgb c);
+t_rgb		rgb_clamp(t_rgb c);
+t_rgb		int_to_rgb(int c);
+int			rgb_to_int(t_rgb c);
+// utils
+bool		is_close(double n, double m);
 
 #endif

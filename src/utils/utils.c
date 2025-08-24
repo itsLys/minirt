@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ambient.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/20 17:07:37 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/20 17:09:50 by ihajji           ###   ########.fr       */
+/*   Created: 2025/08/23 10:59:24 by ihajji            #+#    #+#             */
+/*   Updated: 2025/08/23 10:59:28 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_rgb compute_amb(t_rgb color, t_light amb_light)
+bool is_close(double n, double m)
 {
-	t_rgb amb;
-
-	amb.r = (color.r * amb_light.ratio + AMB_CONST) * amb_light.color.r;
-	amb.g = (color.g * amb_light.ratio + AMB_CONST);
-	amb.b = (color.b * amb_light.ratio + AMB_CONST);
-	return amb;
+	return (fabs(n - m) < EPS);
 }
 

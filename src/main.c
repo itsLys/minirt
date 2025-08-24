@@ -49,6 +49,7 @@ int main(int ac, char **av)
 		print_help();
 	if (ac != 2)
 		return print_error("Wrong args\n"), FAILIURE;
+	init_scene(&data);
 	if (parse_file(av[1], &data) == ERROR)
 		return (EXIT_FAILURE);
 

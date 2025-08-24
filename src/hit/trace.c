@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:01:38 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/20 17:09:34 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/23 13:34:45 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ t_rgb	trace_ray(t_ray ray, t_data *data)
 		{
 			hit = tmp;
 			hit.color = obj->color;
-			if (obj->type == T_PL)
-			{
-				printf("r:	%d\n", hit.color.r);
-				printf("g:	%d\n", hit.color.g);
-				printf("b:	%d\n", hit.color.b);
-			}
+			// if (obj->type == T_PL)
+			// {
+			// 	printf("r:	%d\n", hit.color.r);
+			// 	printf("g:	%d\n", hit.color.g);
+			// 	printf("b:	%d\n", hit.color.b);
+			// }
 		}
 		obj = obj->next;
 	}
-	return compute_color(hit, data->scene.amb_light);
+	return compute_color(hit, data->scene.amb_light, data->scene.light);
 }
