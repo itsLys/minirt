@@ -12,33 +12,6 @@
 
 #include "minirt.h"
 
-# define ERR_EXTRA_PARAM "Extra parameter!"
-
-// void	init_source_light(char *line, t_data *data)
-// {
-// 	t_obj			*obj;
-// 	t_light_src		*source;
-//
-// 	source = malloc(sizeof(t_light_src));
-// 	obj = malloc(sizeof(t_obj));
-// 	if (obj == NULL || source == NULL)
-// 		return (free(source), exit_error(NULL, data));
-// 	obj->shape = source;
-// 	obj->type = T_LS;
-// 	obj_lst_add(obj, data->scene.obj_list);
-// 	obj->pos = get_vec3(&line, data);
-// 	source->ratio = get_double(&line, data);
-// 	obj->color = get_rgba(&line, data);
-// 	while (ft_isspace(*line))
-// 		line++;
-// 	if (*line != '\n' && *line != '\0')
-// 		exit_error(ERR_EXTRA_PARAM, data);
-// 	if (source->ratio < 0.0 || source->ratio > 1.0)
-// 		exit_error(ERR_LIGHT ERR_RATIO, data);
-// 	if ((int) obj->color.a == ERROR)
-// 		exit_error(ERR_LIGHT ERR_RGB, data);
-// }
-
 void	init_plane(char *line, t_data *data)
 {
 	t_obj	*obj;
@@ -68,7 +41,7 @@ void	init_sphere(char *line, t_data *data)
 	t_sp	*sp;
 
 	sp = malloc(sizeof(t_sp));
-	obj = malloc(sizeof(t_obj)); // s
+	obj = malloc(sizeof(t_obj));
 	if (!obj || !sp)
 		return (free(sp), exit_error(NULL, data));
 	obj->shape = sp;
@@ -94,7 +67,7 @@ void	init_cylinder(char *line, t_data *data)
 	obj_lst_add(obj, data->scene.obj_list);
 	obj->pos = get_vec3(&line, data);
 	cy->norm = get_vec3(&line, data);
-	if (!is_close(vec3_len(cy->norm), 1.0)) // range [-1, 1] ?
+	if (!is_close(vec3_len(cy->norm), 1.0))
 		exit_error(ERR_CY ERR_NORM_VAL, data);
 	cy->d = get_double(&line, data);
 	cy->d = cy->r = cy->d / 2.0;

@@ -15,14 +15,23 @@
 void	init_mlx(t_data *data)
 {
 	data->mlx = mlx_init();
+	if (data->mlx == NULL)
+		exit_error(NULL, data);
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, MINIRT_PROJECT);
+	if (data->win == NULL)
+		exit_error(NULL, data);
 	data->img.img_ptr = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	if (data->img.img_ptr == NULL)
+		exit_error(NULL, data);
 	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp, &data->img.line_len, &data->img.endian);
 }
 
 void	destroy_mlx(t_data *data)
 {
-	mlx_destroy_image(data->mlx, data->img.img_ptr);
-	mlx_destroy_window(data->mlx, data->win);
-	mlx_destroy_display(data->mlx);
+	if (data->img.img_ptr)
+		mlx_destroy_image(data->mlx, data->img.img_ptr);
+	if (data->win)
+		mlx_destroy_window(data->mlx, data->win);
+	if (data->mlx)
+		mlx_destroy_display(data->mlx);
 }

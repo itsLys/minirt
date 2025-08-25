@@ -25,11 +25,10 @@
  *
  */
 /* ray.dir ^ 2 = 1; */
-t_hit	intersect_sp(t_ray ray, t_obj *obj, t_sp *sp, t_data *data)
+
+t_hit	intersect_sp(t_ray ray, t_obj *obj, t_sp *sp)
 {
-	(void) data;
 	t_quad	quad;
-	t_hit	hit;
 	t_vec3	oc;
 
 	oc = vec3_subtract(ray.orign, obj->pos);
@@ -37,60 +36,28 @@ t_hit	intersect_sp(t_ray ray, t_obj *obj, t_sp *sp, t_data *data)
 	quad.b = 2 * vec3_dot(ray.dir, oc);
 	quad.c = vec3_dot(oc, oc) - sp->r * sp->r;
 	solve_quadratic(&quad);
-	resolve_hit(&hit, quad);
-	hit.point = vec3_add(ray.orign, vec3_scale(hit.t, ray.dir));
-	hit.normal = vec3_scale(1.0 / sp->r, vec3_subtract(hit.point, obj->pos));
-	return (hit);
+	return (resolve_sp_hit(ray, obj, sp, quad));
 }
 
-// NOTE: need to understand the equation and write it here
-t_hit    intersect_cy(t_ray ray, t_obj *obj, t_cy *cy, t_data *data)
+t_hit    intersect_cy(t_ray ray, t_obj *obj, t_cy *cy)
 {
-	(void) data;
 	t_vec3	oc;
-	t_hit	hit;
 	t_quad	quad;
 
-	hit.hit = false;
 	oc = vec3_subtract(ray.orign, obj->pos);
 	quad.a = vec3_dot(ray.dir, ray.dir) - pow(vec3_dot(ray.dir, cy->norm), 2); //  x*x faster than pow(x, 2)
 	quad.b = 2 * (vec3_dot(oc, ray.dir) - vec3_dot(oc, cy->norm) * vec3_dot(ray.dir, cy->norm));
 	quad.c = vec3_dot(oc, oc) - pow(vec3_dot(oc, cy->norm), 2) - cy->r * cy->r; // Same 'x*x faster than pow(x, 2)'
 	solve_quadratic(&quad);
-	resolve_hit(&hit, quad);
-	if (hit.hit)
-	{
-		hit.hit = check_cy_height_intersect(quad.t1, ray, obj, cy);
-		if (hit.hit == false)
-		{
-			hit.t = quad.t2;
-			hit.hit = check_cy_height_intersect(quad.t2, ray, obj, cy);
-		}
-	}
-	hit.point = vec3_add(ray.orign, vec3_scale(hit.t, ray.dir));
-	// hit.normal = vec3_scale(1.0 / r, hit.point);
-	hit.normal = vec3_norm(vec3_subtract(hit.point, vec3_add(obj->pos, vec3_scale(vec3_dot(vec3_subtract(hit.point, obj->pos), cy->norm), cy->norm))));
-	return (hit);
+	return (resolve_cy_hit(ray, obj, cy, quad));
 }
 
-t_hit    intersect_pl(t_ray ray, t_obj *obj, t_pl *pl, t_data *data)
+t_hit    intersect_pl(t_ray ray, t_obj *obj, t_pl *pl)
 {
-	(void) data;
 	double	a;
 	double	b;
-	double	t;
-	t_hit	hit;
 
-	hit.hit = true;
 	a = vec3_dot(vec3_subtract(obj->pos, ray.orign), pl->norm);
 	b = vec3_dot(ray.dir, pl->norm);
-	if (b < 0.000001 && b > -0.000001) //   lma9am almost 0 take it as ZERO ->forbiden // check this again
-		hit.hit = false;
-	t = a / b;
-	if (t < EPS)  //       find the best value to compare t if close to 0 ...
-		hit.hit = false;
-	hit.t = t;
-	hit.point = vec3_add(ray.orign, vec3_scale(hit.t, ray.dir));
-	hit.normal = pl->norm;
-	return (hit);
+	return (resolve_pl_hit(pl, ray, a, b));
 }

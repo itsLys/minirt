@@ -14,12 +14,13 @@
 
 t_hit	record_hit(t_obj *obj, t_ray ray, t_data *data)
 {
+	(void) data; // TODO: remove later
 	if (obj->type == T_SP)
-		return intersect_sp(ray, obj, (t_sp *)(obj->shape), data);
+		return intersect_sp(ray, obj, (t_sp *)(obj->shape));
 	if (obj->type == T_PL)
-		return intersect_pl(ray, obj, (t_pl *)(obj->shape), data);
+		return intersect_pl(ray, obj, (t_pl *)(obj->shape));
 	if (obj->type == T_CY)
-		return intersect_cy(ray, obj, (t_cy *)(obj->shape), data);
+		return intersect_cy(ray, obj, (t_cy *)(obj->shape));
 	return ((t_hit) {false});
 }
 
@@ -39,12 +40,6 @@ t_rgb	trace_ray(t_ray ray, t_data *data)
 		{
 			hit = tmp;
 			hit.color = obj->color;
-			// if (obj->type == T_PL)
-			// {
-			// 	printf("r:	%d\n", hit.color.r);
-			// 	printf("g:	%d\n", hit.color.g);
-			// 	printf("b:	%d\n", hit.color.b);
-			// }
 		}
 		obj = obj->next;
 	}

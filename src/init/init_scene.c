@@ -12,9 +12,6 @@
 
 #include "minirt.h"
 
-# define ERR_EXTRA_PARAM "Unrecognized parameter!"
-# define ERR_MULTI "Can only be declared once!"
-
 void	init_ambient_light(char *line, t_data *data)
 {
 	double	ratio;
@@ -52,8 +49,6 @@ void	init_light(char *line, t_data *data)
 		exit_error(ERR_EXTRA_PARAM, data);
 	if (ratio < 0.0 || ratio > 1.0)
 		exit_error(ERR_LIGHT ERR_RATIO, data);
-	// if (color.a == ERROR) // removed the typecasting here, I think unececery
-	// 	exit_error(ERR_LIGHT ERR_RGB, data);
 	data->scene.light.on = true;
 	data->scene.light.pos = pos;
 	data->scene.light.ratio = ratio;
@@ -90,7 +85,6 @@ int init_config(char *line, t_data *data)
 	int	i;
 
 	i = 0;
-	// printf("init config: line	|%s|\n", line);
 	if (line[i] == 'A' && ft_isspace(line[i + 1]))
 		init_ambient_light(line + 1, data);
 	else if (line[i] == 'C' && ft_isspace(line[i + 1]))
@@ -108,8 +102,11 @@ int init_config(char *line, t_data *data)
 	return SUCCESS;
 }
 
-void	init_scene(t_data *data)
+void	init_data(t_data *data)
 {
+	data->mlx = NULL;
+	data->img.img_ptr = NULL;
+	data->win = NULL;
 	data->scene.amb_light.on = false;
 	data->scene.light.on = false;
 	data->scene.cam.on = false;

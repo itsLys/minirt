@@ -60,7 +60,10 @@
 # define ERR_RATIO "Ratio is not correct"
 # define ERR_NORM_VAL "Normalized value is not correct\n"
 # define ERR_FOV "Fov is not correct\n"
-# define ERR_COORDS "Wrong coordination form\n"
+# define ERR_COORDS "Wrong coordination form!\n"
+# define ERR_EXTRA_PARAM "Unrecognized parameter!\n"
+# define ERR_MULTI "Can only be declared once!\n"
+# define ERR_NOT_FOUND "Parameter not found!\n"
 
 // epsilon
 #define EPS 1e-6
@@ -269,7 +272,7 @@ void		init_light(char *line, t_data *data);
 void		init_plane(char *line, t_data *data);
 void		init_sphere(char *line, t_data *data);
 void		init_cylinder(char *line, t_data *data);
-void		init_scene(t_data *data);
+void		init_data(t_data *data);
 
 // vec3 ops
 t_vec3		vec3(double x, double y, double z);
@@ -283,13 +286,15 @@ t_vec3		vec3_negate(t_vec3 v);
 t_vec3		vec3_add(t_vec3 v1, t_vec3 v2);
 
 // intersect
-t_hit		intersect_sp(t_ray ray, t_obj *obj, t_sp *sp, t_data *data);
-t_hit		intersect_pl(t_ray ray, t_obj *obj, t_pl *pl, t_data *data);
-t_hit		intersect_cy(t_ray ray, t_obj *obj, t_cy *cy, t_data *data);
-
-// intersect utils
+t_hit		intersect_sp(t_ray ray, t_obj *obj, t_sp *sp);
+t_hit		intersect_pl(t_ray ray, t_obj *obj, t_pl *pl);
+t_hit		intersect_cy(t_ray ray, t_obj *obj, t_cy *cy);
+t_hit		resolve_pl_hit(t_pl *pl, t_ray ray, double a, double b);
+t_hit		resolve_cy_hit(t_ray ray, t_obj *obj, t_cy *cy, t_quad quad);
+t_hit		resolve_sp_hit(t_ray ray, t_obj *obj, t_sp *sp, t_quad quad);
 void		resolve_hit(t_hit *hit, t_quad quad);
 int			check_cy_height_intersect(double t, t_ray ray, t_obj *obj, t_cy *cy);
+// intersect utils
 
 // hit
 t_hit		record_hit(t_obj *obj, t_ray ray, t_data *data);

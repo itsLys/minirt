@@ -42,17 +42,21 @@ void	print_help(void)
 
 int main(int ac, char **av)
 {
-	// print_vec3(vec3_norm(vec3(0,0.1,0.9)));
 	t_data	data;
 
 	if (0 /* NOTE: implement -h flag */)
 		print_help();
 	if (ac != 2)
 		return print_error("Wrong args\n"), FAILIURE;
-	init_scene(&data);
+	init_data(&data);
 	if (parse_file(av[1], &data) == ERROR)
 		return (EXIT_FAILURE);
-
+	if (data.scene.cam.on == false)
+		exit_error(ERR_CAM ERR_NOT_FOUND, &data);
+	if (data.scene.amb_light.on == false)
+		exit_error(ERR_AMB_LIGHT ERR_NOT_FOUND, &data);
+	if (data.scene.light.on == false)
+		exit_error(ERR_LIGHT ERR_NOT_FOUND, &data);
 	print_scene(&data);
 	setup_cam(&data.scene.cam);
 	setup_mlx(&data);

@@ -34,7 +34,7 @@ SRC			= src/main.c \
 			  src/hit/intersect.c \
 			  src/hit/quadratic.c \
 			  src/hit/trace.c \
-			  src/hit/utils.c \
+			  src/hit/hit.c \
 			  src/color/ambient.c \
 			  src/color/color.c \
 			  src/color/shading.c \
