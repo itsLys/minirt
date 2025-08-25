@@ -58,7 +58,7 @@ void	print_camera(t_cam cam)
 			cam.forward.x,
 			cam.forward.y,
 			cam.forward.z);
-	printf("FOV:		%d°\n", cam.fov);
+	printf("FOV:		%.2lf°\n", cam.fov);
 	printf("\n");
 }
 

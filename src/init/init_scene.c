@@ -59,20 +59,20 @@ void	init_camera(char *line, t_data *data)
 {
 	t_vec3	pos;
 	t_vec3	norm;
-	int		fov;
+	double	fov;
 
 	if (data->scene.cam.on == true)
 		exit_error(ERR_CAM ERR_MULTI, data);
 	pos = get_vec3(&line, data);
 	norm = get_vec3(&line, data);
-	fov = get_integer(&line, data);
+	fov = get_double(&line, data);
 	while (ft_isspace(*line))
 		line++;
 	if (*line != '\n' && *line != '\0')
 		exit_error(ERR_EXTRA_PARAM, data);
 	if (vec3_len(norm) != 1.0)
 		exit_error(ERR_CAM ERR_NORM_VAL, data);
-	if (fov < 0 || fov > 180)
+	if (fov < 0.0 || fov > 180.0)
 		exit_error(ERR_CAM ERR_FOV, data);
 	data->scene.cam.pos = pos;
 	data->scene.cam.forward = norm;
