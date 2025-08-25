@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intersect.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:04:42 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/23 13:08:30 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/25 09:32:50 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,17 @@ t_hit    intersect_cy(t_ray ray, t_obj *obj, t_cy *cy, t_data *data)
 	solve_quadratic(&quad);
 	resolve_hit(&hit, quad);
 	if (hit.hit)
-		hit.hit = check_cy_height_intersect(quad.t1, ray, obj, cy);
-	if (hit.hit == false)
 	{
-		hit.t = quad.t2;
-		hit.hit = check_cy_height_intersect(quad.t2, ray, obj, cy);
+		hit.hit = check_cy_height_intersect(quad.t1, ray, obj, cy);
+		if (hit.hit == false)
+		{
+			hit.t = quad.t2;
+			hit.hit = check_cy_height_intersect(quad.t2, ray, obj, cy);
+		}
 	}
 	hit.point = vec3_add(ray.orign, vec3_scale(hit.t, ray.dir));
-	hit.normal = vec3_scale(1.0 / r, hit.point);
+	// hit.normal = vec3_scale(1.0 / r, hit.point);
+	hit.normal = vec3_norm(vec3_subtract(hit.point, vec3_add(obj->pos, vec3_scale(vec3_dot(vec3_subtract(hit.point, obj->pos), cy->norm), cy->norm))));
 	return (hit);
 }
 
