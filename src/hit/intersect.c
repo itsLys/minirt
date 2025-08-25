@@ -31,18 +31,15 @@ t_hit	intersect_sp(t_ray ray, t_obj *obj, t_sp *sp, t_data *data)
 	t_quad	quad;
 	t_hit	hit;
 	t_vec3	oc;
-	// NOTE: replace sp.d / 2 with sp.r that is put directly in when parsing
-	double	r = sp->d / 2;
-	// END NOTE
 
 	oc = vec3_subtract(ray.orign, obj->pos);
 	quad.a = 1;
 	quad.b = 2 * vec3_dot(ray.dir, oc);
-	quad.c = vec3_dot(oc, oc) - r * r;
+	quad.c = vec3_dot(oc, oc) - sp->r * sp->r;
 	solve_quadratic(&quad);
 	resolve_hit(&hit, quad);
 	hit.point = vec3_add(ray.orign, vec3_scale(hit.t, ray.dir));
-	hit.normal = vec3_scale(1.0 / r, vec3_subtract(hit.point, obj->pos));
+	hit.normal = vec3_scale(1.0 / sp->r, vec3_subtract(hit.point, obj->pos));
 	return (hit);
 }
 
@@ -53,14 +50,12 @@ t_hit    intersect_cy(t_ray ray, t_obj *obj, t_cy *cy, t_data *data)
 	t_vec3	oc;
 	t_hit	hit;
 	t_quad	quad;
-	// NOTE: replace sp.d / 2 with sp.r that is put directly in when parsing
-	double    r = cy->d / 2;
-	//END NOTE
+
 	hit.hit = false;
 	oc = vec3_subtract(ray.orign, obj->pos);
 	quad.a = vec3_dot(ray.dir, ray.dir) - pow(vec3_dot(ray.dir, cy->norm), 2); //  x*x faster than pow(x, 2)
 	quad.b = 2 * (vec3_dot(oc, ray.dir) - vec3_dot(oc, cy->norm) * vec3_dot(ray.dir, cy->norm));
-	quad.c = vec3_dot(oc, oc) - pow(vec3_dot(oc, cy->norm), 2) - r * r; // Same 'x*x faster than pow(x, 2)'
+	quad.c = vec3_dot(oc, oc) - pow(vec3_dot(oc, cy->norm), 2) - cy->r * cy->r; // Same 'x*x faster than pow(x, 2)'
 	solve_quadratic(&quad);
 	resolve_hit(&hit, quad);
 	if (hit.hit)

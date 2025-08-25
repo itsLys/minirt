@@ -16,9 +16,9 @@ t_rgb compute_amb(t_rgb color, t_light amb_light)
 {
 	t_rgb amb;
 
-	amb.r = (color.r * amb_light.ratio + AMB_CONST) * amb_light.color.r;
-	amb.g = (color.g * amb_light.ratio + AMB_CONST);
-	amb.b = (color.b * amb_light.ratio + AMB_CONST);
+	amb.r = (color.r * amb_light.ratio) * amb_light.color.r;
+	amb.g = (color.g * amb_light.ratio) * amb_light.color.g;
+	amb.b = (color.b * amb_light.ratio) * amb_light.color.b;
 	return amb;
 }
 

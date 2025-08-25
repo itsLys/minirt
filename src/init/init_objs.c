@@ -76,6 +76,7 @@ void	init_sphere(char *line, t_data *data)
 	obj_lst_add(obj, data->scene.obj_list);
 	obj->pos = get_vec3(&line, data);
 	sp->d = get_double(&line, data);
+	sp->r = sp->d / 2.0;
 	obj->color = get_rgb(&line, data);
 }
 
@@ -96,6 +97,7 @@ void	init_cylinder(char *line, t_data *data)
 	if (!is_close(vec3_len(cy->norm), 1.0)) // range [-1, 1] ?
 		exit_error(ERR_CY ERR_NORM_VAL, data);
 	cy->d = get_double(&line, data);
+	cy->d = cy->r = cy->d / 2.0;
 	cy->h = get_double(&line, data);
 	obj->color = get_rgb(&line, data);
 	while (ft_isspace(*line))

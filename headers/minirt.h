@@ -139,6 +139,7 @@ typedef struct s_cam
 typedef struct s_sp
 {
 	double		d;
+	double		r;
 }	t_sp;
 
 typedef struct s_pl
@@ -150,6 +151,7 @@ typedef struct s_cy
 {
 	t_vec3	norm;
 	double		d;
+	double		r;
 	double		h;
 }	t_cy;
 
