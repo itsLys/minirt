@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:07:31 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/23 13:35:03 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/27 11:57:03 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static bool	is_shadow(t_hit hit, t_data *data)
+{
+	t_hit	tmp;
+	t_obj	*obj;
+	t_ray	ray;
+	double	light_distance;
+
+	ray.orign = hit.point;
+	ray.dir = vec3_subtract(data->scene.light.pos, hit.point);
+	light_distance = vec3_len(ray.dir);
+	ray.dir = vec3_norm(ray.dir);
+	obj = *(data->scene.obj_list);
+	while (obj)
+	{
+		tmp = record_hit(obj, ray, data);
+		if (tmp.hit && tmp.t > 0 && tmp.t < light_distance) // compare to distance of light too
+			return (false);
+		obj = obj->next;
+	}
+	return (true);
+}
 
 static t_rgb compute_defuse(t_hit hit, t_data *data)
 {
