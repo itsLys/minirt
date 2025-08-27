@@ -306,7 +306,7 @@ t_rgb		trace_ray(t_ray ray, t_data *data);
 void		solve_quadratic(t_quad *quad);
 
 // color
-t_rgb		compute_color(t_hit hit, t_light amb_light, t_light light);
+t_rgb		compute_color(t_hit hit, t_data *data);
 t_rgb		compute_amb(t_rgb color, t_light amb_light);
 
 // rgb ops

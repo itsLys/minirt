@@ -12,31 +12,34 @@
 
 #include "minirt.h"
 
-t_rgb compute_defuse(t_hit hit, t_vec3 light_pos, t_rgb color, double ratio)
+static t_rgb compute_defuse(t_hit hit, t_data *data)
 {
 	t_vec3	light_dir;
-	t_vec3	normal;
-	double	dot;
+	t_light	light;
 	t_rgb	rgb;
+	double	dot;
 
-	light_dir = vec3_norm(vec3_subtract(light_pos, hit.point));
-	normal = hit.normal;
-	dot = vec3_dot(normal, light_dir);
-	rgb.r = (fmax(0.0, dot) * ratio * color.r * hit.color.r);
-	rgb.g = (fmax(0.0, dot) * ratio * color.g * hit.color.g);
-	rgb.b = (fmax(0.0, dot) * ratio * color.b * hit.color.b);
+	light = data->scene.light;
+	light_dir = vec3_norm(vec3_subtract(light.pos, hit.point));
+	dot = vec3_dot(hit.normal, light_dir);
+	if (dot < 0 || is_shadow(hit, data))
+		return (t_rgb) {0};
+	rgb.r = (fmax(0.0, dot) * light.ratio * light.color.r * hit.color.r);
+	rgb.g = (fmax(0.0, dot) * light.ratio * light.color.g * hit.color.g);
+	rgb.b = (fmax(0.0, dot) * light.ratio * light.color.b * hit.color.b);
 	return rgb;
 }
 
-t_rgb	compute_color(t_hit hit, t_light amb_light, t_light light)
+t_rgb	compute_color(t_hit hit, t_data *data)
 {
-	// (void) light;
 	t_rgb	amb;
 	t_rgb	defuse;
 
 	if (hit.hit == false)
 		return int_to_rgb(BG_COLOR);
-	amb = compute_amb(hit.color, amb_light);
-	defuse = compute_defuse(hit, light.pos, light.color, light.ratio);
-	return rgb(amb.r + defuse.r, amb.g + defuse.g, amb.b + defuse.b);
+	amb = compute_amb(hit.color, data->scene.amb_light);
+	defuse = compute_defuse(hit, data);
+	return rgb(amb.r + defuse.r,
+			amb.g + defuse.g,
+			amb.b + defuse.b);
 }

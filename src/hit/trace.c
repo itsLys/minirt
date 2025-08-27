@@ -43,5 +43,5 @@ t_rgb	trace_ray(t_ray ray, t_data *data)
 		}
 		obj = obj->next;
 	}
-	return compute_color(hit, data->scene.amb_light, data->scene.light);
+	return compute_color(hit, data);
 }
