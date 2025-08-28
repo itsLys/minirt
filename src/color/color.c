@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:07:31 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/27 13:09:49 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/08/28 09:36:51 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	is_shadow(t_hit hit, t_data *data)
 	while (obj)
 	{
 		tmp = record_hit(obj, ray, data);
-		if (tmp.hit && tmp.t > 0 && tmp.t < light_distance) // compare to distance of light too
+		if (tmp.hit && tmp.t > EPS && tmp.t < light_distance - EPS)
 			return (true);
 		obj = obj->next;
 	}
