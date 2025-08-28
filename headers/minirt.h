@@ -89,6 +89,13 @@ typedef enum s_obj_type
 	T_LS,
 }	t_obj_type;
 
+typedef enum s_selected_type
+{
+	T_OBJ,
+	T_LIGHT,
+	T_CAM
+}	t_selected_type;
+
 typedef	struct s_coords
 {
 	double	x;
@@ -209,12 +216,19 @@ typedef struct s_hit
 	t_rgb	color;
 }	t_hit ;
 
+typedef struct s_selected
+{
+	t_selected_type	type;
+	t_obj			*obj;
+}	t_selected ;
+
 typedef struct s_data
 {
-	t_scene scene;
-	void	*mlx;
-	void	*win;
-	t_img	img;
+	t_selected	selected;
+	t_scene		scene;
+	void		*mlx;
+	void		*win;
+	t_img		img;
 }	t_data ;
 
 

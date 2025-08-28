@@ -12,11 +12,36 @@
 
 #include "minirt.h"
 
+void	select_object(int x, int y, t_data *data)
+{
+	t_ray	ray;
+	t_hit	hit;
+	t_hit	tmp;
+	t_obj	*obj;
+	t_obj	*hit_obj;
+
+	ray = map_pixel(x, y, data->scene.cam);
+	hit.t = INFINITY;
+	hit.hit = false;
+	obj = *(data->scene.obj_list);
+	while (obj)
+	{
+		tmp = record_hit(obj, ray, data);
+		if (tmp.hit && tmp.t < hit.t)
+		{
+			hit = tmp;
+			hit_obj = obj;
+		}
+		obj = obj->next;
+	}
+	data->selected.obj = hit_obj;
+	data->selected.type = T_OBJ;
+}
+
 int	handle_button(int code, int x, int y, t_data *data)
 {
-	(void) x;
-	(void) y;
-	(void) data;
+	if (code == 1)
+		select_object(x, y, data);
 	printf("mouse button pressed: %d\n", code);
 	return 0;
 }

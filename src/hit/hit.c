@@ -91,7 +91,7 @@ t_hit	resolve_pl_hit(t_pl *pl, t_ray ray, double a, double b)
 	hit.point = vec3_scale(hit.t, ray.dir);
 	hit.point = vec3_add(ray.orign, hit.point);
 	hit.normal = pl->norm; // fix it 	
-	// if (vec3_dot(vec3_subtract(), hit.normal) > 0)
-	// 	hit.normal = vec3_scale(-1, hit.normal);
+	if (vec3_dot(ray.dir, hit.normal) > 0)
+		hit.normal = vec3_negate(hit.normal);
 	return hit;
 }

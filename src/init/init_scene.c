@@ -107,6 +107,7 @@ void	init_data(t_data *data)
 	data->mlx = NULL;
 	data->img.img_ptr = NULL;
 	data->win = NULL;
+	data->selected.type = T_CAM;
 	data->scene.amb_light.on = false;
 	data->scene.light.on = false;
 	data->scene.cam.on = false;
