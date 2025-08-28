@@ -17,3 +17,16 @@ bool is_close(double n, double m)
 	return (fabs(n - m) < EPS);
 }
 
+bool	is_less_then(double n, double m)
+{
+	if (fabs(n - m) < EPS)
+		return false;
+	return n < m;
+}
+
+bool greater_than(double n, double m)
+{
+    if (fabs(n - m) < EPS)
+        return false;
+    return n > m;
+}

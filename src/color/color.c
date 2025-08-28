@@ -27,7 +27,7 @@ static bool	is_shadow(t_hit hit, t_data *data)
 	while (obj)
 	{
 		tmp = record_hit(obj, ray, data);
-		if (tmp.hit && tmp.t > EPS && tmp.t < light_distance - EPS)
+		if (tmp.hit && tmp.t > EPS && is_less_then(tmp.t, light_distance))
 			return (true);
 		obj = obj->next;
 	}

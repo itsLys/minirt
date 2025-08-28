@@ -317,7 +317,10 @@ t_rgb		rgb_scale(double k, t_rgb c);
 t_rgb		rgb_clamp(t_rgb c);
 t_rgb		int_to_rgb(int c);
 int			rgb_to_int(t_rgb c);
+
 // utils
 bool		is_close(double n, double m);
+bool		greater_than(double n, double m);
+bool		is_less_then(double n, double m);
 
 #endif
