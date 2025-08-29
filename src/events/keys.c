@@ -16,84 +16,99 @@
 // and the default is camera
 #define MOVE_STEP 0.05
 
-void	move_cam(int code, t_data *data)
+void	move_coords(int code, t_vec3 *point)
 {
 	if (code == XK_Up)
-		data->scene.cam.pos.z -= MOVE_STEP;
+		point->z += MOVE_STEP;
 	else if (code == XK_Down)
-		data->scene.cam.pos.z += MOVE_STEP;
+		point->z -= MOVE_STEP;
 	else if (code == XK_Right)
-		data->scene.cam.pos.x += MOVE_STEP;
+		point->x += MOVE_STEP;
 	else if (code == XK_Left)
-		data->scene.cam.pos.x -= MOVE_STEP;
+		point->x -= MOVE_STEP;
 	else if (code == XK_Page_Up)
-		data->scene.cam.pos.y += MOVE_STEP;
+		point->y += MOVE_STEP;
 	else if (code == XK_Page_Down)
-		data->scene.cam.pos.y -= MOVE_STEP;
-}
-
-void	move_light(int code, t_data *data)
-{
-	if (code == XK_Up)
-		data->scene.light.pos.z += MOVE_STEP;
-	else if (code == XK_Down)
-		data->scene.light.pos.z -= MOVE_STEP;
-	else if (code == XK_Right)
-		data->scene.light.pos.x += MOVE_STEP;
-	else if (code == XK_Left)
-		data->scene.light.pos.x -= MOVE_STEP;
-	else if (code == XK_Page_Up)
-		data->scene.light.pos.y += MOVE_STEP;
-	else if (code == XK_Page_Down)
-		data->scene.light.pos.y -= MOVE_STEP;
-}
-
-void	move_object(int code, t_data *data)
-{
-	if (code == XK_Up)
-		data->selected.obj->pos.z += MOVE_STEP;
-	else if (code == XK_Down)
-		data->selected.obj->pos.z -= MOVE_STEP;
-	else if (code == XK_Right)
-		data->selected.obj->pos.x += MOVE_STEP;
-	else if (code == XK_Left)
-		data->selected.obj->pos.x -= MOVE_STEP;
-	else if (code == XK_Page_Up)
-		data->selected.obj->pos.y += MOVE_STEP;
-	else if (code == XK_Page_Down)
-		data->selected.obj->pos.y -= MOVE_STEP;
+		point->y -= MOVE_STEP;
 }
 
 void	handle_obj_move(int code, t_data *data)
 {
 	if (data->selected.type == T_CAM)
-		move_cam(code, data);
+		move_coords(code, &(data->scene.cam.pos));
 	else if (data->selected.type == T_LIGHT)
-		move_light(code, data);
+		move_coords(code, &(data->scene.light.pos));
 	else if (data->selected.type == T_OBJ)
-		move_object(code, data);
+		move_coords(code, &(data->selected.obj->pos));
+}
+static void select_object(int code, t_data *data)
+{
+	if (code == XK_c)
+		data->selected.type = T_CAM;
+	else if (code == XK_l)
+		data->selected.type = T_LIGHT;
 }
 
 // WARN: RGB FOR LIGHT IS NOT IN MANDATORY
 
-#define CAM_FOV_STEP 1.0
-void	handle_cam_props(int code, t_data *data)
+#define FOV_MAX 180.0
+#define FOV_MIN 0.0
+#define RATIO_MAX 100.0
+#define RATIO_MIN 0.0
+#define STEP 1.0
+void	handle_cam_props(int code, t_cam *cam)
 {
 	if (code == XK_equal)
-		data->scene.cam.fov = fmin(data->scene.cam.fov + CAM_FOV_STEP, 180.0);
+		cam->fov = fmin(cam->fov + STEP, FOV_MAX);
 	else if (code == XK_minus)
-		data->scene.cam.fov = fmax(data->scene.cam.fov - CAM_FOV_STEP, 0.0);
-	setup_cam(&data->scene.cam);
+		cam->fov = fmax(cam->fov - STEP, 0.0);
+	setup_cam(cam);
+}
+
+void	handle_light_props(int code, t_light *light)
+{
+	if (code == XK_equal)
+		light->ratio = fmin(light->ratio + STEP, RATIO_MAX);
+	else if (code == XK_minus)
+		light->ratio = fmax(light->ratio - STEP, RATIO_MIN);
+}
+
+void	handle_cy_props(int code, t_cy *cy)
+{
+	if (code == XK_equal)
+		cy->d = cy->d + 1;
+	else if (code == XK_minus)
+		cy->d = fmax(cy->d - STEP, 0.0);
+	else if (code == XK_m)
+		cy->h = cy->h + 1;
+	else if (code == XK_n)
+		cy->h = fmax(cy->h - STEP, 0.0);
+}
+
+void	handle_sp_props(int code, t_sp *sp)
+{
+	if (code == XK_equal)
+		sp->d = sp->d + 1;
+	else if (code == XK_minus)
+		sp->d = fmax(sp->d - STEP, 0.0);
+}
+
+void	handle_obj_props(int code, t_obj *obj)
+{
+	if (obj->type == T_CY)
+		handle_cy_props(code, (t_cy *)(obj->shape));
+	else if (obj->type == T_SP)
+		handle_sp_props(code, (t_sp *)(obj->shape));
 }
 
 void	handle_props(int code, t_data *data)
 {
 	if (data->selected.type == T_CAM)
-		handle_cam_props(code, data);
-	// else if (data->selected.type == T_LIGHT)
-	// 	handle_light_props(code, data);
-	// else if (data->selected.type == T_OBJ)
-	// 	handle_obj_props(code, data);
+		handle_cam_props(code, &(data->scene.cam));
+	else if (data->selected.type == T_LIGHT)
+		handle_light_props(code, &(data->scene.light));
+	else if (data->selected.type == T_OBJ)
+		handle_obj_props(code, data->selected.obj);
 }
 
 int	handle_keypress(int code, t_data *data)
@@ -101,12 +116,14 @@ int	handle_keypress(int code, t_data *data)
 	if (code == XK_Up || code == XK_Down || code == XK_Left || code == XK_Right
 			|| code == XK_Page_Up || code == XK_Page_Down)
 		handle_obj_move(code, data);
-	else if (code == XK_c)
-		data->selected.type = T_CAM;
-	else if (code == XK_l)
-		data->selected.type = T_LIGHT;
+	else if (code == XK_c || code == XK_l)
+		select_object(code, data);
+	// sp: diameter
+	// cy: diamedet height
+	// light: ratio
+	// camera:	fov
 	else if (code == XK_equal || code == XK_minus
-			|| code == XK_h || code == XK_s)
+			|| code == XK_n || code == XK_m)
 		handle_props(code, data);
 	else if (code == XK_Escape)
 		clean_exit(data, SUCCESS);

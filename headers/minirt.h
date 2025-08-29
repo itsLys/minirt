@@ -309,7 +309,7 @@ t_hit		resolve_pl_hit(t_pl *pl, t_ray ray, double a, double b);
 t_hit		resolve_cy_hit(t_ray ray, t_obj *obj, t_cy *cy, t_quad quad);
 t_hit		resolve_sp_hit(t_ray ray, t_obj *obj, t_sp *sp, t_quad quad);
 void		resolve_hit(t_hit *hit, t_quad quad);
-int			check_cy_height_intersect(double t, t_ray ray, t_obj *obj, t_cy *cy);
+// int			check_cy_height_intersect(double t, t_ray ray, t_obj *obj, t_cy *cy);
 // intersect utils
 
 // hit
