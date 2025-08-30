@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/24 10:46:35 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/30 16:41:17 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@
 	"pl <x,y,z> <norm_x,norm_y,norm_z> <R,G,B>\n" \
 	"cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B>\n"
 
+# define MOVE_STEP 0.05
+# define FOV_MAX 180.0
+# define FOV_MIN 0.0
+# define RATIO_MAX 1.0
+# define RATIO_MIN 0.0
+# define DIAMETER_STEP 0.175
+# define FOV_STEP 1.0
+# define RATIO_STEP 0.1
 
 // # define MAX_OBJECT 99
 typedef enum s_obj_type
@@ -250,7 +258,7 @@ int			render_img(t_data *data);
 t_ray		map_pixel(int x, int y, t_cam cam);
 
 // camera
-void		setup_cam(t_cam *cam);
+void		init_cam(t_cam *cam);
 
 // hooks
 int			handle_keypress(int code, t_data *data);
@@ -289,6 +297,9 @@ void		init_plane(char *line, t_data *data);
 void		init_sphere(char *line, t_data *data);
 void		init_cylinder(char *line, t_data *data);
 void		init_data(t_data *data);
+
+// camera
+void		setup_viewport(t_cam *cam);
 
 // vec3 ops
 t_vec3		vec3(double x, double y, double z);
@@ -336,5 +347,10 @@ int			rgb_to_int(t_rgb c);
 bool		is_close(double n, double m);
 bool		greater_than(double n, double m);
 bool		is_less_then(double n, double m);
+
+// handlers
+void		handle_props(int code, t_data *data);
+void		handle_obj_move(int code, t_data *data);
+
 
 #endif

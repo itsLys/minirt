@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:09:09 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/15 16:20:20 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/30 16:38:17 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int main(int ac, char **av)
 	if (data.scene.light.on == false)
 		exit_error(ERR_LIGHT ERR_NOT_FOUND, &data);
 	print_scene(&data);
-	setup_cam(&data.scene.cam);
+	init_cam(&data.scene.cam);
 	setup_mlx(&data);
 	clean_exit(&data, 0);
 	// printf("Hello\n");

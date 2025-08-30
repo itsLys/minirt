@@ -29,6 +29,8 @@ SRC			= src/main.c \
 			  src/events/keys.c \
 			  src/events/loop.c \
 			  src/events/mouse.c \
+			  src/events/handlers/move_handler.c \
+			  src/events/handlers/props_handler.c \
 			  src/render/draw.c \
 			  src/render/pixel.c \
 			  src/hit/intersect.c \
