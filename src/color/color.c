@@ -6,12 +6,17 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:07:31 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/28 09:36:51 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/08/28 11:17:06 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
+bool is_less_then(double m, double n)
+{
+	if (fabs(m - n) < EPS)
+		return 0;
+	return m < n;
+}
 static bool	is_shadow(t_hit hit, t_data *data)
 {
 	t_hit	tmp;
@@ -43,6 +48,8 @@ static t_rgb compute_defuse(t_hit hit, t_data *data)
 
 	light = data->scene.light;
 	light_dir = vec3_norm(vec3_subtract(light.pos, hit.point));
+	// if (vec3_dot(light_dir, hit.normal) < 0)
+	// 	hit.normal = vec3_negate(hit.normal);
 	dot = vec3_dot(hit.normal, light_dir);
 	if (dot < 0 || is_shadow(hit, data))
 		return (t_rgb) {0};
