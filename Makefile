@@ -20,6 +20,7 @@ SRC			= src/main.c \
 			  src/init/get_values.c \
 			  src/init/init_objs.c \
 			  src/init/init_scene.c \
+			  src/init/init_rays.c \
 			  src/init/parse_file.c \
 			  src/vec3/vec3_ops.c \
 			  src/vec3/vec3_math.c \

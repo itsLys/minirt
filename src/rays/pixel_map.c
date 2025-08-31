@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 16:48:20 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/27 15:34:02 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/08/31 16:18:28 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,10 @@ t_ray map_pixel(int x, int y, t_cam cam) // NOTE: vector cam direction instead o
 	ray.dir = vec3_norm(vec3_add(cam.forward, ray.dir));
 	return (ray);
 }
+
+// camera rays, have the same origin, different direction
+// could be:
+// t_cam_rays:
+// 	t_vec3 dir[WIDTH][HEIGHT];
+// 	t_vec3 origin;
+//

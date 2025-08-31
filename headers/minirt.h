@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/31 14:55:02 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/31 16:19:32 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,17 +180,24 @@ typedef struct s_cy
 typedef struct s_obj
 {
 	t_obj_type		type;
-	t_vec3		pos;
+	t_vec3			pos;
 	t_rgb			color;
 	void			*shape;
 	struct s_obj	*next;
 }	t_obj;
+
+typedef struct s_cam_rays
+{
+	t_vec3	**dirs;
+	t_vec3	orig;
+}	t_cam_rays;
 
 typedef struct s_scene
 {
 	t_light			amb_light;
 	t_light			light;
 	t_cam			cam;
+	t_cam_rays		rays;
 	t_obj			**obj_list;
 }	t_scene;
 
@@ -299,6 +306,7 @@ void		init_plane(char *line, t_data *data);
 void		init_sphere(char *line, t_data *data);
 void		init_cylinder(char *line, t_data *data);
 void		init_data(t_data *data);
+void		init_cam_rays(t_data *data);
 
 // camera
 void		setup_viewport(t_cam *cam);
