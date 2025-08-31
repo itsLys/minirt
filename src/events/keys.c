@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 15:58:32 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/31 10:39:25 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/31 14:56:08 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,19 @@
 
 // WARN: RGB FOR LIGHT IS NOT IN MANDATORY
 
+/* LEGACY
+   void rotate_cy(int code, t_cy *cy, t_cam cam)
+   {
+   if (code == XK_d) // rotate around cam forw
+   cy->norm = rotate(cy->norm, cam.forward, ROTATE_STEP);
+   else if (code == XK_a)
+   cy->norm = rotate(cy->norm, cam.forward, ROTATE_STEP * -1);
+   else if (code == XK_w)
+   cy->norm = rotate(cy->norm, cam.right, ROTATE_STEP);
+   else if (code == XK_s)
+   cy->norm = rotate(cy->norm, cam.right, ROTATE_STEP * -1);
+   }
+   */
 
 static void handle_obj_select(int code, t_data *data)
 {
@@ -23,10 +36,12 @@ static void handle_obj_select(int code, t_data *data)
 		data->selected.type = T_LIGHT;
 }
 
-void handle_rotation(int code, t_data *data)
+static void handle_rotation(int code, t_data *data)
 {
 	if (data->selected.type == T_CAM)
 		handle_cam_rotate(code, &(data->scene.cam));
+	else if (data->selected.type == T_OBJ)
+		handle_obj_rotate(code, data->selected.obj, data->scene.cam);
 }
 
 int	handle_keypress(int code, t_data *data)

@@ -6,17 +6,12 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:07:31 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/28 11:17:06 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/08/31 11:00:02 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-bool is_less_then(double m, double n)
-{
-	if (fabs(m - n) < EPS)
-		return 0;
-	return m < n;
-}
+
 static bool	is_shadow(t_hit hit, t_data *data)
 {
 	t_hit	tmp;

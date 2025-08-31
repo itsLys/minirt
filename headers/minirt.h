@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/31 10:39:13 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/31 14:55:02 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,6 +356,6 @@ bool		is_less_then(double n, double m);
 void		handle_props(int code, t_data *data);
 void		handle_obj_move(int code, t_data *data);
 void		handle_cam_rotate(int code, t_cam *cam);
-
+void		handle_obj_rotate(int code, t_obj *obj, t_cam cam);
 
 #endif

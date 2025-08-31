@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 10:38:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/31 10:39:15 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/31 11:00:43 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void cam_rotate_x(int code, t_cam *cam)
 {
-	if (code == XK_w)
+	if (code == XK_s)
 		cam->forward = rotate(cam->forward, cam->right, ROTATE_STEP);
-	else if (code == XK_s)
+	else if (code == XK_w)
 		cam->forward = rotate(cam->forward, cam->right, ROTATE_STEP * -1);
 	cam->up = vec3_cross(cam->right, cam->forward);
 }
@@ -32,9 +32,9 @@ static void cam_rotate_z(int code, t_cam *cam)
 
 static void cam_rotate_y(int code, t_cam *cam)
 {
-	if (code == XK_d)
+	if (code == XK_a)
 		cam->right = rotate(cam->right, cam->up, ROTATE_STEP);
-	else if (code == XK_a)
+	else if (code == XK_d)
 		cam->right = rotate(cam->right, cam->up, ROTATE_STEP * -1);
 	cam->forward = vec3_cross(cam->up, cam->right);
 }
