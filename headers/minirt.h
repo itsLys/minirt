@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/30 16:41:17 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/31 10:39:13 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <mlx.h>
 
 # define EXT ".rt"
+
+# define ROTATE_STEP 0.01
 
 # define HEIGHT 800
 # define WIDTH	800
@@ -311,6 +313,8 @@ t_vec3		vec3_scale(double s, t_vec3 vec);
 t_vec3		vec3_subtract(t_vec3 v1, t_vec3 v2);
 t_vec3		vec3_negate(t_vec3 v);
 t_vec3		vec3_add(t_vec3 v1, t_vec3 v2);
+t_vec3		rotate(t_vec3 to_rot, t_vec3 rot_around, double	angle);
+t_vec3		translate(t_vec3 p, t_vec3 v);
 
 // intersect
 t_hit		intersect_sp(t_ray ray, t_obj *obj, t_sp *sp);
@@ -351,6 +355,7 @@ bool		is_less_then(double n, double m);
 // handlers
 void		handle_props(int code, t_data *data);
 void		handle_obj_move(int code, t_data *data);
+void		handle_cam_rotate(int code, t_cam *cam);
 
 
 #endif

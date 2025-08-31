@@ -22,6 +22,10 @@ SRC			= src/main.c \
 			  src/init/init_scene.c \
 			  src/init/parse_file.c \
 			  src/vec3/vec3_ops.c \
+			  src/vec3/vec3_math.c \
+			  src/vec3/vec3_create.c \
+			  src/vec3/vec3_utils.c \
+			  src/vec3/vec3_transform.c \
 			  src/objects/obj_utils.c \
 			  src/mlx/events.c \
 			  src/mlx/window.c \
@@ -31,6 +35,7 @@ SRC			= src/main.c \
 			  src/events/mouse.c \
 			  src/events/handlers/move_handler.c \
 			  src/events/handlers/props_handler.c \
+			  src/events/handlers/cam_rotate_handler.c \
 			  src/render/draw.c \
 			  src/render/pixel.c \
 			  src/hit/intersect.c \
