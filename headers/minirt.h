@@ -307,6 +307,8 @@ void		init_sphere(char *line, t_data *data);
 void		init_cylinder(char *line, t_data *data);
 void		init_data(t_data *data);
 void		init_cam_rays(t_data *data);
+void		destroy_cam_rays(t_cam_rays rays);
+void		set_directions(t_cam_rays *rays, t_cam cam);
 
 // camera
 void		setup_viewport(t_cam *cam);

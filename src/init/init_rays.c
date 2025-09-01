@@ -38,33 +38,36 @@ t_cam_rays init_mem(t_data *data)
 	{
 		rays.dirs[i] = malloc(sizeof(t_vec3) * HEIGHT);
 		if (rays.dirs[i] == NULL)
-		{
-			destroy_cam_rays(rays);
 			clean_exit(data, FAILIURE);
-		}
 		i++;
 	}
 	return rays;
 }
 
-void	init_cam_rays(t_data *data)
+void	set_directions(t_cam_rays *rays, t_cam cam)
 {
-	t_cam_rays rays;
 	int			i;
 	int			j;
 
-	rays = init_mem(data);
-	rays.orig = data->scene.cam.pos;
 	i = 0;
 	while (i < WIDTH)
 	{
 		j = 0;
 		while (j < HEIGHT)
 		{
-			rays.dirs[i][j] = map_pixel(i, j, data->scene.cam).dir;
+			rays->dirs[i][j] = map_pixel(i, j, cam).dir;
 			j++;
 		}
 		i++;
 	}
+}
+
+void	init_cam_rays(t_data *data)
+{
+	t_cam_rays rays;
+
+	rays = init_mem(data);
+	rays.orig = data->scene.cam.pos;
+	set_directions(&rays, data->scene.cam);
 	data->scene.rays = rays;
 }
