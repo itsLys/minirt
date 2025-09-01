@@ -29,7 +29,6 @@
 
 # define EXT ".rt"
 
-# define ROTATE_STEP 0.01
 
 # define HEIGHT 800
 # define WIDTH	800
@@ -81,14 +80,15 @@
 	"pl <x,y,z> <norm_x,norm_y,norm_z> <R,G,B>\n" \
 	"cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B>\n"
 
-# define MOVE_STEP 0.05
+# define ROTATE_STEP 0.1
+# define MOVE_STEP 0.1
 # define FOV_MAX 180.0
 # define FOV_MIN 0.0
 # define RATIO_MAX 1.0
 # define RATIO_MIN 0.0
+# define RATIO_STEP 0.1
 # define DIAMETER_STEP 0.175
 # define FOV_STEP 1.0
-# define RATIO_STEP 0.1
 
 // # define MAX_OBJECT 99
 typedef enum s_obj_type
@@ -260,7 +260,7 @@ void		print_vec3(t_vec3 vec);
 void		destroy_mlx(t_data *data);
 void		init_mlx(t_data *data);
 void		setup_mlx(t_data *data);
-void		img_put_pixel(t_data *data, int x, int y, int color);
+// void		img_put_pixel(t_data *data, int x, int y, int color);
 int			render_img(t_data *data);
 
 // map pixel

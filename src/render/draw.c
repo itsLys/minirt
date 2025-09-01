@@ -12,6 +12,16 @@
 
 #include "minirt.h"
 
+static inline void	img_put_pixel(t_data *data, int x, int y, int color)
+{
+	char	*pixel;
+	t_img	*img;
+
+	img = &(data->img);
+	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	*(int *)pixel = color;
+}
+
 void draw_image(t_data *data)
 {
 	int		i;

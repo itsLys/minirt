@@ -53,7 +53,11 @@ static inline void	handle_sp_props(int code, t_sp *sp)
 void	handle_props(int code, t_data *data)
 {
 	if (data->selected.type == T_CAM)
+	{
 		handle_cam_props(code, &(data->scene.cam));
+		setup_viewport(&(data->scene.cam));
+		set_directions(&(data->scene.rays), data->scene.cam);
+	}
 	else if (data->selected.type == T_LIGHT)
 		handle_light_props(code, &(data->scene.light));
 	else if (data->selected.type == T_OBJ && data->selected.obj->type == T_CY)
