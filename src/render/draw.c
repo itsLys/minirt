@@ -37,12 +37,15 @@ void draw_image(t_data *data)
 		j = 0;
 		while (j < HEIGHT)
 		{
-			// ray = map_pixel(i, j, data->scene.cam);
-			ray.dir = rays.dirs[i][j];
-			ray.orign = rays.orig;
-			color = trace_ray(ray, data);
-			img_put_pixel(data, i, j, rgb_to_int(color));
+			// if (j % 2 == 0 &&  i % 2 != 0)
+			// {
+				ray.dir = rays.dirs[i][j];
+				ray.orign = rays.orig;
+				color = trace_ray(ray, data);
+				img_put_pixel(data, i, j, rgb_to_int(color));
+			// }
 			j++;
+			// ray = map_pixel(i, j, data->scene.cam);
 		}
 		i++;
 	}

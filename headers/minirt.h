@@ -80,6 +80,7 @@
 	"pl <x,y,z> <norm_x,norm_y,norm_z> <R,G,B>\n" \
 	"cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B>\n"
 
+# define CAM_ROTATE_STEP 0.01
 # define ROTATE_STEP 0.1
 # define MOVE_STEP 0.1
 # define FOV_MAX 180.0
