@@ -18,7 +18,7 @@ void	setup_viewport(t_cam *cam)
 
 	fov_r = cam->fov * M_PI / 180.0;
 	cam->viewport_h = 2.0f * tanf(fov_r / 2.0f);
-	cam->viewport_w = cam->viewport_h * ((float)3 / (float)3);
+	cam->viewport_w = cam->viewport_h * ((float)WIDTH / (float)HEIGHT);
 }
 
 void	init_cam(t_cam *cam)
