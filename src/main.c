@@ -70,7 +70,7 @@ void	init_offsets(t_vec2	**offsets, t_data *data)
 int main(int ac, char **av)
 {
 	t_data	data;
-
+	memset(data.keys, 0, sizeof(data.keys));
 	if (0 /* NOTE: implement -h flag */)
 		print_help();
 	if (ac != 2)

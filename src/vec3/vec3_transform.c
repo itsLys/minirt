@@ -13,18 +13,20 @@
 #include "minirt.h"
 
 // BUG: fix
-t_vec3	rotate(t_vec3 to_rot, t_vec3 rot_around, double	angle)
+t_vec3	rotate(t_vec3 to_rot, t_vec3 axis, double angle)
 {
-	t_vec3	v_cos = vec3_scale(cosf(angle), to_rot);
-	t_vec3	cross_sin = vec3_scale(sinf(angle), vec3_cross(rot_around, to_rot));
-	t_vec3 kkv = vec3_scale(vec3_dot(rot_around, to_rot), to_rot);
-	kkv = vec3_scale(1.0 - cosf(angle), kkv);
+	t_vec3 v_cos;
+	t_vec3 cross_sin;
+	t_vec3 axis_proj;
+	t_vec3 result;
 
-	t_vec3 new;
-
-	new = vec3_add(v_cos, cross_sin);
-	new = vec3_add(new, kkv);
-	return new;
+	v_cos = vec3_scale(cos(angle), to_rot);
+	cross_sin = vec3_scale(sin(angle), vec3_cross(axis, to_rot));
+	axis_proj = vec3_scale(vec3_dot(axis, to_rot), axis);
+	axis_proj = vec3_scale(1.0 - cos(angle), axis_proj);
+	result = vec3_add(v_cos, cross_sin);
+	result = vec3_add(result, axis_proj);
+	return result;
 }
 
 t_vec3	translate(t_vec3 p, t_vec3 v)

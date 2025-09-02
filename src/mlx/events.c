@@ -19,11 +19,24 @@ int	handle_motion(int code, int x, int y, t_data *data)
 	return 0;
 }
 
+int	handle_keypress(int code, t_data *data)
+{
+	data->keys[code] = 1;
+	return 0;
+}
+
+int	handle_keyrelease(int code, t_data *data)
+{
+	data->keys[code] = 0;
+	return 0;
+}
+
 void	setup_mlx(t_data *data)
 {
 	init_mlx(data);
 	mlx_hook(data->win, DestroyNotify, NoEventMask, &clean_exit, data);
 	mlx_hook(data->win, KeyPress, KeyPressMask, &handle_keypress, data);
+	mlx_hook(data->win, KeyRelease, KeyReleaseMask, &handle_keyrelease, data);
 	mlx_hook(data->win, ButtonPress, ButtonPressMask, &handle_button, data);
 	// // WARN: FOR TESTING
 	// mlx_hook(data->win, ButtonPress, ButtonPressMask, &handle_motion, data);
