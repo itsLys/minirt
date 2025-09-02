@@ -30,8 +30,8 @@
 # define EXT ".rt"
 
 
-# define HEIGHT 800
-# define WIDTH	800
+# define WIDTH	1080
+# define HEIGHT 720
 # define MINIRT_PROJECT	"miniRT"
 
 // colors
@@ -81,7 +81,7 @@
 	"cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B>\n"
 
 # define CAM_ROTATE_STEP 0.01
-# define ROTATE_STEP 0.1
+# define ROTATE_STEP 0.05
 # define MOVE_STEP 0.1
 # define FOV_MAX 180.0
 # define FOV_MIN 0.0
