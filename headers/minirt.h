@@ -107,7 +107,13 @@ typedef enum s_selected_type
 	T_CAM
 }	t_selected_type;
 
-typedef	struct s_coords
+typedef	struct s_vec2
+{
+	double	x;
+	double	y;
+}	t_vec2;
+
+typedef	struct s_vec3
 {
 	double	x;
 	double	y;
@@ -244,6 +250,7 @@ typedef struct s_data
 {
 	t_selected	selected;
 	t_scene		scene;
+	t_vec2		*offsets;
 	void		*mlx;
 	void		*win;
 	t_img		img;
@@ -265,7 +272,7 @@ void		setup_mlx(t_data *data);
 int			render_img(t_data *data);
 
 // map pixel
-t_ray		map_pixel(int x, int y, t_cam cam);
+t_ray		map_pixel(int x, int y, t_data *data);
 
 // camera
 void		init_cam(t_cam *cam);
@@ -309,7 +316,7 @@ void		init_cylinder(char *line, t_data *data);
 void		init_data(t_data *data);
 void		init_cam_rays(t_data *data);
 void		destroy_cam_rays(t_cam_rays rays);
-void		set_directions(t_cam_rays *rays, t_cam cam);
+void		set_directions(t_cam_rays *rays, t_data *data);
 
 // camera
 void		setup_viewport(t_cam *cam);

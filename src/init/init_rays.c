@@ -44,7 +44,7 @@ t_cam_rays init_mem(t_data *data)
 	return rays;
 }
 
-void	set_directions(t_cam_rays *rays, t_cam cam)
+void	set_directions(t_cam_rays *rays, t_data *data)
 {
 	int			i;
 	int			j;
@@ -55,7 +55,7 @@ void	set_directions(t_cam_rays *rays, t_cam cam)
 		j = 0;
 		while (j < HEIGHT)
 		{
-			rays->dirs[i][j] = map_pixel(i, j, cam).dir;
+			rays->dirs[i][j] = map_pixel(i, j, data).dir;
 			j++;
 		}
 		i++;
@@ -68,6 +68,6 @@ void	init_cam_rays(t_data *data)
 
 	rays = init_mem(data);
 	rays.orig = data->scene.cam.pos;
-	set_directions(&rays, data->scene.cam);
+	set_directions(&rays, data);
 	data->scene.rays = rays;
 }

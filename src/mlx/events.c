@@ -15,7 +15,7 @@
 int	handle_motion(int code, int x, int y, t_data *data)
 {
 	(void) code;
-	print_ray(x, y, map_pixel(x, y, data->scene.cam));
+	print_ray(x, y, map_pixel(x, y, data));
 	return 0;
 }
 

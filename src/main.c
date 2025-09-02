@@ -14,7 +14,6 @@
 
 int clean_exit(t_data *data, int status)
 {
-
 	destroy_mlx(data);
 	free(data->mlx);
 	obj_lst_free(data->scene.obj_list);
@@ -41,6 +40,32 @@ void	print_help(void)
 	close(fd);
 }
 
+void	init_offsets(t_vec2	**offsets, t_data *data)
+{
+	double px;
+	double py;
+	int i = 0;
+	int j;
+	*offsets = malloc(sizeof(t_vec2) * WIDTH * HEIGHT);
+	// malloc fails?
+
+	while (i < WIDTH)
+	{
+		j = 0;
+		while (j < HEIGHT)
+		{
+			px = (i + 0.5) / WIDTH;
+			py = (j + 0.5) / HEIGHT;
+			px = (px - 0.5) * data->scene.cam.viewport_w;
+			py = (0.5 - py) * data->scene.cam.viewport_h;
+			(*offsets)[j * WIDTH + i].x = px;
+			(*offsets)[j * WIDTH + i].y = py;
+			j++;
+		}
+		i++;
+	}
+}
+
 int main(int ac, char **av)
 {
 	t_data	data;
@@ -60,6 +85,7 @@ int main(int ac, char **av)
 		exit_error(ERR_LIGHT ERR_NOT_FOUND, &data);
 	print_scene(&data);
 	init_cam(&data.scene.cam);
+	init_offsets(&(data.offsets), &data);
 	init_cam_rays(&data);
 	setup_mlx(&data);
 	clean_exit(&data, 0);

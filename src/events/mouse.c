@@ -20,7 +20,7 @@ void	select_object(int x, int y, t_data *data)
 	t_obj	*obj;
 	t_obj	*hit_obj;
 
-	ray = map_pixel(x, y, data->scene.cam);
+	ray = map_pixel(x, y, data);
 	hit.t = INFINITY;
 	hit.hit = false;
 	obj = *(data->scene.obj_list);
