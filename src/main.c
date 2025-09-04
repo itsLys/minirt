@@ -70,10 +70,19 @@ void	init_offsets(t_vec2	**offsets, t_data *data)
 void	swap_nodes(t_obj **n1, t_obj **n2)
 {
 	t_obj	tmp;
-	t_obj	*next1;
-	t_obj	*next2;
 
-	*
+	tmp.type = (*n1)->type;
+	tmp.pos = (*n1)->pos;
+	tmp.color = (*n1)->color;
+	tmp.shape = (*n1)->shape;
+	(*n1)->type = (*n2)->type;
+	(*n1)->pos = (*n2)->pos;
+	(*n1)->color = (*n2)->color;
+	(*n1)->shape = (*n2)->shape;
+	(*n2)->type = tmp.type;
+	(*n2)->pos = tmp.pos;
+	(*n2)->color = tmp.color;
+	(*n2)->shape = tmp.shape;
 }
 
 void	sort_objects(t_obj **head)
@@ -114,7 +123,6 @@ int main(int ac, char **av)
 		exit_error(ERR_LIGHT ERR_NOT_FOUND, &data);
 	sort_objects(data.scene.obj_list);
 	print_scene(&data);
-	exit(321321);
 	init_cam(&data.scene.cam);
 	init_offsets(&(data.offsets), &data);
 	init_cam_rays(&data);

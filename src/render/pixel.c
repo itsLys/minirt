@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
+// TODO: remove later
 
 void	img_put_pixel(t_data *data, int x, int y, int color)
 {

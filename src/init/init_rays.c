@@ -56,9 +56,9 @@ void	set_directions(t_cam_rays *rays, t_data *data)
 		while (j < HEIGHT)
 		{
 			rays->dirs[i][j] = map_pixel(i, j, data).dir;
-			j++;
+			j += data->scale;
 		}
-		i++;
+		i += data->scale;
 	}
 }
 

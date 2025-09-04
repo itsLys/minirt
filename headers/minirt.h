@@ -80,9 +80,9 @@
 	"pl <x,y,z> <norm_x,norm_y,norm_z> <R,G,B>\n" \
 	"cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B>\n"
 
-# define CAM_ROTATE_STEP 0.01
+# define CAM_ROTATE_STEP 0.025
 # define ROTATE_STEP 0.05
-# define MOVE_STEP 0.1
+# define MOVE_STEP 0.5
 # define FOV_MAX 180.0
 # define FOV_MIN 0.0
 # define RATIO_MAX 1.0
@@ -238,6 +238,7 @@ typedef struct s_data
 {
 	t_selected	selected;
 	t_scene		scene;
+	int			scale;
 	t_vec2		*offsets;
 	void		*mlx;
 	void		*win;
@@ -267,6 +268,7 @@ void		init_cam(t_cam *cam);
 
 // hooks
 int			handle_keypress(int code, t_data *data);
+int			handle_keyrelease(int code, t_data *data);
 int			handle_button(int code, int x, int y, t_data *data);
 
 // render

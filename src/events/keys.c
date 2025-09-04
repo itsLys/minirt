@@ -38,11 +38,9 @@ static void handle_obj_select(int code, t_data *data)
 
 static void handle_rotation(int code, t_data *data)
 {
+	data->scale = 3;
 	if (data->selected.type == T_CAM)
-	{
 		handle_cam_rotate(code, &(data->scene.cam));
-		set_directions(&(data->scene.rays), data);
-	}
 	else if (data->selected.type == T_OBJ)
 		handle_obj_rotate(code, data->selected.obj, data->scene.cam);
 }
@@ -61,5 +59,12 @@ int	handle_keypress(int code, t_data *data)
 		clean_exit(data, SUCCESS);
 	else if (code == XK_d || code == XK_a || code == XK_w || code == XK_s || code == XK_q || code == XK_e)
 		handle_rotation(code, data);
+	return 0;
+}
+
+int	handle_keyrelease(int code, t_data *data)
+{
+	(void) code;
+	data->scale = 1;
 	return 0;
 }

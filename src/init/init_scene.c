@@ -111,6 +111,7 @@ void	init_data(t_data *data)
 	data->scene.amb_light.on = false;
 	data->scene.light.on = false;
 	data->scene.cam.on = false;
+	data->scale = 1;
 }
 
 int	process_line(char *line, t_data *data)

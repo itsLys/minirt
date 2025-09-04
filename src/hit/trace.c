@@ -23,6 +23,7 @@ t_hit	record_hit(t_obj *obj, t_ray ray, t_data *data)
 		return intersect_cy(ray, obj, (t_cy *)(obj->shape));
 	return ((t_hit) {false});
 }
+// TODO: optimize
 
 t_rgb	trace_ray(t_ray ray, t_data *data)
 {
