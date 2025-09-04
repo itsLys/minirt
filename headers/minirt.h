@@ -242,7 +242,6 @@ typedef struct s_data
 	void		*mlx;
 	void		*win;
 	t_img		img;
-	int			keys[256];
 }	t_data ;
 
 

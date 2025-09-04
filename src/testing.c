@@ -89,73 +89,53 @@ void	print_obj_common(t_obj	*obj)
 void	print_sp(t_obj	*obj)
 {
 	printf("------------------------------------------\n");
-	printf("[Spheres]\n");
-	int i = 1;
-	while (obj)
-	{
-		if (obj->type == T_SP)
-		{
-			t_sp *sp = (t_sp *)(obj->shape);
-			printf("Number:			%d\n", i++);
-			print_obj_common(obj);
-			printf("Diameter:		%.2lf\n", sp->d);
-			printf("\n");
-		}
-		obj = obj->next;
-	}
+	printf("[Sphere]\n");
+	t_sp *sp = (t_sp *)(obj->shape);
+	print_obj_common(obj);
+	printf("Diameter:		%.2lf\n", sp->d);
+	printf("\n");
 }
 
 void	print_pl(t_obj	*obj)
 {
 	printf("------------------------------------------\n");
-	printf("[Planes]\n");
-	int i = 1;
-	while (obj)
-	{
-		if (obj->type == T_PL)
-		{
-			t_pl *pl = (t_pl *)(obj->shape);
-			printf("Number:			%d\n", i++);
-			print_obj_common(obj);
-			printf("Normalized:	(%.2lf, %.2lf, %.2lf)\n",
-					pl->norm.x,
-					pl->norm.y,
-					pl->norm.z);
-			printf("\n");
-		}
-		obj = obj->next;
-	}
+	printf("[Plane]\n");
+	t_pl *pl = (t_pl *)(obj->shape);
+	print_obj_common(obj);
+	printf("Normalized:	(%.2lf, %.2lf, %.2lf)\n",
+			pl->norm.x,
+			pl->norm.y,
+			pl->norm.z);
+	printf("\n");
 }
 
 void	print_cy(t_obj	*obj)
 {
 	printf("------------------------------------------\n");
-	printf("[Cylinders]\n");
-	int i = 1;
-	while (obj)
-	{
-		if (obj->type == T_CY)
-		{
-			t_cy *cy = (t_cy *)(obj->shape);
-			printf("Number:			%d\n", i++);
-			print_obj_common(obj);
-			printf("Diameter:		%.2lf\n", cy->d);
-			printf("Height:			%.2lf\n", cy->h);
-			printf("Normalized:	(%.2lf, %.2lf, %.2lf)\n",
-					cy->norm.x,
-					cy->norm.y,
-					cy->norm.z);
-			printf("\n");
-		}
-		obj = obj->next;
-	}
+	printf("[Cylinder]\n");
+	t_cy *cy = (t_cy *)(obj->shape);
+	print_obj_common(obj);
+	printf("Diameter:		%.2lf\n", cy->d);
+	printf("Height:			%.2lf\n", cy->h);
+	printf("Normalized:	(%.2lf, %.2lf, %.2lf)\n",
+			cy->norm.x,
+			cy->norm.y,
+			cy->norm.z);
+	printf("\n");
 }
 
 void print_objects(t_obj *obj)
 {
-	print_sp(obj);
-	print_pl(obj);
-	print_cy(obj);
+	while (obj)
+	{
+		if (obj->type == T_PL)
+			print_pl(obj);
+		else if (obj->type == T_CY)
+			print_cy(obj);
+		else if (obj->type == T_SP)
+			print_sp(obj);
+		obj = obj->next;
+	}
 }
 
 void	print_scene(t_data *data)

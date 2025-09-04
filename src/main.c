@@ -67,10 +67,38 @@ void	init_offsets(t_vec2	**offsets, t_data *data)
 	}
 }
 
+void	swap_nodes(t_obj **n1, t_obj **n2)
+{
+	t_obj	tmp;
+	t_obj	*next1;
+	t_obj	*next2;
+
+	*
+}
+
+void	sort_objects(t_obj **head)
+{
+	// head == 123;
+	t_obj	*tmp;
+	t_obj	*node;
+
+	node = *head;
+	while (node)
+	{
+		tmp = node->next;
+		while (tmp)
+		{
+			if (tmp->type < node->type)
+				swap_nodes(&tmp, &node);
+			tmp = tmp->next;
+		}
+		node = node->next;
+	}
+}
+
 int main(int ac, char **av)
 {
 	t_data	data;
-	memset(data.keys, 0, sizeof(data.keys));
 	if (0 /* NOTE: implement -h flag */)
 		print_help();
 	if (ac != 2)
@@ -84,7 +112,9 @@ int main(int ac, char **av)
 		exit_error(ERR_AMB_LIGHT ERR_NOT_FOUND, &data);
 	if (data.scene.light.on == false)
 		exit_error(ERR_LIGHT ERR_NOT_FOUND, &data);
+	sort_objects(data.scene.obj_list);
 	print_scene(&data);
+	exit(321321);
 	init_cam(&data.scene.cam);
 	init_offsets(&(data.offsets), &data);
 	init_cam_rays(&data);
