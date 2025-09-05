@@ -40,3 +40,40 @@ void	obj_lst_free(t_obj **obj)
 	free(obj);
 }
 
+void	swap_nodes(t_obj **n1, t_obj **n2)
+{
+	t_obj	tmp;
+
+	tmp.type = (*n1)->type;
+	tmp.pos = (*n1)->pos;
+	tmp.color = (*n1)->color;
+	tmp.shape = (*n1)->shape;
+	(*n1)->type = (*n2)->type;
+	(*n1)->pos = (*n2)->pos;
+	(*n1)->color = (*n2)->color;
+	(*n1)->shape = (*n2)->shape;
+	(*n2)->type = tmp.type;
+	(*n2)->pos = tmp.pos;
+	(*n2)->color = tmp.color;
+	(*n2)->shape = tmp.shape;
+}
+
+void	sort_objects(t_obj **head)
+{
+	// head == 123;
+	t_obj	*tmp;
+	t_obj	*node;
+
+	node = *head;
+	while (node)
+	{
+		tmp = node->next;
+		while (tmp)
+		{
+			if (tmp->type < node->type)
+				swap_nodes(&tmp, &node);
+			tmp = tmp->next;
+		}
+		node = node->next;
+	}
+}

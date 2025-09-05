@@ -6,11 +6,22 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:07:31 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/31 11:00:02 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/08/28 11:17:06 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+static t_hit	record_shadow(t_obj *obj, t_ray ray)
+{
+	if (obj->type == T_SP)
+		return intersect_sp(ray, obj, (t_sp *)(obj->shape));
+	if (obj->type == T_PL)
+		return intersect_pl(ray, obj, (t_pl *)(obj->shape));
+	if (obj->type == T_CY)
+		return intersect_cy(ray, obj, (t_cy *)(obj->shape));
+	return (t_hit){0};
+}
 
 static bool	is_shadow(t_hit hit, t_data *data)
 {
@@ -26,7 +37,7 @@ static bool	is_shadow(t_hit hit, t_data *data)
 	obj = *(data->scene.obj_list);
 	while (obj)
 	{
-		tmp = record_hit(obj, ray, data);
+		tmp = record_shadow(obj, ray);
 		if (tmp.hit && tmp.t > EPS && is_less_then(tmp.t, light_distance))
 			return (true);
 		obj = obj->next;
@@ -43,8 +54,6 @@ static t_rgb compute_defuse(t_hit hit, t_data *data)
 
 	light = data->scene.light;
 	light_dir = vec3_norm(vec3_subtract(light.pos, hit.point));
-	// if (vec3_dot(light_dir, hit.normal) < 0)
-	// 	hit.normal = vec3_negate(hit.normal);
 	dot = vec3_dot(hit.normal, light_dir);
 	if (dot < 0 || is_shadow(hit, data))
 		return (t_rgb) {0};

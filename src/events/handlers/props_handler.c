@@ -57,6 +57,7 @@ void	handle_props(int code, t_data *data)
 		handle_cam_props(code, &(data->scene.cam));
 		setup_viewport(&(data->scene.cam));
 		set_directions(&(data->scene.rays), data);
+		set_offsets(&(data->offsets), data);
 	}
 	else if (data->selected.type == T_LIGHT)
 		handle_light_props(code, &(data->scene.light));

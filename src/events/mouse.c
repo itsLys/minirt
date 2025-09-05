@@ -16,26 +16,21 @@ void	select_object(int x, int y, t_data *data)
 {
 	t_ray	ray;
 	t_hit	hit;
-	t_hit	tmp;
 	t_obj	*obj;
-	t_obj	*hit_obj;
 
 	ray = map_pixel(x, y, data);
 	hit.t = INFINITY;
 	hit.hit = false;
+	hit.obj = NULL;
 	obj = *(data->scene.obj_list);
-	while (obj)
+	record_hit(&obj, &hit, ray);
+	if (hit.obj)
 	{
-		tmp = record_hit(obj, ray, data);
-		if (tmp.hit && tmp.t < hit.t)
-		{
-			hit = tmp;
-			hit_obj = obj;
-		}
-		obj = obj->next;
+		data->selected.obj = hit.obj;
+		data->selected.type = T_OBJ;
 	}
-	data->selected.obj = hit_obj;
-	data->selected.type = T_OBJ;
+	else
+		data->selected.type = T_CAM;
 }
 
 int	handle_button(int code, int x, int y, t_data *data)

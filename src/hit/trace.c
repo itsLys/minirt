@@ -12,37 +12,73 @@
 
 #include "minirt.h"
 
-t_hit	record_hit(t_obj *obj, t_ray ray, t_data *data)
+void	check_sp_intersect(t_obj **obj, t_hit *hit, t_ray ray)
 {
-	(void) data; // TODO: remove later
-	if (obj->type == T_SP)
-		return intersect_sp(ray, obj, (t_sp *)(obj->shape));
-	if (obj->type == T_PL)
-		return intersect_pl(ray, obj, (t_pl *)(obj->shape));
-	if (obj->type == T_CY)
-		return intersect_cy(ray, obj, (t_cy *)(obj->shape));
-	return ((t_hit) {false});
+	t_hit	tmp;
+
+	while (*obj && (*obj)->type == T_SP)
+	{
+		tmp = intersect_sp(ray, *obj, (t_sp *)((*obj)->shape));
+		if (tmp.hit && tmp.t < hit->t)
+		{
+			*hit = tmp;
+			hit->color = (*obj)->color;
+			hit->obj = *obj;
+		}
+		(*obj) = (*obj)->next;
+	}
 }
-// TODO: optimize
+
+void	check_pl_intersect(t_obj **obj, t_hit *hit, t_ray ray)
+{
+	t_hit	tmp;
+
+	while (*obj && (*obj)->type == T_PL)
+	{
+		tmp = intersect_pl(ray, *obj, (t_pl *)((*obj)->shape));
+		if (tmp.hit && tmp.t < hit->t)
+		{
+			*hit = tmp;
+			hit->color = (*obj)->color;
+			hit->obj = *obj;
+		}
+		(*obj) = (*obj)->next;
+	}
+}
+
+void	check_cy_intersect(t_obj **obj, t_hit *hit, t_ray ray)
+{
+	t_hit	tmp;
+
+	while (*obj && (*obj)->type == T_CY)
+	{
+		tmp = intersect_cy(ray, *obj, (t_cy *)((*obj)->shape));
+		if (tmp.hit && tmp.t < hit->t)
+		{
+			*hit = tmp;
+			hit->color = (*obj)->color;
+			hit->obj = *obj;
+		}
+		(*obj) = (*obj)->next;
+	}
+}
+
+void	record_hit(t_obj **obj, t_hit *hit, t_ray ray)
+{
+	check_sp_intersect(obj, hit, ray);
+	check_pl_intersect(obj, hit, ray);
+	check_cy_intersect(obj, hit, ray);
+}
 
 t_rgb	trace_ray(t_ray ray, t_data *data)
 {
 	t_hit	hit;
-	t_hit	tmp;
 	t_obj	*obj;
 
 	hit.t = INFINITY;
 	hit.hit = 0;
+	hit.obj = NULL;
 	obj = *(data->scene.obj_list);
-	while (obj)
-	{
-		tmp = record_hit(obj, ray, data);
-		if (tmp.hit && tmp.t < hit.t)
-		{
-			hit = tmp;
-			hit.color = obj->color;
-		}
-		obj = obj->next;
-	}
+	record_hit(&obj, &hit, ray);
 	return compute_color(hit, data);
 }

@@ -41,15 +41,14 @@ void	print_help(void)
 	close(fd);
 }
 
-void	init_offsets(t_vec2	**offsets, t_data *data)
+void	set_offsets(t_vec2 **offsets, t_data *data)
 {
+	int i;
+	int j;
 	double px;
 	double py;
-	int i = 0;
-	int j;
-	*offsets = malloc(sizeof(t_vec2) * WIDTH * HEIGHT);
-	// malloc fails?
 
+	i = 0;
 	while (i < WIDTH)
 	{
 		j = 0;
@@ -67,43 +66,51 @@ void	init_offsets(t_vec2	**offsets, t_data *data)
 	}
 }
 
-void	swap_nodes(t_obj **n1, t_obj **n2)
+void	init_offsets(t_vec2	**offsets, t_data *data)
 {
-	t_obj	tmp;
-
-	tmp.type = (*n1)->type;
-	tmp.pos = (*n1)->pos;
-	tmp.color = (*n1)->color;
-	tmp.shape = (*n1)->shape;
-	(*n1)->type = (*n2)->type;
-	(*n1)->pos = (*n2)->pos;
-	(*n1)->color = (*n2)->color;
-	(*n1)->shape = (*n2)->shape;
-	(*n2)->type = tmp.type;
-	(*n2)->pos = tmp.pos;
-	(*n2)->color = tmp.color;
-	(*n2)->shape = tmp.shape;
+	*offsets = malloc(sizeof(t_vec2) * WIDTH * HEIGHT);
+	if (*offsets == NULL)
+		clean_exit(data, FAILIURE);
+	set_offsets(offsets, data);
 }
 
-void	sort_objects(t_obj **head)
-{
-	// head == 123;
-	t_obj	*tmp;
-	t_obj	*node;
-
-	node = *head;
-	while (node)
-	{
-		tmp = node->next;
-		while (tmp)
-		{
-			if (tmp->type < node->type)
-				swap_nodes(&tmp, &node);
-			tmp = tmp->next;
-		}
-		node = node->next;
-	}
-}
+// void	swap_nodes(t_obj **n1, t_obj **n2)
+// {
+// 	t_obj	tmp;
+//
+// 	tmp.type = (*n1)->type;
+// 	tmp.pos = (*n1)->pos;
+// 	tmp.color = (*n1)->color;
+// 	tmp.shape = (*n1)->shape;
+// 	(*n1)->type = (*n2)->type;
+// 	(*n1)->pos = (*n2)->pos;
+// 	(*n1)->color = (*n2)->color;
+// 	(*n1)->shape = (*n2)->shape;
+// 	(*n2)->type = tmp.type;
+// 	(*n2)->pos = tmp.pos;
+// 	(*n2)->color = tmp.color;
+// 	(*n2)->shape = tmp.shape;
+// }
+//
+// void	sort_objects(t_obj **head)
+// {
+// 	// head == 123;
+// 	t_obj	*tmp;
+// 	t_obj	*node;
+//
+// 	node = *head;
+// 	while (node)
+// 	{
+// 		tmp = node->next;
+// 		while (tmp)
+// 		{
+// 			if (tmp->type < node->type)
+// 				swap_nodes(&tmp, &node);
+// 			tmp = tmp->next;
+// 		}
+// 		node = node->next;
+// 	}
+// }
 
 int main(int ac, char **av)
 {

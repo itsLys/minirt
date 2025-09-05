@@ -24,7 +24,6 @@ void	setup_mlx(t_data *data)
 	init_mlx(data);
 	mlx_hook(data->win, DestroyNotify, NoEventMask, &clean_exit, data);
 	mlx_hook(data->win, KeyPress, KeyPressMask, &handle_keypress, data);
-	mlx_hook(data->win, KeyRelease, KeyReleaseMask, &handle_keyrelease, data);
 	mlx_hook(data->win, ButtonPress, ButtonPressMask, &handle_button, data);
 	// // WARN: FOR TESTING
 	// mlx_hook(data->win, ButtonPress, ButtonPressMask, &handle_motion, data);

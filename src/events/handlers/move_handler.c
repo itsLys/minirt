@@ -30,9 +30,9 @@ static void	handle_translate(int code, t_vec3 *point, t_cam cam)
 
 void	handle_obj_move(int code, t_data *data)
 {
-	data->scale = 3;
 	if (data->selected.type == T_CAM)
 	{
+		// data->scale = 3;
 		handle_translate(code, &(data->scene.cam.pos), data->scene.cam);
 		data->scene.rays.orig = data->scene.cam.pos;
 	}
