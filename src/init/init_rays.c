@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 16:11:09 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/31 16:14:09 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/06 16:35:57 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ t_cam_rays init_mem(t_data *data)
 	int			i;
 
 	i = 0;
-	// mem = malloc(sizeof(t_cam_rays));
-	// if (mem == NULL)
-	// 	clean_exit(data, FAILIURE);
 	rays.dirs = malloc(sizeof(t_vec3 *) * WIDTH);
 	if (rays.dirs == NULL)
 		clean_exit(data, FAILIURE);
@@ -56,10 +53,8 @@ void	set_directions(t_cam_rays *rays, t_data *data)
 		while (j < HEIGHT)
 		{
 			rays->dirs[i][j] = map_pixel(i, j, data).dir;
-			// j += data->scale;
 			j++;
 		}
-		// i += data->scale;
 		i++;
 	}
 }

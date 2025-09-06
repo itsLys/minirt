@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:09:09 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/31 16:34:25 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/06 16:17:03 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ int clean_exit(t_data *data, int status)
 	destroy_mlx(data);
 	free(data->mlx);
 	obj_lst_free(data->scene.obj_list);
-	destroy_cam_rays(data->scene.rays);
-	free(data->offsets);
+	if (data->scene.rays.dirs)
+		destroy_cam_rays(data->scene.rays);
+	if (data->offsets)
+		free(data->offsets);
 	exit(status);
 }
 
@@ -41,81 +43,10 @@ void	print_help(void)
 	close(fd);
 }
 
-void	set_offsets(t_vec2 **offsets, t_data *data)
-{
-	int i;
-	int j;
-	double px;
-	double py;
-
-	i = 0;
-	while (i < WIDTH)
-	{
-		j = 0;
-		while (j < HEIGHT)
-		{
-			px = (i + 0.5) / WIDTH;
-			py = (j + 0.5) / HEIGHT;
-			px = (px - 0.5) * data->scene.cam.viewport_w;
-			py = (0.5 - py) * data->scene.cam.viewport_h;
-			(*offsets)[j * WIDTH + i].x = px;
-			(*offsets)[j * WIDTH + i].y = py;
-			j++;
-		}
-		i++;
-	}
-}
-
-void	init_offsets(t_vec2	**offsets, t_data *data)
-{
-	*offsets = malloc(sizeof(t_vec2) * WIDTH * HEIGHT);
-	if (*offsets == NULL)
-		clean_exit(data, FAILIURE);
-	set_offsets(offsets, data);
-}
-
-// void	swap_nodes(t_obj **n1, t_obj **n2)
-// {
-// 	t_obj	tmp;
-//
-// 	tmp.type = (*n1)->type;
-// 	tmp.pos = (*n1)->pos;
-// 	tmp.color = (*n1)->color;
-// 	tmp.shape = (*n1)->shape;
-// 	(*n1)->type = (*n2)->type;
-// 	(*n1)->pos = (*n2)->pos;
-// 	(*n1)->color = (*n2)->color;
-// 	(*n1)->shape = (*n2)->shape;
-// 	(*n2)->type = tmp.type;
-// 	(*n2)->pos = tmp.pos;
-// 	(*n2)->color = tmp.color;
-// 	(*n2)->shape = tmp.shape;
-// }
-//
-// void	sort_objects(t_obj **head)
-// {
-// 	// head == 123;
-// 	t_obj	*tmp;
-// 	t_obj	*node;
-//
-// 	node = *head;
-// 	while (node)
-// 	{
-// 		tmp = node->next;
-// 		while (tmp)
-// 		{
-// 			if (tmp->type < node->type)
-// 				swap_nodes(&tmp, &node);
-// 			tmp = tmp->next;
-// 		}
-// 		node = node->next;
-// 	}
-// }
-
 int main(int ac, char **av)
 {
 	t_data	data;
-	if (0 /* NOTE: implement -h flag */)
+	if (ac >= 2 && ft_strcmp(av[1], "-h") == 0)
 		print_help();
 	if (ac != 2)
 		return print_error("Wrong args\n"), FAILIURE;

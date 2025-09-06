@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:56:27 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/24 10:50:52 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/06 16:25:10 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_ambient_light(char *line, t_data *data)
 		exit_error(ERR_AMB_LIGHT ERR_MULTI, data);
 	ratio = get_double(&line, data);;
 	if  (ratio < 0.0 || ratio > 1.0)
-		exit_error(ERR_AMB_LIGHT, data);
+		exit_error(ERR_AMB_LIGHT ERR_RATIO, data);
 	rgb = get_rgb(&line, data);
 	while (ft_isspace(*line))
 		line++;
@@ -107,6 +107,8 @@ void	init_data(t_data *data)
 	data->mlx = NULL;
 	data->img.img_ptr = NULL;
 	data->win = NULL;
+	data->offsets = NULL;
+	data->scene.rays.dirs = NULL;
 	data->selected.type = T_CAM;
 	data->scene.amb_light.on = false;
 	data->scene.light.on = false;

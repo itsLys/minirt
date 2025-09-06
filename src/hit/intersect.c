@@ -6,25 +6,11 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:04:42 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/25 09:32:50 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/09/06 16:36:22 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-/*
- * R(t) = o + t.d
- * |P - c|^2 = r^2
- * (R(t) - c)^2 = r^2
- * (o + t.d - c)^2 = r^2
- * (oc + t.d)^2 = r^2
- * oc^2 + 2.t.d.oc + (t.d)^2 - r^2 = 0
- * (t.d)^2 + t.2.d.oc + oc^2 - r^2 = 0
- * ax^2 + bx + c = 0
- * x = (-b +- sqrt(delta)) / 2a
- * delta = b^2 - 4ac
- *
- */
-/* ray.dir ^ 2 = 1; */
 
 t_hit	intersect_sp(t_ray ray, t_obj *obj, t_sp *sp)
 {

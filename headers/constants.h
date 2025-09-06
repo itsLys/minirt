@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:19:43 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/05 10:32:29 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/06 15:49:02 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@
 # define RATIO_MIN 0.0
 # define RATIO_STEP 0.1
 # define DIAMETER_STEP 0.175
-# define BG_COLOR 0x00101010
+# define BG_COLOR 0x00202020
 
 #endif // !CONSTANTS_H

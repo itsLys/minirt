@@ -21,6 +21,7 @@ SRC			= src/main.c \
 			  src/init/init_objs.c \
 			  src/init/init_scene.c \
 			  src/init/init_rays.c \
+			  src/init/init_offsets.c \
 			  src/init/parse_file.c \
 			  src/vec3/vec3_ops.c \
 			  src/vec3/vec3_math.c \
@@ -39,14 +40,12 @@ SRC			= src/main.c \
 			  src/events/handlers/cam_rotate_handler.c \
 			  src/events/handlers/obj_rotate_handler.c \
 			  src/render/draw.c \
-			  src/render/pixel.c \
 			  src/hit/intersect.c \
 			  src/hit/quadratic.c \
 			  src/hit/trace.c \
 			  src/hit/hit.c \
 			  src/color/ambient.c \
 			  src/color/color.c \
-			  src/color/shading.c \
 			  src/color/rgb_ops.c \
 			  src/rays/pixel_map.c \
 			  src/utils/utils.c 

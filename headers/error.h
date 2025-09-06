@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:22:12 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/05 10:33:00 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/06 16:26:09 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define ERR_DIAM_POS "Diameter must be 0\n"
 # define ERR_DBL "Double is not correct\n"
 # define ERR_INT "Integer is not correct\n"
-# define ERR_RATIO "Ratio is not correct"
+# define ERR_RATIO "Ratio is not correct\n"
 # define ERR_NORM_VAL "Normalized value is not correct\n"
 # define ERR_FOV "Fov is not correct\n"
 # define ERR_COORDS "Wrong coordination form!\n"
@@ -37,6 +37,7 @@
 
 // ERR USAGE
 # define ERR_USAGE \
+	"`./minirt -h` for help\n" \
 	"A <ratio> <R,G,B>\n" \
 	"C <x,y,z> <orient_x,orient_y,orient_z> <FOV>\n" \
 	"L <x,y,z> <brightness> <R,G,B>\n" \

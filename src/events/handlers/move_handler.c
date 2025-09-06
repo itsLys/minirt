@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 10:06:25 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/31 16:32:03 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/06 16:37:05 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	handle_obj_move(int code, t_data *data)
 {
 	if (data->selected.type == T_CAM)
 	{
-		// data->scale = 3;
 		handle_translate(code, &(data->scene.cam.pos), data->scene.cam);
 		data->scene.rays.orig = data->scene.cam.pos;
 	}

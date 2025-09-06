@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 12:09:07 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/31 09:51:24 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/09/06 16:36:37 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,12 @@ t_hit	resolve_cy_hit(t_ray ray, t_obj *obj, t_cy *cy, t_quad quad)
 		hit.hit = check_cy_height_intersect(quad.t2, ray, obj, cy);
 		f = 1;
 	}
-	// else
-	// 	hit.t = quad.t1;
 	hit.point = vec3_add(ray.orign, vec3_scale(hit.t, ray.dir));
 	hit.normal = vec3_subtract(hit.point, obj->pos);
 	hit.normal = vec3_scale(vec3_dot(hit.normal, cy->norm), cy->norm);
 	hit.normal = vec3_add(obj->pos, hit.normal);
 	hit.normal = vec3_subtract(hit.point, hit.normal);
 	hit.normal = vec3_norm(hit.normal);
-	// if (vec3_dot(ray.dir, hit.normal) > 0)
-	// 	hit.normal = vec3_negate(hit.normal);
 	if (f)
 		hit.normal = vec3_negate(hit.normal);
 	return hit;

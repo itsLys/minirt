@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pixel.c                                            :+:      :+:    :+:   */
+/*   mlx_utils.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/14 16:01:20 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/14 16:01:30 by ihajji           ###   ########.fr       */
+/*   Created: 2025/09/05 10:43:48 by ihajji            #+#    #+#             */
+/*   Updated: 2025/09/06 15:31:51 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
-// TODO: remove later
+#ifndef MLX_UTILS_H
+# define MLX_UTILS_H
 
-void	img_put_pixel(t_data *data, int x, int y, int color)
-{
-	char	*pixel;
-	t_img	*img;
+# include <X11/X.h>
+# include <X11/keysym.h>
+# include <mlx.h>
+#include "types.h"
 
-	img = &(data->img);
-	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-	*(int *)pixel = color;
-}
+void		destroy_mlx(t_data *data);
+void		init_mlx(t_data *data);
+void		setup_mlx(t_data *data);
+int			render_img(t_data *data);
+void		draw_image(t_data *data);
+
+#endif // !MLX_UTILS_H

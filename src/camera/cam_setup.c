@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 16:18:44 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/30 16:40:49 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/06 16:37:25 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	setup_viewport(t_cam *cam)
 
 void	init_cam(t_cam *cam)
 {
-	// cam->backward = vec3_negate(cam->forward);
 	cam->right = vec3_norm(vec3_cross(cam->forward, vec3(0, 1, 0)));
 	cam->up = vec3_cross(cam->right, cam->forward);
 	setup_viewport(cam);

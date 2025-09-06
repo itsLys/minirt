@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:58:29 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/24 10:55:45 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/06 16:32:10 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ void	init_sphere(char *line, t_data *data)
 		exit_error(ERR_SP ERR_DIAM_POS, data);
 	sp->r = sp->d / 2.0;
 	obj->color = get_rgb(&line, data);
+	while (ft_isspace(*line))
+		line++;
+	if (*line != '\n' && *line != '\0')
+		exit_error(ERR_EXTRA_PARAM, data);
 }
 
 void	init_cylinder(char *line, t_data *data)

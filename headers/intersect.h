@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:35:54 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/05 10:36:24 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/06 15:30:00 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,6 @@ t_hit		resolve_pl_hit(t_pl *pl, t_ray ray, double a, double b);
 t_hit		resolve_cy_hit(t_ray ray, t_obj *obj, t_cy *cy, t_quad quad);
 t_hit		resolve_sp_hit(t_ray ray, t_obj *obj, t_sp *sp, t_quad quad);
 void		resolve_hit(t_hit *hit, t_quad quad);
+void		solve_quadratic(t_quad *quad);
+
 #endif // !INTERSECT_H
