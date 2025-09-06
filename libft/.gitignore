@@ -1,5 +1,0 @@
-*.a
-*.o
-main.c
-a.out
-compile_flags.txt
