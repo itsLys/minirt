@@ -7,11 +7,13 @@ GENERAL STRUCTURE:
 3. Object configuration lines can appear in any order.
 4. One or more blank lines may appear between configuration lines.
 5. All parameters for a given object must be present on its line; no parameters can be omitted.
-6. Entire objects may be omitted from the file:
-   - Renderable objects (sp, pl, cy, L) simply won't be rendered if missing.
-   - Non-rendered unique objects (A, C) will use default values if missing.
-7. If a unique object (A or C) appears multiple times, only the last occurrence is used.
-8. Renderable objects can appear multiple times to create multiple instances.
+6. Entire objects may be omitted only for lowercase types (sp, pl, cy).
+   - Uppercase objects (A, C, L) must be present exactly once each.
+7. Uppercase objects (A, C, L) are unique:
+   - They must appear exactly one time in the file.
+   - Multiple declarations or missing declarations are invalid.
+8. Lowercase objects (sp, pl, cy) are repeatable:
+   - They can appear zero or more times to create multiple instances.
 9. Parameters in a line must be separated by one or more spaces or tabs.
 10. No newline characters may appear inside a single object's configuration line.
 11. Parameter order must strictly follow the format for that object type.
@@ -21,35 +23,41 @@ OBJECT FORMATS:
 
 Ambient Light:
   Format: A <ambient_ratio> <R,G,B>
+  - Must appear exactly once.
   - ambient_ratio: floating-point value in range [0.0, 1.0]
   - R,G,B: integer values in range [0, 255]
 
 Camera:
   Format: C <x,y,z> <orient_x,orient_y,orient_z> <FOV>
+  - Must appear exactly once.
   - x,y,z: floating-point coordinates of the camera position
   - orient_x, orient_y, orient_z: floating-point normalized vector components, each in [-1.0, 1.0], magnitude must equal 1
   - FOV: floating-point field of view in degrees, range [0, 180]
 
 Light:
   Format: L <x,y,z> <brightness> <R,G,B>
+  - Must appear exactly once.
   - x,y,z: floating-point coordinates of the light position
   - brightness: floating-point ratio in range [0.0, 1.0]
   - R,G,B: integer values in range [0, 255]
 
 Sphere:
   Format: sp <x,y,z> <diameter> <R,G,B>
+  - May appear zero or more times.
   - x,y,z: floating-point coordinates of the sphere center
   - diameter: floating-point value
   - R,G,B: integer values in range [0, 255]
 
 Plane:
   Format: pl <x,y,z> <norm_x,norm_y,norm_z> <R,G,B>
+  - May appear zero or more times.
   - x,y,z: floating-point coordinates of a point on the plane
   - norm_x, norm_y, norm_z: floating-point normalized vector components, each in [-1.0, 1.0], magnitude must equal 1
   - R,G,B: integer values in range [0, 255]
 
 Cylinder:
   Format: cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B>
+  - May appear zero or more times.
   - x,y,z: floating-point coordinates of the center of the cylinder
   - axis_x, axis_y, axis_z: floating-point normalized vector components, each in [-1.0, 1.0], magnitude must equal 1
   - diameter: floating-point value
