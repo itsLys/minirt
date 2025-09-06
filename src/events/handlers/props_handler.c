@@ -29,7 +29,6 @@ static inline void	handle_light_props(int code, t_light *light)
 		light->ratio = fmax(light->ratio - RATIO_STEP, RATIO_MIN);
 }
 
-
 static inline void	handle_cy_props(int code, t_cy *cy)
 {
 	if (code == XK_equal)

@@ -14,7 +14,7 @@
 
 void	obj_lst_add(t_obj *obj, t_obj **list)
 {
-	t_obj *tmp;
+	t_obj	*tmp;
 
 	tmp = *list;
 	*list = obj;
@@ -29,7 +29,7 @@ void	obj_free(t_obj *obj)
 
 void	obj_lst_free(t_obj **obj)
 {
-	t_obj *tmp;
+	t_obj	*tmp;
 
 	while (*obj)
 	{
@@ -60,7 +60,6 @@ void	swap_nodes(t_obj **n1, t_obj **n2)
 
 void	sort_objects(t_obj **head)
 {
-	// head == 123;
 	t_obj	*tmp;
 	t_obj	*node;
 

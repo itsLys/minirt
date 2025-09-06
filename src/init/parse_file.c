@@ -16,26 +16,38 @@ static int	check_file_ext(char *filename)
 {
 	char	*ext;
 
-	ext = ft_strnstr(filename, EXT, ft_strlen(filename)); 
+	ext = ft_strnstr(filename, EXT, ft_strlen(filename));
 	if (ext == NULL)
-		return ERROR;
+		return (ERROR);
 	if (ext[3])
-		return ERROR;
-	return SUCCESS;
+		return (ERROR);
+	return (SUCCESS);
+}
+
+int	process_line(char *line, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (ft_isspace(line[i]))
+		i++;
+	if (init_config(line + i, data) == ERROR)
+		return (ERROR);
+	return (SUCCESS);
 }
 
 int	parse_file(char *filename, t_data *data)
 {
-	int	fd;
-	char *line;
+	int		fd;
+	char	*line;
 
 	data->scene.obj_list = malloc(sizeof(t_obj *));
 	*(data->scene.obj_list) = NULL;
 	if (check_file_ext(filename) == ERROR)
-		return ERROR;
+		return (ERROR);
 	fd = open(filename, O_RDONLY);
 	if (fd == ERROR)
-		return print_error(strerror(errno)), ERROR;
+		return (print_error(strerror(errno)), ERROR);
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -45,10 +57,10 @@ int	parse_file(char *filename, t_data *data)
 			line = get_next_line(fd);
 		}
 		if (line == NULL)
-			break;
+			break ;
 		if (process_line(line, data) == ERROR)
-			return ERROR;
+			return (ERROR);
 		free(line);
 	}
-	return SUCCESS;
+	return (SUCCESS);
 }

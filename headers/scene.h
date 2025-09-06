@@ -13,7 +13,7 @@
 #ifndef SCENE_H
 # define SCENE_H
 
-#include "types.h"
+# include "types.h"
 
 void		setup_viewport(t_cam *cam);
 void		destroy_cam_rays(t_cam_rays rays);

@@ -61,13 +61,13 @@ void	init_sphere(char *line, t_data *data)
 
 void	init_cylinder(char *line, t_data *data)
 {
-	t_obj		*obj;
-	t_cy		*cy;
+	t_obj	*obj;
+	t_cy	*cy;
 
-	cy  = malloc(sizeof(t_cy));
+	cy = malloc(sizeof(t_cy));
 	obj = malloc(sizeof(t_obj));
 	if (obj == NULL || cy == NULL)
-		return free(cy), exit_error(NULL, data);
+		return (free(cy), exit_error(NULL, data));
 	obj->shape = cy;
 	obj->type = T_CY;
 	obj_lst_add(obj, data->scene.obj_list);

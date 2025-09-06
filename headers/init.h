@@ -13,7 +13,7 @@
 #ifndef INIT_H
 # define INIT_H
 
-#include "types.h"
+# include "types.h"
 
 void		init_ambient_light(char *line, t_data *data);
 void		init_cam(t_cam *cam);
@@ -25,5 +25,6 @@ void		init_cylinder(char *line, t_data *data);
 void		init_data(t_data *data);
 void		init_offsets(t_vec2	**offsets, t_data *data);
 void		init_cam_rays(t_data *data);
+int			init_config(char *line, t_data *data);
 
 #endif // !INIT_H

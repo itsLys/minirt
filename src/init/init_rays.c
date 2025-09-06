@@ -14,7 +14,7 @@
 
 void	destroy_cam_rays(t_cam_rays rays)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (rays.dirs[i] && i < WIDTH)
@@ -22,9 +22,9 @@ void	destroy_cam_rays(t_cam_rays rays)
 	free(rays.dirs);
 }
 
-t_cam_rays init_mem(t_data *data)
+t_cam_rays	init_mem(t_data *data)
 {
-	t_cam_rays rays;
+	t_cam_rays	rays;
 	int			i;
 
 	i = 0;
@@ -38,13 +38,13 @@ t_cam_rays init_mem(t_data *data)
 			clean_exit(data, FAILIURE);
 		i++;
 	}
-	return rays;
+	return (rays);
 }
 
 void	set_directions(t_cam_rays *rays, t_data *data)
 {
-	int			i;
-	int			j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < WIDTH)
@@ -61,7 +61,7 @@ void	set_directions(t_cam_rays *rays, t_data *data)
 
 void	init_cam_rays(t_data *data)
 {
-	t_cam_rays rays;
+	t_cam_rays	rays;
 
 	rays = init_mem(data);
 	rays.orig = data->scene.cam.pos;

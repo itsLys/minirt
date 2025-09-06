@@ -23,7 +23,8 @@ void	init_mlx(t_data *data)
 	data->img.img_ptr = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (data->img.img_ptr == NULL)
 		exit_error(NULL, data);
-	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp, &data->img.line_len, &data->img.endian);
+	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp,
+			&data->img.line_len, &data->img.endian);
 }
 
 void	destroy_mlx(t_data *data)

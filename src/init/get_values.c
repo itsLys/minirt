@@ -26,8 +26,8 @@ int	parse_num(char *str)
 
 int	get_integer(char **line, t_data *data)
 {
-	int		n;
-	int		i;
+	int	n;
+	int	i;
 
 	i = 0;
 	while (ft_isspace(**line))
@@ -92,7 +92,7 @@ double	get_double(char **line, t_data *data)
 	return (f);
 }
 
-t_vec3    get_vec3(char **line, t_data *data)
+t_vec3	get_vec3(char **line, t_data *data)
 {
 	t_vec3	vec3;
 

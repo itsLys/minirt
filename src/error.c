@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-void print_error(char *err)
+void	print_error(char *err)
 {
 	write(STDERR_FILENO, "Error\n", 6);
 	if (err)

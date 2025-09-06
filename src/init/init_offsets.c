@@ -14,10 +14,10 @@
 
 void	set_offsets(t_vec2 **offsets, t_data *data)
 {
-	int i;
-	int j;
-	double px;
-	double py;
+	int		i;
+	int		j;
+	double	px;
+	double	py;
 
 	i = 0;
 	while (i < WIDTH)
@@ -37,7 +37,7 @@ void	set_offsets(t_vec2 **offsets, t_data *data)
 	}
 }
 
-void	init_offsets(t_vec2	**offsets, t_data *data)
+void	init_offsets(t_vec2 **offsets, t_data *data)
 {
 	*offsets = malloc(sizeof(t_vec2) * WIDTH * HEIGHT);
 	if (*offsets == NULL)

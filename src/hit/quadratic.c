@@ -21,7 +21,6 @@ void	solve_quadratic(t_quad *quad)
 	{
 		quad->t1 = -1.0;
 		quad->t2 = -1.0;
-
 	}
 	else
 	{

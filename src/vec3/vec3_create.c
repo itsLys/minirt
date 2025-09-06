@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-t_vec3 vec3(double x, double y, double z)
+t_vec3	vec3(double x, double y, double z)
 {
 	t_vec3	v;
 
@@ -22,12 +22,12 @@ t_vec3 vec3(double x, double y, double z)
 	return (v);
 }
 
-t_vec3 vec3_negate(t_vec3 v)
+t_vec3	vec3_negate(t_vec3 v)
 {
-	t_vec3 res;
+	t_vec3	res;
 
 	res.x = v.x * -1;
 	res.y = v.y * -1;
 	res.z = v.z * -1;
-	return res;
+	return (res);
 }

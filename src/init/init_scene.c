@@ -19,8 +19,8 @@ void	init_ambient_light(char *line, t_data *data)
 
 	if (data->scene.amb_light.on == true)
 		exit_error(ERR_AMB_LIGHT ERR_MULTI, data);
-	ratio = get_double(&line, data);;
-	if  (ratio < 0.0 || ratio > 1.0)
+	ratio = get_double(&line, data);
+	if (ratio < 0.0 || ratio > 1.0)
 		exit_error(ERR_AMB_LIGHT ERR_RATIO, data);
 	rgb = get_rgb(&line, data);
 	while (ft_isspace(*line))
@@ -80,7 +80,7 @@ void	init_camera(char *line, t_data *data)
 	data->scene.cam.on = true;
 }
 
-int init_config(char *line, t_data *data)
+int	init_config(char *line, t_data *data)
 {
 	int	i;
 
@@ -98,8 +98,8 @@ int init_config(char *line, t_data *data)
 	else if (!ft_strncmp(line, "cy", 2) && ft_isspace(line[i + 2]))
 		init_cylinder(line + 2, data);
 	else
-		return exit_error(ERR_PARAM, data), ERROR;
-	return SUCCESS;
+		return (exit_error(ERR_PARAM, data), ERROR);
+	return (SUCCESS);
 }
 
 void	init_data(t_data *data)
@@ -113,16 +113,4 @@ void	init_data(t_data *data)
 	data->scene.amb_light.on = false;
 	data->scene.light.on = false;
 	data->scene.cam.on = false;
-}
-
-int	process_line(char *line, t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (ft_isspace(line[i]))
-		i++;
-	if (init_config(line + i, data) == ERROR)
-		return ERROR;
-	return SUCCESS;
 }

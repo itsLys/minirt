@@ -21,9 +21,8 @@ t_vec3	vec3_norm(t_vec3 v)
 {
 	double	length;
 
-
 	length = vec3_len(v);
 	if (length == 0.0)
-		return vec3(0, 0, 0);
-	return (vec3(v.x/length, v.y/length, v.z/length));
+		return (vec3(0, 0, 0));
+	return (vec3(v.x / length, v.y / length, v.z / length));
 }

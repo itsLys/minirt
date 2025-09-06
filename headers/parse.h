@@ -13,7 +13,7 @@
 #ifndef PARSE_H
 # define PARSE_H
 
-#include "types.h"
+# include "types.h"
 
 int			process_line(char *line, t_data *data);
 int			parse_file(char *filename, t_data *data);

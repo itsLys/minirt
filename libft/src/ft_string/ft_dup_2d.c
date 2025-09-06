@@ -12,25 +12,25 @@
 
 #include "libft.h"
 
-char **ft_dup_2d(char **env)
+char	**ft_dup_2d(char **env)
 {
-	int i;
-	char **dup;
+	int		i;
+	char	**dup;
 
 	i = 0;
 	while (env[i])
 		i++;
-
 	dup = malloc(sizeof(char *) * (i + 1));
 	if (dup == NULL)
-		return NULL;
+		return (NULL);
 	i = 0;
 	while (env[i])
 	{
 		dup[i] = ft_strdup(env[i]);
 		if (dup[i] == NULL)
-			return (char **) ft_free_vector(dup);
+			return ((char **) ft_free_vector(dup));
 		i++;
 	}
 	dup[i] = NULL;
+	return (dup);
 }

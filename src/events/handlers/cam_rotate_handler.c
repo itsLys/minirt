@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-static void cam_rotate_x(int code, t_cam *cam)
+static void	cam_rotate_x(int code, t_cam *cam)
 {
 	if (code == XK_s)
 		cam->forward = rotate(cam->forward, cam->right, CAM_ROTATE_STEP);
@@ -21,7 +21,7 @@ static void cam_rotate_x(int code, t_cam *cam)
 	cam->up = vec3_cross(cam->right, cam->forward);
 }
 
-static void cam_rotate_z(int code, t_cam *cam)
+static void	cam_rotate_z(int code, t_cam *cam)
 {
 	if (code == XK_e)
 		cam->up = rotate(cam->up, cam->forward, CAM_ROTATE_STEP);
@@ -30,7 +30,7 @@ static void cam_rotate_z(int code, t_cam *cam)
 	cam->right = vec3_norm(vec3_cross(cam->forward, cam->up));
 }
 
-static void cam_rotate_y(int code, t_cam *cam)
+static void	cam_rotate_y(int code, t_cam *cam)
 {
 	if (code == XK_a)
 		cam->right = rotate(cam->right, cam->up, CAM_ROTATE_STEP);

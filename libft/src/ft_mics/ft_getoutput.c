@@ -14,6 +14,7 @@
 #include <limits.h>
 
 #define CHILD_PROC 0
+
 char	*ft_getoutput(char **argv, char **envp)
 {
 	pid_t	pid;
@@ -22,7 +23,7 @@ char	*ft_getoutput(char **argv, char **envp)
 	int		bytes_read;
 
 	if (pipe(pipefd) == ERROR)
-		return NULL;
+		return (NULL);
 	pid = fork();
 	if (pid == CHILD_PROC)
 	{
@@ -31,10 +32,10 @@ char	*ft_getoutput(char **argv, char **envp)
 	}
 	output = malloc(PIPE_BUF + 1);
 	if (output == NULL)
-		return NULL;
+		return (NULL);
 	bytes_read = read(pipefd[STDIN_FILENO], output, PIPE_BUF);
 	if (bytes_read == ERROR)
-		return free(output), NULL;
+		return (free(output), NULL);
 	output[bytes_read] = 0;
 	return (output);
 }

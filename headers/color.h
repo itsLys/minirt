@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef  COLOR_H
+#ifndef COLOR_H
 # define COLOR_H
 
-#include "types.h"
+# include "types.h"
 
 // rgb ops
 t_rgb		rgb(double r, double g, double b);

@@ -16,7 +16,7 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <mlx.h>
-#include "types.h"
+# include "types.h"
 
 void		destroy_mlx(t_data *data);
 void		init_mlx(t_data *data);

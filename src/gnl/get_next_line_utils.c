@@ -83,6 +83,6 @@ char	*join_reads(char const *s1, char const *s2)
 	line[0] = '\0';
 	line_append(s1, line);
 	line_append(s2, line);
-	clean_up((void **) &s1);
+	clean_up((void **)&s1);
 	return (line);
 }

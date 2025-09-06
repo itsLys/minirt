@@ -13,7 +13,7 @@
 #ifndef HANDLERS_H
 # define HANDLERS_H 
 
-#include "types.h"
+# include "types.h"
 
 int			handle_keypress(int code, t_data *data);
 int			handle_keyrelease(int code, t_data *data);

@@ -13,7 +13,7 @@
 #ifndef INTERSECT_H
 # define INTERSECT_H
 
-#include "types.h"
+# include "types.h"
 
 t_hit		intersect_sp(t_ray ray, t_obj *obj, t_sp *sp);
 t_hit		intersect_pl(t_ray ray, t_obj *obj, t_pl *pl);

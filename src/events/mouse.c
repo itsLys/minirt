@@ -38,5 +38,5 @@ int	handle_button(int code, int x, int y, t_data *data)
 	if (code == 1)
 		select_object(x, y, data);
 	printf("mouse button pressed: %d\n", code);
-	return 0;
+	return (0);
 }

@@ -47,6 +47,7 @@ SRC			= src/main.c \
 			  src/color/ambient.c \
 			  src/color/color.c \
 			  src/color/rgb_ops.c \
+			  src/color/rgb_conv.c \
 			  src/rays/pixel_map.c \
 			  src/utils/utils.c 
 OBJ			= $(patsubst src/%.c, obj/%.o, $(SRC))

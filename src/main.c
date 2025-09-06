@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-int clean_exit(t_data *data, int status)
+int	clean_exit(t_data *data, int status)
 {
 	destroy_mlx(data);
 	free(data->mlx);
@@ -26,9 +26,9 @@ int clean_exit(t_data *data, int status)
 
 void	print_help(void)
 {
-	int fd;
-	int bytes;
-	char buff[1024];
+	int		fd;
+	int		bytes;
+	char	buff[1024];
 
 	bytes = -1;
 	fd = open("rules.txt", O_RDONLY);
@@ -43,13 +43,14 @@ void	print_help(void)
 	close(fd);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_data	data;
+
 	if (ac >= 2 && ft_strcmp(av[1], "-h") == 0)
 		print_help();
 	if (ac != 2)
-		return print_error("Wrong args\n"), FAILIURE;
+		return (print_error("Wrong args\n"), FAILIURE);
 	init_data(&data);
 	if (parse_file(av[1], &data) == ERROR)
 		return (EXIT_FAILURE);
@@ -66,5 +67,4 @@ int main(int ac, char **av)
 	init_cam_rays(&data);
 	setup_mlx(&data);
 	clean_exit(&data, 0);
-	// printf("Hello\n");
 }

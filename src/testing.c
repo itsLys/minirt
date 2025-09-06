@@ -14,24 +14,26 @@
 
 int	count_obj(t_obj *obj, t_obj_type type)
 {
-	int i = 0;
-	while (obj/*  && printf("ptr:	%p\n", obj) */)
+	int	i;
+
+	i = 0;
+	while (obj /*  && printf("ptr:	%p\n", obj) */)
 	{
-		if (obj->type == type/*  && printf("type:	%d\n", obj->type) */)
+		if (obj->type == type /*  && printf("type:	%d\n", obj->type) */)
 			i++;
 		obj = obj->next;
 	}
-	return i;
+	return (i);
 }
 
 void	print_scene_params(t_scene scene)
 {
-	t_obj	*obj = *(scene.obj_list);
+	t_obj	*obj;
+
+	obj = *(scene.obj_list);
 	printf("======== MINI RT SCENE PARAMETERS ========\n");
 	printf("Object count:	%d\n",
-			count_obj(obj, T_SP)
-			+ count_obj(obj, T_PL)
-			+ count_obj(obj, T_CY));
+			count_obj(obj, T_SP) + count_obj(obj, T_PL) + count_obj(obj, T_CY));
 }
 
 void	print_amb_light(t_light amb_light)
@@ -74,7 +76,7 @@ void	print_light(t_light light)
 	printf("\n");
 }
 
-void	print_obj_common(t_obj	*obj)
+void	print_obj_common(t_obj *obj)
 {
 	printf("Position:	(%.2lf, %.2lf, %.2lf)\n",
 			obj->pos.x,
@@ -86,21 +88,25 @@ void	print_obj_common(t_obj	*obj)
 			(int)(obj->color.b * 255.999));
 }
 
-void	print_sp(t_obj	*obj)
+void	print_sp(t_obj *obj)
 {
+	t_sp	*sp;
+
 	printf("------------------------------------------\n");
 	printf("[Sphere]\n");
-	t_sp *sp = (t_sp *)(obj->shape);
+	sp = (t_sp *)(obj->shape);
 	print_obj_common(obj);
 	printf("Diameter:		%.2lf\n", sp->d);
 	printf("\n");
 }
 
-void	print_pl(t_obj	*obj)
+void	print_pl(t_obj *obj)
 {
+	t_pl	*pl;
+
 	printf("------------------------------------------\n");
 	printf("[Plane]\n");
-	t_pl *pl = (t_pl *)(obj->shape);
+	pl = (t_pl *)(obj->shape);
 	print_obj_common(obj);
 	printf("Normalized:	(%.2lf, %.2lf, %.2lf)\n",
 			pl->norm.x,
@@ -109,11 +115,13 @@ void	print_pl(t_obj	*obj)
 	printf("\n");
 }
 
-void	print_cy(t_obj	*obj)
+void	print_cy(t_obj *obj)
 {
+	t_cy	*cy;
+
 	printf("------------------------------------------\n");
 	printf("[Cylinder]\n");
-	t_cy *cy = (t_cy *)(obj->shape);
+	cy = (t_cy *)(obj->shape);
 	print_obj_common(obj);
 	printf("Diameter:		%.2lf\n", cy->d);
 	printf("Height:			%.2lf\n", cy->h);
@@ -124,7 +132,7 @@ void	print_cy(t_obj	*obj)
 	printf("\n");
 }
 
-void print_objects(t_obj *obj)
+void	print_objects(t_obj *obj)
 {
 	while (obj)
 	{
@@ -140,7 +148,9 @@ void print_objects(t_obj *obj)
 
 void	print_scene(t_data *data)
 {
-	t_scene scene = data->scene;
+	t_scene	scene;
+
+	scene = data->scene;
 	print_scene_params(scene);
 	print_amb_light(scene.amb_light);
 	print_camera(scene.cam);
@@ -158,8 +168,7 @@ void	print_ray(int x, int y, t_ray ray)
 			ray.orign.z,
 			ray.dir.x,
 			ray.dir.y,
-			ray.dir.z
-		  );
+			ray.dir.z);
 }
 
 void	print_vec3(t_vec3 vec)

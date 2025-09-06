@@ -22,13 +22,13 @@ static inline void	img_put_pixel(t_data *data, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-void draw_image(t_data *data)
+void	draw_image(t_data *data)
 {
-	int		i;
-	int		j;
+	int			i;
+	int			j;
 	t_cam_rays	rays;
-	t_ray	ray;
-	t_rgb	color;
+	t_ray		ray;
+	t_rgb		color;
 
 	rays = data->scene.rays;
 	i = 0;

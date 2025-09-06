@@ -14,9 +14,9 @@
 
 int	handle_motion(int code, int x, int y, t_data *data)
 {
-	(void) code;
+	(void)code;
 	print_ray(x, y, map_pixel(x, y, data));
-	return 0;
+	return (0);
 }
 
 void	setup_mlx(t_data *data)

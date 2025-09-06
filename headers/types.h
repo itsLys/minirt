@@ -30,13 +30,13 @@ typedef enum s_selected_type
 	T_CAM
 }	t_selected_type;
 
-typedef	struct s_vec2
+typedef struct s_vec2
 {
 	double			x;
 	double			y;
 }	t_vec2;
 
-typedef	struct s_vec3
+typedef struct s_vec3
 {
 	double			x;
 	double			y;
@@ -48,7 +48,7 @@ typedef struct s_rgb
 	double			r;
 	double			g;
 	double			b;
-}	t_rgb ;
+}	t_rgb;
 
 typedef struct s_light
 {
@@ -118,7 +118,7 @@ typedef struct s_ray
 {
 	t_vec3			orign;
 	t_vec3			dir;
-}	t_ray ;
+}	t_ray;
 
 typedef struct s_quad
 {
@@ -137,13 +137,13 @@ typedef struct s_hit
 	t_vec3			normal;
 	t_rgb			color;
 	t_obj			*obj;
-}	t_hit ;
+}	t_hit;
 
 typedef struct s_selected
 {
 	t_selected_type	type;
 	t_obj			*obj;
-}	t_selected ;
+}	t_selected;
 
 typedef struct s_img
 {
@@ -162,6 +162,6 @@ typedef struct s_data
 	void			*mlx;
 	void			*win;
 	t_img			img;
-}	t_data ;
+}	t_data;
 
 #endif // !TYPES_H

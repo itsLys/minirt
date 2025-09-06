@@ -13,7 +13,7 @@
 #ifndef UTILS_H
 # define UTILS_H
 
-#include "types.h"
+# include "types.h"
 
 bool		is_close(double n, double m);
 bool		greater_than(double n, double m);

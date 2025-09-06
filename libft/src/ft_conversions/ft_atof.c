@@ -21,7 +21,7 @@ double	ft_atof(char *str)
 	sign = 1;
 	exp = 10;
 	f = 0;
-	if (*str == '-' ||  *str == '+')
+	if (*str == '-' || *str == '+')
 	{
 		sign = (*str == '-') * -1 + (*str == '+') * 1;
 		str++;

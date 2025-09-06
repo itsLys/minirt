@@ -13,7 +13,7 @@
 #ifndef RAY_H
 # define RAY_H
 
-#include "types.h"
+# include "types.h"
 
 t_ray		map_pixel(int x, int y, t_data *data);
 t_rgb		trace_ray(t_ray ray, t_data *data);

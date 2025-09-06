@@ -36,13 +36,13 @@
 # define ERR_NOT_FOUND "Parameter not found!\n"
 
 // ERR USAGE
-# define ERR_USAGE \
-	"`./minirt -h` for help\n" \
-	"A <ratio> <R,G,B>\n" \
-	"C <x,y,z> <orient_x,orient_y,orient_z> <FOV>\n" \
-	"L <x,y,z> <brightness> <R,G,B>\n" \
-	"sp <x,y,z> <diameter> <R,G,B>\n" \
-	"pl <x,y,z> <norm_x,norm_y,norm_z> <R,G,B>\n" \
-	"cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B>\n"
+# define ERR_USAGE " \
+	`./minirt -h` for help\n \
+	A <ratio> <R,G,B>\n \
+	C <x,y,z> <orient_x,orient_y,orient_z> <FOV>\n \
+	L <x,y,z> <brightness> <R,G,B>\n \
+	sp <x,y,z> <diameter> <R,G,B>\n \
+	pl <x,y,z> <norm_x,norm_y,norm_z> <R,G,B>\n \
+	cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B>\n"
 
 #endif // !ERROR_H

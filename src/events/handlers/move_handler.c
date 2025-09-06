@@ -40,4 +40,3 @@ void	handle_obj_move(int code, t_data *data)
 	else if (data->selected.type == T_OBJ)
 		handle_translate(code, &(data->selected.obj->pos), data->scene.cam);
 }
-
