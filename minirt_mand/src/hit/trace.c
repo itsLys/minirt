@@ -1,0 +1,84 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   trace.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/20 17:01:38 by ihajji            #+#    #+#             */
+/*   Updated: 2025/08/31 16:24:38 by ihajji           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minirt.h"
+
+void	check_sp_intersect(t_obj **obj, t_hit *hit, t_ray ray)
+{
+	t_hit	tmp;
+
+	while (*obj && (*obj)->type == T_SP)
+	{
+		tmp = intersect_sp(ray, *obj, (t_sp *)((*obj)->shape));
+		if (tmp.hit && tmp.t < hit->t)
+		{
+			*hit = tmp;
+			hit->color = (*obj)->color;
+			hit->obj = *obj;
+		}
+		(*obj) = (*obj)->next;
+	}
+}
+
+void	check_pl_intersect(t_obj **obj, t_hit *hit, t_ray ray)
+{
+	t_hit	tmp;
+
+	while (*obj && (*obj)->type == T_PL)
+	{
+		tmp = intersect_pl(ray, *obj, (t_pl *)((*obj)->shape));
+		if (tmp.hit && tmp.t < hit->t)
+		{
+			*hit = tmp;
+			hit->color = (*obj)->color;
+			hit->obj = *obj;
+		}
+		(*obj) = (*obj)->next;
+	}
+}
+
+void	check_cy_intersect(t_obj **obj, t_hit *hit, t_ray ray)
+{
+	t_hit	tmp;
+
+	while (*obj && (*obj)->type == T_CY)
+	{
+		tmp = intersect_cy(ray, *obj, (t_cy *)((*obj)->shape));
+		if (tmp.hit && tmp.t < hit->t)
+		{
+			*hit = tmp;
+			hit->color = (*obj)->color;
+			hit->obj = *obj;
+		}
+		(*obj) = (*obj)->next;
+	}
+}
+
+void	record_hit(t_obj **obj, t_hit *hit, t_ray ray)
+{
+	check_sp_intersect(obj, hit, ray);
+	check_pl_intersect(obj, hit, ray);
+	check_cy_intersect(obj, hit, ray);
+}
+
+t_rgb	trace_ray(t_ray ray, t_data *data)
+{
+	t_hit	hit;
+	t_obj	*obj;
+
+	hit.t = INFINITY;
+	hit.hit = 0;
+	hit.obj = NULL;
+	obj = *(data->scene.obj_list);
+	record_hit(&obj, &hit, ray);
+	return (compute_color(hit, data));
+}
