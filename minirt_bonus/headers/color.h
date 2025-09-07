@@ -26,6 +26,5 @@ int			rgb_to_int(t_rgb c);
 
 // compute
 t_rgb		compute_color(t_hit hit, t_data *data);
-t_rgb		compute_amb(t_rgb color, t_light amb_light);
 
 #endif // ! COLOR_H

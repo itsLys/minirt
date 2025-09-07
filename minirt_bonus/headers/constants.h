@@ -37,4 +37,6 @@
 # define DIAMETER_STEP 0.175
 # define BG_COLOR 0x00202020
 
+# define REF_COEF 1
+
 #endif // !CONSTANTS_H

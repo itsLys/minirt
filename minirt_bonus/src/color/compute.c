@@ -12,12 +12,12 @@
 
 #include "minirt.h"
 
-t_rgb	compute_amb(t_rgb color, t_light amb_light)
-{
-	t_rgb	amb;
-
-	amb.r = (color.r * amb_light.ratio) * amb_light.color.r;
-	amb.g = (color.g * amb_light.ratio) * amb_light.color.g;
-	amb.b = (color.b * amb_light.ratio) * amb_light.color.b;
-	return (amb);
-}
+// t_rgb	compute_amb(t_rgb obj, t_light amb)
+// {
+// 	t_rgb color;
+//
+// 	color.r = 0.75 * amb.ratio * amb.color.r * obj.r;
+// 	color.g = 0.75 * amb.ratio * amb.color.g * obj.g;
+// 	color.b = 0.75 * amb.ratio * amb.color.b * obj.b;
+// 	return (color);
+// }

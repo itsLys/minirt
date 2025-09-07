@@ -45,34 +45,67 @@ static bool	is_shadow(t_hit hit, t_data *data)
 	return (false);
 }
 
-static t_rgb	compute_defuse(t_hit hit, t_data *data)
+static inline t_rgb	compute_amb(t_rgb obj, t_light amb)
 {
-	t_vec3	light_dir;
-	t_light	light;
-	t_rgb	rgb;
-	double	dot;
+	t_rgb color;
 
-	light = data->scene.light;
-	light_dir = vec3_norm(vec3_subtract(light.pos, hit.point));
-	dot = vec3_dot(hit.normal, light_dir);
-	if (dot < 0 || is_shadow(hit, data))
-		return ((t_rgb){0});
-	rgb.r = (fmax(0.0, dot) * light.ratio * light.color.r * hit.color.r);
-	rgb.g = (fmax(0.0, dot) * light.ratio * light.color.g * hit.color.g);
-	rgb.b = (fmax(0.0, dot) * light.ratio * light.color.b * hit.color.b);
-	return (rgb);
+	color.r = 0.75 * amb.ratio * amb.color.r * obj.r;
+	color.g = 0.75 * amb.ratio * amb.color.g * obj.g;
+	color.b = 0.75 * amb.ratio * amb.color.b * obj.b;
+	return (color);
+}
+static t_rgb	compute_defuse(t_hit hit, t_light source)
+{
+	t_rgb color;
+	t_vec3 light_dir;
+	double	angle;
+
+	light_dir = vec3_norm(vec3_subtract(source.pos, hit.point));
+	angle = fmax(0, vec3_dot(hit.normal, light_dir));
+	color.r = angle * source.ratio * source.color.r * hit.color.r;
+	color.g = angle * source.ratio * source.color.g * hit.color.g;
+	color.b = angle * source.ratio * source.color.b * hit.color.b;
+	return (color);
+}
+
+static t_rgb compute_spacular(t_hit hit, t_light source, t_cam cam)
+{
+	t_rgb color;
+	t_vec3 ref_vec;
+	t_vec3 light_dir;
+	double	angle;
+	double	shininess;
+
+	light_dir = vec3_norm(vec3_subtract(source.pos, hit.point));
+	ref_vec = vec3_scale(2 * vec3_dot(hit.normal, light_dir), hit.normal);
+	ref_vec = vec3_subtract(ref_vec, light_dir);
+	angle = fmax(0, vec3_dot(ref_vec, vec3_norm(vec3_subtract(cam.pos, hit.point))));
+	shininess = pow(angle, 20);
+	color.r = shininess * source.ratio * source.color.r;
+	color.g = shininess * source.ratio * source.color.g;
+	color.b = shininess * source.ratio * source.color.b;
+	return color;
 }
 
 t_rgb	compute_color(t_hit hit, t_data *data)
 {
 	t_rgb	amb;
-	t_rgb	defuse;
+	t_rgb	diffuse;
+	t_rgb	spacular;
+	t_rgb	combined;
 
 	if (hit.hit == false)
 		return (int_to_rgb(BG_COLOR));
 	amb = compute_amb(hit.color, data->scene.amb_light);
-	defuse = compute_defuse(hit, data);
-	return (rgb(amb.r + defuse.r,
-			amb.g + defuse.g,
-			amb.b + defuse.b));
+	if (is_shadow(hit, data) == true)
+		return rgb(amb.r, amb.g, amb.b);
+	diffuse = compute_defuse(hit, data->scene.light);
+	spacular = compute_spacular(hit, data->scene.light, data->scene.cam);
+	combined = rgb(
+			spacular.r + amb.r + diffuse.r,
+			spacular.g + amb.g + diffuse.g,
+			spacular.b + amb.b + diffuse.b
+			);
+	return combined;
 }
+
