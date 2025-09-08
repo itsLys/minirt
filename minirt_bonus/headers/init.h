@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/06 15:22:30 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/06 15:34:30 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/08 12:06:03 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void		init_light(char *line, t_data *data);
 void		init_plane(char *line, t_data *data);
 void		init_sphere(char *line, t_data *data);
 void		init_cylinder(char *line, t_data *data);
+void		init_cone(char *line, t_data *data);
 void		init_data(t_data *data);
 void		init_offsets(t_vec2	**offsets, t_data *data);
 void		init_cam_rays(t_data *data);

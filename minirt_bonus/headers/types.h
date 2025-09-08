@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:23:27 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/06 16:22:03 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/08 12:05:11 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef enum s_obj_type
 	T_PL,
 	T_CY,
 	T_LS,
+	T_CN
 }	t_obj_type;
 
 typedef enum s_selected_type
@@ -95,6 +96,13 @@ typedef struct s_cy
 	double			r;
 	double			h;
 }	t_cy;
+
+typedef struct s_cn
+{
+    t_vec3    norm;
+    double        angle;
+    double        h;
+}    t_cn;
 
 typedef struct s_obj
 {

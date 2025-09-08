@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   obj_rotate_handler.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 14:53:25 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/06 18:34:38 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/08 12:20:09 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,6 @@ void	handle_obj_rotate(int code, t_obj *obj, t_cam cam)
 		rotate_obj(code, &(((t_cy *)(obj->shape))->norm), cam);
 	else if (obj->type == T_PL)
 		rotate_obj(code, &(((t_pl *)(obj->shape))->norm), cam);
+	else if (obj->type == T_CN)
+		rotate_obj(code, &(((t_cn *)(obj->shape))->norm), cam);
 }

@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:58:29 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/06 16:32:10 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/08 12:10:06 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,31 @@ void	init_cylinder(char *line, t_data *data)
 		line++;
 	if (*line != '\n' && *line != '\0')
 		exit_error(ERR_EXTRA_PARAM, data);
+}
+
+void    init_cone(char *line, t_data *data)
+{
+    t_obj        *obj;
+    t_cn        *cn;
+
+    cn  = malloc(sizeof(t_cn));
+    obj = malloc(sizeof(t_obj));
+    if (obj == NULL || cn == NULL)
+        return free(cn), exit_error(NULL, data);
+    obj->shape = cn;
+    obj->type = T_CN;
+    obj_lst_add(obj, data->scene.obj_list);
+    obj->pos = get_vec3(&line, data);
+    cn->norm = get_vec3(&line, data);
+    if (!is_close(vec3_len(cn->norm), 1.0))
+        exit_error("ERR_CN ERR_NORM_VAL", data);
+    cn->angle = get_double(&line, data)* M_PI / 180.0;
+    cn->h = get_double(&line, data);
+    if (cn->h < 0)
+        exit_error("ERR_CN ERR_HEIGHT_POS", data);
+    obj->color = get_rgb(&line, data);
+    while (ft_isspace(*line))
+        line++;
+    if (*line != '\n' && *line != '\0')
+        exit_error(ERR_EXTRA_PARAM, data);
 }

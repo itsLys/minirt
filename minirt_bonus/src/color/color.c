@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:07:31 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/28 11:17:06 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/09/08 12:17:29 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static t_hit	record_shadow(t_obj *obj, t_ray ray)
 		return (intersect_pl(ray, obj, (t_pl *)(obj->shape)));
 	if (obj->type == T_CY)
 		return (intersect_cy(ray, obj, (t_cy *)(obj->shape)));
+	if (obj->type == T_CN)
+		return (intersect_cn(ray, obj, (t_cn *)(obj->shape)));
 	return ((t_hit){0});
 }
 

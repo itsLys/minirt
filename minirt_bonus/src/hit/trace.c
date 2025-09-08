@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trace.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:01:38 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/31 16:24:38 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/08 12:17:47 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,29 @@ void	check_cy_intersect(t_obj **obj, t_hit *hit, t_ray ray)
 		(*obj) = (*obj)->next;
 	}
 }
+void	check_cn_intersect(t_obj **obj, t_hit *hit, t_ray ray)
+{
+	t_hit	tmp;
+
+	while (*obj && (*obj)->type == T_CN)
+	{
+		tmp = intersect_cn(ray, *obj, (t_cn *)((*obj)->shape));
+		if (tmp.hit && tmp.t < hit->t)
+		{
+			*hit = tmp;
+			hit->color = (*obj)->color;
+			hit->obj = *obj;
+		}
+		(*obj) = (*obj)->next;
+	}
+}
 
 void	record_hit(t_obj **obj, t_hit *hit, t_ray ray)
 {
 	check_sp_intersect(obj, hit, ray);
 	check_pl_intersect(obj, hit, ray);
 	check_cy_intersect(obj, hit, ray);
+	check_cn_intersect(obj, hit, ray);
 }
 
 t_rgb	trace_ray(t_ray ray, t_data *data)

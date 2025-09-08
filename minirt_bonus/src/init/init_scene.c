@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:56:27 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/06 16:25:10 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/08 12:10:37 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int	init_config(char *line, t_data *data)
 		init_sphere(line + 2, data);
 	else if (!ft_strncmp(line, "cy", 2) && ft_isspace(line[i + 2]))
 		init_cylinder(line + 2, data);
+	else if (!ft_strncmp(line, "cn", 2) && ft_isspace(line[i + 2]))
+        init_cone(line + 2, data);
 	else
 		return (exit_error(ERR_PARAM, data), ERROR);
 	return (SUCCESS);

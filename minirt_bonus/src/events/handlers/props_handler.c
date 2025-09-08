@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   props_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 10:07:22 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/30 16:39:41 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/08 12:25:03 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,17 @@ static inline void	handle_cy_props(int code, t_cy *cy)
 	else if (code == XK_n)
 		cy->h = fmax(cy->h - DIAMETER_STEP, 0.0);
 }
+static inline void	handle_cn_props(int code, t_cn *cn)
+{
+	if (code == XK_equal)
+		cn->angle = cn->angle + DIAMETER_STEP;
+	else if (code == XK_minus)
+		cn->angle = fmax(cn->angle - DIAMETER_STEP, 0.0);
+	else if (code == XK_m)
+		cn->h = cn->h + DIAMETER_STEP;
+	else if (code == XK_n)
+		cn->h = fmax(cn->h - DIAMETER_STEP, 0.0);
+}
 
 static inline void	handle_sp_props(int code, t_sp *sp)
 {
@@ -62,6 +73,8 @@ void	handle_props(int code, t_data *data)
 		handle_light_props(code, &(data->scene.light));
 	else if (data->selected.type == T_OBJ && data->selected.obj->type == T_CY)
 		handle_cy_props(code, (t_cy *)(data->selected.obj->shape));
+	else if (data->selected.type == T_OBJ && data->selected.obj->type == T_CN)
+		handle_cn_props(code, (t_cn *)(data->selected.obj->shape));
 	else if (data->selected.type == T_OBJ && data->selected.obj->type == T_SP)
 		handle_sp_props(code, (t_sp *)(data->selected.obj->shape));
 }
