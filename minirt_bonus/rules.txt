@@ -42,24 +42,41 @@ Light:
   - R,G,B: integer values in range [0, 255]
 
 Sphere:
-  Format: sp <x,y,z> <diameter> <R,G,B>
+  Format: sp <x,y,z> <diameter> <R,G,B> <reflectiveness> <shininess>
   - May appear zero or more times.
   - x,y,z: floating-point coordinates of the sphere center
   - diameter: floating-point value
   - R,G,B: integer values in range [0, 255]
+  - reflectiveness: floating-point value in rage [0.0, 1.0]
+  - shininess exponent: integer in the range [0, 200]
 
 Plane:
-  Format: pl <x,y,z> <norm_x,norm_y,norm_z> <R,G,B>
+  Format: pl <x,y,z> <norm_x,norm_y,norm_z> <R,G,B> <reflectiveness> <shininess>
   - May appear zero or more times.
   - x,y,z: floating-point coordinates of a point on the plane
   - norm_x, norm_y, norm_z: floating-point normalized vector components, each in [-1.0, 1.0], magnitude must equal 1
   - R,G,B: integer values in range [0, 255]
+  - reflectiveness: floating-point value in rage [0.0, 1.0]
+  - shininess exponent: integer in the range [0, 200]
 
 Cylinder:
-  Format: cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B>
+  Format: cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B> <reflectiveness> <shininess>
   - May appear zero or more times.
   - x,y,z: floating-point coordinates of the center of the cylinder
   - axis_x, axis_y, axis_z: floating-point normalized vector components, each in [-1.0, 1.0], magnitude must equal 1
   - diameter: floating-point value
   - height: floating-point value
   - R,G,B: integer values in range [0, 255]
+  - reflectiveness: floating-point value in rage [0.0, 1.0]
+  - shininess exponent: integer in the range [0, 200]
+
+Cone:
+  Format: cn <x,y,z> <axis_x,axis_y,axis_z> <angle> <height> <R,G,B> <reflectiveness> <shininess>
+  - May appear zero or more times.
+  - x,y,z: floating-point coordinates of the head of the cone
+  - axis_x, axis_y, axis_z: floating-point normalized vector components, each in [-1.0, 1.0], magnitude must equal 1
+  - angle: floating-point value
+  - height: floating-point value
+  - R,G,B: integer values in range [0, 255]
+  - reflectiveness: floating-point value in rage [0.0, 1.0]
+  - shininess: integer in the range [0, 200]
