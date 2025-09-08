@@ -20,8 +20,8 @@ typedef enum s_obj_type
 	T_SP,
 	T_PL,
 	T_CY,
-	T_LS,
-	T_CN
+	T_CN,
+	T_LS
 }	t_obj_type;
 
 typedef enum s_selected_type
@@ -51,13 +51,12 @@ typedef struct s_rgb
 	double			b;
 }	t_rgb;
 
-typedef struct s_light
+typedef struct s_amb_light
 {
 	bool			on;
 	double			ratio;
 	t_rgb			color;
-	t_vec3			pos;
-}	t_light;
+}	t_amb_light;
 
 typedef struct s_cam_rays
 {
@@ -97,11 +96,16 @@ typedef struct s_cy
 	double			h;
 }	t_cy;
 
+typedef struct s_light
+{
+	double			ratio;
+}	t_light;
+
 typedef struct s_cn
 {
-    t_vec3    norm;
-    double        angle;
-    double        h;
+	t_vec3    norm;
+	double        angle;
+	double        h;
 }    t_cn;
 
 typedef struct s_obj
@@ -115,8 +119,8 @@ typedef struct s_obj
 
 typedef struct s_scene
 {
-	t_light			amb_light;
-	t_light			light;
+	t_amb_light		amb_light;
+	bool			light_on;
 	t_cam			cam;
 	t_cam_rays		rays;
 	t_obj			**obj_list;

@@ -113,3 +113,48 @@ void    init_cone(char *line, t_data *data)
     if (*line != '\n' && *line != '\0')
         exit_error(ERR_EXTRA_PARAM, data);
 }
+
+void    init_light(char *line, t_data *data)
+{
+    t_obj	*obj;
+    t_light	*light;
+
+    light  = malloc(sizeof(t_light));
+    obj = malloc(sizeof(t_obj));
+    if (obj == NULL || light == NULL)
+        return free(light), exit_error(NULL, data);
+    obj->shape = light;
+    obj->type = T_LS;
+    obj_lst_add(obj, data->scene.obj_list);
+    obj->pos = get_vec3(&line, data);
+	light->ratio = get_double(&line, data);
+	obj->color = get_rgb(&line, data);
+	if (light->ratio < 0.0 || light->ratio > 1.0)
+		exit_error(ERR_LIGHT ERR_RATIO, data);
+	data->scene.light_on = true;
+    while (ft_isspace(*line))
+        line++;
+    if (*line != '\n' && *line != '\0')
+        exit_error(ERR_EXTRA_PARAM, data);
+}
+//
+// void	init_light(char *line, t_data *data)
+// {
+// 	double	ratio;
+// 	t_vec3	pos;
+// 	t_rgb	rgb;
+//
+// 	pos = get_vec3(&line, data);
+// 	ratio = get_double(&line, data);
+// 	rgb = get_rgb(&line, data);
+// 	while (ft_isspace(*line))
+// 		line++;
+// 	if (*line != '\n' && *line != '\0')
+// 		exit_error(ERR_EXTRA_PARAM, data);
+// 	if (ratio < 0.0 || ratio > 1.0)
+// 		exit_error(ERR_LIGHT ERR_RATIO, data);
+// 	data->scene.light.on = true;
+// 	data->scene.light.pos = pos;
+// 	data->scene.light.ratio = ratio;
+// 	data->scene.light.color = rgb;
+// }

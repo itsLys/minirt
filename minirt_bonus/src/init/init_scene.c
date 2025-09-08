@@ -32,28 +32,26 @@ void	init_ambient_light(char *line, t_data *data)
 	data->scene.amb_light.color = rgb;
 }
 
-void	init_light(char *line, t_data *data)
-{
-	double	ratio;
-	t_vec3	pos;
-	t_rgb	rgb;
-
-	if (data->scene.light.on == true)
-		exit_error(ERR_LIGHT ERR_MULTI, data);
-	pos = get_vec3(&line, data);
-	ratio = get_double(&line, data);
-	rgb = get_rgb(&line, data);
-	while (ft_isspace(*line))
-		line++;
-	if (*line != '\n' && *line != '\0')
-		exit_error(ERR_EXTRA_PARAM, data);
-	if (ratio < 0.0 || ratio > 1.0)
-		exit_error(ERR_LIGHT ERR_RATIO, data);
-	data->scene.light.on = true;
-	data->scene.light.pos = pos;
-	data->scene.light.ratio = ratio;
-	data->scene.light.color = rgb;
-}
+// void	init_light(char *line, t_data *data)
+// {
+// 	double	ratio;
+// 	t_vec3	pos;
+// 	t_rgb	rgb;
+//
+// 	pos = get_vec3(&line, data);
+// 	ratio = get_double(&line, data);
+// 	rgb = get_rgb(&line, data);
+// 	while (ft_isspace(*line))
+// 		line++;
+// 	if (*line != '\n' && *line != '\0')
+// 		exit_error(ERR_EXTRA_PARAM, data);
+// 	if (ratio < 0.0 || ratio > 1.0)
+// 		exit_error(ERR_LIGHT ERR_RATIO, data);
+// 	data->scene.light.on = true;
+// 	data->scene.light.pos = pos;
+// 	data->scene.light.ratio = ratio;
+// 	data->scene.light.color = rgb;
+// }
 
 void	init_camera(char *line, t_data *data)
 {
@@ -89,7 +87,7 @@ int	init_config(char *line, t_data *data)
 		init_ambient_light(line + 1, data);
 	else if (line[i] == 'C' && ft_isspace(line[i + 1]))
 		init_camera(line + 1, data);
-	else if (line[i] == 'L' && ft_isspace(line[i + 1]))
+	else if (line[i] == 'l' && ft_isspace(line[i + 1]))
 		init_light(line + 1, data);
 	else if (!ft_strncmp(line, "pl", 2) && ft_isspace(line[i + 2]))
 		init_plane(line + 2, data);
@@ -113,6 +111,6 @@ void	init_data(t_data *data)
 	data->scene.rays.dirs = NULL;
 	data->selected.type = T_CAM;
 	data->scene.amb_light.on = false;
-	data->scene.light.on = false;
+	data->scene.light_on = false;
 	data->scene.cam.on = false;
 }

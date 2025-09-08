@@ -25,7 +25,7 @@ static t_hit	record_shadow(t_obj *obj, t_ray ray)
 	return ((t_hit){0});
 }
 
-static bool	is_shadow(t_hit hit, t_data *data)
+static bool	is_shadow(t_hit hit, t_obj *light, t_data *data)
 {
 	t_hit	tmp;
 	t_obj	*obj;
@@ -33,7 +33,7 @@ static bool	is_shadow(t_hit hit, t_data *data)
 	double	light_distance;
 
 	ray.orign = hit.point;
-	ray.dir = vec3_subtract(data->scene.light.pos, hit.point);
+	ray.dir = vec3_subtract(light->pos, hit.point);
 	light_distance = vec3_len(ray.dir);
 	ray.dir = vec3_norm(ray.dir);
 	obj = *(data->scene.obj_list);
@@ -47,7 +47,7 @@ static bool	is_shadow(t_hit hit, t_data *data)
 	return (false);
 }
 
-static inline t_rgb	compute_amb(t_rgb obj, t_light amb)
+static inline t_rgb	compute_amb(t_rgb obj, t_amb_light amb)
 {
 	t_rgb color;
 
@@ -56,21 +56,21 @@ static inline t_rgb	compute_amb(t_rgb obj, t_light amb)
 	color.b = 0.75 * amb.ratio * amb.color.b * obj.b;
 	return (color);
 }
-static t_rgb	compute_defuse(t_hit hit, t_light source)
+static t_rgb	compute_defuse(t_hit hit, t_obj *light_obj, t_light *light)
 {
 	t_rgb color;
 	t_vec3 light_dir;
 	double	angle;
 
-	light_dir = vec3_norm(vec3_subtract(source.pos, hit.point));
+	light_dir = vec3_norm(vec3_subtract(light_obj->pos, hit.point));
 	angle = fmax(0, vec3_dot(hit.normal, light_dir));
-	color.r = angle * source.ratio * source.color.r * hit.color.r;
-	color.g = angle * source.ratio * source.color.g * hit.color.g;
-	color.b = angle * source.ratio * source.color.b * hit.color.b;
+	color.r = angle * light->ratio * light_obj->color.r * hit.color.r;
+	color.g = angle * light->ratio * light_obj->color.g * hit.color.g;
+	color.b = angle * light->ratio * light_obj->color.b * hit.color.b;
 	return (color);
 }
 
-static t_rgb compute_spacular(t_hit hit, t_light source, t_cam cam)
+static t_rgb compute_spacular(t_hit hit, t_obj *l_obj, t_light *light, t_cam cam)
 {
 	t_rgb color;
 	t_vec3 ref_vec;
@@ -78,36 +78,53 @@ static t_rgb compute_spacular(t_hit hit, t_light source, t_cam cam)
 	double	angle;
 	double	shininess;
 
-	light_dir = vec3_norm(vec3_subtract(source.pos, hit.point));
+	light_dir = vec3_norm(vec3_subtract(l_obj->pos, hit.point));
 	ref_vec = vec3_scale(2 * vec3_dot(hit.normal, light_dir), hit.normal);
 	ref_vec = vec3_subtract(ref_vec, light_dir);
 	angle = fmax(0, vec3_dot(ref_vec, vec3_norm(vec3_subtract(cam.pos, hit.point))));
-	shininess = pow(angle, 20);
-	color.r = shininess * source.ratio * source.color.r;
-	color.g = shininess * source.ratio * source.color.g;
-	color.b = shininess * source.ratio * source.color.b;
+	shininess = pow(angle, l_obj->shininess);
+	color.r = l_obj->reflect * shininess * light->ratio * l_obj->color.r;
+	color.g = l_obj->reflect * shininess * light->ratio * l_obj->color.g;
+	color.b = l_obj->reflect * shininess * light->ratio * l_obj->color.b;
 	return color;
+}
+
+t_rgb compute_light(t_hit hit, t_obj *l_obj, t_light *light, t_data *data)
+{
+	t_rgb	diffuse;
+	t_rgb	spacular;
+	if (is_shadow(hit, data) == true)
+		return rgb(amb.r, amb.g, amb.b);
+	diffuse = compute_defuse(hit, data->scene.light);
+	spacular = compute_spacular(hit, data->scene.light, data->scene.cam);
 }
 
 t_rgb	compute_color(t_hit hit, t_data *data)
 {
 	t_rgb	amb;
-	t_rgb	diffuse;
-	t_rgb	spacular;
 	t_rgb	combined;
+	t_rgb	light;
+	t_rgb	sum;
+	t_obj	*obj;
 
 	if (hit.hit == false)
 		return (int_to_rgb(BG_COLOR));
 	amb = compute_amb(hit.color, data->scene.amb_light);
-	if (is_shadow(hit, data) == true)
-		return rgb(amb.r, amb.g, amb.b);
-	diffuse = compute_defuse(hit, data->scene.light);
-	spacular = compute_spacular(hit, data->scene.light, data->scene.cam);
-	combined = rgb(
-			spacular.r + amb.r + diffuse.r,
-			spacular.g + amb.g + diffuse.g,
-			spacular.b + amb.b + diffuse.b
-			);
+	obj = *(data->scene.obj_list);
+	sum = (t_rgb) {0, 0, 0};
+	while (obj)
+	{
+		if (obj && obj->type == T_LS)
+		{
+			light = compute_light(hit, obj, (t_light *)(obj->shape), data);
+			sum.r += light.r;
+			sum.g += light.g;
+			sum.b += light.b;
+		}
+		while (obj && obj->type != T_LS)
+			obj = obj->next;
+	}
+	combined = rgb(light.r + amb.r, light.g + amb.g, light.b + amb.b);
 	return combined;
 }
 
