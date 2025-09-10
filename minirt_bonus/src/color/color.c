@@ -78,14 +78,21 @@ static t_rgb compute_spacular(t_hit hit, t_obj *l_obj, t_light *light, t_cam cam
 	double	angle;
 	double	shininess;
 
+	// printf("type?:	");
+	// print_obj_type(hit.obj);
+	// print_vec3(hit.obj->pos);
+	// printf("\n");
+	// printf("shine:	%d\n", hit.obj->shine);
+	// printf("ref:	%lf\n", hit.obj->reflect);
 	light_dir = vec3_norm(vec3_subtract(l_obj->pos, hit.point));
 	ref_vec = vec3_scale(2 * vec3_dot(hit.normal, light_dir), hit.normal);
 	ref_vec = vec3_subtract(ref_vec, light_dir);
 	angle = fmax(0, vec3_dot(ref_vec, vec3_norm(vec3_subtract(cam.pos, hit.point))));
-	shininess = pow(angle, l_obj->shininess);
-	color.r = l_obj->reflect * shininess * light->ratio * l_obj->color.r;
-	color.g = l_obj->reflect * shininess * light->ratio * l_obj->color.g;
-	color.b = l_obj->reflect * shininess * light->ratio * l_obj->color.b;
+	shininess = pow(angle, hit.obj->shine);
+	// shininess = pow(angle, 25);
+	color.r = hit.obj->reflect * shininess * light->ratio * l_obj->color.r;
+	color.g = hit.obj->reflect * shininess * light->ratio * l_obj->color.g;
+	color.b = hit.obj->reflect * shininess * light->ratio * l_obj->color.b;
 	return color;
 }
 
@@ -93,10 +100,18 @@ t_rgb compute_light(t_hit hit, t_obj *l_obj, t_light *light, t_data *data)
 {
 	t_rgb	diffuse;
 	t_rgb	spacular;
-	if (is_shadow(hit, data) == true)
-		return rgb(amb.r, amb.g, amb.b);
-	diffuse = compute_defuse(hit, data->scene.light);
-	spacular = compute_spacular(hit, data->scene.light, data->scene.cam);
+	t_rgb	color;
+	// t_rgb 	amb;
+	//
+	// amb = data->scene.amb_light.color;
+	if (is_shadow(hit, l_obj, data) == true)
+		return rgb(0, 0, 0);
+	diffuse = compute_defuse(hit, l_obj, light);
+	spacular = compute_spacular(hit, l_obj, light, data->scene.cam);
+	color.r = diffuse.r + spacular.r;
+	color.g = diffuse.g + spacular.g;
+	color.b = diffuse.b + spacular.b;
+	return color;
 }
 
 t_rgb	compute_color(t_hit hit, t_data *data)
@@ -109,6 +124,12 @@ t_rgb	compute_color(t_hit hit, t_data *data)
 
 	if (hit.hit == false)
 		return (int_to_rgb(BG_COLOR));
+	// printf("%p\n", hit.obj);
+	// printf("type?:	");
+	// print_obj_type(hit.obj);
+	// printf("shine:	%d\n", hit.obj->shine);
+	// printf("ref:	%lf\n", hit.obj->reflect);
+	// exit(3321);
 	amb = compute_amb(hit.color, data->scene.amb_light);
 	obj = *(data->scene.obj_list);
 	sum = (t_rgb) {0, 0, 0};
@@ -121,10 +142,9 @@ t_rgb	compute_color(t_hit hit, t_data *data)
 			sum.g += light.g;
 			sum.b += light.b;
 		}
-		while (obj && obj->type != T_LS)
-			obj = obj->next;
+		obj = obj->next;
 	}
-	combined = rgb(light.r + amb.r, light.g + amb.g, light.b + amb.b);
+	combined = rgb(sum.r + amb.r, sum.g + amb.g, sum.b + amb.b);
 	return combined;
 }
 

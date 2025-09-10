@@ -19,6 +19,7 @@
 # define ERR_CY "Cylinder: "
 # define ERR_SP "Sphere: "
 # define ERR_PL "Plane: "
+# define ERR_CN "Cone: "
 # define ERR_LIGHT "Light: "
 # define ERR_PARAM "Wrong parameter field\n"
 
@@ -34,8 +35,9 @@
 # define ERR_EXTRA_PARAM "Unrecognized parameter!\n"
 # define ERR_MULTI "Can only be declared once!\n"
 # define ERR_NOT_FOUND "Parameter not found!\n"
+# define ERR_WRONG_REF "Wrong reflectivness\n"
+# define ERR_WRONG_SHINE "Wrong shininess\n"
 
-// ERR USAGE
 # define ERR_USAGE " \
 	`./minirt -h` for help\n \
 	A <ratio> <R,G,B>\n \

@@ -36,7 +36,7 @@ void	handle_obj_move(int code, t_data *data)
 		data->scene.rays.orig = data->scene.cam.pos;
 	}
 	else if (data->selected.type == T_LIGHT)
-		handle_translate(code, &(data->scene.light.pos), data->scene.cam);
+		handle_translate(code, &(data->selected.light->pos), data->scene.cam);
 	else if (data->selected.type == T_OBJ)
 		handle_translate(code, &(data->selected.obj->pos), data->scene.cam);
 }

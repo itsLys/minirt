@@ -36,7 +36,7 @@ void	print_scene_params(t_scene scene)
 			count_obj(obj, T_SP) + count_obj(obj, T_PL) + count_obj(obj, T_CY));
 }
 
-void	print_amb_light(t_light amb_light)
+void	print_amb_light(t_amb_light amb_light)
 {
 	printf("------------------------------------------\n");
 	printf("[Ambient Light]\n");
@@ -61,18 +61,6 @@ void	print_camera(t_cam cam)
 			cam.forward.y,
 			cam.forward.z);
 	printf("FOV:		%.2lf°\n", cam.fov);
-	printf("\n");
-}
-
-void	print_light(t_light light)
-{
-	printf("------------------------------------------\n");
-	printf("[Light]\n");
-	printf("Color:	(%d, %d, %d)\n",
-			(int)(light.color.r * 255.999),
-			(int)(light.color.g * 255.999),
-			(int)(light.color.b * 255.999));
-	printf("Ratio:	%.2lf\n", light.ratio);
 	printf("\n");
 }
 
@@ -132,6 +120,19 @@ void	print_cy(t_obj *obj)
 	printf("\n");
 }
 
+
+void	print_light(t_obj *obj)
+{
+	t_light	*light;
+
+	printf("------------------------------------------\n");
+	printf("[Light]\n");
+	light = (t_light *)(obj->shape);
+	print_obj_common(obj);
+	printf("Ratio:			%.2lf\n", light->ratio);
+	printf("\n");
+}
+
 void	print_objects(t_obj *obj)
 {
 	while (obj)
@@ -142,6 +143,8 @@ void	print_objects(t_obj *obj)
 			print_cy(obj);
 		else if (obj->type == T_SP)
 			print_sp(obj);
+		else if (obj->type == T_LS)
+			print_light(obj);
 		obj = obj->next;
 	}
 }
@@ -154,7 +157,6 @@ void	print_scene(t_data *data)
 	print_scene_params(scene);
 	print_amb_light(scene.amb_light);
 	print_camera(scene.cam);
-	print_light(scene.light);
 	print_objects(*scene.obj_list);
 }
 
@@ -175,6 +177,26 @@ void	print_vec3(t_vec3 vec)
 {
 	printf("vec:		(%lf, %lf, %lf)\n", vec.x, vec.y, vec.z);
 }
+
+void	print_obj_type(t_obj *obj)
+{
+	if (obj == NULL)
+	{
+		printf("DOESN'T EXIST\n");
+		return;
+	}
+	if (obj->type == T_SP)
+		printf("SPHERE\n");
+	else if (obj->type == T_PL)
+		printf("PLANE\n");
+	else if (obj->type == T_CY)
+		printf("CYLINDER\n");
+	else if (obj->type == T_CN)
+		printf("CONE\n");
+	else if (obj->type == T_LS)
+		printf("LIGHT\n");
+}
+
 
 // ======== MINI RT SCENE PARAMETERS ========
 // Object Count:   6

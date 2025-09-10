@@ -108,9 +108,10 @@ void	init_data(t_data *data)
 	data->img.img_ptr = NULL;
 	data->win = NULL;
 	data->offsets = NULL;
+	data->selected.light = NULL;
 	data->scene.rays.dirs = NULL;
-	data->selected.type = T_CAM;
 	data->scene.amb_light.on = false;
 	data->scene.light_on = false;
 	data->scene.cam.on = false;
+	data->selected.type = T_CAM;
 }

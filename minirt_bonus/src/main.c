@@ -58,7 +58,7 @@ int	main(int ac, char **av)
 		exit_error(ERR_CAM ERR_NOT_FOUND, &data);
 	if (data.scene.amb_light.on == false)
 		exit_error(ERR_AMB_LIGHT ERR_NOT_FOUND, &data);
-	if (data.scene.light.on == false)
+	if (data.scene.light_on == false)
 		exit_error(ERR_LIGHT ERR_NOT_FOUND, &data);
 	sort_objects(data.scene.obj_list);
 	print_scene(&data);

@@ -81,6 +81,8 @@ void	check_cn_intersect(t_obj **obj, t_hit *hit, t_ray ray)
 
 void	record_hit(t_obj **obj, t_hit *hit, t_ray ray)
 {
+	while (*obj && (*obj)->type == T_LS)
+		(*obj) = (*obj)->next;
 	check_sp_intersect(obj, hit, ray);
 	check_pl_intersect(obj, hit, ray);
 	check_cy_intersect(obj, hit, ray);

@@ -47,14 +47,20 @@ void	swap_nodes(t_obj **n1, t_obj **n2)
 	tmp.type = (*n1)->type;
 	tmp.pos = (*n1)->pos;
 	tmp.color = (*n1)->color;
+	tmp.reflect = (*n1)->reflect;
+	tmp.shine = (*n1)->shine;
 	tmp.shape = (*n1)->shape;
 	(*n1)->type = (*n2)->type;
 	(*n1)->pos = (*n2)->pos;
 	(*n1)->color = (*n2)->color;
+	(*n1)->reflect = (*n2)->reflect;
+	(*n1)->shine = (*n2)->shine;
 	(*n1)->shape = (*n2)->shape;
 	(*n2)->type = tmp.type;
 	(*n2)->pos = tmp.pos;
 	(*n2)->color = tmp.color;
+	(*n2)->reflect = tmp.reflect;
+	(*n2)->shine = tmp.shine;
 	(*n2)->shape = tmp.shape;
 }
 

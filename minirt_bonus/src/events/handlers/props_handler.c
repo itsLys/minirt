@@ -70,7 +70,7 @@ void	handle_props(int code, t_data *data)
 		set_offsets(&(data->offsets), data);
 	}
 	else if (data->selected.type == T_LIGHT)
-		handle_light_props(code, &(data->scene.light));
+		handle_light_props(code, (t_light *)(data->selected.light->shape));
 	else if (data->selected.type == T_OBJ && data->selected.obj->type == T_CY)
 		handle_cy_props(code, (t_cy *)(data->selected.obj->shape));
 	else if (data->selected.type == T_OBJ && data->selected.obj->type == T_CN)

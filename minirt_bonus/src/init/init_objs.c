@@ -12,6 +12,26 @@
 
 #include "minirt.h"
 
+void	skip_trailing(char *line, t_data *data)
+{
+	while (ft_isspace(*line))
+		line++;
+	if (*line != '\n' && *line != '\0')
+		exit_error(ERR_EXTRA_PARAM, data);
+}
+
+void	get_surface_props(t_obj *obj, char *line, t_data *data)
+{
+	obj->color = get_rgb(&line, data);
+	obj->reflect = get_double(&line, data);
+	obj->shine = get_integer(&line, data);
+	if (obj->reflect < 0.0 || obj->reflect > 1.0)
+		exit_error(ERR_CY ERR_WRONG_REF, data);
+	if (obj->shine < 0 || obj->shine > 200)
+		exit_error(ERR_CY ERR_WRONG_SHINE, data);
+	skip_trailing(line, data);
+}
+
 void	init_plane(char *line, t_data *data)
 {
 	t_obj	*obj;
@@ -28,11 +48,14 @@ void	init_plane(char *line, t_data *data)
 	pl->norm = get_vec3(&line, data);
 	if (vec3_len(pl->norm) != 1)
 		exit_error(ERR_PL ERR_NORM_VAL, data);
-	obj->color = get_rgb(&line, data);
-	while (ft_isspace(*line))
-		line++;
-	if (*line != '\n' && *line != '\0')
-		exit_error(ERR_EXTRA_PARAM, data);
+	// obj->color = get_rgb(&line, data);
+	// obj->reflect = get_double(&line, data);
+	// obj->shine = get_integer(&line, data);
+	// if (obj->reflect < 0.0 || obj->reflect > 1.0)
+	// 	exit_error(ERR_PL ERR_WRONG_REF, data);
+	// if (obj->shine < 0 || obj->shine > 200)
+	// 	exit_error(ERR_PL ERR_WRONG_SHINE, data);
+	get_surface_props(obj, line, data);
 }
 
 void	init_sphere(char *line, t_data *data)
@@ -52,11 +75,7 @@ void	init_sphere(char *line, t_data *data)
 	if (sp->d < 0)
 		exit_error(ERR_SP ERR_DIAM_POS, data);
 	sp->r = sp->d / 2.0;
-	obj->color = get_rgb(&line, data);
-	while (ft_isspace(*line))
-		line++;
-	if (*line != '\n' && *line != '\0')
-		exit_error(ERR_EXTRA_PARAM, data);
+	get_surface_props(obj, line, data);
 }
 
 void	init_cylinder(char *line, t_data *data)
@@ -80,11 +99,7 @@ void	init_cylinder(char *line, t_data *data)
 		exit_error(ERR_CY ERR_DIAM_POS, data);
 	cy->r = cy->d / 2.0;
 	cy->h = get_double(&line, data);
-	obj->color = get_rgb(&line, data);
-	while (ft_isspace(*line))
-		line++;
-	if (*line != '\n' && *line != '\0')
-		exit_error(ERR_EXTRA_PARAM, data);
+	get_surface_props(obj, line, data);
 }
 
 void    init_cone(char *line, t_data *data)
@@ -106,12 +121,8 @@ void    init_cone(char *line, t_data *data)
     cn->angle = get_double(&line, data)* M_PI / 180.0;
     cn->h = get_double(&line, data);
     if (cn->h < 0)
-        exit_error("ERR_CN ERR_HEIGHT_POS", data);
-    obj->color = get_rgb(&line, data);
-    while (ft_isspace(*line))
-        line++;
-    if (*line != '\n' && *line != '\0')
-        exit_error(ERR_EXTRA_PARAM, data);
+		exit_error("ERR_CN ERR_HEIGHT_POS", data);
+	get_surface_props(obj, line, data);
 }
 
 void    init_light(char *line, t_data *data)
@@ -132,29 +143,5 @@ void    init_light(char *line, t_data *data)
 	if (light->ratio < 0.0 || light->ratio > 1.0)
 		exit_error(ERR_LIGHT ERR_RATIO, data);
 	data->scene.light_on = true;
-    while (ft_isspace(*line))
-        line++;
-    if (*line != '\n' && *line != '\0')
-        exit_error(ERR_EXTRA_PARAM, data);
+	skip_trailing(line, data);
 }
-//
-// void	init_light(char *line, t_data *data)
-// {
-// 	double	ratio;
-// 	t_vec3	pos;
-// 	t_rgb	rgb;
-//
-// 	pos = get_vec3(&line, data);
-// 	ratio = get_double(&line, data);
-// 	rgb = get_rgb(&line, data);
-// 	while (ft_isspace(*line))
-// 		line++;
-// 	if (*line != '\n' && *line != '\0')
-// 		exit_error(ERR_EXTRA_PARAM, data);
-// 	if (ratio < 0.0 || ratio > 1.0)
-// 		exit_error(ERR_LIGHT ERR_RATIO, data);
-// 	data->scene.light.on = true;
-// 	data->scene.light.pos = pos;
-// 	data->scene.light.ratio = ratio;
-// 	data->scene.light.color = rgb;
-// }

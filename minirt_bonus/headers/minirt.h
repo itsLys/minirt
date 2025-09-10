@@ -41,6 +41,7 @@
 void		print_scene(t_data *data);
 void		print_ray(int x, int y, t_ray ray);
 void		print_vec3(t_vec3 vec);
+void	print_obj_type(t_obj *obj);
 // BUG: END
 
 #endif

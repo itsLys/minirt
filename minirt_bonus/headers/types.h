@@ -17,11 +17,11 @@
 
 typedef enum s_obj_type
 {
+	T_LS,
 	T_SP,
 	T_PL,
 	T_CY,
-	T_CN,
-	T_LS
+	T_CN
 }	t_obj_type;
 
 typedef enum s_selected_type
@@ -113,6 +113,8 @@ typedef struct s_obj
 	t_obj_type		type;
 	t_vec3			pos;
 	t_rgb			color;
+	double			reflect;
+	int				shine;
 	void			*shape;
 	struct s_obj	*next;
 }	t_obj;
@@ -155,6 +157,7 @@ typedef struct s_selected
 {
 	t_selected_type	type;
 	t_obj			*obj;
+	t_obj			*light;
 }	t_selected;
 
 typedef struct s_img
