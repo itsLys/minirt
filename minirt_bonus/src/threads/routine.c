@@ -1,20 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   loop.c                                             :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/14 15:58:33 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/10 15:57:28 by ihajji           ###   ########.fr       */
+/*   Created: 2025/09/10 15:18:04 by ihajji            #+#    #+#             */
+/*   Updated: 2025/09/10 15:21:00 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	render_img(t_data *data)
-{
-	// draw_image(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->img.img_ptr, 0, 0);
-	return (0);
-}
+

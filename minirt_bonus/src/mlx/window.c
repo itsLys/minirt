@@ -25,6 +25,7 @@ void	init_mlx(t_data *data)
 		exit_error(NULL, data);
 	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
+	init_threads(data);
 }
 
 void	destroy_mlx(t_data *data)

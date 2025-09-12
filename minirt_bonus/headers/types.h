@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:23:27 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/08 12:05:11 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/09/10 15:54:16 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define TYPES_H
 
 # include <stdbool.h>
+# include <pthread.h>
 
 typedef enum s_obj_type
 {
@@ -169,7 +170,24 @@ typedef struct s_img
 	int				endian;
 }	t_img;
 
-typedef struct s_data
+typedef struct s_data t_data ;
+
+typedef struct s_int_vec2 
+{
+	int	x;
+	int	y;
+}	t_int_vec2 ;
+
+typedef struct s_worker 
+{
+	pthread_t	tid;
+	int			number;
+	t_int_vec2	start;
+	t_int_vec2	end;
+	t_data		*data;
+}	t_worker ;
+
+struct s_data
 {
 	t_selected		selected;
 	t_scene			scene;
@@ -177,6 +195,7 @@ typedef struct s_data
 	void			*mlx;
 	void			*win;
 	t_img			img;
-}	t_data;
+	t_worker		*workers;
+};
 
 #endif // !TYPES_H

@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include <stdint.h>
 # include <math.h>
+# include <pthread.h>
 
 # include "constants.h"
 # include "error.h"
@@ -43,5 +44,6 @@ void		print_ray(int x, int y, t_ray ray);
 void		print_vec3(t_vec3 vec);
 void	print_obj_type(t_obj *obj);
 // BUG: END
+void	init_threads(t_data *data);
 
 #endif

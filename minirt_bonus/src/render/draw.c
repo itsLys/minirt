@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:00:53 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/06 16:33:43 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/10 16:28:41 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static inline void	img_put_pixel(t_data *data, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-void	draw_image(t_data *data)
+void	draw_image(t_worker *worker)
 {
 	int			i;
 	int			j;
@@ -30,17 +30,20 @@ void	draw_image(t_data *data)
 	t_ray		ray;
 	t_rgb		color;
 
-	rays = data->scene.rays;
-	i = 0;
-	while (i < WIDTH)
+	rays = worker->data->scene.rays;
+	i = worker->start.x;
+	// printf("worker, start,x %d %d\n", worker->number, i);
+	while (i < worker->end.x)
 	{
-		j = 0;
-		while (j < HEIGHT)
+		j = worker->start.y;
+		// printf("worker, start,y %d %d\n", worker->number, j);
+		// exit(321);
+		while (j < worker->end.y)
 		{
 			ray.dir = rays.dirs[i][j];
 			ray.orign = rays.orig;
-			color = trace_ray(ray, data);
-			img_put_pixel(data, i, j, rgb_to_int(color));
+			color = trace_ray(ray, worker->data);
+			img_put_pixel(worker->data, i, j, rgb_to_int(color));
 			j++;
 		}
 		i++;

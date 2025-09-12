@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:09:09 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/06 16:17:03 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/10 15:51:30 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	clean_exit(t_data *data, int status)
 {
 	destroy_mlx(data);
 	free(data->mlx);
+	// join_threads;
+	free(data->workers);
 	obj_lst_free(data->scene.obj_list);
 	if (data->scene.rays.dirs)
 		destroy_cam_rays(data->scene.rays);
