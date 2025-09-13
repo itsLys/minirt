@@ -15,6 +15,8 @@
 int	render_img(t_data *data)
 {
 	// draw_image(data);
+	init_threads(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img_ptr, 0, 0);
+	join_threads(data);
 	return (0);
 }

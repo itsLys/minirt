@@ -45,5 +45,7 @@ void		print_vec3(t_vec3 vec);
 void	print_obj_type(t_obj *obj);
 // BUG: END
 void	init_threads(t_data *data);
+void	join_threads(t_data *data);
+void	set_worker_bounds(t_worker *worker);
 
 #endif

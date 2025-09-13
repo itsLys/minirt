@@ -96,10 +96,26 @@ int	init_config(char *line, t_data *data)
 	else if (!ft_strncmp(line, "cy", 2) && ft_isspace(line[i + 2]))
 		init_cylinder(line + 2, data);
 	else if (!ft_strncmp(line, "cn", 2) && ft_isspace(line[i + 2]))
-        init_cone(line + 2, data);
+		init_cone(line + 2, data);
 	else
 		return (exit_error(ERR_PARAM, data), ERROR);
 	return (SUCCESS);
+}
+
+#define SPLIT 2
+
+void	init_workers(t_data *data)
+{
+	int i;
+
+	i = 0;
+	while (i < SPLIT * SPLIT)
+	{
+		data->workers[i].number = i;
+		data->workers[i].data = data;
+		set_worker_bounds(data->workers + i);
+		i++;
+	}
 }
 
 void	init_data(t_data *data)
@@ -114,4 +130,8 @@ void	init_data(t_data *data)
 	data->scene.light_on = false;
 	data->scene.cam.on = false;
 	data->selected.type = T_CAM;
+	data->workers = malloc(sizeof(t_worker) * SPLIT * SPLIT);
+	if (data->workers == NULL)
+		exit_error(NULL, data);
+	init_workers(data);
 }
