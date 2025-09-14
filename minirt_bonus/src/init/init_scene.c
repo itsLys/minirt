@@ -104,16 +104,17 @@ int	init_config(char *line, t_data *data)
 
 #define SPLIT 2
 
-void	init_workers(t_data *data)
+void	init_workers(t_worker *worker, t_data *data, void (*func)(t_worker *))
 {
 	int i;
 
 	i = 0;
 	while (i < SPLIT * SPLIT)
 	{
-		data->workers[i].number = i;
-		data->workers[i].data = data;
-		set_worker_bounds(data->workers + i);
+		worker[i].number = i;
+		worker[i].data = data;
+		worker[i].function = func;
+		set_worker_bounds(worker + i);
 		i++;
 	}
 }
@@ -130,8 +131,10 @@ void	init_data(t_data *data)
 	data->scene.light_on = false;
 	data->scene.cam.on = false;
 	data->selected.type = T_CAM;
-	data->workers = malloc(sizeof(t_worker) * SPLIT * SPLIT);
-	if (data->workers == NULL)
+	data->render_workers = malloc(sizeof(t_worker) * SPLIT * SPLIT);
+	data->mapping_workers = malloc(sizeof(t_worker) * SPLIT * SPLIT);
+	if (data->render_workers == NULL || data->mapping_workers == NULL)
 		exit_error(NULL, data);
-	init_workers(data);
+	init_workers(data->mapping_workers, data, set_directions);
+	init_workers(data->render_workers, data, draw_image);
 }

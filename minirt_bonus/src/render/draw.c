@@ -26,11 +26,11 @@ void	draw_image(t_worker *worker)
 {
 	int			i;
 	int			j;
-	t_cam_rays	rays;
+	// t_cam_rays	rays;
 	t_ray		ray;
 	t_rgb		color;
 
-	rays = worker->data->scene.rays;
+	// rays = worker->data->scene.rays;
 	i = worker->start.x;
 	// printf("worker, start,x %d %d\n", worker->number, i);
 	while (i < worker->end.x)
@@ -40,8 +40,9 @@ void	draw_image(t_worker *worker)
 		// exit(321);
 		while (j < worker->end.y)
 		{
-			ray.dir = rays.dirs[i][j];
-			ray.orign = rays.orig;
+			// ray.dir = rays.dirs[i][j];
+			// ray.orign = rays.orig;
+			ray = map_pixel(i, j, worker->data);
 			color = trace_ray(ray, worker->data);
 			img_put_pixel(worker->data, i, j, rgb_to_int(color));
 			j++;

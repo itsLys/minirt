@@ -184,6 +184,7 @@ typedef struct s_worker
 	int			number;
 	t_int_vec2	start;
 	t_int_vec2	end;
+	void		(*function)(struct s_worker *);
 	t_data		*data;
 }	t_worker ;
 
@@ -195,7 +196,8 @@ struct s_data
 	void			*mlx;
 	void			*win;
 	t_img			img;
-	t_worker		*workers;
+	t_worker		*render_workers; // FREE AT END
+	t_worker		*mapping_workers; // FREE AT END
 };
 
 #endif // !TYPES_H

@@ -41,23 +41,32 @@ t_cam_rays	init_mem(t_data *data)
 	return (rays);
 }
 
-void	set_directions(t_cam_rays *rays, t_data *data)
+void	set_directions(t_worker *worker)
 {
 	int	i;
 	int	j;
+	t_data *data;
 
-	i = 0;
-	while (i < WIDTH)
+	data = worker->data;
+	i = worker->start.x;
+	while (i < worker->end.x)
 	{
-		j = 0;
-		while (j < HEIGHT)
+		j = worker->start.y;
+		while (j < worker->end.y)
 		{
-			rays->dirs[i][j] = map_pixel(i, j, data).dir;
+			data->scene.rays.dirs[i][j] = map_pixel(i, j, data).dir;
 			j++;
 		}
 		i++;
 	}
 }
+
+void	init_mapping_workers(t_data *data)
+{
+	init_threads(data->mapping_workers);
+	join_threads(data->mapping_workers);
+}
+
 
 void	init_cam_rays(t_data *data)
 {
@@ -65,6 +74,7 @@ void	init_cam_rays(t_data *data)
 
 	rays = init_mem(data);
 	rays.orig = data->scene.cam.pos;
-	set_directions(&rays, data);
+	data->scene.rays = rays;
+	init_mapping_workers(data);
 	data->scene.rays = rays;
 }

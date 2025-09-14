@@ -33,37 +33,33 @@ void	set_worker_bounds(t_worker *worker)
 
 void	*routine(void *arg)
 {
-	// t_data *data;
 	t_worker *worker;
-
 	worker = (t_worker *) arg;
-	// data = worker->data;
-	set_worker_bounds(worker);
-	draw_image(worker);
+	worker->function(worker);
 	return NULL;
 }
 
-void	init_threads(t_data *data)
+void	init_threads(t_worker *worker)
 {
 	int i;
 
 	i = 0;
 	while (i < SPLIT * SPLIT)
 	{
-		if (pthread_create(&(data->workers[i].tid), NULL, routine, data->workers + i))
-			exit_error(NULL, data);
+		if (pthread_create(&(worker[i].tid), NULL, routine, worker + i))
+			exit_error(NULL, worker->data);
 		i++;
 	}
 }
 
-void	join_threads(t_data *data)
+void	join_threads(t_worker *worker)
 {
 	int	i;
 
 	i = 0;
 	while (i < SPLIT * SPLIT)
 	{
-		pthread_join(data->workers[i].tid, NULL);
+		pthread_join(worker[i].tid, NULL);
 		i++;
 	}
 }

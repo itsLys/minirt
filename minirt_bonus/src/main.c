@@ -17,7 +17,8 @@ int	clean_exit(t_data *data, int status)
 	destroy_mlx(data);
 	free(data->mlx);
 	// join_threads;
-	free(data->workers);
+	free(data->mapping_workers);
+	free(data->render_workers);
 	obj_lst_free(data->scene.obj_list);
 	if (data->scene.rays.dirs)
 		destroy_cam_rays(data->scene.rays);

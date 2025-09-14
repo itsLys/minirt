@@ -44,8 +44,9 @@ void		print_ray(int x, int y, t_ray ray);
 void		print_vec3(t_vec3 vec);
 void	print_obj_type(t_obj *obj);
 // BUG: END
-void	init_threads(t_data *data);
-void	join_threads(t_data *data);
+void	init_threads(t_worker *worker);
+void	join_threads(t_worker *worker);
 void	set_worker_bounds(t_worker *worker);
+void	init_mapping_workers(t_data *data);
 
 #endif
