@@ -83,5 +83,7 @@ int	handle_keypress(int code, t_data *data)
 	else if (code == XK_d || code == XK_a || code == XK_w || code == XK_s
 			|| code == XK_q || code == XK_e)
 		handle_rotation(code, data);
+	else if (code == XK_p)
+		print_scene(data);
 	return (0);
 }

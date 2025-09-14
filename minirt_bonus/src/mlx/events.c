@@ -26,6 +26,5 @@ void	setup_mlx(t_data *data)
 	mlx_hook(data->win, KeyPress, KeyPressMask, &handle_keypress, data);
 	mlx_hook(data->win, ButtonPress, ButtonPressMask, &handle_button, data);
 	mlx_loop_hook(data->mlx, &render_img, data);
-	printf("daslkjdsa\n");
 	mlx_loop(data->mlx);
 }

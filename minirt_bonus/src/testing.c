@@ -31,60 +31,65 @@ void	print_scene_params(t_scene scene)
 	t_obj	*obj;
 
 	obj = *(scene.obj_list);
-	printf("======== MINI RT SCENE PARAMETERS ========\n");
+	printf("======== MINI RT SCENE CONFIGURATION ========\n");
 	printf("Object count:	%d\n",
 			count_obj(obj, T_SP) + count_obj(obj, T_PL) + count_obj(obj, T_CY));
 }
 
 void	print_amb_light(t_amb_light amb_light)
 {
-	printf("------------------------------------------\n");
-	printf("[Ambient Light]\n");
-	printf("Color:	(%d, %d, %d)\n",
+	printf("A	");
+	printf("%.2lf		", amb_light.ratio);
+	printf("%d, %d, %d",
 			(int)(amb_light.color.r * 255.999),
 			(int)(amb_light.color.g * 255.999),
 			(int)(amb_light.color.b * 255.999));
-	printf("Ratio:	%.2lf\n", amb_light.ratio);
 	printf("\n");
 }
 
 void	print_camera(t_cam cam)
 {
-	printf("------------------------------------------\n");
-	printf("[Camera]\n");
-	printf("Position:	(%.2lf, %.2lf, %.2lf)\n",
+	printf("C	");
+	printf("%.2lf, %.2lf, %.2lf		",
 			cam.pos.x,
 			cam.pos.y,
 			cam.pos.z);
-	printf("Orientation:	(%.2lf, %.2lf, %.2lf)\n",
+	printf("%.2lf, %.2lf, %.2lf		",
 			cam.forward.x,
 			cam.forward.y,
 			cam.forward.z);
-	printf("FOV:		%.2lf°\n", cam.fov);
+	printf("%.2lf", cam.fov);
 	printf("\n");
 }
 
-void	print_obj_common(t_obj *obj)
+void	print_pos(t_obj *obj)
 {
-	printf("Position:	(%.2lf, %.2lf, %.2lf)\n",
+	printf("%.2lf, %.2lf, %.2lf		",
 			obj->pos.x,
 			obj->pos.y,
 			obj->pos.z);
-	printf("Color:	(%d, %d, %d)\n",
+}
+
+void	print_color_props(t_obj *obj)
+{
+	printf("%d, %d, %d		",
 			(int)(obj->color.r * 255.999),
 			(int)(obj->color.g * 255.999),
 			(int)(obj->color.b * 255.999));
+	printf("%.2lf	", obj->reflect);
+	printf("%d	", obj->shine);
 }
 
 void	print_sp(t_obj *obj)
 {
 	t_sp	*sp;
 
-	printf("------------------------------------------\n");
-	printf("[Sphere]\n");
+	printf("sp	");
 	sp = (t_sp *)(obj->shape);
-	print_obj_common(obj);
-	printf("Diameter:		%.2lf\n", sp->d);
+	print_pos(obj);
+	printf("%.2lf		", sp->r * 2);
+	printf("\t\t");
+	print_color_props(obj);
 	printf("\n");
 }
 
@@ -92,14 +97,14 @@ void	print_pl(t_obj *obj)
 {
 	t_pl	*pl;
 
-	printf("------------------------------------------\n");
-	printf("[Plane]\n");
+	printf("pl	");
 	pl = (t_pl *)(obj->shape);
-	print_obj_common(obj);
-	printf("Normalized:	(%.2lf, %.2lf, %.2lf)\n",
+	print_pos(obj);
+	printf("%.2lf, %.2lf, %.2lf		",
 			pl->norm.x,
 			pl->norm.y,
 			pl->norm.z);
+	print_color_props(obj);
 	printf("\n");
 }
 
@@ -107,29 +112,49 @@ void	print_cy(t_obj *obj)
 {
 	t_cy	*cy;
 
-	printf("------------------------------------------\n");
-	printf("[Cylinder]\n");
+	printf("cy	");
 	cy = (t_cy *)(obj->shape);
-	print_obj_common(obj);
-	printf("Diameter:		%.2lf\n", cy->d);
-	printf("Height:			%.2lf\n", cy->h);
-	printf("Normalized:	(%.2lf, %.2lf, %.2lf)\n",
+	print_pos(obj);
+	printf("%.2lf, %.2lf, %.2lf		",
 			cy->norm.x,
 			cy->norm.y,
 			cy->norm.z);
+	printf("%.2lf		", cy->r * 2);
+	printf("%.2lf		", cy->h);
+	print_color_props(obj);
 	printf("\n");
 }
 
+void	print_cn(t_obj *obj)
+{
+	t_cn	*cn;
+
+	printf("cn	");
+	cn = (t_cn *)(obj->shape);
+	print_pos(obj);
+	printf("%.2lf, %.2lf, %.2lf		",
+			cn->norm.x,
+			cn->norm.y,
+			cn->norm.z);
+	printf("%.2lf		", cn->angle);
+	printf("%.2lf		", cn->h);
+	print_color_props(obj);
+	printf("\n");
+}
 
 void	print_light(t_obj *obj)
 {
 	t_light	*light;
 
-	printf("------------------------------------------\n");
-	printf("[Light]\n");
+	printf("l	");
 	light = (t_light *)(obj->shape);
-	print_obj_common(obj);
-	printf("Ratio:			%.2lf\n", light->ratio);
+	print_pos(obj);
+	printf("%.2lf		", light->ratio);
+	printf("\t\t");
+	printf("%d, %d, %d		",
+			(int)(obj->color.r * 255.999),
+			(int)(obj->color.g * 255.999),
+			(int)(obj->color.b * 255.999));
 	printf("\n");
 }
 

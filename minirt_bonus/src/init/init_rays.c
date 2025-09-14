@@ -28,12 +28,12 @@ t_cam_rays	init_mem(t_data *data)
 	int			i;
 
 	i = 0;
-	rays.dirs = malloc(sizeof(t_vec3 *) * WIDTH);
+	rays.dirs = calloc(sizeof(t_vec3 *), WIDTH);
 	if (rays.dirs == NULL)
 		clean_exit(data, FAILIURE);
 	while (i < WIDTH)
 	{
-		rays.dirs[i] = malloc(sizeof(t_vec3) * HEIGHT);
+		rays.dirs[i] = calloc(sizeof(t_vec3), HEIGHT);
 		if (rays.dirs[i] == NULL)
 			clean_exit(data, FAILIURE);
 		i++;
@@ -41,18 +41,16 @@ t_cam_rays	init_mem(t_data *data)
 	return (rays);
 }
 
-void	set_directions(t_worker *worker)
+void	set_directions(t_data *data, t_int_vec2 start, t_int_vec2 end)
 {
 	int	i;
 	int	j;
-	t_data *data;
 
-	data = worker->data;
-	i = worker->start.x;
-	while (i < worker->end.x)
+	i = start.x;
+	while (i < end.x)
 	{
-		j = worker->start.y;
-		while (j < worker->end.y)
+		j = start.y;
+		while (j < end.y)
 		{
 			data->scene.rays.dirs[i][j] = map_pixel(i, j, data).dir;
 			j++;
@@ -71,10 +69,12 @@ void	init_mapping_workers(t_data *data)
 void	init_cam_rays(t_data *data)
 {
 	t_cam_rays	rays;
+	t_int_vec2	start = {0, 0};
+	t_int_vec2	end = {WIDTH, HEIGHT};
 
 	rays = init_mem(data);
 	rays.orig = data->scene.cam.pos;
 	data->scene.rays = rays;
-	init_mapping_workers(data);
-	data->scene.rays = rays;
+	set_directions(data, start, end);
+	// init_mapping_workers(data);
 }

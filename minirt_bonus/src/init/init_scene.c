@@ -104,7 +104,7 @@ int	init_config(char *line, t_data *data)
 
 #define SPLIT 2
 
-void	init_workers(t_worker *worker, t_data *data, void (*func)(t_worker *))
+void	init_workers(t_worker *worker, t_data *data, void (*func)())
 {
 	int i;
 

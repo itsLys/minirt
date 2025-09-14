@@ -49,6 +49,7 @@ void	print_help(void)
 int	main(int ac, char **av)
 {
 	t_data	data;
+	memset(&data, 0, sizeof(t_data));
 
 	if (ac >= 2 && ft_strcmp(av[1], "-h") == 0)
 		print_help();
@@ -68,6 +69,13 @@ int	main(int ac, char **av)
 	init_cam(&data.scene.cam);
 	init_offsets(&(data.offsets), &data);
 	init_cam_rays(&data);
+	// (void) data;
+	// void	*mlx_x;
+	// void	*win_x;
+	// mlx_x = mlx_init();
+	// win_x = mlx_new_window(mlx_x, 12, 12, "ewq");
+	// printf("%p\n", win_x);
+	// exit(321);
 	setup_mlx(&data);
 	clean_exit(&data, 0);
 }
