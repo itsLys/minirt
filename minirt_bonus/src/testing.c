@@ -100,7 +100,7 @@ void	print_pl(t_obj *obj)
 	printf("pl	");
 	pl = (t_pl *)(obj->shape);
 	print_pos(obj);
-	printf("%.2lf, %.2lf, %.2lf		",
+	printf("%lf, %lf, %lf		",
 			pl->norm.x,
 			pl->norm.y,
 			pl->norm.z);
@@ -115,7 +115,7 @@ void	print_cy(t_obj *obj)
 	printf("cy	");
 	cy = (t_cy *)(obj->shape);
 	print_pos(obj);
-	printf("%.2lf, %.2lf, %.2lf		",
+	printf("%lf, %lf, %lf		",
 			cy->norm.x,
 			cy->norm.y,
 			cy->norm.z);
@@ -132,11 +132,11 @@ void	print_cn(t_obj *obj)
 	printf("cn	");
 	cn = (t_cn *)(obj->shape);
 	print_pos(obj);
-	printf("%.2lf, %.2lf, %.2lf		",
+	printf("%lf, %lf, %lf		",
 			cn->norm.x,
 			cn->norm.y,
 			cn->norm.z);
-	printf("%.2lf		", cn->angle);
+	printf("%.2lf		", cn->angle * (180 / M_PI));
 	printf("%.2lf		", cn->h);
 	print_color_props(obj);
 	printf("\n");
@@ -170,6 +170,8 @@ void	print_objects(t_obj *obj)
 			print_sp(obj);
 		else if (obj->type == T_LS)
 			print_light(obj);
+		else if (obj->type == T_CN)
+			print_cn(obj);
 		obj = obj->next;
 	}
 }

@@ -68,7 +68,7 @@ void	init_camera(char *line, t_data *data)
 		line++;
 	if (*line != '\n' && *line != '\0')
 		exit_error(ERR_EXTRA_PARAM, data);
-	if (vec3_len(norm) != 1.0)
+	if (!is_close(vec3_len(norm), 1.0))
 		exit_error(ERR_CAM ERR_NORM_VAL, data);
 	if (fov < 0.0 || fov > 180.0)
 		exit_error(ERR_CAM ERR_FOV, data);

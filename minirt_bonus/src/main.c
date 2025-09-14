@@ -49,7 +49,6 @@ void	print_help(void)
 int	main(int ac, char **av)
 {
 	t_data	data;
-	memset(&data, 0, sizeof(t_data));
 
 	if (ac >= 2 && ft_strcmp(av[1], "-h") == 0)
 		print_help();
