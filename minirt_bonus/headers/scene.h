@@ -19,5 +19,6 @@ void		setup_viewport(t_cam *cam);
 void		destroy_cam_rays(t_cam_rays rays);
 void		set_directions(t_data *data, t_int_vec2 start, t_int_vec2 end);
 void		set_offsets(t_vec2 **offsets, t_data *data);
+void		change_directions(t_worker *worker);
 
 #endif // !SCENE_H

@@ -76,5 +76,4 @@ void	init_cam_rays(t_data *data)
 	rays.orig = data->scene.cam.pos;
 	data->scene.rays = rays;
 	set_directions(data, start, end);
-	// init_mapping_workers(data);
 }

@@ -184,7 +184,7 @@ typedef struct s_worker
 	int			number;
 	t_int_vec2	start;
 	t_int_vec2	end;
-	void		(*function)();
+	void		(*function)(struct s_worker *);
 	t_data		*data;
 }	t_worker ;
 

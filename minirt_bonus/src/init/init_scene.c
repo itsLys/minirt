@@ -104,7 +104,7 @@ int	init_config(char *line, t_data *data)
 
 #define SPLIT 2
 
-void	init_workers(t_worker *worker, t_data *data, void (*func)())
+void	init_workers(t_worker *worker, t_data *data, void (*func)(t_worker *))
 {
 	int i;
 
@@ -117,6 +117,11 @@ void	init_workers(t_worker *worker, t_data *data, void (*func)())
 		set_worker_bounds(worker + i);
 		i++;
 	}
+}
+
+void	change_directions(t_worker *worker)
+{
+	set_directions(worker->data, worker->start, worker->end);
 }
 
 void	init_data(t_data *data)
@@ -135,6 +140,6 @@ void	init_data(t_data *data)
 	data->mapping_workers = malloc(sizeof(t_worker) * SPLIT * SPLIT);
 	if (data->render_workers == NULL || data->mapping_workers == NULL)
 		exit_error(NULL, data);
-	init_workers(data->mapping_workers, data, set_directions);
+	init_workers(data->mapping_workers, data, change_directions);
 	init_workers(data->render_workers, data, draw_image);
 }
