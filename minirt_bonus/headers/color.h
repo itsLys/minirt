@@ -25,6 +25,6 @@ t_rgb		int_to_rgb(int c);
 int			rgb_to_int(t_rgb c);
 
 // compute
-t_rgb		compute_color(t_hit hit, t_data *data);
+t_rgb		compute_color(t_ray ray, t_hit hit, t_data *data);
 
 #endif // ! COLOR_H

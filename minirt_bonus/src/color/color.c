@@ -114,22 +114,37 @@ t_rgb compute_light(t_hit hit, t_obj *l_obj, t_light *light, t_data *data)
 	return color;
 }
 
-t_rgb	compute_color(t_hit hit, t_data *data)
+t_rgb	sample_color(t_ray ray, t_data *data)
+{
+	t_vec2	px_co;
+	t_int_vec2	tx_index;
+	char *color;
+
+	px_co.x = ray.pixel.x / (WIDTH - 1.0);
+	px_co.y = ray.pixel.y / (HEIGHT - 1.0);
+
+	tx_index.x = px_co.x * (data->texture.width - 1);
+	tx_index.y = px_co.y * (data->texture.height - 1);
+
+	color = data->texture.addr + tx_index.y * data->texture.line_len + tx_index.x * (data->texture.bpp / 8);
+	return int_to_rgb(*((int *)color));
+	// pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+
+}
+
+t_rgb	compute_color(t_ray ray, t_hit hit, t_data *data)
 {
 	t_rgb	amb;
 	t_rgb	combined;
 	t_rgb	light;
 	t_rgb	sum;
 	t_obj	*obj;
+	(void) ray;
 
 	if (hit.hit == false)
-		return (int_to_rgb(BG_COLOR));
-	// printf("%p\n", hit.obj);
-	// printf("type?:	");
-	// print_obj_type(hit.obj);
-	// printf("shine:	%d\n", hit.obj->shine);
-	// printf("ref:	%lf\n", hit.obj->reflect);
-	// exit(3321);
+		// return (sample_color(ray, data));
+		// return int_to_rgb(BG_COLOR);
+		return rgb_scale(data->scene.amb_light.ratio, data->scene.amb_light.color);
 	amb = compute_amb(hit.color, data->scene.amb_light);
 	obj = *(data->scene.obj_list);
 	sum = (t_rgb) {0, 0, 0};

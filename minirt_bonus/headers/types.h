@@ -32,6 +32,12 @@ typedef enum s_selected_type
 	T_CAM
 }	t_selected_type;
 
+typedef struct s_int_vec2 
+{
+	int	x;
+	int	y;
+}	t_int_vec2 ;
+
 typedef struct s_vec2
 {
 	double			x;
@@ -131,6 +137,7 @@ typedef struct s_scene
 
 typedef struct s_ray
 {
+	t_int_vec2		pixel;
 	t_vec3			orign;
 	t_vec3			dir;
 }	t_ray;
@@ -170,13 +177,18 @@ typedef struct s_img
 	int				endian;
 }	t_img;
 
-typedef struct s_data t_data ;
-
-typedef struct s_int_vec2 
+typedef struct s_texture
 {
-	int	x;
-	int	y;
-}	t_int_vec2 ;
+	void			*ptr;
+	char			*addr;
+	int				width;
+	int				height;
+	int				bpp;
+	int				line_len;
+	int				endian;
+}	t_texture;
+
+typedef struct s_data t_data ;
 
 typedef struct s_worker 
 {
@@ -196,6 +208,7 @@ struct s_data
 	t_scene			scene;
 	t_vec2			*offsets;
 	t_img			img;
+	t_texture		texture;
 	t_worker		*render_workers;
 	t_worker		*mapping_workers;
 };

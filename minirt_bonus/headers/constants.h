@@ -20,8 +20,8 @@
 # define EXT ".rt"
 
 // windows dimensions
-# define WIDTH	1080
-# define HEIGHT 720
+# define WIDTH	720
+# define HEIGHT 500
 
 // constants
 # define EPS 1e-6

@@ -99,5 +99,5 @@ t_rgb	trace_ray(t_ray ray, t_data *data)
 	hit.obj = NULL;
 	obj = *(data->scene.obj_list);
 	record_hit(&obj, &hit, ray);
-	return (compute_color(hit, data));
+	return (compute_color(ray, hit, data));
 }

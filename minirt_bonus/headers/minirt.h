@@ -13,6 +13,9 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
+// WARN: check existence of the file
+#define XPM "../sky.xpm"
+
 # include "libft.h"
 # include "get_next_line.h"
 # include <fcntl.h>
@@ -44,6 +47,8 @@ void		print_ray(int x, int y, t_ray ray);
 void		print_vec3(t_vec3 vec);
 void	print_obj_type(t_obj *obj);
 // BUG: END
+
+void	init_texture(t_data *data);
 void	init_threads(t_worker *worker);
 void	join_threads(t_worker *worker);
 void	set_worker_bounds(t_worker *worker);

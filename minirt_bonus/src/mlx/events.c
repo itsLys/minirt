@@ -22,6 +22,7 @@ int	handle_motion(int code, int x, int y, t_data *data)
 void	setup_mlx(t_data *data)
 {
 	init_mlx(data);
+	init_texture(data);
 	mlx_hook(data->win, DestroyNotify, NoEventMask, &clean_exit, data);
 	mlx_hook(data->win, KeyPress, KeyPressMask, &handle_keypress, data);
 	mlx_hook(data->win, ButtonPress, ButtonPressMask, &handle_button, data);

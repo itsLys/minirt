@@ -126,6 +126,7 @@ void	change_directions(t_worker *worker)
 
 void	init_data(t_data *data)
 {
+	data->texture.ptr = NULL;
 	data->mlx = NULL;
 	data->img.img_ptr = NULL;
 	data->win = NULL;

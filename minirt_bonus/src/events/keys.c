@@ -62,7 +62,8 @@ static void	handle_rotation(int code, t_data *data)
 	if (data->selected.type == T_CAM)
 	{
 		handle_cam_rotate(code, &(data->scene.cam));
-		// set_directions(&(data->scene.rays), data);
+		init_threads(data->mapping_workers);
+		join_threads(data->mapping_workers);
 	}
 	else if (data->selected.type == T_OBJ)
 		handle_obj_rotate(code, data->selected.obj, data->scene.cam);
