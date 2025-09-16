@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:43:48 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/06 15:31:51 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/16 10:51:19 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ void		destroy_mlx(t_data *data);
 void		init_mlx(t_data *data);
 void		setup_mlx(t_data *data);
 int			render_img(t_data *data);
-void		draw_image(t_worker *worker);
+void		draw_image(t_data *data, t_int_vec2 start, t_int_vec2 end);
 
 #endif // !MLX_UTILS_H

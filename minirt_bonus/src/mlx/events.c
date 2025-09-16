@@ -6,18 +6,11 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 15:56:03 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/06 16:35:00 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/16 10:44:05 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-int	handle_motion(int code, int x, int y, t_data *data)
-{
-	(void)code;
-	print_ray(x, y, map_pixel(x, y, data));
-	return (0);
-}
 
 void	setup_mlx(t_data *data)
 {

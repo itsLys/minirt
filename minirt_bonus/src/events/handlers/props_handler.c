@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 10:07:22 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/08 12:25:03 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/09/16 11:44:03 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,8 @@ void	handle_props(int code, t_data *data)
 	if (data->selected.type == T_CAM)
 	{
 		handle_cam_props(code, &(data->scene.cam));
-		setup_viewport(&(data->scene.cam));
-		init_mapping_workers(data);
 		set_offsets(&(data->offsets), data);
+		spawn_mapping_workers(data);
 	}
 	else if (data->selected.type == T_LIGHT)
 		handle_light_props(code, (t_light *)(data->selected.light->shape));

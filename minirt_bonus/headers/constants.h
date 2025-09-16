@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:19:43 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/06 15:49:02 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/16 11:20:40 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@
 # define EXT ".rt"
 
 // windows dimensions
-# define WIDTH	720
-# define HEIGHT 500
+# define WIDTH	1080
+# define HEIGHT 720
 
 // constants
 # define EPS 1e-6
+# define SPLIT 2
 # define CAM_ROTATE_STEP 0.025
 # define ROTATE_STEP 0.05
 # define MOVE_STEP 0.5

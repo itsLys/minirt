@@ -48,7 +48,8 @@ SRC			= src/main.c \
 			  src/color/color.c \
 			  src/color/rgb_ops.c \
 			  src/color/rgb_conv.c \
-			  src/threads/init_threads.c \
+			  src/threads/threads.c \
+			  src/threads/workers.c \
 			  src/rays/pixel_map.c \
 			  src/utils/utils.c 
 OBJ			= $(patsubst src/%.c, obj/%.o, $(SRC))

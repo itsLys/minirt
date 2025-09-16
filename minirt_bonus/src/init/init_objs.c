@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:58:29 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/08 12:10:06 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/09/16 11:25:29 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	get_surface_props(t_obj *obj, char *line, t_data *data)
 	obj->reflect = get_double(&line, data);
 	obj->shine = get_integer(&line, data);
 	if (obj->reflect < 0.0 || obj->reflect > 1.0)
-		exit_error(ERR_CY ERR_WRONG_REF, data);
+		exit_error(ERR_WRONG_REF, data);
 	if (obj->shine < 0 || obj->shine > 200)
-		exit_error(ERR_CY ERR_WRONG_SHINE, data);
+		exit_error(ERR_WRONG_SHINE, data);
 	skip_trailing(line, data);
 }
 
@@ -48,13 +48,6 @@ void	init_plane(char *line, t_data *data)
 	pl->norm = get_vec3(&line, data);
 	if (vec3_len(pl->norm) != 1)
 		exit_error(ERR_PL ERR_NORM_VAL, data);
-	// obj->color = get_rgb(&line, data);
-	// obj->reflect = get_double(&line, data);
-	// obj->shine = get_integer(&line, data);
-	// if (obj->reflect < 0.0 || obj->reflect > 1.0)
-	// 	exit_error(ERR_PL ERR_WRONG_REF, data);
-	// if (obj->shine < 0 || obj->shine > 200)
-	// 	exit_error(ERR_PL ERR_WRONG_SHINE, data);
 	get_surface_props(obj, line, data);
 }
 

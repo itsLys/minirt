@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 20:10:45 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/24 11:53:21 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/16 11:36:48 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	print_camera(t_cam cam)
 			cam.pos.x,
 			cam.pos.y,
 			cam.pos.z);
-	printf("%.2lf, %.2lf, %.2lf		",
+	printf("%lf, %lf, %lf		",
 			cam.forward.x,
 			cam.forward.y,
 			cam.forward.z);

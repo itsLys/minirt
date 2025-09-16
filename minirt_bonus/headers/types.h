@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:23:27 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/10 15:54:16 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/16 11:17:04 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_amb_light
 
 typedef struct s_cam_rays
 {
-	t_vec3			**dirs;
+	t_vec3			*dirs;
 	t_vec3			orig;
 }	t_cam_rays;
 

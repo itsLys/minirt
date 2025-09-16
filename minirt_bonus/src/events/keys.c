@@ -6,27 +6,11 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 15:58:32 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/06 16:36:54 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/16 11:02:40 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-// WARN: RGB FOR LIGHT IS NOT IN MANDATORY
-
-/* LEGACY
-   void rotate_cy(int code, t_cy *cy, t_cam cam)
-   {
-   if (code == XK_d) // rotate around cam forw
-   cy->norm = rotate(cy->norm, cam.forward, ROTATE_STEP);
-   else if (code == XK_a)
-   cy->norm = rotate(cy->norm, cam.forward, ROTATE_STEP * -1);
-   else if (code == XK_w)
-   cy->norm = rotate(cy->norm, cam.right, ROTATE_STEP);
-   else if (code == XK_s)
-   cy->norm = rotate(cy->norm, cam.right, ROTATE_STEP * -1);
-   }
-   */
 
 static void	select_next_light(t_data *data)
 {
@@ -46,7 +30,6 @@ static void	select_next_light(t_data *data)
 	printf("selected light:	");
 	print_vec3(data->selected.light->pos);
 	printf("\n");
-	// last_light
 }
 
 static void	handle_obj_select(int code, t_data *data)
@@ -62,8 +45,7 @@ static void	handle_rotation(int code, t_data *data)
 	if (data->selected.type == T_CAM)
 	{
 		handle_cam_rotate(code, &(data->scene.cam));
-		init_threads(data->mapping_workers);
-		join_threads(data->mapping_workers);
+		spawn_mapping_workers(data);
 	}
 	else if (data->selected.type == T_OBJ)
 		handle_obj_rotate(code, data->selected.obj, data->scene.cam);

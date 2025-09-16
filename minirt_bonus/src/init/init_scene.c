@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:56:27 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/08 12:10:37 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/09/16 10:57:32 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,6 @@ void	init_ambient_light(char *line, t_data *data)
 	data->scene.amb_light.ratio = ratio;
 	data->scene.amb_light.color = rgb;
 }
-
-// void	init_light(char *line, t_data *data)
-// {
-// 	double	ratio;
-// 	t_vec3	pos;
-// 	t_rgb	rgb;
-//
-// 	pos = get_vec3(&line, data);
-// 	ratio = get_double(&line, data);
-// 	rgb = get_rgb(&line, data);
-// 	while (ft_isspace(*line))
-// 		line++;
-// 	if (*line != '\n' && *line != '\0')
-// 		exit_error(ERR_EXTRA_PARAM, data);
-// 	if (ratio < 0.0 || ratio > 1.0)
-// 		exit_error(ERR_LIGHT ERR_RATIO, data);
-// 	data->scene.light.on = true;
-// 	data->scene.light.pos = pos;
-// 	data->scene.light.ratio = ratio;
-// 	data->scene.light.color = rgb;
-// }
 
 void	init_camera(char *line, t_data *data)
 {
@@ -102,28 +81,6 @@ int	init_config(char *line, t_data *data)
 	return (SUCCESS);
 }
 
-#define SPLIT 2
-
-void	init_workers(t_worker *worker, t_data *data, void (*func)(t_worker *))
-{
-	int i;
-
-	i = 0;
-	while (i < SPLIT * SPLIT)
-	{
-		worker[i].number = i;
-		worker[i].data = data;
-		worker[i].function = func;
-		set_worker_bounds(worker + i);
-		i++;
-	}
-}
-
-void	change_directions(t_worker *worker)
-{
-	set_directions(worker->data, worker->start, worker->end);
-}
-
 void	init_data(t_data *data)
 {
 	data->texture.ptr = NULL;
@@ -141,6 +98,6 @@ void	init_data(t_data *data)
 	data->mapping_workers = malloc(sizeof(t_worker) * SPLIT * SPLIT);
 	if (data->render_workers == NULL || data->mapping_workers == NULL)
 		exit_error(NULL, data);
-	init_workers(data->mapping_workers, data, change_directions);
-	init_workers(data->render_workers, data, draw_image);
+	init_workers(data->mapping_workers, data, work_directions);
+	init_workers(data->render_workers, data, work_rendering);
 }

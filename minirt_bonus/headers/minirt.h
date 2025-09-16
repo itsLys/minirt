@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/06 15:32:43 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/16 11:43:49 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # include "init.h"
 # include "scene.h"
 # include "ray.h"
+# include "threads.h"
 
 // BUG: testing debugging
 void		print_scene(t_data *data);
@@ -49,9 +50,5 @@ void	print_obj_type(t_obj *obj);
 // BUG: END
 
 void	init_texture(t_data *data);
-void	init_threads(t_worker *worker);
-void	join_threads(t_worker *worker);
-void	set_worker_bounds(t_worker *worker);
-void	init_mapping_workers(t_data *data);
 
 #endif
