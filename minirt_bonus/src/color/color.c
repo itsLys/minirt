@@ -114,7 +114,7 @@ t_rgb compute_light(t_hit hit, t_obj *l_obj, t_light *light, t_data *data)
 	return color;
 }
 
-t_rgb	sample_color(t_ray ray, t_data *data)
+t_rgb	sample_bg_color(t_ray ray, t_data *data)
 {
 	t_vec2	px_co;
 	t_int_vec2	tx_index;
@@ -128,9 +128,24 @@ t_rgb	sample_color(t_ray ray, t_data *data)
 
 	color = data->texture.addr + tx_index.y * data->texture.line_len + tx_index.x * (data->texture.bpp / 8);
 	return int_to_rgb(*((int *)color));
-	// pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
-
 }
+
+// t_rgb	sample_sp_color(t_hit hit, t_data *data)
+// {
+// 	t_vec3	normal = hit.normal; // NORMALIZE??
+// 	double	thetha = atan2(normal.z, normal.x);
+// 	double	phi = acos(normal.y);
+// 	double	u = (thetha + M_PI) / (2 * M_PI);
+// 	double	v = phi / M_PI;
+// 	char	*color;
+//
+// 	t_int_vec2 tx_index;
+//
+// 	tx_index.x = u * (data->texture.width - 1);
+// 	tx_index.y = v * (data->texture.height - 1);
+// 	color = data->texture.addr + tx_index.y * data->texture.line_len + tx_index.x * (data->texture.bpp / 8);
+// 	return int_to_rgb(*((int *)color));
+// }
 
 t_rgb	compute_color(t_ray ray, t_hit hit, t_data *data)
 {
