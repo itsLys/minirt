@@ -35,7 +35,7 @@ void	get_surface_props(t_obj *obj, char *line, t_data *data)
 void	init_local_coords(t_obj *obj)
 {
 	obj->coords.forward = vec3_cross(vec3(1, 0, 0), obj->coords.up);
-	obj->coords.right = vec3_cross(obj->coords.up, obj->coords.forward);
+	obj->coords.right = vec3_cross(obj->coords.forward, obj->coords.up);
 	//
 	// TODO: verify correct order and dir
 }

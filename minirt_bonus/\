@@ -138,7 +138,7 @@ t_rgb	sample_pl_color(t_hit hit, t_data *data)
 	double y_local = vec3_dot(rel, hit.obj->coords.forward);  // how far along local Y axis
 
 	// normalize to [0..1] texture coordinates
-	double u = x_local / width  + 0.5;  // center plane at (0.5, 0.5)
+	double u = x_local / hit.width  + 0.5;  // center plane at (0.5, 0.5)
 	double v = y_local / height + 0.5;
 	char	*color;
 	t_int_vec2 tx_index;

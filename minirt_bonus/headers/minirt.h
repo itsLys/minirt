@@ -14,7 +14,7 @@
 # define MINIRT_H
 
 // WARN: check existence of the file
-#define XPM "../moon.xpm"
+#define XPM "../xpm.xpm"
 
 # include "libft.h"
 # include "get_next_line.h"
