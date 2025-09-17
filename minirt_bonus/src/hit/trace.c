@@ -132,14 +132,16 @@ t_rgb	sample_cy_color(t_hit hit, t_cy *cy, t_data *data)
 
 t_rgb	sample_pl_color(t_hit hit, t_data *data)
 {
-	t_vec3 rel = vec3_subtract(hit.point, hit.obj->pos);
+	t_vec3	rel = vec3_subtract(hit.point, hit.obj->pos);
 
-	double x_local = vec3_dot(rel, hit.obj->coords.right);  // how far along local X axis
-	double y_local = vec3_dot(rel, hit.obj->coords.forward);  // how far along local Y axis
 
-	// normalize to [0..1] texture coordinates
-	double u = x_local / width  + 0.5;  // center plane at (0.5, 0.5)
-	double v = y_local / height + 0.5;
+	double	x_local = vec3_dot(rel, hit.obj->coords.forward);
+	double	y_local = vec3_dot(rel, hit.obj->coords.right);
+
+	double u = x_local / 5;
+	double v = y_local / 5;
+	u = u - floor(u);  // equivalent to fmod(u, 1.0) but works for negatives
+	v = v - floor(v);
 	char	*color;
 	t_int_vec2 tx_index;
 
@@ -160,7 +162,7 @@ t_rgb	trace_ray(t_ray ray, t_data *data)
 	hit.obj = NULL;
 	obj = *(data->scene.obj_list);
 	record_hit(&obj, &hit, ray);
-	if (hit.obj && hit.obj->type == T_SP)
-		hit.color = sample_sp_color(hit, data);
+	if (hit.obj && hit.obj->type == T_PL)
+		hit.color = sample_pl_color(hit, data);
 	return (compute_color(ray, hit, data));
 }
