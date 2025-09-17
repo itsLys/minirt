@@ -65,7 +65,6 @@ int	main(int ac, char **av)
 		exit_error(ERR_LIGHT ERR_NOT_FOUND, &data);
 	sort_objects(data.scene.obj_list);
 	print_scene(&data);
-	init_cam(&data.scene.cam);
 	init_offsets(&(data.offsets), &data);
 	init_cam_rays(&data);
 	setup_mlx(&data);

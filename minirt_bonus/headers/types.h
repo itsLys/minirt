@@ -71,14 +71,22 @@ typedef struct s_cam_rays
 	t_vec3			orig;
 }	t_cam_rays;
 
+typedef struct s_local_coords 
+{
+	t_vec3	up;
+	t_vec3	right;
+	t_vec3	forward;
+}	t_local_coords ;
+
 typedef struct s_cam
 {
 	bool			on;
 	t_vec3			pos;
-	t_vec3			forward;
-	t_vec3			backward;
-	t_vec3			right;
-	t_vec3			up;
+	// t_vec3			forward;
+	// t_vec3			backward;
+	// t_vec3			right;
+	// t_vec3			up;
+	t_local_coords	coords;
 	double			fov;
 	double			viewport_h;
 	double			viewport_w;
@@ -86,19 +94,21 @@ typedef struct s_cam
 
 typedef struct s_sp
 {
-	double			d;
+	// double			d;
 	double			r;
 }	t_sp;
 
 typedef struct s_pl
 {
-	t_vec3			norm;
+	// t_vec3			norm;
+	double	h;
+	double	w;
 }	t_pl;
 
 typedef struct s_cy
 {
-	t_vec3			norm;
-	double			d;
+	// t_vec3			norm;
+	// double			d;
 	double			r;
 	double			h;
 }	t_cy;
@@ -110,15 +120,16 @@ typedef struct s_light
 
 typedef struct s_cn
 {
-	t_vec3    norm;
-	double        angle;
-	double        h;
+	// t_vec3			norm;
+	double			angle;
+	double			h;
 }    t_cn;
 
 typedef struct s_obj
 {
 	t_obj_type		type;
 	t_vec3			pos;
+	t_local_coords	coords;
 	t_rgb			color;
 	double			reflect;
 	int				shine;

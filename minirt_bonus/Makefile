@@ -37,8 +37,7 @@ SRC			= src/main.c \
 			  src/events/mouse.c \
 			  src/events/handlers/move_handler.c \
 			  src/events/handlers/props_handler.c \
-			  src/events/handlers/cam_rotate_handler.c \
-			  src/events/handlers/obj_rotate_handler.c \
+			  src/events/handlers/rotate_handler.c \
 			  src/render/draw.c \
 			  src/hit/intersect.c \
 			  src/hit/quadratic.c \

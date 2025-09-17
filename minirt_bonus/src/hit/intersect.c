@@ -32,11 +32,11 @@ t_hit	intersect_cy(t_ray ray, t_obj *obj, t_cy *cy)
 	double	dot;
 
 	oc = vec3_subtract(ray.orign, obj->pos);
-	dot = vec3_dot(ray.dir, cy->norm);
+	dot = vec3_dot(ray.dir, obj->coords.up);
 	quad.a = vec3_dot(ray.dir, ray.dir) - (dot * dot);
-	quad.b = 2 * (vec3_dot(oc, ray.dir) - vec3_dot(oc, cy->norm)
-			* vec3_dot(ray.dir, cy->norm));
-	dot = vec3_dot(oc, cy->norm);
+	quad.b = 2 * (vec3_dot(oc, ray.dir) - vec3_dot(oc, obj->coords.up)
+			* vec3_dot(ray.dir, obj->coords.up));
+	dot = vec3_dot(oc, obj->coords.up);
 	quad.c = vec3_dot(oc, oc) - (dot * dot) - cy->r * cy->r;
 	solve_quadratic(&quad);
 	return (resolve_cy_hit(ray, obj, cy, quad));
@@ -44,12 +44,13 @@ t_hit	intersect_cy(t_ray ray, t_obj *obj, t_cy *cy)
 
 t_hit	intersect_pl(t_ray ray, t_obj *obj, t_pl *pl)
 {
+	(void) pl; // for now
 	double	a;
 	double	b;
 
-	a = vec3_dot(vec3_subtract(obj->pos, ray.orign), pl->norm);
-	b = vec3_dot(ray.dir, pl->norm);
-	return (resolve_pl_hit(pl, ray, a, b));
+	a = vec3_dot(vec3_subtract(obj->pos, ray.orign), obj->coords.up);
+	b = vec3_dot(ray.dir, obj->coords.up);
+	return (resolve_pl_hit(ray, obj, a, b));
 }
 
 t_hit    intersect_cn(t_ray ray, t_obj *obj, t_cn *cn)
@@ -62,8 +63,8 @@ t_hit    intersect_cn(t_ray ray, t_obj *obj, t_cn *cn)
     
     cos_angle = cosf(cn->angle);
     oc = vec3_subtract(ray.orign, obj->pos);
-    dir_dot_norm = vec3_dot(ray.dir, cn->norm);
-    oc_dot_norm = vec3_dot(oc, cn->norm);
+    dir_dot_norm = vec3_dot(ray.dir, obj->coords.up);
+    oc_dot_norm = vec3_dot(oc, obj->coords.up);
 
     quad.a = cos_angle * cos_angle * vec3_dot(ray.dir, ray.dir) - dir_dot_norm * dir_dot_norm;
     quad.b = cos_angle * cos_angle * vec3_dot(oc, ray.dir);

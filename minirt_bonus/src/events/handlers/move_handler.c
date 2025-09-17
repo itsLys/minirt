@@ -15,17 +15,17 @@
 static void	handle_translate(int code, t_vec3 *point, t_cam cam)
 {
 	if (code == XK_Up)
-		*point = translate(*point, vec3_scale(MOVE_STEP, cam.forward));
+		*point = translate(*point, vec3_scale(MOVE_STEP, cam.coords.forward));
 	else if (code == XK_Down)
-		*point = translate(*point, vec3_scale(-MOVE_STEP, cam.forward));
+		*point = translate(*point, vec3_scale(-MOVE_STEP, cam.coords.forward));
 	else if (code == XK_Right)
-		*point = translate(*point, vec3_scale(MOVE_STEP, cam.right));
+		*point = translate(*point, vec3_scale(MOVE_STEP, cam.coords.right));
 	else if (code == XK_Left)
-		*point = translate(*point, vec3_scale(-MOVE_STEP, cam.right));
+		*point = translate(*point, vec3_scale(-MOVE_STEP, cam.coords.right));
 	else if (code == XK_Page_Up)
-		*point = translate(*point, vec3_scale(MOVE_STEP, cam.up));
+		*point = translate(*point, vec3_scale(MOVE_STEP, cam.coords.up));
 	else if (code == XK_Page_Down)
-		*point = translate(*point, vec3_scale(-MOVE_STEP, cam.up));
+		*point = translate(*point, vec3_scale(-MOVE_STEP, cam.coords.up));
 }
 
 void	handle_obj_move(int code, t_data *data)

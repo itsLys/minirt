@@ -19,8 +19,8 @@ t_ray	map_pixel(int x, int y, t_data *data)
 
 	cam = data->scene.cam;
 	ray.orign = cam.pos;
-	ray.dir = vec3_add(vec3_scale(data->offsets[y * WIDTH + x].x, cam.right),
-			vec3_scale(data->offsets[y * WIDTH + x].y, cam.up));
-	ray.dir = vec3_norm(vec3_add(cam.forward, ray.dir));
+	ray.dir = vec3_add(vec3_scale(data->offsets[y * WIDTH + x].x, cam.coords.right),
+			vec3_scale(data->offsets[y * WIDTH + x].y, cam.coords.up));
+	ray.dir = vec3_norm(vec3_add(cam.coords.forward, ray.dir));
 	return (ray);
 }

@@ -21,9 +21,11 @@ void	setup_viewport(t_cam *cam)
 	cam->viewport_w = cam->viewport_h * ((float)WIDTH / (float)HEIGHT);
 }
 
-void	init_cam(t_cam *cam)
+void	setup_cam_coords(t_cam *cam)
 {
-	cam->right = vec3_norm(vec3_cross(cam->forward, vec3(0, 1, 0)));
-	cam->up = vec3_cross(cam->right, cam->forward);
-	setup_viewport(cam);
+	t_local_coords *coords;
+
+	coords = &(cam->coords);
+	coords->right = vec3_norm(vec3_cross(coords->forward, vec3(0, 1, 0)));
+	coords->up = vec3_cross(coords->right, coords->forward);
 }

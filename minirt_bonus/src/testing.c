@@ -55,9 +55,9 @@ void	print_camera(t_cam cam)
 			cam.pos.y,
 			cam.pos.z);
 	printf("%lf, %lf, %lf		",
-			cam.forward.x,
-			cam.forward.y,
-			cam.forward.z);
+			cam.coords.forward.x,
+			cam.coords.forward.y,
+			cam.coords.forward.z);
 	printf("%.2lf", cam.fov);
 	printf("\n");
 }
@@ -95,15 +95,15 @@ void	print_sp(t_obj *obj)
 
 void	print_pl(t_obj *obj)
 {
-	t_pl	*pl;
+	// t_pl	*pl;
 
 	printf("pl	");
-	pl = (t_pl *)(obj->shape);
+	// pl = (t_pl *)(obj->shape);
 	print_pos(obj);
 	printf("%lf, %lf, %lf		",
-			pl->norm.x,
-			pl->norm.y,
-			pl->norm.z);
+			obj->coords.up.x,
+			obj->coords.up.y,
+			obj->coords.up.z);
 	print_color_props(obj);
 	printf("\n");
 }
@@ -116,9 +116,9 @@ void	print_cy(t_obj *obj)
 	cy = (t_cy *)(obj->shape);
 	print_pos(obj);
 	printf("%lf, %lf, %lf		",
-			cy->norm.x,
-			cy->norm.y,
-			cy->norm.z);
+			obj->coords.up.x,
+			obj->coords.up.y,
+			obj->coords.up.z);
 	printf("%.2lf		", cy->r * 2);
 	printf("%.2lf		", cy->h);
 	print_color_props(obj);
@@ -133,9 +133,9 @@ void	print_cn(t_obj *obj)
 	cn = (t_cn *)(obj->shape);
 	print_pos(obj);
 	printf("%lf, %lf, %lf		",
-			cn->norm.x,
-			cn->norm.y,
-			cn->norm.z);
+			obj->coords.up.x,
+			obj->coords.up.y,
+			obj->coords.up.z);
 	printf("%.2lf		", cn->angle * (180 / M_PI));
 	printf("%.2lf		", cn->h);
 	print_color_props(obj);

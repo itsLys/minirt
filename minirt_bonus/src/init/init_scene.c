@@ -52,9 +52,11 @@ void	init_camera(char *line, t_data *data)
 	if (fov < 0.0 || fov > 180.0)
 		exit_error(ERR_CAM ERR_FOV, data);
 	data->scene.cam.pos = pos;
-	data->scene.cam.forward = norm;
+	data->scene.cam.coords.forward = norm;
 	data->scene.cam.fov = fov;
 	data->scene.cam.on = true;
+	setup_cam_coords(&(data->scene.cam));
+	setup_viewport(&(data->scene.cam));
 }
 
 int	init_config(char *line, t_data *data)

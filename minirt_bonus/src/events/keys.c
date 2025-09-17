@@ -44,11 +44,11 @@ static void	handle_rotation(int code, t_data *data)
 {
 	if (data->selected.type == T_CAM)
 	{
-		handle_cam_rotate(code, &(data->scene.cam));
+		handle_coords_rotate(code, &(data->scene.cam.coords));
 		spawn_mapping_workers(data);
 	}
 	else if (data->selected.type == T_OBJ)
-		handle_obj_rotate(code, data->selected.obj, data->scene.cam);
+		handle_coords_rotate(code, &(data->selected.obj->coords));
 }
 
 int	handle_keypress(int code, t_data *data)

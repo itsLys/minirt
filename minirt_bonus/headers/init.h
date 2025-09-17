@@ -16,7 +16,6 @@
 # include "types.h"
 
 void		init_ambient_light(char *line, t_data *data);
-void		init_cam(t_cam *cam);
 void		init_camera(char *line, t_data *data);
 void		init_light(char *line, t_data *data);
 void		init_plane(char *line, t_data *data);
@@ -28,4 +27,6 @@ void		init_offsets(t_vec2	**offsets, t_data *data);
 void		init_cam_rays(t_data *data);
 int			init_config(char *line, t_data *data);
 
+// TODO: change location
+void		setup_cam_coords(t_cam *cam);
 #endif // !INIT_H

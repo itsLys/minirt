@@ -32,6 +32,14 @@ void	get_surface_props(t_obj *obj, char *line, t_data *data)
 	skip_trailing(line, data);
 }
 
+void	init_local_coords(t_obj *obj)
+{
+	obj->coords.forward = vec3_cross(vec3(1, 0, 0), obj->coords.up);
+	obj->coords.right = vec3_cross(obj->coords.up, obj->coords.forward);
+	//
+	// TODO: verify correct order and dir
+}
+
 void	init_plane(char *line, t_data *data)
 {
 	t_obj	*obj;
@@ -43,12 +51,13 @@ void	init_plane(char *line, t_data *data)
 		return (free(pl), exit_error(NULL, data));
 	obj->shape = pl;
 	obj->type = T_PL;
-	obj_lst_add(obj, data->scene.obj_list);
 	obj->pos = get_vec3(&line, data);
-	pl->norm = get_vec3(&line, data);
-	if (vec3_len(pl->norm) != 1)
+	obj->coords.up = get_vec3(&line, data);
+	if (!is_close(vec3_len(obj->coords.up), 1.0))
 		exit_error(ERR_PL ERR_NORM_VAL, data);
+	obj_lst_add(obj, data->scene.obj_list);
 	get_surface_props(obj, line, data);
+	init_local_coords(obj);
 }
 
 void	init_sphere(char *line, t_data *data)
@@ -62,13 +71,14 @@ void	init_sphere(char *line, t_data *data)
 		return (free(sp), exit_error(NULL, data));
 	obj->shape = sp;
 	obj->type = T_SP;
-	obj_lst_add(obj, data->scene.obj_list);
 	obj->pos = get_vec3(&line, data);
-	sp->d = get_double(&line, data);
-	if (sp->d < 0)
+	obj->coords.up = vec3(0, 1, 0);
+	sp->r = get_double(&line, data) / 2;
+	if (sp->r < 0)
 		exit_error(ERR_SP ERR_DIAM_POS, data);
-	sp->r = sp->d / 2.0;
+	obj_lst_add(obj, data->scene.obj_list);
 	get_surface_props(obj, line, data);
+	init_local_coords(obj);
 }
 
 void	init_cylinder(char *line, t_data *data)
@@ -82,17 +92,17 @@ void	init_cylinder(char *line, t_data *data)
 		return (free(cy), exit_error(NULL, data));
 	obj->shape = cy;
 	obj->type = T_CY;
-	obj_lst_add(obj, data->scene.obj_list);
 	obj->pos = get_vec3(&line, data);
-	cy->norm = get_vec3(&line, data);
-	if (!is_close(vec3_len(cy->norm), 1.0))
-		exit_error(ERR_CY ERR_NORM_VAL, data);
-	cy->d = get_double(&line, data);
-	if (cy->d < 0)
-		exit_error(ERR_CY ERR_DIAM_POS, data);
-	cy->r = cy->d / 2.0;
+	obj->coords.up = get_vec3(&line, data);
+	cy->r = get_double(&line, data) / 2;
 	cy->h = get_double(&line, data);
+	if (!is_close(vec3_len(obj->coords.up), 1.0))
+		exit_error(ERR_CY ERR_NORM_VAL, data);
+	if (cy->r < 0)
+		exit_error(ERR_CY ERR_DIAM_POS, data);
+	obj_lst_add(obj, data->scene.obj_list);
 	get_surface_props(obj, line, data);
+	init_local_coords(obj);
 }
 
 void    init_cone(char *line, t_data *data)
@@ -106,16 +116,17 @@ void    init_cone(char *line, t_data *data)
         return free(cn), exit_error(NULL, data);
     obj->shape = cn;
     obj->type = T_CN;
-    obj_lst_add(obj, data->scene.obj_list);
     obj->pos = get_vec3(&line, data);
-    cn->norm = get_vec3(&line, data);
-    if (!is_close(vec3_len(cn->norm), 1.0))
-        exit_error("ERR_CN ERR_NORM_VAL", data);
-    cn->angle = get_double(&line, data)* M_PI / 180.0;
+    obj->coords.up = get_vec3(&line, data);
+    cn->angle = get_double(&line, data) * M_PI / 180.0;
     cn->h = get_double(&line, data);
+	if (!is_close(vec3_len(obj->coords.up), 1.0))
+		exit_error("ERR_CN ERR_NORM_VAL", data);
     if (cn->h < 0)
 		exit_error("ERR_CN ERR_HEIGHT_POS", data);
+	obj_lst_add(obj, data->scene.obj_list);
 	get_surface_props(obj, line, data);
+	init_local_coords(obj);
 }
 
 void    init_light(char *line, t_data *data)
@@ -129,10 +140,10 @@ void    init_light(char *line, t_data *data)
         return free(light), exit_error(NULL, data);
     obj->shape = light;
     obj->type = T_LS;
-    obj_lst_add(obj, data->scene.obj_list);
     obj->pos = get_vec3(&line, data);
 	light->ratio = get_double(&line, data);
 	obj->color = get_rgb(&line, data);
+	obj_lst_add(obj, data->scene.obj_list);
 	if (light->ratio < 0.0 || light->ratio > 1.0)
 		exit_error(ERR_LIGHT ERR_RATIO, data);
 	data->scene.light_on = true;

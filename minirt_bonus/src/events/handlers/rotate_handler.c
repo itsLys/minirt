@@ -12,39 +12,39 @@
 
 #include "minirt.h"
 
-static void	cam_rotate_x(int code, t_cam *cam)
+static void	rotate_x(int code, t_local_coords *coords)
 {
 	if (code == XK_s)
-		cam->forward = rotate(cam->forward, cam->right, CAM_ROTATE_STEP);
+		coords->forward = rotate(coords->forward, coords->right, ROTATE_STEP);
 	else if (code == XK_w)
-		cam->forward = rotate(cam->forward, cam->right, CAM_ROTATE_STEP * -1);
-	cam->up = vec3_cross(cam->right, cam->forward);
+		coords->forward = rotate(coords->forward, coords->right, ROTATE_STEP * -1);
+	coords->up = vec3_cross(coords->right, coords->forward);
 }
 
-static void	cam_rotate_z(int code, t_cam *cam)
+static void	rotate_z(int code, t_local_coords *coords)
 {
 	if (code == XK_e)
-		cam->up = rotate(cam->up, cam->forward, CAM_ROTATE_STEP);
+		coords->up = rotate(coords->up, coords->forward, ROTATE_STEP);
 	else if (code == XK_q)
-		cam->up = rotate(cam->up, cam->forward, CAM_ROTATE_STEP * -1);
-	cam->right = vec3_norm(vec3_cross(cam->forward, cam->up));
+		coords->up = rotate(coords->up, coords->forward, ROTATE_STEP * -1);
+	coords->right = vec3_norm(vec3_cross(coords->forward, coords->up));
 }
 
-static void	cam_rotate_y(int code, t_cam *cam)
+static void	rotate_y(int code, t_local_coords *coords)
 {
 	if (code == XK_a)
-		cam->right = rotate(cam->right, cam->up, CAM_ROTATE_STEP);
+		coords->right = rotate(coords->right, coords->up, CAM_ROTATE_STEP);
 	else if (code == XK_d)
-		cam->right = rotate(cam->right, cam->up, CAM_ROTATE_STEP * -1);
-	cam->forward = vec3_cross(cam->up, cam->right);
+		coords->right = rotate(coords->right, coords->up, CAM_ROTATE_STEP * -1);
+	coords->forward = vec3_cross(coords->up, coords->right);
 }
 
-void	handle_cam_rotate(int code, t_cam *cam)
+void	handle_coords_rotate(int code, t_local_coords *coords)
 {
 	if (code == XK_w || code == XK_s)
-		cam_rotate_x(code, cam);
+		rotate_x(code, coords);
 	else if (code == XK_a || code == XK_d)
-		cam_rotate_y(code, cam);
+		rotate_y(code, coords);
 	else if (code == XK_q || code == XK_e)
-		cam_rotate_z(code, cam);
+		rotate_z(code, coords);
 }

@@ -20,7 +20,9 @@ int			handle_keyrelease(int code, t_data *data);
 int			handle_button(int code, int x, int y, t_data *data);
 void		handle_props(int code, t_data *data);
 void		handle_obj_move(int code, t_data *data);
-void		handle_cam_rotate(int code, t_cam *cam);
-void		handle_obj_rotate(int code, t_obj *obj, t_cam cam);
+void		handle_coords_rotate(int code, t_local_coords *coords);
+// NOTE: deprecated
+// void		handle_cam_rotate(int code, t_cam *cam);
+// void		handle_obj_rotate(int code, t_obj *obj, t_cam cam);
 
 #endif // !HANDLERS_H

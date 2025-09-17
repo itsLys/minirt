@@ -106,17 +106,18 @@ t_rgb	sample_sp_color(t_hit hit, t_data *data)
 	return int_to_rgb(*((int *)color));
 }
 
-t_rgb	sample_cy_color(t_hit hit, t_data *data)
+t_rgb	sample_cy_color(t_hit hit, t_cy *cy, t_data *data)
 {
-	t_vec3	point = hit.point; // NORMALIZE??
-	double	thetha = atan2(point.z, point.x);
-	if (thetha < 0)
-		thetha += 2.0 * M_PI;
-	double	u = (thetha + M_PI) / (2 * M_PI);
-	double	y_max = translate(hit.obj->pos, vec3_scale(((t_cy *)(hit.obj->shape))->h / 2.0, ((t_cy *)(hit.obj->shape))->norm)).y;
-	double	y_min = translate(hit.obj->pos, vec3_scale(((t_cy *)(hit.obj->shape))->h / 2.0, ((t_cy *)(hit.obj->shape))->norm)).y;
-	double v = (point.y - y_min) / (y_max - y_min);
-
+	// TODO: optimize address reading, read once
+	t_vec3	S = vec3_cross(vec3(1, 0, 0), hit.obj->coords.up);
+	t_vec3	V = vec3_subtract(hit.point, hit.obj->pos);
+	double	y = vec3_dot(V, hit.obj->coords.up);
+	t_vec3	R = vec3_scale(y, hit.obj->coords.up);
+	R 		  = vec3_subtract(V, R);
+	R 		  = vec3_norm(R);
+	double	u_angle = atan2(vec3_dot(vec3_cross(S, R), hit.obj->coords.up), vec3_dot(R, S));
+	double u = fmod((u_angle / (2 * M_PI)), 1.0) ;
+	double v = (y + cy->h / 2.0) / cy->h;
 	char	*color;
 	t_int_vec2 tx_index;
 
@@ -124,27 +125,19 @@ t_rgb	sample_cy_color(t_hit hit, t_data *data)
 	tx_index.y = v * (data->texture.height - 1);
 	color = data->texture.addr + tx_index.y * data->texture.line_len + tx_index.x * (data->texture.bpp / 8);
 	return int_to_rgb(*((int *)color));
-	// BUG: segfaults
 }
 
-t_rgb	sample_pl_color(t_hit hit, t_data *data)
-{
-	t_vec3 tmp = (fabs(hit.normal.x) > 0.9) ? (t_vec3) {0,1,0} : (t_vec3) {1,0,0};
-	t_vec3 U = vec3_norm(vec3_cross(tmp, hit.normal));
-	t_vec3 V = vec3_cross(U, hit.normal);
-
-	t_vec3 rel = vec3_subtract(hit.point, hit.obj->pos);
-	double	u = vec3_dot(rel, U);
-	double	v = vec3_dot(rel, V);
-	char	*color;
-	t_int_vec2 tx_index;
-
-	tx_index.x = u * (data->texture.width - 1);
-	tx_index.y = v * (data->texture.height - 1);
-	color = data->texture.addr + tx_index.y * data->texture.line_len + tx_index.x * (data->texture.bpp / 8);
-	return int_to_rgb(*((int *)color));
-	// BUG: segfaults
-}
+// t_rgb	sample_pl_color(t_hit hit, t_data *data)
+// {
+// 	char	*color;
+// 	t_int_vec2 tx_index;
+//
+// 	tx_index.x = u * (data->texture.width - 1);
+// 	tx_index.y = v * (data->texture.height - 1);
+// 	color = data->texture.addr + tx_index.y * data->texture.line_len + tx_index.x * (data->texture.bpp / 8);
+// 	return int_to_rgb(*((int *)color));
+// 	// BUG: segfaults
+// }
 
 t_rgb	trace_ray(t_ray ray, t_data *data)
 {
@@ -157,6 +150,6 @@ t_rgb	trace_ray(t_ray ray, t_data *data)
 	obj = *(data->scene.obj_list);
 	record_hit(&obj, &hit, ray);
 	if (hit.obj && hit.obj->type == T_CY)
-		hit.color = sample_cy_color(hit, data);
+		hit.color = sample_cy_color(hit, hit.obj->shape, data);
 	return (compute_color(ray, hit, data));
 }

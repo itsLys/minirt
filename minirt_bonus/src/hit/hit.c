@@ -20,7 +20,7 @@ int    check_cn_height_intersect(double t, t_ray ray, t_obj *obj, t_cn *cn)
     check_height = vec3_scale(t, ray.dir);
     check_height = vec3_add(check_height, ray.orign);
     check_height = vec3_subtract(check_height, obj->pos);
-    q = vec3_dot(check_height, cn->norm);
+    q = vec3_dot(check_height, obj->coords.up);
     if (0.0 <= q && cn->h >= q)
         return true;
     return false;
@@ -33,7 +33,7 @@ int	check_cy_height_intersect(double t, t_ray ray, t_obj *obj, t_cy *cy)
 	check_height = vec3_scale(t, ray.dir);
 	check_height = vec3_add(check_height, ray.orign);
 	check_height = vec3_subtract(check_height, obj->pos);
-	q = vec3_dot(check_height, cy->norm);
+	q = vec3_dot(check_height, obj->coords.up);
 	if (q >= -cy->h / 2.0 && q <= cy->h / 2.0)
 		return (true);
 	return (false);
@@ -83,7 +83,7 @@ t_hit	resolve_cy_hit(t_ray ray, t_obj *obj, t_cy *cy, t_quad quad)
 	}
 	hit.point = vec3_add(ray.orign, vec3_scale(hit.t, ray.dir));
 	hit.normal = vec3_subtract(hit.point, obj->pos);
-	hit.normal = vec3_scale(vec3_dot(hit.normal, cy->norm), cy->norm);
+	hit.normal = vec3_scale(vec3_dot(hit.normal, obj->coords.up), obj->coords.up);
 	hit.normal = vec3_add(obj->pos, hit.normal);
 	hit.normal = vec3_subtract(hit.point, hit.normal);
 	hit.normal = vec3_norm(hit.normal);
@@ -92,7 +92,7 @@ t_hit	resolve_cy_hit(t_ray ray, t_obj *obj, t_cy *cy, t_quad quad)
 	return (hit);
 }
 
-t_hit	resolve_pl_hit(t_pl *pl, t_ray ray, double a, double b)
+t_hit	resolve_pl_hit(t_ray ray, t_obj *obj, double a, double b)
 {
 	double	t;
 	t_hit	hit;
@@ -107,7 +107,7 @@ t_hit	resolve_pl_hit(t_pl *pl, t_ray ray, double a, double b)
 	hit.t = t;
 	hit.point = vec3_scale(hit.t, ray.dir);
 	hit.point = vec3_add(ray.orign, hit.point);
-	hit.normal = pl->norm;
+	hit.normal = obj->coords.up;
 	if (vec3_dot(ray.dir, hit.normal) > 0)
 		hit.normal = vec3_scale(-1, hit.normal);
 	return (hit);
@@ -130,7 +130,7 @@ t_hit    resolve_cn_hit(t_ray ray, t_obj *obj, t_quad quad, t_cn *cn)
     }
     hit.point = vec3_add(ray.orign, vec3_scale(hit.t, ray.dir));
     hit.normal = vec3_subtract(hit.point, obj->pos);
-    term1 = vec3_scale(vec3_dot(hit.normal, cn->norm), cn->norm);
+    term1 = vec3_scale(vec3_dot(hit.normal, obj->coords.up), obj->coords.up);
     term2 = vec3_scale(cosf(cn->angle) * cosf(cn->angle), hit.normal);
     hit.normal = vec3_norm(vec3_subtract(term1, term2));
     if (vec3_dot(ray.dir, hit.normal) > 0)
