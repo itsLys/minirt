@@ -149,7 +149,8 @@ t_rgb	sample_pl_color(t_hit hit, t_data *data)
 	tx_index.y = v * (data->texture.height - 1);
 	color = data->texture.addr + tx_index.y * data->texture.line_len + tx_index.x * (data->texture.bpp / 8);
 	return int_to_rgb(*((int *)color));
-	// BUG: segfaults
+	// TODO: add dynamic texutre from config file,
+	// add dynamic number of tiles per hit point (what??)
 }
 
 t_rgb	trace_ray(t_ray ray, t_data *data)
@@ -162,7 +163,7 @@ t_rgb	trace_ray(t_ray ray, t_data *data)
 	hit.obj = NULL;
 	obj = *(data->scene.obj_list);
 	record_hit(&obj, &hit, ray);
-	if (hit.obj && hit.obj->type == T_PL)
-		hit.color = sample_pl_color(hit, data);
+	if (hit.obj && hit.obj->type == T_SP)
+		hit.color = sample_sp_color(hit, data);
 	return (compute_color(ray, hit, data));
 }

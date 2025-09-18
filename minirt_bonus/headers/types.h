@@ -32,6 +32,26 @@ typedef enum s_selected_type
 	T_CAM
 }	t_selected_type;
 
+typedef struct s_img
+{
+	void			*img_ptr;
+	char			*addr;
+	int				bpp;
+	int				line_len;
+	int				endian;
+}	t_img;
+
+typedef struct s_texture
+{
+	void			*ptr;
+	char			*addr;
+	int				bpp;
+	int				line_len;
+	int				endian;
+	int				width;
+	int				height;
+}	t_texture;
+
 typedef struct s_int_vec2 
 {
 	int	x;
@@ -63,6 +83,7 @@ typedef struct s_amb_light
 	bool			on;
 	double			ratio;
 	t_rgb			color;
+	t_texture		texture;
 }	t_amb_light;
 
 typedef struct s_cam_rays
@@ -82,10 +103,6 @@ typedef struct s_cam
 {
 	bool			on;
 	t_vec3			pos;
-	// t_vec3			forward;
-	// t_vec3			backward;
-	// t_vec3			right;
-	// t_vec3			up;
 	t_local_coords	coords;
 	double			fov;
 	double			viewport_h;
@@ -94,21 +111,18 @@ typedef struct s_cam
 
 typedef struct s_sp
 {
-	// double			d;
 	double			r;
 }	t_sp;
 
 typedef struct s_pl
 {
-	// t_vec3			norm;
 	double	h;
 	double	w;
+	int		tiles;
 }	t_pl;
 
 typedef struct s_cy
 {
-	// t_vec3			norm;
-	// double			d;
 	double			r;
 	double			h;
 }	t_cy;
@@ -120,10 +134,17 @@ typedef struct s_light
 
 typedef struct s_cn
 {
-	// t_vec3			norm;
 	double			angle;
 	double			h;
 }    t_cn;
+// NOTE:	arrange those
+
+typedef struct s_pattern 
+{
+	t_rgb	c1;
+	t_rgb	c2;
+	int		tiles;
+}	t_pattern ;
 
 typedef struct s_obj
 {
@@ -133,6 +154,9 @@ typedef struct s_obj
 	t_rgb			color;
 	double			reflect;
 	int				shine;
+	t_texture		image;
+	t_texture		bumpmap;
+	t_pattern		pattern;
 	void			*shape;
 	struct s_obj	*next;
 }	t_obj;
@@ -178,26 +202,6 @@ typedef struct s_selected
 	t_obj			*obj;
 	t_obj			*light;
 }	t_selected;
-
-typedef struct s_img
-{
-	void			*img_ptr;
-	char			*addr;
-	int				bpp;
-	int				line_len;
-	int				endian;
-}	t_img;
-
-typedef struct s_texture
-{
-	void			*ptr;
-	char			*addr;
-	int				width;
-	int				height;
-	int				bpp;
-	int				line_len;
-	int				endian;
-}	t_texture;
 
 typedef struct s_data t_data ;
 

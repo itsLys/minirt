@@ -11,18 +11,89 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
+/* int	get_integer(char **line, t_data *data)
+   {
+   int	n;
+   int	i;
+
+   i = 0;
+   while (ft_isspace(**line))
+   (*line)++;
+   n = parse_num(*line);
+   while (ft_isdigit(**line))
+   {
+   (*line)++;
+   i = 1;
+   }
+   if (i == 0)
+   exit_error(ERR_INT, data);
+   return (n);
+   } */
+
+/* t_vec3	get_vec3(char **line, t_data *data)
+   {
+   t_vec3	vec3;
+
+   vec3.x = get_double(line, data);
+   if (*(*line)++ != ',')
+   exit_error(ERR_COORDS, data);
+   vec3.y = get_double(line, data);
+   if (*(*line)++ != ',')
+   exit_error(ERR_COORDS, data);
+   vec3.z = get_double(line, data);
+   return (vec3);
+   } */
+# define ERR_TEXTURE "dsa"
+# define ERR_REL_PATH "dsa"
+
+char *get_string(char **line, t_data *data)
+{
+	char str[PATH_MAX];
+	int i;
+
+	i = 0;
+	while (ft_isspace(**line))
+		(*line)++;
+	if ((**line) == '\n')
+		return NULL;
+	while (ft_isalnum(**line) && i < PATH_MAX)
+	{
+		str[i++] = **line;
+		(*line)++;
+	}
+	if (i == PATH_MAX)
+		return  NULL;
+	str[i] = 0;
+	return NULL;
+}
+// TODO: complete getting the string and texture
+
+t_texture	get_texture(char **line, t_data *data)
+{
+	char	*path;
+
+	path = get_string(line, data);
+	if (path == NULL)
+		return (t_texture) {0}; // WARN: actually return the texture variable with img pointer set to null
+	if (path && path[0] == '/')
+		exit_error(ERR_TEXTURE ERR_REL_PATH, data);
+
+	return (t_texture) {0};
+}
 
 void	init_ambient_light(char *line, t_data *data)
 {
-	double	ratio;
-	t_rgb	rgb;
+	double		ratio;
+	t_rgb		rgb;
+	t_texture	texture;
 
 	if (data->scene.amb_light.on == true)
 		exit_error(ERR_AMB_LIGHT ERR_MULTI, data);
 	ratio = get_double(&line, data);
+	rgb = get_rgb(&line, data);
+	texture	= get_texture(&line, data);
 	if (ratio < 0.0 || ratio > 1.0)
 		exit_error(ERR_AMB_LIGHT ERR_RATIO, data);
-	rgb = get_rgb(&line, data);
 	while (ft_isspace(*line))
 		line++;
 	if (*line != '\n' && *line != '\0')
@@ -102,4 +173,5 @@ void	init_data(t_data *data)
 		exit_error(NULL, data);
 	init_workers(data->mapping_workers, data, work_directions);
 	init_workers(data->render_workers, data, work_rendering);
+	// NOTE: maybe should not be here
 }

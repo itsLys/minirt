@@ -40,31 +40,52 @@ void	obj_lst_free(t_obj **obj)
 	free(obj);
 }
 
+void	save_content(t_obj *tmp, t_obj *obj)
+{
+	tmp->type = obj->type;
+	tmp->pos = obj->pos;
+	tmp->coords = obj->coords;
+	tmp->color = obj->color;
+	tmp->reflect = obj->reflect;
+	tmp->shine = obj->shine;
+	tmp->image = obj->image;
+	tmp->bumpmap = obj->bumpmap;
+	tmp->shape = obj->shape;
+}
+
+void	swap_content(t_obj *n1, t_obj *n2)
+{
+	n1->type = n2->type;
+	n1->pos = n2->pos;
+	n1->coords = n2->coords;
+	n1->color = n2->color;
+	n1->reflect = n2->reflect;
+	n1->shine = n2->shine;
+	n1->image = n2->image;
+	n1->bumpmap = n2->bumpmap;
+	n1->shape = n2->shape;
+}
+
+void	restore_content(t_obj *tmp, t_obj *obj)
+{
+	obj->type = tmp->type;
+	obj->pos = tmp->pos;
+	obj->coords = tmp->coords;
+	obj->color = tmp->color;
+	obj->reflect = tmp->reflect;
+	obj->shine = tmp->shine;
+	obj->image = tmp->image;
+	obj->bumpmap = tmp->bumpmap;
+	obj->shape = tmp->shape;
+}
+
 void	swap_nodes(t_obj **n1, t_obj **n2)
 {
 	t_obj	tmp;
 
-	tmp.type = (*n1)->type;
-	tmp.pos = (*n1)->pos;
-	tmp.coords = (*n1)->coords;
-	tmp.color = (*n1)->color;
-	tmp.reflect = (*n1)->reflect;
-	tmp.shine = (*n1)->shine;
-	tmp.shape = (*n1)->shape;
-	(*n1)->type = (*n2)->type;
-	(*n1)->pos = (*n2)->pos;
-	(*n1)->coords = (*n2)->coords;
-	(*n1)->color = (*n2)->color;
-	(*n1)->reflect = (*n2)->reflect;
-	(*n1)->shine = (*n2)->shine;
-	(*n1)->shape = (*n2)->shape;
-	(*n2)->type = tmp.type;
-	(*n2)->pos = tmp.pos;
-	(*n2)->coords = tmp.coords;
-	(*n2)->color = tmp.color;
-	(*n2)->reflect = tmp.reflect;
-	(*n2)->shine = tmp.shine;
-	(*n2)->shape = tmp.shape;
+	save_content(&tmp, *n1);
+	swap_content(*n1, *n2);
+	restore_content(&tmp, *n2);
 }
 
 void	sort_objects(t_obj **head)

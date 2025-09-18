@@ -40,13 +40,18 @@
 
 # define ERR_USAGE " \
 	`./minirt -h` for help\n \
-	A <ratio> <R,G,B>\n \
-	C <x,y,z> <orient_x,orient_y,orient_z> <FOV>\n \
-	L <x,y,z> <brightness> <R,G,B>\n \
-	sp <x,y,z> <diameter> <R,G,B> <reflectivness> <shininess>\n \
-	pl <x,y,z> <norm_x,norm_y,norm_z> <R,G,B> <reflectivness> <shininess>\n \
-	cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B <reflectivness> <shininess>>\n \
-	cn <x,y,z> <axis_x,axis_y,axis_z> <angle> <height> <R,G,B <reflectivness> <shininess>>\n \
+	A	<ratio> <R,G,B> [<texture_name>]\n \
+	C	<x,y,z> <orient_x,orient_y,orient_z> <FOV>\n \
+	l	<x,y,z> <brightness> <R,G,B>\n \
+																\
+	t	<texture_name> <texture_type> <texture_relative_path>\n \
+	c	<pattern_name> <R,G,B> <R,G,B> [<number>] \n \
+																\
+	sp	<x,y,z> <north_x,north_y,north_z> <seam_x,seam_y,seam_z> <diameter> <R,G,B> <reflectivness> <shininess> [<texture/pattern name> <bumpmap_name>]\n \
+	pl	<x,y,z> <face_x,face_y,face_z> <R,G,B> <reflectivness> <shininess> [<texture/pattern name> [<bumpmap_name>] [<number_of_tiles>]]\n \
+	cy	<x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B> <reflectivness> <shininess> <texture/pattern name>\n \
+	cn	<x,y,z> <axis_x,axis_y,axis_z> <angle> <height> <R,G,B> <reflectivness> <shininess> <texture/pattern name>\n \
 	"
-
+// TODO: orientation and axis don't have to be normalized, normalize them at parse time
+	// if number of tiles is not given, assume  a default
 #endif // !ERROR_H

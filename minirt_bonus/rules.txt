@@ -1,82 +1,87 @@
-MINIRT SCENE CONFIGURATION RULES
---------------------------------
+# ==========================================================
+#   MINIRT SCENE CONFIGURATION RULES
+# ==========================================================
 
-GENERAL STRUCTURE:
-1. Each line describes exactly one object in the scene.
-2. The first token in the line is the type identifier (one or two letters).
-3. Object configuration lines can appear in any order.
-4. One or more blank lines may appear between configuration lines.
-5. All parameters for a given object must be present on its line; no parameters can be omitted.
-6. Entire objects may be omitted only for lowercase types (sp, pl, cy).
-   - Uppercase objects (A, C, L) must be present exactly once each.
-7. Uppercase objects (A, C, L) are unique:
-   - They must appear exactly one time in the file.
-   - Multiple declarations or missing declarations are invalid.
-8. Lowercase objects (sp, pl, cy) are repeatable:
-   - They can appear zero or more times to create multiple instances.
-9. Parameters in a line must be separated by one or more spaces or tabs.
-10. No newline characters may appear inside a single object's configuration line.
-11. Parameter order must strictly follow the format for that object type.
-12. All numeric and vector values must respect their valid ranges.
+# ────────────────
+#  GENERAL RULES
+# ────────────────
+- Each non-empty line describes exactly ONE element of the scene.
+- The first token in the line is the type identifier (one or two letters).
+- Element lines can appear in ANY order.
+- Blank lines may appear between elements.
+- Parameters are separated by one or more spaces or tabs.
+- No newlines are allowed inside an element line.
+- Numeric and vector values must be within valid ranges.
+- Orientation/normal vectors will be normalized at parse time.
+- Uppercase types (A, C, L):
+    • A (ambient) → must appear exactly once.
+    • C (camera) → must appear exactly once.
+    • l (light)  → must appear at least once.
+- Lowercase types (sp, pl, cy, cn) can appear zero or more times.
 
-OBJECT FORMATS:
+# ────────────────
+#  TEXTURE / PATTERN DECLARATION
+# ────────────────
+t <texture_name> <texture_type> <texture_relative_path>
+    # Declares a texture. The name is referenced by objects or ambient.
+    # <texture_type> could be "image" or "bump".
 
-Ambient Light:
-  Format: A <ambient_ratio> <R,G,B>
-  - Must appear exactly once.
-  - ambient_ratio: floating-point value in range [0.0, 1.0]
-  - R,G,B: integer values in range [0, 255]
+c <pattern_name> <R,G,B> <R,G,B> [<number>]
+    # Declares a checkerboard pattern.
 
-Camera:
-  Format: C <x,y,z> <orient_x,orient_y,orient_z> <FOV>
-  - Must appear exactly once.
-  - x,y,z: floating-point coordinates of the camera position
-  - orient_x, orient_y, orient_z: floating-point normalized vector components, each in [-1.0, 1.0], magnitude must equal 1
-  - FOV: floating-point field of view in degrees, range [0, 180]
+# ────────────────
+#  AMBIENT LIGHT
+# ────────────────
+A <ambient_ratio> <R,G,B> [<texture_name>]
+    # <ambient_ratio> ∈ [0.0, 1.0]
+    # Optional <texture_name> replaces background color.
 
-Light:
-  Format: L <x,y,z> <brightness> <R,G,B>
-  - Must appear exactly once.
-  - x,y,z: floating-point coordinates of the light position
-  - brightness: floating-point ratio in range [0.0, 1.0]
-  - R,G,B: integer values in range [0, 255]
+# ────────────────
+#  CAMERA
+# ────────────────
+C <x,y,z> <orient_x,orient_y,orient_z> <FOV>
+    # <FOV> ∈ [0, 180]
 
-Sphere:
-  Format: sp <x,y,z> <diameter> <R,G,B> <reflectiveness> <shininess>
-  - May appear zero or more times.
-  - x,y,z: floating-point coordinates of the sphere center
-  - diameter: floating-point value
-  - R,G,B: integer values in range [0, 255]
-  - reflectiveness: floating-point value in rage [0.0, 1.0]
-  - shininess exponent: integer in the range [0, 200]
+# ────────────────
+#  LIGHT
+# ────────────────
+l <x,y,z> <brightness> <R,G,B>
+    # <brightness> ∈ [0.0, 1.0]
 
-Plane:
-  Format: pl <x,y,z> <norm_x,norm_y,norm_z> <R,G,B> <reflectiveness> <shininess>
-  - May appear zero or more times.
-  - x,y,z: floating-point coordinates of a point on the plane
-  - norm_x, norm_y, norm_z: floating-point normalized vector components, each in [-1.0, 1.0], magnitude must equal 1
-  - R,G,B: integer values in range [0, 255]
-  - reflectiveness: floating-point value in rage [0.0, 1.0]
-  - shininess exponent: integer in the range [0, 200]
+# ────────────────
+#  OBJECTS
+# ────────────────
+#  RULES:
+#   - All objects MUST provide <R,G,B>
+#   - Optionally, they can provide:
+#       • a texture name (declared with `t`)
+#       • a bumpmap name (declared with `t` and type="bump")
+#       • both (texture and bumpmap)
+#       • or neither (plain RGB only)
+#   - If a given name is not declared, the program must exit with error.
+#   - If both color and texture are given, texture overrides the RGB color.
 
-Cylinder:
-  Format: cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B> <reflectiveness> <shininess>
-  - May appear zero or more times.
-  - x,y,z: floating-point coordinates of the center of the cylinder
-  - axis_x, axis_y, axis_z: floating-point normalized vector components, each in [-1.0, 1.0], magnitude must equal 1
-  - diameter: floating-point value
-  - height: floating-point value
-  - R,G,B: integer values in range [0, 255]
-  - reflectiveness: floating-point value in rage [0.0, 1.0]
-  - shininess exponent: integer in the range [0, 200]
+# ─ Sphere
+sp <x,y,z> <north_x,north_y,north_z> <seam_x,seam_y,seam_z> \
+   <diameter> <R,G,B> <reflectiveness> <shininess> [<texture_name> [<bumpmap_name>]]
 
-Cone:
-  Format: cn <x,y,z> <axis_x,axis_y,axis_z> <angle> <height> <R,G,B> <reflectiveness> <shininess>
-  - May appear zero or more times.
-  - x,y,z: floating-point coordinates of the head of the cone
-  - axis_x, axis_y, axis_z: floating-point normalized vector components, each in [-1.0, 1.0], magnitude must equal 1
-  - angle: floating-point value
-  - height: floating-point value
-  - R,G,B: integer values in range [0, 255]
-  - reflectiveness: floating-point value in rage [0.0, 1.0]
-  - shininess: integer in the range [0, 200]
+# ─ Plane
+pl <x,y,z> <face_x,face_y,face_z> \
+   <R,G,B> <reflectiveness> <shininess> [<texture_name> [<bumpmap_name>] [<tiles_per_axis>]]
+
+# ─ Cylinder
+cy <x,y,z> <axis_x,axis_y,axis_z> \
+   <diameter> <height> <R,G,B> <reflectiveness> <shininess> [<texture_name> [<bumpmap_name>]]
+
+# ─ Cone
+cn <x,y,z> <axis_x,axis_y,axis_z> \
+   <angle> <height> <R,G,B> <reflectiveness> <shininess> [<texture_name> [<bumpmap_name>]]
+
+# ==========================================================
+#  VALIDATION RULES
+# ==========================================================
+- All referenced <texture_name> or <pattern_name> must be declared.
+- If a referenced name is undeclared → terminate with error.
+- Orientation and normal vectors are normalized after parsing.
+- If both RGB and texture are given → use texture (color is ignored).
+- Bumpmaps never affect color — they only modify the shading normal.
