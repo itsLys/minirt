@@ -41,8 +41,14 @@ int	parse_file(char *filename, t_data *data)
 	int		fd;
 	char	*line;
 
-	data->scene.obj_list = malloc(sizeof(t_obj *));
-	*(data->scene.obj_list) = NULL;
+	// move to initialization
+	data->scene.tx_lst = malloc(sizeof(t_texture *));
+	data->scene.patt_lst = malloc(sizeof(t_pattern *));
+	data->scene.obj_lst = malloc(sizeof(t_obj *));
+	// FIX:	validate malloc
+	*(data->scene.obj_lst) = NULL;
+	*(data->scene.tx_lst) = NULL;
+	*(data->scene.patt_lst) = NULL;
 	if (check_file_ext(filename) == ERROR)
 		return (ERROR);
 	fd = open(filename, O_RDONLY);

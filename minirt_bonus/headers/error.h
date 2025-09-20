@@ -22,6 +22,7 @@
 # define ERR_CN "Cone: "
 # define ERR_LIGHT "Light: "
 # define ERR_PARAM "Wrong parameter field\n"
+# define ERR_TX "Texture: "
 
 // ERR PARAMS
 # define ERR_RGB "RGB is not correct\n"
@@ -37,6 +38,9 @@
 # define ERR_NOT_FOUND "Parameter not found!\n"
 # define ERR_WRONG_REF "Wrong reflectivness\n"
 # define ERR_WRONG_SHINE "Wrong shininess\n"
+# define ERR_REL_PATH "Invalid relative path\n"
+# define ERR_COULDNT_LOAD "Coulnd't load texture\n"
+# define ERR_TX_TYPE "Wrong texture type\n"
 
 # define ERR_USAGE " \
 	`./minirt -h` for help\n \

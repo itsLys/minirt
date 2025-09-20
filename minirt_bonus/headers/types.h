@@ -16,6 +16,14 @@
 # include <stdbool.h>
 # include <pthread.h>
 
+// enums
+typedef enum s_texture_type
+{
+	COLOR_TX,
+	BUMP_TX,
+	INVALID_TX,
+}	t_texture_type;
+
 typedef enum s_obj_type
 {
 	T_LS,
@@ -32,27 +40,8 @@ typedef enum s_selected_type
 	T_CAM
 }	t_selected_type;
 
-typedef struct s_img
-{
-	void			*img_ptr;
-	char			*addr;
-	int				bpp;
-	int				line_len;
-	int				endian;
-}	t_img;
-
-typedef struct s_texture
-{
-	void			*ptr;
-	char			*addr;
-	int				bpp;
-	int				line_len;
-	int				endian;
-	int				width;
-	int				height;
-}	t_texture;
-
-typedef struct s_int_vec2 
+// math types
+typedef struct s_int_vec2
 {
 	int	x;
 	int	y;
@@ -78,12 +67,50 @@ typedef struct s_rgb
 	double			b;
 }	t_rgb;
 
+// img, textures, patterns
+typedef struct s_img
+{
+	void			*img;
+	char			*addr;
+	int				bpp;
+	int				line_len;
+	int				endian;
+}	t_img;
+
+typedef struct s_texture
+{
+	char				*name;
+	t_texture_type		type;
+	t_img				img;
+	int					width;
+	int					height;
+	struct s_texture	*next;
+}	t_texture;
+
+typedef struct s_pattern
+{
+	char				*name;
+	int					tiles;
+	t_rgb				c1;
+	t_rgb				c2;
+	struct s_pattern	*next;
+}	t_pattern ;
+
+// scene
+typedef struct s_local_coords
+{
+	t_vec3				up;
+	t_vec3				right;
+	t_vec3				forward;
+}	t_local_coords ;
+
 typedef struct s_amb_light
 {
-	bool			on;
-	double			ratio;
-	t_rgb			color;
-	t_texture		texture;
+	bool				on;
+	t_rgb				color;
+	double				ratio;
+	char				*tx_name;
+	t_texture			*tx;
 }	t_amb_light;
 
 typedef struct s_cam_rays
@@ -91,13 +118,6 @@ typedef struct s_cam_rays
 	t_vec3			*dirs;
 	t_vec3			orig;
 }	t_cam_rays;
-
-typedef struct s_local_coords 
-{
-	t_vec3	up;
-	t_vec3	right;
-	t_vec3	forward;
-}	t_local_coords ;
 
 typedef struct s_cam
 {
@@ -109,6 +129,11 @@ typedef struct s_cam
 	double			viewport_w;
 }	t_cam;
 
+// objects
+typedef struct s_light
+{
+	double			ratio;
+}	t_light;
 typedef struct s_sp
 {
 	double			r;
@@ -116,9 +141,9 @@ typedef struct s_sp
 
 typedef struct s_pl
 {
-	double	h;
-	double	w;
-	int		tiles;
+	double			h;
+	double			w;
+	int				n;
 }	t_pl;
 
 typedef struct s_cy
@@ -127,53 +152,57 @@ typedef struct s_cy
 	double			h;
 }	t_cy;
 
-typedef struct s_light
-{
-	double			ratio;
-}	t_light;
-
 typedef struct s_cn
 {
 	double			angle;
 	double			h;
-}    t_cn;
-// NOTE:	arrange those
+}    t_cn; // make texture mapping for this
 
-typedef struct s_pattern 
-{
-	t_rgb	c1;
-	t_rgb	c2;
-	int		tiles;
-}	t_pattern ;
+// obj, scene
+
+typedef struct s_obj_tx {
+	char		**ids; // malloc 3 * char *
+	t_texture	*tx;
+	t_texture	*bmp;
+	t_pattern	*patt;
+}	t_obj_tx;
 
 typedef struct s_obj
 {
 	t_obj_type		type;
-	t_vec3			pos;
 	t_local_coords	coords;
+	t_vec3			pos;
 	t_rgb			color;
-	double			reflect;
+	double			ref;
 	int				shine;
-	t_texture		image;
-	t_texture		bumpmap;
-	t_pattern		pattern;
+	t_obj_tx		tx;
 	void			*shape;
 	struct s_obj	*next;
-}	t_obj;
+}	t_obj; // FIX: in sorting
+
+typedef struct s_selected
+{
+	t_selected_type	type;
+	t_obj			*obj;
+	t_obj			*light;
+}	t_selected;
 
 typedef struct s_scene
 {
-	t_amb_light		amb_light;
 	bool			light_on;
+	t_amb_light		amb;
 	t_cam			cam;
-	t_cam_rays		rays;
-	t_obj			**obj_list;
+	t_selected		selected;
+	t_obj			**obj_lst;
+	t_texture		**tx_lst;
+	t_pattern		**patt_lst;
 }	t_scene;
 
+// rays, hit
 typedef struct s_ray
 {
-	t_int_vec2		pixel;
-	t_vec3			orign;
+	t_int_vec2		px;
+	t_vec3			orig;
 	t_vec3			dir;
 }	t_ray;
 
@@ -196,16 +225,10 @@ typedef struct s_hit
 	t_obj			*obj;
 }	t_hit;
 
-typedef struct s_selected
-{
-	t_selected_type	type;
-	t_obj			*obj;
-	t_obj			*light;
-}	t_selected;
-
+// global data
 typedef struct s_data t_data ;
 
-typedef struct s_worker 
+typedef struct s_worker
 {
 	pthread_t	tid;
 	int			number;
@@ -219,11 +242,10 @@ struct s_data
 {
 	void			*mlx;
 	void			*win;
-	t_selected		selected;
-	t_scene			scene;
-	t_vec2			*offsets;
 	t_img			img;
-	t_texture		texture;
+	t_scene			scene;
+	t_cam_rays		rays;
+	t_vec2			*offsets;
 	t_worker		*render_workers;
 	t_worker		*mapping_workers;
 };

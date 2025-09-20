@@ -21,5 +21,6 @@ double		get_double(char **line, t_data *data);
 t_rgb		get_rgb(char **line, t_data *data);
 t_vec3		get_vec3(char **line, t_data *data);
 int			get_integer(char **line, t_data *data);
-
+void		get_texture(t_texture *texture, char **line, t_data *data);
+char		*get_string(char **line, t_data *data);
 #endif // !PARSE_H

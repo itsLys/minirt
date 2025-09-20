@@ -6,101 +6,68 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:56:27 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/16 10:57:32 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/20 16:18:30 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-/* int	get_integer(char **line, t_data *data)
-   {
-   int	n;
-   int	i;
-
-   i = 0;
-   while (ft_isspace(**line))
-   (*line)++;
-   n = parse_num(*line);
-   while (ft_isdigit(**line))
-   {
-   (*line)++;
-   i = 1;
-   }
-   if (i == 0)
-   exit_error(ERR_INT, data);
-   return (n);
-   } */
-
-/* t_vec3	get_vec3(char **line, t_data *data)
-   {
-   t_vec3	vec3;
-
-   vec3.x = get_double(line, data);
-   if (*(*line)++ != ',')
-   exit_error(ERR_COORDS, data);
-   vec3.y = get_double(line, data);
-   if (*(*line)++ != ',')
-   exit_error(ERR_COORDS, data);
-   vec3.z = get_double(line, data);
-   return (vec3);
-   } */
-# define ERR_TEXTURE "dsa"
-# define ERR_REL_PATH "dsa"
-
-char *get_string(char **line, t_data *data)
-{
-	char str[PATH_MAX];
-	int i;
-
-	i = 0;
-	while (ft_isspace(**line))
-		(*line)++;
-	if ((**line) == '\n')
-		return NULL;
-	while (ft_isalnum(**line) && i < PATH_MAX)
-	{
-		str[i++] = **line;
-		(*line)++;
-	}
-	if (i == PATH_MAX)
-		return  NULL;
-	str[i] = 0;
-	return NULL;
-}
-// TODO: complete getting the string and texture
-
-t_texture	get_texture(char **line, t_data *data)
-{
-	char	*path;
-
-	path = get_string(line, data);
-	if (path == NULL)
-		return (t_texture) {0}; // WARN: actually return the texture variable with img pointer set to null
-	if (path && path[0] == '/')
-		exit_error(ERR_TEXTURE ERR_REL_PATH, data);
-
-	return (t_texture) {0};
-}
 
 void	init_ambient_light(char *line, t_data *data)
 {
 	double		ratio;
 	t_rgb		rgb;
-	t_texture	texture;
+	char		*tx_name;
 
-	if (data->scene.amb_light.on == true)
+	if (data->scene.amb.on == true)
 		exit_error(ERR_AMB_LIGHT ERR_MULTI, data);
 	ratio = get_double(&line, data);
 	rgb = get_rgb(&line, data);
-	texture	= get_texture(&line, data);
+	tx_name = get_string(&line, data); // FIX: free this
 	if (ratio < 0.0 || ratio > 1.0)
 		exit_error(ERR_AMB_LIGHT ERR_RATIO, data);
 	while (ft_isspace(*line))
 		line++;
 	if (*line != '\n' && *line != '\0')
 		exit_error(ERR_EXTRA_PARAM, data);
-	data->scene.amb_light.on = true;
-	data->scene.amb_light.ratio = ratio;
-	data->scene.amb_light.color = rgb;
+	data->scene.amb.on = true;
+	data->scene.amb.ratio = ratio;
+	data->scene.amb.color = rgb;
+	data->scene.amb.tx_name = tx_name;
+}
+
+t_texture_type	get_type(char **line, t_data *data)
+{
+	char			*str;
+	t_texture_type	type;
+
+	str = get_string(line, data);
+	if (str == NULL)
+		exit_error(NULL, data);
+	if (ft_strcmp("bump", str) == 0)
+		type = BUMP_TX;
+	else if (ft_strcmp("color", str) == 0)
+		type = COLOR_TX;
+	else
+		type = INVALID_TX;
+	return type;
+}
+
+// TODO: make a tx destructor
+void	init_texture(char *line, t_data *data)
+{
+	t_texture	*tx;
+
+	tx = malloc(sizeof(t_texture));
+	if (tx == NULL)
+		return (exit_error(NULL, data));
+	texture_add(tx, data->scene.tx_lst);
+	tx->name = get_string(&line, data);
+	tx->type = get_type(&line, data);
+	get_texture(tx, &line, data);
+	while (ft_isspace(*line))
+		line++;
+	if (*line != '\n' && *line != '\0')
+		exit_error(ERR_EXTRA_PARAM, data);
 }
 
 void	init_camera(char *line, t_data *data)
@@ -141,6 +108,10 @@ int	init_config(char *line, t_data *data)
 		init_camera(line + 1, data);
 	else if (line[i] == 'l' && ft_isspace(line[i + 1]))
 		init_light(line + 1, data);
+	else if (line[i] == 't' && ft_isspace(line[i + 1]))
+		init_texture(line + 1, data);
+	// else if (line[i] == 'c' && ft_isspace(line[i + 1]))
+	// 	init_pattern(line + 1, data);
 	else if (!ft_strncmp(line, "pl", 2) && ft_isspace(line[i + 2]))
 		init_plane(line + 2, data);
 	else if (!ft_strncmp(line, "sp", 2) && ft_isspace(line[i + 2]))
@@ -154,19 +125,32 @@ int	init_config(char *line, t_data *data)
 	return (SUCCESS);
 }
 
+void	init_scene(t_data *data)
+{
+	data->scene.light_on = false;
+	data->scene.amb.on = false;
+	data->scene.cam.on = false;
+	data->scene.selected.type = T_CAM;
+	data->scene.selected.light = NULL;
+	data->scene.tx_lst = malloc(sizeof(t_texture *));
+	data->scene.patt_lst = malloc(sizeof(t_pattern *));
+	data->scene.obj_lst = malloc(sizeof(t_obj *));
+	// FIX: CONTINUEHERE
+	if (data->scene.obj_lst == NULL
+		|| data->scene.)
+	*(data->scene.obj_lst) = NULL;
+	*(data->scene.tx_lst) = NULL;
+	*(data->scene.patt_lst) = NULL;
+}
+
 void	init_data(t_data *data)
 {
-	data->texture.ptr = NULL;
+	init_scene(data);
 	data->mlx = NULL;
-	data->img.img_ptr = NULL;
+	data->img.img = NULL;
 	data->win = NULL;
 	data->offsets = NULL;
-	data->selected.light = NULL;
-	data->scene.rays.dirs = NULL;
-	data->scene.amb_light.on = false;
-	data->scene.light_on = false;
-	data->scene.cam.on = false;
-	data->selected.type = T_CAM;
+	data->rays.dirs = NULL;
 	data->render_workers = malloc(sizeof(t_worker) * SPLIT * SPLIT);
 	data->mapping_workers = malloc(sizeof(t_worker) * SPLIT * SPLIT);
 	if (data->render_workers == NULL || data->mapping_workers == NULL)

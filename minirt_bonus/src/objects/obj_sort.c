@@ -1,46 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   obj_utils.c                                        :+:      :+:    :+:   */
+/*   obj_sort.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 12:32:40 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/12 16:15:56 by ihajji           ###   ########.fr       */
+/*   Created: 2025/09/20 16:09:05 by ihajji            #+#    #+#             */
+/*   Updated: 2025/09/20 16:09:32 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	obj_lst_add(t_obj *obj, t_obj **list)
-{
-	t_obj	*tmp;
-
-	tmp = *list;
-	*list = obj;
-	obj->next = tmp;
-}
-
-void	obj_free(t_obj *obj)
-{
-	free(obj->shape);
-	free(obj);
-}
-
-void	obj_lst_free(t_obj **obj)
-{
-	t_obj	*tmp;
-
-	while (*obj)
-	{
-		tmp = (*obj)->next;
-		obj_free(*obj);
-		*obj = tmp;
-	}
-	free(obj);
-}
-
-void	save_content(t_obj *tmp, t_obj *obj)
+static void	save_content(t_obj *tmp, t_obj *obj)
 {
 	tmp->type = obj->type;
 	tmp->pos = obj->pos;
@@ -50,10 +22,11 @@ void	save_content(t_obj *tmp, t_obj *obj)
 	tmp->shine = obj->shine;
 	tmp->image = obj->image;
 	tmp->bumpmap = obj->bumpmap;
+	tmp->pattern = obj->pattern;
 	tmp->shape = obj->shape;
 }
 
-void	swap_content(t_obj *n1, t_obj *n2)
+static void	swap_content(t_obj *n1, t_obj *n2)
 {
 	n1->type = n2->type;
 	n1->pos = n2->pos;
@@ -63,10 +36,11 @@ void	swap_content(t_obj *n1, t_obj *n2)
 	n1->shine = n2->shine;
 	n1->image = n2->image;
 	n1->bumpmap = n2->bumpmap;
+	n1->pattern = n2->pattern;
 	n1->shape = n2->shape;
 }
 
-void	restore_content(t_obj *tmp, t_obj *obj)
+static void	restore_content(t_obj *tmp, t_obj *obj)
 {
 	obj->type = tmp->type;
 	obj->pos = tmp->pos;
@@ -76,10 +50,11 @@ void	restore_content(t_obj *tmp, t_obj *obj)
 	obj->shine = tmp->shine;
 	obj->image = tmp->image;
 	obj->bumpmap = tmp->bumpmap;
+	obj->pattern = tmp->pattern;
 	obj->shape = tmp->shape;
 }
 
-void	swap_nodes(t_obj **n1, t_obj **n2)
+static void	swap_nodes(t_obj **n1, t_obj **n2)
 {
 	t_obj	tmp;
 

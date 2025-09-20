@@ -20,17 +20,17 @@ void	init_mlx(t_data *data)
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, MINIRT_PROJECT);
 	if (data->win == NULL)
 		exit_error(NULL, data);
-	data->img.img_ptr = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	if (data->img.img_ptr == NULL)
+	data->img.img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	if (data->img.img == NULL)
 		exit_error(NULL, data);
-	data->img.addr = mlx_get_data_addr(data->img.img_ptr, &data->img.bpp,
+	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
 }
 
 
 // TODO: if ambient is a texture, the color is average of the whole texture
 // and the bg is the texutre
-void	init_texture(t_data *data)
+void	iinit_texture(t_data *data)
 {
 	data->texture.ptr = mlx_xpm_file_to_image(data->mlx, XPM, &(data->texture.width), &(data->texture.height));
 	data->texture.addr = mlx_get_data_addr(data->texture.ptr, &data->texture.bpp,
@@ -39,8 +39,8 @@ void	init_texture(t_data *data)
 
 void	destroy_mlx(t_data *data)
 {
-	if (data->img.img_ptr)
-		mlx_destroy_image(data->mlx, data->img.img_ptr);
+	if (data->img.img)
+		mlx_destroy_image(data->mlx, data->img.img);
 	if (data->win)
 		mlx_destroy_window(data->mlx, data->win);
 	if (data->mlx)

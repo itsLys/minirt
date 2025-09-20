@@ -6,22 +6,19 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:09:09 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/10 15:51:30 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/20 16:13:53 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
 int	clean_exit(t_data *data, int status)
 {
 	destroy_mlx(data);
-	free(data->mlx);
-	// join_threads;
-	free(data->mapping_workers);
-	free(data->render_workers);
-	obj_lst_free(data->scene.obj_list);
-	if (data->scene.rays.dirs)
-		destroy_cam_rays(data->scene.rays);
+	destroy_workers(data);
+	destroy_scene(data);
+	obj_lst_free(data->scene.obj_lst);
+	if (data->rays.dirs)
+		destroy_cam_rays(data->rays);
 	if (data->offsets)
 		free(data->offsets);
 	exit(status);
@@ -46,6 +43,16 @@ void	print_help(void)
 	close(fd);
 }
 
+void	validate_scene(t_data *data, t_scene scene)
+{
+	if (scene.cam.on == false)
+		exit_error(ERR_CAM ERR_NOT_FOUND, data);
+	if (scene.amb.on == false)
+		exit_error(ERR_AMB_LIGHT ERR_NOT_FOUND, data);
+	if (scene.light_on == false)
+		exit_error(ERR_LIGHT ERR_NOT_FOUND, data);
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -57,14 +64,10 @@ int	main(int ac, char **av)
 	init_data(&data);
 	if (parse_file(av[1], &data) == ERROR)
 		return (EXIT_FAILURE);
-	if (data.scene.cam.on == false)
-		exit_error(ERR_CAM ERR_NOT_FOUND, &data);
-	if (data.scene.amb_light.on == false)
-		exit_error(ERR_AMB_LIGHT ERR_NOT_FOUND, &data);
-	if (data.scene.light_on == false)
-		exit_error(ERR_LIGHT ERR_NOT_FOUND, &data);
-	sort_objects(data.scene.obj_list);
+	// validate scene
+	validate_scene(&data, data.scene);
 	print_scene(&data);
+	sort_objects(data.scene.obj_list);
 	init_offsets(&(data.offsets), &data);
 	init_cam_rays(&data);
 	setup_mlx(&data);
