@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 10:42:59 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/16 11:40:17 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/21 11:04:31 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	work_rendering(t_worker *worker)
 	t_int_vec2	start;
 	t_int_vec2	end;
 
-
 	data = worker->data;
 	start = worker->start;
 	end = worker->end;
@@ -50,24 +49,16 @@ void	work_directions(t_worker *worker)
 	t_int_vec2	start;
 	t_int_vec2	end;
 
-
 	data = worker->data;
 	start = worker->start;
 	end = worker->end;
 	set_directions(data, start, end);
 }
 
-void	init_workers(t_worker *worker, t_data *data, void (*func)(t_worker *))
+void	spawn_mapping_workers(t_data *data)
 {
-	int i;
+	static int	thread_number = SPLIT * SPLIT;
 
-	i = 0;
-	while (i < SPLIT * SPLIT)
-	{
-		worker[i].number = i;
-		worker[i].data = data;
-		worker[i].function = func;
-		set_worker_bounds(worker + i);
-		i++;
-	}
+	init_threads(data->mapping_workers, thread_number);
+	join_threads(data->mapping_workers, thread_number);
 }

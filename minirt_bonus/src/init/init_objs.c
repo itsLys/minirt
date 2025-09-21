@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:58:29 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/16 11:25:29 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/21 12:23:00 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ void	get_obj_tx(t_obj *obj, char **line, t_data *data)
 		exit_error(NULL, data);
 	obj->tx.ids[0] = get_string(line, data);
 	obj->tx.ids[1] = get_string(line, data);
+	obj->tx.bmp = NULL;
+	obj->tx.tx = NULL;
+	obj->tx.patt = NULL;
 }
 
 void	get_surface_props(t_obj *obj, char *line, t_data *data)
@@ -78,7 +81,7 @@ void	init_sphere(char *line, t_data *data)
 	obj = malloc(sizeof(t_obj));
 	if (!obj || !sp)
 		return (free(sp), exit_error(NULL, data));
-	obj_lst_add(obj, data->scene.obj_lst); // FIX: others,if exited won't be freeed
+	obj_lst_add(obj, data->scene.obj_lst);
 	obj->shape = sp;
 	obj->type = T_SP;
 	obj->pos = get_vec3(&line, data);

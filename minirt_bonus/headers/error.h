@@ -49,10 +49,10 @@
 	l	<x,y,z> <brightness> <R,G,B>\n \
 																\
 	t	<texture_name> <texture_type> <texture_relative_path>\n \
-	c	<pattern_name> <R,G,B> <R,G,B> [<number>] \n \
+	c	<pattern_name> <R,G,B> <R,G,B>\n \
 																\
 	sp	<x,y,z> <north_x,north_y,north_z> <seam_x,seam_y,seam_z> <diameter> <R,G,B> <reflectivness> <shininess> [<texture/pattern name> <bumpmap_name>]\n \
-	pl	<x,y,z> <face_x,face_y,face_z> <R,G,B> <reflectivness> <shininess> [<texture/pattern name> [<bumpmap_name>] [<number_of_tiles>]]\n \
+	pl	<x,y,z> <face_x,face_y,face_z> <R,G,B> <reflectivness> <shininess> [<texture/pattern name> <bumpmap_name>] \n \
 	cy	<x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B> <reflectivness> <shininess> <texture/pattern name>\n \
 	cn	<x,y,z> <axis_x,axis_y,axis_z> <angle> <height> <R,G,B> <reflectivness> <shininess> <texture/pattern name>\n \
 	"

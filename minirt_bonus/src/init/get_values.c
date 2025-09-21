@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 08:12:10 by yel-guad          #+#    #+#             */
-/*   Updated: 2025/09/06 16:35:34 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/21 10:21:18 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,23 @@ int	parse_num(char *str)
 	while (*str && *str >= '0' && *str <= '9')
 		n = (*(str++) - '0') + n * 10;
 	return (n);
+}
+
+t_texture_type	get_type(char **line, t_data *data)
+{
+	char			*str;
+	t_texture_type	type;
+
+	str = get_string(line, data);
+	if (str == NULL)
+		exit_error(NULL, data);
+	if (ft_strcmp("bump", str) == 0)
+		type = BUMP_TX;
+	else if (ft_strcmp("color", str) == 0)
+		type = COLOR_TX;
+	else
+		type = INVALID_TX;
+	return type;
 }
 
 int	get_integer(char **line, t_data *data)

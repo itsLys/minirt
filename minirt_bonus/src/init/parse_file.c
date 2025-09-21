@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:53:50 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/06 16:19:22 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/21 11:05:01 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,31 +24,11 @@ static int	check_file_ext(char *filename)
 	return (SUCCESS);
 }
 
-int	process_line(char *line, t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (ft_isspace(line[i]))
-		i++;
-	if (init_config(line + i, data) == ERROR)
-		return (ERROR);
-	return (SUCCESS);
-}
-
 int	parse_file(char *filename, t_data *data)
 {
 	int		fd;
 	char	*line;
 
-	// move to initialization
-	data->scene.tx_lst = malloc(sizeof(t_texture *));
-	data->scene.patt_lst = malloc(sizeof(t_pattern *));
-	data->scene.obj_lst = malloc(sizeof(t_obj *));
-	// FIX:	validate malloc
-	*(data->scene.obj_lst) = NULL;
-	*(data->scene.tx_lst) = NULL;
-	*(data->scene.patt_lst) = NULL;
 	if (check_file_ext(filename) == ERROR)
 		return (ERROR);
 	fd = open(filename, O_RDONLY);
@@ -64,7 +44,7 @@ int	parse_file(char *filename, t_data *data)
 		}
 		if (line == NULL)
 			break ;
-		if (process_line(line, data) == ERROR)
+		if (parse_line(line, data) == ERROR)
 			return (ERROR);
 		free(line);
 	}

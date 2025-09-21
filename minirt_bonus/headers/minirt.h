@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/20 16:11:13 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/21 10:55:20 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,7 @@ void	print_obj_type(t_obj *obj);
 
 // void	init_texture(t_data *data);
 
+void	skip_trailing(char *line, t_data *data);
+void	texture_add(t_texture *tx, t_texture **list);
+void	pattern_add(t_pattern *patt, t_pattern **list);
 #endif
