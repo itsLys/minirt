@@ -18,11 +18,12 @@ static void	save_content(t_obj *tmp, t_obj *obj)
 	tmp->pos = obj->pos;
 	tmp->coords = obj->coords;
 	tmp->color = obj->color;
-	tmp->reflect = obj->reflect;
+	tmp->ref = obj->ref;
 	tmp->shine = obj->shine;
-	tmp->image = obj->image;
-	tmp->bumpmap = obj->bumpmap;
-	tmp->pattern = obj->pattern;
+	tmp->tx_id_1 = obj->tx_id_1;
+	tmp->tx_id_2 = obj->tx_id_2;
+	tmp->tx = obj->tx;
+	tmp->bmp = obj->bmp;
 	tmp->shape = obj->shape;
 }
 
@@ -32,11 +33,12 @@ static void	swap_content(t_obj *n1, t_obj *n2)
 	n1->pos = n2->pos;
 	n1->coords = n2->coords;
 	n1->color = n2->color;
-	n1->reflect = n2->reflect;
+	n1->ref = n2->ref;
 	n1->shine = n2->shine;
-	n1->image = n2->image;
-	n1->bumpmap = n2->bumpmap;
-	n1->pattern = n2->pattern;
+	n1->tx_id_1 = n2->tx_id_1;
+	n1->tx_id_2 = n2->tx_id_2;
+	n1->tx = n2->tx;
+	n1->bmp = n2->bmp;
 	n1->shape = n2->shape;
 }
 
@@ -46,15 +48,16 @@ static void	restore_content(t_obj *tmp, t_obj *obj)
 	obj->pos = tmp->pos;
 	obj->coords = tmp->coords;
 	obj->color = tmp->color;
-	obj->reflect = tmp->reflect;
+	obj->ref = tmp->ref;
 	obj->shine = tmp->shine;
-	obj->image = tmp->image;
-	obj->bumpmap = tmp->bumpmap;
-	obj->pattern = tmp->pattern;
+	obj->tx_id_1 = tmp->tx_id_1;
+	obj->tx_id_2 = tmp->tx_id_2;
+	obj->tx = tmp->tx;
+	obj->bmp = tmp->bmp;
 	obj->shape = tmp->shape;
 }
 
-static void	swap_nodes(t_obj **n1, t_obj **n2)
+void	swap_nodes(t_obj **n1, t_obj **n2)// remove from header
 {
 	t_obj	tmp;
 

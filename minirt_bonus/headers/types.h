@@ -19,9 +19,10 @@
 // enums
 typedef enum s_texture_type
 {
-	COLOR_TX,
-	BUMP_TX,
-	INVALID_TX,
+	TX_INVALID = -1,
+	TX_COLOR,
+	TX_BUMP,
+	TX_PATT
 }	t_texture_type;
 
 typedef enum s_obj_type
@@ -84,17 +85,26 @@ typedef struct s_texture
 	t_img				img;
 	int					width;
 	int					height;
+	int					tiles;
 	struct s_texture	*next;
 }	t_texture;
 
-typedef struct s_pattern
-{
-	char				*name;
-	int					tiles;
-	t_rgb				c1;
-	t_rgb				c2;
-	struct s_pattern	*next;
-}	t_pattern ;
+// NOTE: for texture load them from the file
+// for pattern, create new image and fill it with the pattern
+// planes have a default repeating pattern of N (define)
+// other objects have a default of 1
+// patterns are intialized in the image in 2*2
+// [0,1]
+// [1,0]
+
+// typedef struct s_pattern
+// {
+// 	char				*name;
+// 	int					tiles;
+// 	t_rgb				c1;
+// 	t_rgb				c2;
+// 	struct s_pattern	*next;
+// }	t_pattern ;
 
 // scene
 typedef struct s_local_coords
@@ -160,13 +170,6 @@ typedef struct s_cn
 
 // obj, scene
 
-typedef struct s_obj_tx {
-	char		**ids; // malloc 3 * char *
-	t_texture	*tx;
-	t_texture	*bmp;
-	t_pattern	*patt;
-}	t_obj_tx;
-
 typedef struct s_obj
 {
 	t_obj_type		type;
@@ -175,7 +178,10 @@ typedef struct s_obj
 	t_rgb			color;
 	double			ref;
 	int				shine;
-	t_obj_tx		tx;
+	char			*tx_id_1;
+	char			*tx_id_2;
+	t_texture		*tx;
+	t_texture		*bmp;
 	void			*shape;
 	struct s_obj	*next;
 }	t_obj; // FIX: in sorting
@@ -195,7 +201,6 @@ typedef struct s_scene
 	t_selected		selected;
 	t_obj			**obj_lst;
 	t_texture		**tx_lst;
-	t_pattern		**patt_lst;
 }	t_scene;
 
 // rays, hit

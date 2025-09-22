@@ -54,5 +54,7 @@ void	print_obj_type(t_obj *obj);
 
 void	skip_trailing(char *line, t_data *data);
 void	texture_add(t_texture *tx, t_texture **list);
-void	pattern_add(t_pattern *patt, t_pattern **list);
+
+void	init_texture(char *line, t_data *data);
+void	img_put_pixel(t_img img, int x, int y, int color);
 #endif

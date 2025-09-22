@@ -12,13 +12,11 @@
 
 #include "minirt.h"
 
-static inline void	img_put_pixel(t_data *data, int x, int y, int color)
+void	img_put_pixel(t_img img, int x, int y, int color)
 {
 	char	*pixel;
-	t_img	*img;
 
-	img = &(data->img);
-	pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	pixel = img.addr + (y * img.line_len + x * (img.bpp / 8));
 	*(int *)pixel = color;
 }
 
@@ -43,7 +41,7 @@ void	draw_image(t_data *data, t_int_vec2 start, t_int_vec2 end)
 			ray.orign = rays.orig;
 			// ray = map_pixel(i, j, worker->data);
 			color = trace_ray(ray, data);
-			img_put_pixel(data, i, j, rgb_to_int(color));
+			img_put_pixel(data->img, i, j, rgb_to_int(color));
 			j++;
 		}
 		i++;

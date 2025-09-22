@@ -22,14 +22,18 @@ void	skip_trailing(char *line, t_data *data)
 
 void	get_obj_tx(t_obj *obj, char **line, t_data *data)
 {
-	obj->tx.ids = calloc(sizeof(char *), 2);
-	if (obj->tx.ids == NULL)
-		exit_error(NULL, data);
-	obj->tx.ids[0] = get_string(line, data);
-	obj->tx.ids[1] = get_string(line, data);
-	obj->tx.bmp = NULL;
-	obj->tx.tx = NULL;
-	obj->tx.patt = NULL;
+	char *id;
+
+	obj->tx_id_1 = NULL;
+	obj->tx_id_2 = NULL;
+	id = get_string(line, data);
+	if (id == NULL)
+		return ;
+	obj->tx_id_1 = id; // FIX: free this at exit
+	id = get_string(line, data);
+	if (id == NULL)
+		return ;
+	obj->tx_id_2 = id; // FIX: free this at exit
 }
 
 void	get_surface_props(t_obj *obj, char *line, t_data *data)
@@ -43,6 +47,8 @@ void	get_surface_props(t_obj *obj, char *line, t_data *data)
 		exit_error(ERR_WRONG_REF, data);
 	if (obj->shine < 0 || obj->shine > 200)
 		exit_error(ERR_WRONG_SHINE, data);
+	obj->tx = NULL;
+	obj->bmp = NULL;
 	skip_trailing(line, data);
 }
 

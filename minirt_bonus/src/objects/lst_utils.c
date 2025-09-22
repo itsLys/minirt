@@ -21,15 +21,6 @@ void	texture_add(t_texture *tx, t_texture **list)
 	tx->next = tmp;
 }
 
-void	pattern_add(t_pattern *patt, t_pattern **list)
-{
-	t_pattern	*tmp;
-
-	tmp = *list;
-	*list = patt;
-	patt->next = tmp;
-}
-
 void	obj_lst_add(t_obj *obj, t_obj **list)
 {
 	t_obj	*tmp;

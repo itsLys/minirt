@@ -89,7 +89,7 @@ void	record_hit(t_obj **obj, t_hit *hit, t_ray ray)
 	check_cn_intersect(obj, hit, ray);
 }
 
-t_rgb	sample_sp_color(t_hit hit, t_data *data)
+t_rgb	sample_sp_color(t_hit hit)
 {
 	t_vec3	normal = hit.normal; // NORMALIZE??
 	double nx = vec3_dot(normal, hit.obj->coords.right); // local X (front)
@@ -103,13 +103,13 @@ t_rgb	sample_sp_color(t_hit hit, t_data *data)
 
 	t_int_vec2 tx_index;
 
-	tx_index.x = u * (data->texture.width - 1);
-	tx_index.y = v * (data->texture.height - 1);
-	color = data->texture.addr + tx_index.y * data->texture.line_len + tx_index.x * (data->texture.bpp / 8);
+	tx_index.x = u * (hit.obj->tx->width - 1);
+	tx_index.y = v * (hit.obj->tx->height - 1);
+	color = hit.obj->tx->img.addr + tx_index.y * hit.obj->tx->img.line_len + tx_index.x * (hit.obj->tx->img.bpp / 8); // could turn it into a func like put_pixel
 	return int_to_rgb(*((int *)color));
 }
 
-t_rgb	sample_cy_color(t_hit hit, t_cy *cy, t_data *data)
+t_rgb	sample_cy_color(t_hit hit, t_cy *cy)
 {
 	// TODO: optimize address reading, read once
 	t_vec3	S = vec3_cross(hit.obj->coords.forward, hit.obj->coords.up);
@@ -124,13 +124,13 @@ t_rgb	sample_cy_color(t_hit hit, t_cy *cy, t_data *data)
 	char	*color;
 	t_int_vec2 tx_index;
 
-	tx_index.x = u * (data->texture.width - 1);
-	tx_index.y = v * (data->texture.height - 1);
-	color = data->texture.addr + tx_index.y * data->texture.line_len + tx_index.x * (data->texture.bpp / 8);
+	tx_index.x = u * (hit.obj->tx->width - 1);
+	tx_index.y = v * (hit.obj->tx->height - 1);
+	color = hit.obj->tx->img.addr + tx_index.y * hit.obj->tx->img.line_len + tx_index.x * (hit.obj->tx->img.bpp / 8); // could turn it into a func like put_pixel
 	return int_to_rgb(*((int *)color));
 }
 
-t_rgb	sample_pl_color(t_hit hit, t_data *data)
+t_rgb	sample_pl_color(t_hit hit)
 {
 	t_vec3	rel = vec3_subtract(hit.point, hit.obj->pos);
 
@@ -138,19 +138,33 @@ t_rgb	sample_pl_color(t_hit hit, t_data *data)
 	double	x_local = vec3_dot(rel, hit.obj->coords.forward);
 	double	y_local = vec3_dot(rel, hit.obj->coords.right);
 
-	double u = x_local / 5;
+	double u = x_local / 5; // turn this into a dynamic number with events and keys
 	double v = y_local / 5;
 	u = u - floor(u);  // equivalent to fmod(u, 1.0) but works for negatives
 	v = v - floor(v);
 	char	*color;
 	t_int_vec2 tx_index;
 
-	tx_index.x = u * (data->texture.width - 1);
-	tx_index.y = v * (data->texture.height - 1);
-	color = data->texture.addr + tx_index.y * data->texture.line_len + tx_index.x * (data->texture.bpp / 8);
+	tx_index.x = u * (hit.obj->tx->width - 1);
+	tx_index.y = v * (hit.obj->tx->height - 1);
+	color = hit.obj->tx->img.addr + tx_index.y * hit.obj->tx->img.line_len + tx_index.x * (hit.obj->tx->img.bpp / 8); // could turn it into a func like put_pixel
 	return int_to_rgb(*((int *)color));
 	// TODO: add dynamic texutre from config file,
 	// add dynamic number of tiles per hit point (what??)
+}
+
+t_rgb	sample_color(t_hit hit)
+{
+	if (hit.obj->type == T_SP)
+		return sample_sp_color(hit);
+	else if (hit.obj->type == T_PL)
+		return sample_pl_color(hit);
+	else if (hit.obj->type == T_CY)
+		return sample_cy_color(hit, hit.obj->shape);
+	else
+		return hit.obj->color;
+	// else if (hit.obj->type == T_CN)
+	// 	return sample_cn_color(hit, data);
 }
 
 t_rgb	trace_ray(t_ray ray, t_data *data)
@@ -161,9 +175,9 @@ t_rgb	trace_ray(t_ray ray, t_data *data)
 	hit.t = INFINITY;
 	hit.hit = 0;
 	hit.obj = NULL;
-	obj = *(data->scene.obj_list);
+	obj = *(data->scene.obj_lst);
 	record_hit(&obj, &hit, ray);
-	if (hit.obj && hit.obj->type == T_SP)
-		hit.color = sample_sp_color(hit, data);
+	if (hit.obj && hit.obj->tx)
+		sample_color(hit);
 	return (compute_color(ray, hit, data));
 }

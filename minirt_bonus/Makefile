@@ -19,16 +19,18 @@ SRC			= src/main.c \
 			  src/gnl/get_next_line_utils.c \
 			  src/init/get_values.c \
 			  src/init/init_objs.c \
-			  src/init/init_scene.c \
 			  src/init/init_rays.c \
 			  src/init/init_offsets.c \
+			  src/init/parse_scene.c \
 			  src/init/parse_file.c \
+			  src/init/parse_line.c \
 			  src/vec3/vec3_ops.c \
 			  src/vec3/vec3_math.c \
 			  src/vec3/vec3_create.c \
 			  src/vec3/vec3_utils.c \
 			  src/vec3/vec3_transform.c \
-			  src/objects/obj_utils.c \
+			  src/objects/lst_utils.c \
+              src/objects/obj_sort.c \
 			  src/mlx/events.c \
 			  src/mlx/window.c \
 			  src/camera/cam_setup.c \

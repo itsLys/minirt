@@ -53,48 +53,46 @@ void	validate_scene(t_data *data, t_scene scene)
 		exit_error(ERR_LIGHT ERR_NOT_FOUND, data);
 }
 
-void	assign_texture(t_obj *obj, t_texture *tx)
+void	assign_object_texture(t_obj *obj, t_texture *tx)
 {
-	if (tx->type == BUMP_TX)
-		obj->tx.bmp = tx;
-	else if (tx->type == COLOR_TX)
-		obj->tx.tx = tx;
+	if (tx->type == TX_COLOR || tx->type == TX_PATT)
+		obj->tx = tx;
+}
+
+void	validate_object_texture(t_obj *obj, t_data *data)
+{
+	if (obj->tx && obj->tx->type != TX_COLOR && obj->tx->type != TX_PATT)
+		exit_error(ERR_TX ERR_TYPE_MISS, data);
+	if (obj->bmp && obj->bmp->type != TX_BUMP)
+		exit_error(ERR_TX ERR_TYPE_MISS, data);
 }
 
 void	find_texture(t_obj *obj, t_data *data)
 {
-	char		*name;
 	t_texture	*tx;
 
 	tx = *(data->scene.tx_lst);
 	while (tx)
 	{
-		name = tx->name;
-		if (obj->tx.ids[0] && tx_exists(name, data) && ft_strcmp(obj->tx.ids[0], name) == 0)
-			assign_texture(obj, tx);
-		if (obj->tx.ids[1] && tx_exists(name, data) && ft_strcmp(obj->tx.ids[1], name) == 0)
-			assign_texture(obj, tx);
+		if (obj->tx_id_1 && ft_strcmp(obj->tx_id_1, tx->name) == 0)
+			assign_object_texture(obj, tx);
+		if (obj->tx_id_2 && ft_strcmp(obj->tx_id_2, tx->name) == 0)
+			obj->bmp = tx;
+		validate_object_texture(obj, data);
+		tx = tx->next;
 	}
 }
 
-void	assign_object_textures(t_data *data)
+void	link_object_texture(t_data *data)
 {
-	t_texture	*tx;
-	t_pattern	*patt;
-	t_obj *obj = *(data->scene.obj_lst);
+	t_obj	*obj;
 
+	obj = *(data->scene.obj_lst);
 	while (obj)
 	{
 		find_texture(obj, data);
+		obj = obj->next;
 	}
-
-
-	// for each object
-	// check it's name (both)
-	// find it in the texture and  pattern list
-	// assign the texture struct to the object texture
-	// if and object has two same textures ==> error
-	// if an object has pattern and texture ==> error
 }
 
 int	main(int ac, char **av)
@@ -113,7 +111,7 @@ int	main(int ac, char **av)
 	sort_objects(data.scene.obj_lst); // FIX: add missing fields in swapping
 	init_offsets(&(data.offsets), &data);
 	init_cam_rays(&data);
-	assign_object_textures(&data);
+	link_object_texture(&data);
 	setup_mlx(&data);
 	clean_exit(&data, 0);
 }

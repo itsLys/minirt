@@ -30,7 +30,7 @@ void	print_scene_params(t_scene scene)
 {
 	t_obj	*obj;
 
-	obj = *(scene.obj_list);
+	obj = *(scene.obj_lst);
 	printf("======== MINI RT SCENE CONFIGURATION ========\n");
 	printf("Object count:	%d\n",
 			count_obj(obj, T_SP) + count_obj(obj, T_PL) + count_obj(obj, T_CY));
@@ -76,7 +76,7 @@ void	print_color_props(t_obj *obj)
 			(int)(obj->color.r * 255.999),
 			(int)(obj->color.g * 255.999),
 			(int)(obj->color.b * 255.999));
-	printf("%.2lf	", obj->reflect);
+	printf("%.2lf	", obj->ref);
 	printf("%d	", obj->shine);
 }
 
@@ -182,9 +182,9 @@ void	print_scene(t_data *data)
 
 	scene = data->scene;
 	print_scene_params(scene);
-	print_amb_light(scene.amb_light);
+	print_amb_light(scene.amb);
 	print_camera(scene.cam);
-	print_objects(*scene.obj_list);
+	print_objects(*scene.obj_lst);
 }
 
 void	print_ray(int x, int y, t_ray ray)
@@ -192,9 +192,9 @@ void	print_ray(int x, int y, t_ray ray)
 	printf("-----\n");
 	printf("pixel:	x:	%d, y:	%d\n", x, y);
 	printf("origin:	[%.2lf, %.2lf, %.2lf] - direction: [%.2lf, %.2lf, %.2lf]\n",
-			ray.orign.x,
-			ray.orign.y,
-			ray.orign.z,
+			ray.orig.x,
+			ray.orig.y,
+			ray.orig.z,
 			ray.dir.x,
 			ray.dir.y,
 			ray.dir.z);

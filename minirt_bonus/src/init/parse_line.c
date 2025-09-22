@@ -26,8 +26,6 @@ int	init_config(char *line, t_data *data)
 		init_light(line + 1, data);
 	else if (line[i] == 't' && ft_isspace(line[i + 1]))
 		init_texture(line + 1, data);
-	// else if (line[i] == 'c' && ft_isspace(line[i + 1]))
-	// 	init_pattern(line + 1, data);
 	else if (!ft_strncmp(line, "pl", 2) && ft_isspace(line[i + 2]))
 		init_plane(line + 2, data);
 	else if (!ft_strncmp(line, "sp", 2) && ft_isspace(line[i + 2]))

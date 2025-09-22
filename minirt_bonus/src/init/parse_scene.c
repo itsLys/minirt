@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:56:27 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/21 12:17:37 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/21 12:17:32 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,17 @@ void	init_ambient_light(char *line, t_data *data)
 	skip_trailing(line, data);
 }
 
-void	init_pattern(char *line, t_data *data)
+void	check_tx_duplicate(char *name, t_data *data)
 {
-	t_pattern	*patt;
+	t_texture *tx;
 
-	patt = malloc(sizeof(t_pattern));
-	if (patt == NULL)
-		return exit_error(NULL, data);
-	pattern_add(patt, data->scene.patt_lst);
-	patt->name = get_string(&line, data);
-	patt->c1 = get_rgb(&line, data);
-	patt->c2 = get_rgb(&line, data);
-	skip_trailing(line, data);
-	// FIX: need to validate duplicates
+	tx = *(data->scene.tx_lst);
+	while (tx)
+	{
+		if (ft_strcmp(name, tx->name) == 0)
+			exit_error(ERR_TX ERR_DUP_TX, data);
+		tx = tx->next;
+	}
 }
 
 void	init_texture(char *line, t_data *data)
@@ -55,11 +53,13 @@ void	init_texture(char *line, t_data *data)
 	if (tx == NULL)
 		return (exit_error(NULL, data));
 	texture_add(tx, data->scene.tx_lst);
-	tx->name = get_string(&line, data);
+	tx->name = get_string(&line, data); // add name freeing at exit
+	check_tx_duplicate(tx->name, data);
 	tx->type = get_type(&line, data);
+	if (tx->type == TX_INVALID)
+		exit_error(ERR_TX ERR_TX_TYPE, data);
 	get_texture(tx, &line, data);
 	skip_trailing(line, data);
-	// FIX: need to validate duplicates
 }
 
 void	init_camera(char *line, t_data *data)
