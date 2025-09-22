@@ -41,7 +41,10 @@ void	join_threads(t_worker *worker, int n)
 	while (i < n)
 	{
 		if (worker[i].tid)
+		{
 			pthread_join(worker[i].tid, NULL);
+			worker[i].tid = 0;
+		}
 		i++;
 	}
 }

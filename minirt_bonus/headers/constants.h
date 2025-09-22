@@ -24,11 +24,11 @@
 # define HEIGHT 720
 
 // constants
-# define SPLIT 3
+# define SPLIT 4
 # define EPS 1e-6
 # define CAM_ROTATE_STEP 0.025
 # define ROTATE_STEP 0.05
-# define MOVE_STEP 0.5
+# define MOVE_STEP 0.25
 # define FOV_MAX 180.0
 # define FOV_MIN 0.0
 # define FOV_STEP 1.0

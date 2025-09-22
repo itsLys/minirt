@@ -73,7 +73,7 @@ char *get_string(char **line, t_data *data)
 		(*line)++;
 	if ((**line) == '\n')
 		return NULL;
-	while (**line && !ft_isspace(**line) && i < PATH_MAX)
+	while (**line && **line != '\n' && !ft_isspace(**line) && i < PATH_MAX)
 	{
 		buffer[i++] = **line;
 		(*line)++;
@@ -212,7 +212,11 @@ void	get_image(t_texture *tx, char **line, t_data *data)
 		exit_error(ERR_TX ERR_REL_PATH, data);
 	if (path && path[0] == '/')
 		return free(path), exit_error(ERR_TX ERR_REL_PATH, data); //  add freeing of the texture and img destroying
+	// FIX: mlx is not initialized here
+	printf("%p\n", data->mlx);
 	tx->img.img = mlx_xpm_file_to_image(data->mlx, path, &(tx->width), &(tx->height));
+	// FIX: path is returned with a newline at end
+	// also  FIX: segv when the file is noit found
 	free(path);
 	if (tx->img.img == NULL)
 		exit_error("ERR_TEXTURE ERR_COULDNT_LOAD", data);

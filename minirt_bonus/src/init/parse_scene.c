@@ -32,29 +32,28 @@ void	init_ambient_light(char *line, t_data *data)
 	skip_trailing(line, data);
 }
 
-void	check_tx_duplicate(char *name, t_data *data)
+void	check_tx_duplicate(char *name, t_texture *lst, t_data *data)
 {
-	t_texture *tx;
-
-	tx = *(data->scene.tx_lst);
-	while (tx)
+	while (lst)
 	{
-		if (ft_strcmp(name, tx->name) == 0)
+		if (ft_strcmp(name, lst->name) == 0)
 			exit_error(ERR_TX ERR_DUP_TX, data);
-		tx = tx->next;
+		lst = lst->next;
 	}
 }
 
 void	init_texture(char *line, t_data *data)
 {
 	t_texture	*tx;
+	t_texture	*lst;
 
+	lst = *(data->scene.tx_lst);
 	tx = malloc(sizeof(t_texture));
 	if (tx == NULL)
 		return (exit_error(NULL, data));
 	texture_add(tx, data->scene.tx_lst);
 	tx->name = get_string(&line, data); // add name freeing at exit
-	check_tx_duplicate(tx->name, data);
+	check_tx_duplicate(tx->name, lst, data);
 	tx->type = get_type(&line, data);
 	if (tx->type == TX_INVALID)
 		exit_error(ERR_TX ERR_TX_TYPE, data);
