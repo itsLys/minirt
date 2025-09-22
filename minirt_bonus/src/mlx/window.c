@@ -25,16 +25,8 @@ void	init_mlx(t_data *data)
 		exit_error(NULL, data);
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
-}
-
-
-// TODO: if ambient is a texture, the color is average of the whole texture
-// and the bg is the texutre
-void	iinit_texture(t_data *data)
-{
-	data->texture.ptr = mlx_xpm_file_to_image(data->mlx, XPM, &(data->texture.width), &(data->texture.height));
-	data->texture.addr = mlx_get_data_addr(data->texture.ptr, &data->texture.bpp,
-			&data->texture.line_len, &data->texture.endian);
+	if (data->img.addr == NULL)
+		exit_error(NULL, data);
 }
 
 void	destroy_mlx(t_data *data)
@@ -45,4 +37,5 @@ void	destroy_mlx(t_data *data)
 		mlx_destroy_window(data->mlx, data->win);
 	if (data->mlx)
 		mlx_destroy_display(data->mlx);
+	free(data->mlx);
 }

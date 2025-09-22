@@ -16,39 +16,36 @@ static void	select_next_light(t_data *data)
 {
 	t_obj			*obj;
 
-	obj = *(data->scene.obj_list);
-	if (data->selected.light == NULL)
-		data->selected.light = obj;
-	else if (data->selected.light && data->selected.light->next)
+	obj = *(data->scene.obj_lst);
+	if (data->scene.selected.light == NULL)
+		data->scene.selected.light = obj;
+	else if (data->scene.selected.light && data->scene.selected.light->next)
 	{
-		if (data->selected.light->next->type == T_LS)
-			data->selected.light = data->selected.light->next;
+		if (data->scene.selected.light->next->type == T_LS)
+			data->scene.selected.light = data->scene.selected.light->next;
 		else
-			data->selected.light = obj;
+			data->scene.selected.light = obj;
 	}
-	data->selected.type = T_LIGHT;
-	printf("selected light:	");
-	print_vec3(data->selected.light->pos);
-	printf("\n");
+	data->scene.selected.type = T_LIGHT;
 }
 
 static void	handle_obj_select(int code, t_data *data)
 {
 	if (code == XK_c)
-		data->selected.type = T_CAM;
+		data->scene.selected.type = T_CAM;
 	else if (code == XK_l)
 		select_next_light(data);
 }
 
 static void	handle_rotation(int code, t_data *data)
 {
-	if (data->selected.type == T_CAM)
+	if (data->scene.selected.type == T_CAM)
 	{
 		handle_coords_rotate(code, &(data->scene.cam.coords));
 		spawn_mapping_workers(data);
 	}
-	else if (data->selected.type == T_OBJ)
-		handle_coords_rotate(code, &(data->selected.obj->coords));
+	else if (data->scene.selected.type == T_OBJ)
+		handle_coords_rotate(code, &(data->scene.selected.obj->coords));
 }
 
 int	handle_keypress(int code, t_data *data)

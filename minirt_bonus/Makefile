@@ -15,12 +15,14 @@ LIBFT		= $(addprefix $(LIBFT_DIR)/, libft.a)
 SRC			= src/main.c \
 			  src/error.c \
 			  src/testing.c \
+			  src/destructors.c \
 			  src/gnl/get_next_line.c \
 			  src/gnl/get_next_line_utils.c \
 			  src/init/get_values.c \
 			  src/init/init_objs.c \
 			  src/init/init_rays.c \
 			  src/init/init_offsets.c \
+			  src/init/init_data.c \
 			  src/init/parse_scene.c \
 			  src/init/parse_file.c \
 			  src/init/parse_line.c \

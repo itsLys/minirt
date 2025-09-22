@@ -18,7 +18,7 @@ int    check_cn_height_intersect(double t, t_ray ray, t_obj *obj, t_cn *cn)
     double    q;
 
     check_height = vec3_scale(t, ray.dir);
-    check_height = vec3_add(check_height, ray.orign);
+    check_height = vec3_add(check_height, ray.orig);
     check_height = vec3_subtract(check_height, obj->pos);
     q = vec3_dot(check_height, obj->coords.up);
     if (0.0 <= q && cn->h >= q)
@@ -31,7 +31,7 @@ int	check_cy_height_intersect(double t, t_ray ray, t_obj *obj, t_cy *cy)
 	double	q;
 
 	check_height = vec3_scale(t, ray.dir);
-	check_height = vec3_add(check_height, ray.orign);
+	check_height = vec3_add(check_height, ray.orig);
 	check_height = vec3_subtract(check_height, obj->pos);
 	q = vec3_dot(check_height, obj->coords.up);
 	if (q >= -cy->h / 2.0 && q <= cy->h / 2.0)
@@ -57,7 +57,7 @@ t_hit	resolve_sp_hit(t_ray ray, t_obj *obj, t_sp *sp, t_quad quad)
 	resolve_hit(&hit, quad);
 	if (hit.hit == false)
 		return ((t_hit){.hit = false});
-	hit.point = vec3_add(ray.orign, vec3_scale(hit.t, ray.dir));
+	hit.point = vec3_add(ray.orig, vec3_scale(hit.t, ray.dir));
 	hit.normal = vec3_scale(1.0 / sp->r, vec3_subtract(hit.point, obj->pos));
 	if (vec3_dot(ray.dir, hit.normal) > 0)
 		hit.normal = vec3_negate(hit.normal);
@@ -81,7 +81,7 @@ t_hit	resolve_cy_hit(t_ray ray, t_obj *obj, t_cy *cy, t_quad quad)
 		hit.hit = check_cy_height_intersect(quad.t2, ray, obj, cy);
 		f = 1;
 	}
-	hit.point = vec3_add(ray.orign, vec3_scale(hit.t, ray.dir));
+	hit.point = vec3_add(ray.orig, vec3_scale(hit.t, ray.dir));
 	hit.normal = vec3_subtract(hit.point, obj->pos);
 	hit.normal = vec3_scale(vec3_dot(hit.normal, obj->coords.up), obj->coords.up);
 	hit.normal = vec3_add(obj->pos, hit.normal);
@@ -106,7 +106,7 @@ t_hit	resolve_pl_hit(t_ray ray, t_obj *obj, double a, double b)
 		hit.hit = true;
 	hit.t = t;
 	hit.point = vec3_scale(hit.t, ray.dir);
-	hit.point = vec3_add(ray.orign, hit.point);
+	hit.point = vec3_add(ray.orig, hit.point);
 	hit.normal = obj->coords.up;
 	if (vec3_dot(ray.dir, hit.normal) > 0)
 		hit.normal = vec3_scale(-1, hit.normal);
@@ -128,7 +128,7 @@ t_hit    resolve_cn_hit(t_ray ray, t_obj *obj, t_quad quad, t_cn *cn)
         hit.t = quad.t2;
         hit.hit = check_cn_height_intersect(quad.t2, ray, obj, cn);
     }
-    hit.point = vec3_add(ray.orign, vec3_scale(hit.t, ray.dir));
+    hit.point = vec3_add(ray.orig, vec3_scale(hit.t, ray.dir));
     hit.normal = vec3_subtract(hit.point, obj->pos);
     term1 = vec3_scale(vec3_dot(hit.normal, obj->coords.up), obj->coords.up);
     term2 = vec3_scale(cosf(cn->angle) * cosf(cn->angle), hit.normal);

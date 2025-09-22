@@ -28,17 +28,17 @@ void	draw_image(t_data *data, t_int_vec2 start, t_int_vec2 end)
 	t_ray		ray;
 	t_rgb		color;
 
-	rays = data->scene.rays;
+	rays = data->rays;
 	i = start.x;
 	while (i < end.x)
 	{
 		j = start.y;
 		while (j < end.y)
 		{
-			ray.pixel.x = i;
-			ray.pixel.y = j;
+			ray.px.x = i;
+			ray.px.y = j;
 			ray.dir = rays.dirs[i + j * WIDTH];
-			ray.orign = rays.orig;
+			ray.orig = rays.orig;
 			// ray = map_pixel(i, j, worker->data);
 			color = trace_ray(ray, data);
 			img_put_pixel(data->img, i, j, rgb_to_int(color));

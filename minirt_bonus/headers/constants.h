@@ -24,8 +24,8 @@
 # define HEIGHT 720
 
 // constants
+# define SPLIT 3
 # define EPS 1e-6
-# define SPLIT 2
 # define CAM_ROTATE_STEP 0.025
 # define ROTATE_STEP 0.05
 # define MOVE_STEP 0.5

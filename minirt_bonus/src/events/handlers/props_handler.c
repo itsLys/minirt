@@ -62,18 +62,18 @@ static inline void	handle_sp_props(int code, t_sp *sp)
 
 void	handle_props(int code, t_data *data)
 {
-	if (data->selected.type == T_CAM)
+	if (data->scene.selected.type == T_CAM)
 	{
 		handle_cam_props(code, &(data->scene.cam));
 		set_offsets(&(data->offsets), data);
 		spawn_mapping_workers(data);
 	}
-	else if (data->selected.type == T_LIGHT)
-		handle_light_props(code, (t_light *)(data->selected.light->shape));
-	else if (data->selected.type == T_OBJ && data->selected.obj->type == T_CY)
-		handle_cy_props(code, (t_cy *)(data->selected.obj->shape));
-	else if (data->selected.type == T_OBJ && data->selected.obj->type == T_CN)
-		handle_cn_props(code, (t_cn *)(data->selected.obj->shape));
-	else if (data->selected.type == T_OBJ && data->selected.obj->type == T_SP)
-		handle_sp_props(code, (t_sp *)(data->selected.obj->shape));
+	else if (data->scene.selected.type == T_LIGHT)
+		handle_light_props(code, (t_light *)(data->scene.selected.light->shape));
+	else if (data->scene.selected.type == T_OBJ && data->scene.selected.obj->type == T_CY)
+		handle_cy_props(code, (t_cy *)(data->scene.selected.obj->shape));
+	else if (data->scene.selected.type == T_OBJ && data->scene.selected.obj->type == T_CN)
+		handle_cn_props(code, (t_cn *)(data->scene.selected.obj->shape));
+	else if (data->scene.selected.type == T_OBJ && data->scene.selected.obj->type == T_SP)
+		handle_sp_props(code, (t_sp *)(data->scene.selected.obj->shape));
 }

@@ -39,7 +39,7 @@ int	init_config(char *line, t_data *data)
 	return (SUCCESS);
 }
 
-int	process_line(char *line, t_data *data)
+int	parse_line(char *line, t_data *data)
 {
 	int	i;
 

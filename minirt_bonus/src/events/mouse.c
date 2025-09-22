@@ -22,18 +22,18 @@ void	select_object(int x, int y, t_data *data)
 	hit.t = INFINITY;
 	hit.hit = false;
 	hit.obj = NULL;
-	obj = *(data->scene.obj_list);
+	obj = *(data->scene.obj_lst);
 	record_hit(&obj, &hit, ray);
 	if (hit.obj)
 	{
-		data->selected.obj = hit.obj;
-		data->selected.type = T_OBJ;
+		data->scene.selected.obj = hit.obj;
+		data->scene.selected.type = T_OBJ;
 	}
 	else
-		data->selected.type = T_CAM;
+		data->scene.selected.type = T_CAM;
 }
 
-int	handle_button(int code, int x, int y, t_data *data)
+int	handle_button(int code, int x, int y, t_data *data) // prop remove
 {
 	if (code == 1)
 		select_object(x, y, data);

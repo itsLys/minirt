@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
+
 int	clean_exit(t_data *data, int status)
 {
 	destroy_mlx(data);
 	destroy_workers(data);
 	destroy_scene(data);
-	obj_lst_free(data->scene.obj_lst);
 	if (data->rays.dirs)
 		free(data->rays.dirs);
 	if (data->offsets)
@@ -95,6 +95,24 @@ void	link_object_texture(t_data *data)
 	}
 }
 
+void	link_amb_texture(t_data *data)
+{
+	t_texture	*tx;
+	t_amb_light	*amb;
+
+	tx = *(data->scene.tx_lst);
+	amb = &(data->scene.amb);
+	while (tx)
+	{
+		if (amb->tx_name && ft_strcmp(amb->tx_name, tx->name) == 0)
+		{
+			amb->tx = tx;
+			return ;
+		}
+		tx = tx->next;
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -112,6 +130,7 @@ int	main(int ac, char **av)
 	init_offsets(&(data.offsets), &data);
 	init_cam_rays(&data);
 	link_object_texture(&data);
+	link_amb_texture(&data);
 	setup_mlx(&data);
 	clean_exit(&data, 0);
 }

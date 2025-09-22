@@ -27,9 +27,11 @@ void	destroy_objects(t_obj **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		free((*lst)->tx.ids[0]);
-		free((*lst)->tx.ids[1]);
-		free((*lst)->tx.ids);
+		if ((*lst)->type != T_LS)
+		{
+			free((*lst)->tx_id_1); // FIX: free after initialization, maybe not for printing??
+			free((*lst)->tx_id_2);
+		}
 		obj_free(*lst);
 		*lst = tmp;
 	}
@@ -51,23 +53,8 @@ void	destroy_textures(void *mlx, t_texture **lst)
 	free(lst);
 }
 
-void	destroy_patterns(t_pattern **lst)
-{
-	t_pattern	*tmp;
-
-	while (*lst)
-	{
-		tmp = (*lst)->next;
-		free((*lst)->name);
-		free(*lst);
-		*lst = tmp;
-	}
-	free(lst);
-}
-
 void	destroy_scene(t_data *data)
 {
 	destroy_objects(data->scene.obj_lst);
 	destroy_textures(data->mlx, data->scene.tx_lst);
-	destroy_patterns(data->scene.patt_lst);
 }

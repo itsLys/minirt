@@ -32,11 +32,11 @@ static bool	is_shadow(t_hit hit, t_obj *light, t_data *data)
 	t_ray	ray;
 	double	light_distance;
 
-	ray.orign = hit.point;
+	ray.orig = hit.point;
 	ray.dir = vec3_subtract(light->pos, hit.point);
 	light_distance = vec3_len(ray.dir);
 	ray.dir = vec3_norm(ray.dir);
-	obj = *(data->scene.obj_list);
+	obj = *(data->scene.obj_lst);
 	while (obj)
 	{
 		tmp = record_shadow(obj, ray);
@@ -90,9 +90,9 @@ static t_rgb compute_spacular(t_hit hit, t_obj *l_obj, t_light *light, t_cam cam
 	angle = fmax(0, vec3_dot(ref_vec, vec3_norm(vec3_subtract(cam.pos, hit.point))));
 	shininess = pow(angle, hit.obj->shine);
 	// shininess = pow(angle, 25);
-	color.r = hit.obj->reflect * shininess * light->ratio * l_obj->color.r;
-	color.g = hit.obj->reflect * shininess * light->ratio * l_obj->color.g;
-	color.b = hit.obj->reflect * shininess * light->ratio * l_obj->color.b;
+	color.r = hit.obj->ref * shininess * light->ratio * l_obj->color.r;
+	color.g = hit.obj->ref * shininess * light->ratio * l_obj->color.g;
+	color.b = hit.obj->ref * shininess * light->ratio * l_obj->color.b;
 	return color;
 }
 
@@ -120,32 +120,15 @@ t_rgb	sample_bg_color(t_ray ray, t_data *data)
 	t_int_vec2	tx_index;
 	char *color;
 
-	px_co.x = ray.pixel.x / (WIDTH - 1.0);
-	px_co.y = ray.pixel.y / (HEIGHT - 1.0);
+	px_co.x = ray.px.x / (WIDTH - 1.0);
+	px_co.y = ray.px.y / (HEIGHT - 1.0);
 
-	tx_index.x = px_co.x * (data->texture.width - 1);
-	tx_index.y = px_co.y * (data->texture.height - 1);
+	tx_index.x = px_co.x * (data->scene.amb.tx->width - 1);
+	tx_index.y = px_co.y * (data->scene.amb.tx->height - 1);
 
-	color = data->texture.addr + tx_index.y * data->texture.line_len + tx_index.x * (data->texture.bpp / 8);
+	color = data->scene.amb.tx->img.addr + tx_index.y * data->scene.amb.tx->img.line_len + tx_index.x * (data->scene.amb.tx->img.bpp / 8);
 	return int_to_rgb(*((int *)color));
 }
-
-// t_rgb	sample_sp_color(t_hit hit, t_data *data)
-// {
-// 	t_vec3	normal = hit.normal; // NORMALIZE??
-// 	double	thetha = atan2(normal.z, normal.x);
-// 	double	phi = acos(normal.y);
-// 	double	u = (thetha + M_PI) / (2 * M_PI);
-// 	double	v = phi / M_PI;
-// 	char	*color;
-//
-// 	t_int_vec2 tx_index;
-//
-// 	tx_index.x = u * (data->texture.width - 1);
-// 	tx_index.y = v * (data->texture.height - 1);
-// 	color = data->texture.addr + tx_index.y * data->texture.line_len + tx_index.x * (data->texture.bpp / 8);
-// 	return int_to_rgb(*((int *)color));
-// }
 
 t_rgb	compute_color(t_ray ray, t_hit hit, t_data *data)
 {
@@ -154,14 +137,15 @@ t_rgb	compute_color(t_ray ray, t_hit hit, t_data *data)
 	t_rgb	light;
 	t_rgb	sum;
 	t_obj	*obj;
-	(void) ray;
 
 	if (hit.hit == false)
-		// return (sample_color(ray, data));
-		// return int_to_rgb(BG_COLOR);
-		return rgb_scale(data->scene.amb_light.ratio, data->scene.amb_light.color);
-	amb = compute_amb(hit.color, data->scene.amb_light);
-	obj = *(data->scene.obj_list);
+	{
+		if (data->scene.amb.tx)
+			return sample_bg_color(ray, data);
+		return rgb_scale(data->scene.amb.ratio, data->scene.amb.color);
+	}
+	amb = compute_amb(hit.color, data->scene.amb);
+	obj = *(data->scene.obj_lst);
 	sum = (t_rgb) {0, 0, 0};
 	while (obj)
 	{

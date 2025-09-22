@@ -30,13 +30,13 @@ static void	handle_translate(int code, t_vec3 *point, t_cam cam)
 
 void	handle_obj_move(int code, t_data *data)
 {
-	if (data->selected.type == T_CAM)
+	if (data->scene.selected.type == T_CAM)
 	{
 		handle_translate(code, &(data->scene.cam.pos), data->scene.cam);
-		data->scene.rays.orig = data->scene.cam.pos;
+		data->rays.orig = data->scene.cam.pos;
 	}
-	else if (data->selected.type == T_LIGHT)
-		handle_translate(code, &(data->selected.light->pos), data->scene.cam);
-	else if (data->selected.type == T_OBJ)
-		handle_translate(code, &(data->selected.obj->pos), data->scene.cam);
+	else if (data->scene.selected.type == T_LIGHT)
+		handle_translate(code, &(data->scene.selected.light->pos), data->scene.cam);
+	else if (data->scene.selected.type == T_OBJ)
+		handle_translate(code, &(data->scene.selected.obj->pos), data->scene.cam);
 }
