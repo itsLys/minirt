@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ambient.c                                          :+:      :+:    :+:   */
+/*   parse_surface.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/20 17:07:37 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/20 17:09:50 by ihajji           ###   ########.fr       */
+/*   Created: 2025/09/23 13:01:21 by ihajji            #+#    #+#             */
+/*   Updated: 2025/09/23 13:01:53 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// t_rgb	compute_amb(t_rgb obj, t_light amb)
-// {
-// 	t_rgb color;
-//
-// 	color.r = 0.75 * amb.ratio * amb.color.r * obj.r;
-// 	color.g = 0.75 * amb.ratio * amb.color.g * obj.g;
-// 	color.b = 0.75 * amb.ratio * amb.color.b * obj.b;
-// 	return (color);
-// }
+void	get_surface_props(t_obj *obj, char *line, t_data *data)
+{
+	obj->color = get_rgb(&line, data);
+	obj->ref = get_double(&line, data);
+	obj->shine = get_integer(&line, data);
+	get_obj_tx(obj, &line, data);
+	if (obj->ref < 0.0 || obj->ref > 1.0)
+		exit_error(ERR_WRONG_REF, data);
+	if (obj->shine < 0 || obj->shine > 200)
+		exit_error(ERR_WRONG_SHINE, data);
+	obj->tx = NULL;
+	obj->bmp = NULL;
+	skip_trailing(line, data);
+}

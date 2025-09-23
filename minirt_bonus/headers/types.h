@@ -135,6 +135,7 @@ typedef struct s_cam
 	t_vec3			pos;
 	t_local_coords	coords;
 	double			fov;
+	t_vec2			viewport;
 	double			viewport_h;
 	double			viewport_w;
 }	t_cam;

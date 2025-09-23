@@ -6,12 +6,54 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 16:18:44 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/06 16:37:25 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/23 13:16:01 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+void	set_directions(t_data *data, t_int_vec2 start, t_int_vec2 end) // move
+{
+	int	i;
+	int	j;
+
+	i = start.x;
+	while (i < end.x)
+	{
+		j = start.y;
+		while (j < end.y)
+		{
+			data->rays.dirs[j * WIDTH + i] = map_pixel(i, j, data).dir;
+			j++;
+		}
+		i++;
+	}
+}
+
+void	set_offsets(t_vec2 **offsets, t_cam cam) // FIX: make it take cam instead of data
+{
+	int		i;
+	int		j;
+	double	px;
+	double	py;
+
+	i = 0;
+	while (i < WIDTH)
+	{
+		j = 0;
+		while (j < HEIGHT)
+		{
+			px = (i + 0.5) / WIDTH;
+			py = (j + 0.5) / HEIGHT;
+			px = (px - 0.5) * cam.viewport_w;
+			py = (0.5 - py) * cam.viewport_h;
+			(*offsets)[j * WIDTH + i].x = px;
+			(*offsets)[j * WIDTH + i].y = py;
+			j++;
+		}
+		i++;
+	}
+}
 void	setup_viewport(t_cam *cam)
 {
 	double	fov_r;

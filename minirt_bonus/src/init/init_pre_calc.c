@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_offsets.c                                     :+:      :+:    :+:   */
+/*   init_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/06 15:33:42 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/21 11:11:33 by ihajji           ###   ########.fr       */
+/*   Created: 2025/08/31 16:11:09 by ihajji            #+#    #+#             */
+/*   Updated: 2025/09/23 13:17:48 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	set_offsets(t_vec2 **offsets, t_data *data)
+t_cam_rays	init_mem(t_data *data)
 {
-	int		i;
-	int		j;
-	double	px;
-	double	py;
+	t_cam_rays	rays;
 
-	i = 0;
-	while (i < WIDTH)
-	{
-		j = 0;
-		while (j < HEIGHT)
-		{
-			px = (i + 0.5) / WIDTH;
-			py = (j + 0.5) / HEIGHT;
-			px = (px - 0.5) * data->scene.cam.viewport_w;
-			py = (0.5 - py) * data->scene.cam.viewport_h;
-			(*offsets)[j * WIDTH + i].x = px;
-			(*offsets)[j * WIDTH + i].y = py;
-			j++;
-		}
-		i++;
-	}
+	rays.dirs = malloc(sizeof(t_vec3) * WIDTH * HEIGHT);
+	if (rays.dirs == NULL)
+		clean_exit(data, FAILIURE);
+	return (rays);
 }
+
+void	init_cam_rays(t_data *data)
+{
+	t_cam_rays	rays;
+	t_int_vec2	start = {0, 0};
+	t_int_vec2	end = {WIDTH, HEIGHT};
+
+	rays = init_mem(data);
+	rays.orig = data->scene.cam.pos;
+	data->rays = rays;
+	set_directions(data, start, end);
+}
+
 
 void	init_offsets(t_vec2 **offsets, t_data *data)
 {

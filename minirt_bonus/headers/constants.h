@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:19:43 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/16 11:20:40 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/23 13:04:50 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 // windows dimensions
 # define WIDTH	1080
 # define HEIGHT 720
+
+// pattern defaults
+#define PATT_H 512
+#define PATT_W 512
 
 // constants
 # define SPLIT 4
