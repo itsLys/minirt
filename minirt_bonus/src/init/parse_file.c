@@ -33,7 +33,7 @@ int	parse_file(char *filename, t_data *data)
 		return (ERROR);
 	fd = open(filename, O_RDONLY);
 	if (fd == ERROR)
-		return (print_error(strerror(errno)), ERROR);
+		return (exit_error(strerror(errno), data), ERROR);
 	while (1)
 	{
 		line = get_next_line(fd);

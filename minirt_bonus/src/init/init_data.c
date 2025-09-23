@@ -26,6 +26,7 @@ void	init_scene(t_data *data)
 	data->scene.selected.type = T_CAM;
 	data->scene.selected.light = NULL;
 	data->scene.amb.tx = NULL;
+	data->scene.amb.tx_name = NULL;
 	*(data->scene.obj_lst) = NULL;
 	*(data->scene.tx_lst) = NULL;
 }
@@ -45,6 +46,24 @@ void	init_workers(t_worker *worker, t_data *data, void (*func)(t_worker *))
 		set_worker_bounds(worker + i);
 		i++;
 	}
+}
+
+void	init_mlx(t_data *data)
+{
+	data->mlx = mlx_init();
+	if (data->mlx == NULL)
+		exit_error(NULL, data);
+	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, MINIRT_PROJECT);
+	if (data->win == NULL)
+		exit_error(NULL, data);
+	data->img.img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	if (data->img.img == NULL)
+		exit_error(NULL, data);
+	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp,
+			&data->img.line_len, &data->img.endian);
+	if (data->img.addr == NULL)
+		exit_error(NULL, data);
+	setup_mlx(data);
 }
 
 void	init_data(t_data *data)

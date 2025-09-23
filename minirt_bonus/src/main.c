@@ -12,18 +12,6 @@
 
 #include "minirt.h"
 
-int	clean_exit(t_data *data, int status)
-{
-	destroy_mlx(data);
-	destroy_workers(data);
-	destroy_scene(data);
-	if (data->rays.dirs)
-		free(data->rays.dirs);
-	if (data->offsets)
-		free(data->offsets);
-	exit(status);
-}
-
 void	print_help(void)
 {
 	int		fd;
@@ -43,7 +31,7 @@ void	print_help(void)
 	close(fd);
 }
 
-void	validate_scene(t_data *data, t_scene scene)
+void	validate_scene(t_scene scene, t_data *data)
 {
 	if (scene.cam.on == false)
 		exit_error(ERR_CAM ERR_NOT_FOUND, data);
@@ -90,7 +78,8 @@ void	link_object_texture(t_data *data)
 	obj = *(data->scene.obj_lst);
 	while (obj)
 	{
-		find_texture(obj, data);
+		if (obj->type != T_LS)
+			find_texture(obj, data);
 		obj = obj->next;
 	}
 }
@@ -113,6 +102,26 @@ void	link_amb_texture(t_data *data)
 	}
 }
 
+int	init_program(char *file, t_data *data)
+{
+	init_data(data);
+	init_mlx(data);
+	if (parse_file(file, data) == ERROR)
+		return ERROR;
+	return SUCCESS;
+}
+
+void	prepare_scene(t_data *data)
+{
+	validate_scene(data->scene, data);
+	init_offsets(&(data->offsets), data);
+	init_cam_rays(data);
+	link_object_texture(data);
+	link_amb_texture(data);
+	sort_objects(data->scene.obj_lst);
+
+}
+
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -121,16 +130,13 @@ int	main(int ac, char **av)
 		print_help();
 	if (ac != 2)
 		return (print_error("Wrong args\n"), FAILIURE);
-	init_data(&data);
-	if (parse_file(av[1], &data) == ERROR)
+	if (init_program(av[1], &data) == ERROR)
 		return (EXIT_FAILURE);
-	validate_scene(&data, data.scene);
-	print_scene(&data); // FIX: print textures, patterns, and new fields
-	sort_objects(data.scene.obj_lst); // FIX: add missing fields in swapping
-	init_offsets(&(data.offsets), &data);
-	init_cam_rays(&data);
-	link_object_texture(&data);
-	link_amb_texture(&data);
-	setup_mlx(&data);
-	clean_exit(&data, 0);
+	prepare_scene(&data);
+	print_scene(&data); // FIX: add texture rel path for printing later
+	mlx_loop(data.mlx);
 }
+
+// TODO: test: non exisent files
+// text: duplicate texture names: invalid
+// test: duplicate color texture, bumpmap texture, patter texture

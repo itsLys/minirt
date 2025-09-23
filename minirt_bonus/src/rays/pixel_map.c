@@ -6,12 +6,13 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/17 16:48:20 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/06 16:34:20 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/23 11:31:39 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+// FIX: functiopn hanging alone ina  loan file
 t_ray	map_pixel(int x, int y, t_data *data)
 {
 	t_ray	ray;

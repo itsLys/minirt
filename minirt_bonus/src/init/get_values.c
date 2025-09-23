@@ -40,6 +40,7 @@ t_texture_type	get_type(char **line, t_data *data)
 		type = TX_PATT;
 	else
 		type = TX_INVALID;
+	free(str);
 	return type;
 }
 

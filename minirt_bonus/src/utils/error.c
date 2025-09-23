@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events.c                                           :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/14 15:56:03 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/16 10:44:05 by ihajji           ###   ########.fr       */
+/*   Created: 2025/09/23 11:29:57 by ihajji            #+#    #+#             */
+/*   Updated: 2025/09/23 11:30:02 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	setup_mlx(t_data *data)
+void	print_error(char *err)
 {
-	mlx_hook(data->win, DestroyNotify, NoEventMask, &clean_exit, data);
-	mlx_hook(data->win, KeyPress, KeyPressMask, &handle_keypress, data);
-	mlx_hook(data->win, ButtonPress, ButtonPressMask, &handle_button, data);
-	mlx_loop_hook(data->mlx, &render_img, data);
+	write(STDERR_FILENO, "Error\n", 6);
+	if (err)
+		write(STDERR_FILENO, err, ft_strlen(err));
+	write(STDERR_FILENO, ERR_USAGE, ft_strlen(ERR_USAGE));
 }
-// FIX: change place

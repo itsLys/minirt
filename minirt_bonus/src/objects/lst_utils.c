@@ -33,5 +33,10 @@ void	obj_lst_add(t_obj *obj, t_obj **list)
 void	obj_free(t_obj *obj)
 {
 	free(obj->shape);
+	if (obj->type != T_LS)
+	{
+		free(obj->tx_id_1);
+		free(obj->tx_id_2);
+	}
 	free(obj);
 }

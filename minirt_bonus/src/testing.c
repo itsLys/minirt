@@ -36,14 +36,16 @@ void	print_scene_params(t_scene scene)
 			count_obj(obj, T_SP) + count_obj(obj, T_PL) + count_obj(obj, T_CY));
 }
 
-void	print_amb_light(t_amb_light amb_light)
+void	print_amb_light(t_amb_light amb)
 {
 	printf("A	");
-	printf("%.2lf		", amb_light.ratio);
-	printf("%d, %d, %d",
-			(int)(amb_light.color.r * 255.999),
-			(int)(amb_light.color.g * 255.999),
-			(int)(amb_light.color.b * 255.999));
+	printf("%.2lf				", amb.ratio);
+	printf("%d, %d, %d			",
+			(int)(amb.color.r * 255.999),
+			(int)(amb.color.g * 255.999),
+			(int)(amb.color.b * 255.999));
+	if (amb.tx_name)
+		printf("%s	", amb.tx_name);
 	printf("\n");
 }
 
@@ -54,7 +56,7 @@ void	print_camera(t_cam cam)
 			cam.pos.x,
 			cam.pos.y,
 			cam.pos.z);
-	printf("%lf, %lf, %lf		",
+	printf("%.2lf, %.2lf, %.2lf		",
 			cam.coords.forward.x,
 			cam.coords.forward.y,
 			cam.coords.forward.z);
@@ -78,6 +80,10 @@ void	print_color_props(t_obj *obj)
 			(int)(obj->color.b * 255.999));
 	printf("%.2lf	", obj->ref);
 	printf("%d	", obj->shine);
+	if (obj->tx_id_1)
+		printf("%s	", obj->tx_id_1);
+	if (obj->tx_id_2)
+		printf("%s	", obj->tx_id_2);
 }
 
 void	print_sp(t_obj *obj)
@@ -100,7 +106,7 @@ void	print_pl(t_obj *obj)
 	printf("pl	");
 	// pl = (t_pl *)(obj->shape);
 	print_pos(obj);
-	printf("%lf, %lf, %lf		",
+	printf("%.2lf, %.2lf, %.2lf		",
 			obj->coords.up.x,
 			obj->coords.up.y,
 			obj->coords.up.z);
@@ -115,7 +121,7 @@ void	print_cy(t_obj *obj)
 	printf("cy	");
 	cy = (t_cy *)(obj->shape);
 	print_pos(obj);
-	printf("%lf, %lf, %lf		",
+	printf("%.2lf, %.2lf, %.2lf		",
 			obj->coords.up.x,
 			obj->coords.up.y,
 			obj->coords.up.z);
@@ -132,7 +138,7 @@ void	print_cn(t_obj *obj)
 	printf("cn	");
 	cn = (t_cn *)(obj->shape);
 	print_pos(obj);
-	printf("%lf, %lf, %lf		",
+	printf("%.2lf, %.2lf, %.2lf		",
 			obj->coords.up.x,
 			obj->coords.up.y,
 			obj->coords.up.z);
@@ -176,14 +182,41 @@ void	print_objects(t_obj *obj)
 	}
 }
 
+void	print_texture_type(t_texture *lst)
+{
+	if (lst->type == TX_COLOR)
+		printf("color");
+	else if (lst->type == TX_BUMP)
+		printf("bump");
+	else if (lst->type == TX_PATT)
+		printf("patt");
+}
+
+void	print_textures(t_texture *lst)
+{
+	while (lst)
+	{
+		printf("t	");
+		printf("%s			", lst->name);
+		print_texture_type(lst);
+		printf("\n");
+		lst = lst->next;
+	}
+	// FIX: add relative path string for printing, free at exit,, also COLOR PRINTING
+}
+
 void	print_scene(t_data *data)
 {
 	t_scene	scene;
 
 	scene = data->scene;
 	print_scene_params(scene);
+	printf("\n");
 	print_amb_light(scene.amb);
 	print_camera(scene.cam);
+	printf("\n");
+	print_textures(*scene.tx_lst);
+	printf("\n");
 	print_objects(*scene.obj_lst);
 }
 
@@ -223,62 +256,3 @@ void	print_obj_type(t_obj *obj)
 	else if (obj->type == T_LS)
 		printf("LIGHT\n");
 }
-
-
-// ======== MINI RT SCENE PARAMETERS ========
-// Object Count:   6
-// ------------------------------------------
-//
-// ------------------------------------------
-// [Light]
-// Ratio:          0.10
-// Position:       (0.00, 0.00, 0.00)
-// Color:          (255, 255, 255)
-// ------------------------------------------
-// [Camera]
-// Position:       (-5.00, 0.00, 30.00)
-// Orientation:        (0.00, 0.00, -1.00)
-// Field of view:      70°
-//
-// ------------------------------------------
-// [Light]
-// Ratio:          0.70
-// Position:       (0.00, 10.00, 5.00)
-// Color:          (255, 255, 255)
-// ------------------------------------------
-// [Spheres]
-// Number:         1
-// Position:       (4.00, 0.00, -20.00)
-// Diameter:       18.00
-// Color:          (255, 0, 255)
-//
-// Number:         2
-// Position:       (4.00, 0.00, 20.00)
-// Diameter:       8.00
-// Color:          (255, 255, 0)
-//
-// Number:         3
-// Position:       (4.00, 0.00, 0.00)
-// Diameter:       1.00
-// Color:          (0, 255, 0)
-//
-// Number:         4
-// Position:       (0.00, 0.00, 0.00)
-// Diameter:       3.00
-// Color:          (0, 255, 0)
-//
-// ------------------------------------------
-// [Cylinders]
-// Number:         1
-// Position:       (0.00, 0.00, 0.00)
-// Normalized:     (1.00, 0.00, 0.00)
-// Diameter:       7.00
-// Height:         10.00
-// Color:          (0, 255, 0)
-//
-// ------------------------------------------
-// [Planes]
-// Number:         1
-// Position:       (0.00, -10.00, 0.00)
-// Normalized:     (0.00, 1.00, 0.00)
-// Color:          (50, 200, 200)

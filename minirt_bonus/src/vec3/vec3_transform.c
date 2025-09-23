@@ -12,7 +12,6 @@
 
 #include "minirt.h"
 
-// BUG: fix
 t_vec3	rotate(t_vec3 to_rot, t_vec3 axis, double angle)
 {
 	t_vec3	v_cos;

@@ -12,22 +12,22 @@
 
 #include "minirt.h"
 
-void	init_mlx(t_data *data)
-{
-	data->mlx = mlx_init();
-	if (data->mlx == NULL)
-		exit_error(NULL, data);
-	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, MINIRT_PROJECT);
-	if (data->win == NULL)
-		exit_error(NULL, data);
-	data->img.img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	if (data->img.img == NULL)
-		exit_error(NULL, data);
-	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp,
-			&data->img.line_len, &data->img.endian);
-	if (data->img.addr == NULL)
-		exit_error(NULL, data);
-}
+// void	init_mlx(t_data *data)
+// {
+// 	data->mlx = mlx_init();
+// 	if (data->mlx == NULL)
+// 		exit_error(NULL, data);
+// 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, MINIRT_PROJECT);
+// 	if (data->win == NULL)
+// 		exit_error(NULL, data);
+// 	data->img.img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+// 	if (data->img.img == NULL)
+// 		exit_error(NULL, data);
+// 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp,
+// 			&data->img.line_len, &data->img.endian);
+// 	if (data->img.addr == NULL)
+// 		exit_error(NULL, data);
+// }
 
 void	destroy_mlx(t_data *data)
 {
@@ -39,3 +39,4 @@ void	destroy_mlx(t_data *data)
 		mlx_destroy_display(data->mlx);
 	free(data->mlx);
 }
+// prop move to destructors

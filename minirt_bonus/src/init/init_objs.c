@@ -53,8 +53,7 @@ void	get_surface_props(t_obj *obj, char *line, t_data *data)
 }
 
 void	init_local_coords(t_obj *obj)
-{
-	obj->coords.forward = vec3_cross(vec3(1, 0, 0), obj->coords.up);
+{ obj->coords.forward = vec3_cross(vec3(1, 0, 0), obj->coords.up);
 	obj->coords.right = vec3_cross(obj->coords.forward, obj->coords.up);
 }
 
@@ -71,9 +70,9 @@ void	init_plane(char *line, t_data *data)
 	obj->shape = pl;
 	obj->type = T_PL;
 	obj->pos = get_vec3(&line, data);
-	obj->coords.up = get_vec3(&line, data);
-	if (!is_close(vec3_len(obj->coords.up), 1.0))
-		exit_error(ERR_PL ERR_NORM_VAL, data);
+	obj->coords.up = vec3_norm(get_vec3(&line, data));
+	// if (!is_close(vec3_len(obj->coords.up), 1.0))
+	// 	exit_error(ERR_PL ERR_NORM_VAL, data);
 	get_surface_props(obj, line, data);
 	init_local_coords(obj); // propabely take this out and put it one scoop before
 }
@@ -91,7 +90,7 @@ void	init_sphere(char *line, t_data *data)
 	obj->shape = sp;
 	obj->type = T_SP;
 	obj->pos = get_vec3(&line, data);
-	obj->coords.up = vec3(0, 1, 0);
+	obj->coords.up = vec3_norm(vec3(0, 1, 0)); // FIX: add a forward and up direction axis
 	sp->r = get_double(&line, data) / 2;
 	if (sp->r < 0)
 		exit_error(ERR_SP ERR_DIAM_POS, data);
@@ -112,11 +111,11 @@ void	init_cylinder(char *line, t_data *data)
 	obj->shape = cy;
 	obj->type = T_CY;
 	obj->pos = get_vec3(&line, data);
-	obj->coords.up = get_vec3(&line, data);
+	obj->coords.up = vec3_norm(get_vec3(&line, data));
 	cy->r = get_double(&line, data) / 2;
 	cy->h = get_double(&line, data);
-	if (!is_close(vec3_len(obj->coords.up), 1.0))
-		exit_error(ERR_CY ERR_NORM_VAL, data);
+	// if (!is_close(vec3_len(obj->coords.up), 1.0))
+	// 	exit_error(ERR_CY ERR_NORM_VAL, data);
 	if (cy->r < 0)
 		exit_error(ERR_CY ERR_DIAM_POS, data);
 	get_surface_props(obj, line, data);
@@ -136,11 +135,11 @@ void    init_cone(char *line, t_data *data)
 	obj->shape = cn;
 	obj->type = T_CN;
 	obj->pos = get_vec3(&line, data);
-	obj->coords.up = get_vec3(&line, data);
+	obj->coords.up = vec3_norm(get_vec3(&line, data));
 	cn->angle = get_double(&line, data) * M_PI / 180.0;
 	cn->h = get_double(&line, data);
-	if (!is_close(vec3_len(obj->coords.up), 1.0))
-		exit_error("ERR_CN ERR_NORM_VAL", data);
+	// if (!is_close(vec3_len(obj->coords.up), 1.0))
+	// 	exit_error("ERR_CN ERR_NORM_VAL", data);
 	if (cn->h < 0)
 		exit_error("ERR_CN ERR_HEIGHT_POS", data);
 	get_surface_props(obj, line, data);

@@ -70,10 +70,10 @@ void	init_camera(char *line, t_data *data)
 	if (data->scene.cam.on == true)
 		exit_error(ERR_CAM ERR_MULTI, data);
 	pos = get_vec3(&line, data);
-	norm = get_vec3(&line, data);
+	norm = vec3_norm(get_vec3(&line, data));
 	fov = get_double(&line, data);
-	if (!is_close(vec3_len(norm), 1.0))
-		exit_error(ERR_CAM ERR_NORM_VAL, data);
+	// if (!is_close(vec3_len(norm), 1.0))
+	// 	exit_error(ERR_CAM ERR_NORM_VAL, data);
 	if (fov < 0.0 || fov > 180.0)
 		exit_error(ERR_CAM ERR_FOV, data);
 	data->scene.cam.pos = pos;

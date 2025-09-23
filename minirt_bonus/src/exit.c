@@ -12,6 +12,18 @@
 
 #include "minirt.h"
 
+int	clean_exit(t_data *data, int status)
+{
+	destroy_scene(data);
+	destroy_workers(data);
+	destroy_mlx(data);
+	if (data->rays.dirs)
+		free(data->rays.dirs);
+	if (data->offsets)
+		free(data->offsets);
+	exit(status);
+}
+
 void	print_error(char *err)
 {
 	write(STDERR_FILENO, "Error\n", 6);

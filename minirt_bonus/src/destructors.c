@@ -45,8 +45,8 @@ void	destroy_textures(void *mlx, t_texture **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		free((*lst)->name);
 		mlx_destroy_image(mlx, (*lst)->img.img);
+		free((*lst)->name);
 		free(*lst);
 		*lst = tmp;
 	}
@@ -55,6 +55,7 @@ void	destroy_textures(void *mlx, t_texture **lst)
 
 void	destroy_scene(t_data *data)
 {
+	free(data->scene.amb.tx_name);
 	destroy_objects(data->scene.obj_lst);
 	destroy_textures(data->mlx, data->scene.tx_lst);
 }
