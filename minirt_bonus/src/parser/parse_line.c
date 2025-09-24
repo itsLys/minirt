@@ -6,13 +6,13 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 10:17:38 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/23 13:06:37 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/24 11:28:21 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	init_config(char *line, t_data *data)
+static int	init_config(char *line, t_data *data)
 {
 	int	i;
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cam_setup.c                                        :+:      :+:    :+:   */
+/*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 16:18:44 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/23 13:16:01 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/24 11:11:15 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,17 @@ void	setup_cam_coords(t_cam *cam)
 	coords = &(cam->coords);
 	coords->right = vec3_norm(vec3_cross(coords->forward, vec3(0, 1, 0)));
 	coords->up = vec3_cross(coords->right, coords->forward);
+}
+
+t_ray	map_pixel(int x, int y, t_data *data)
+{
+	t_ray	ray;
+	t_cam	cam;
+
+	cam = data->scene.cam;
+	ray.orig = cam.pos;
+	ray.dir = vec3_add(vec3_scale(data->offsets[y * WIDTH + x].x, cam.coords.right),
+			vec3_scale(data->offsets[y * WIDTH + x].y, cam.coords.up));
+	ray.dir = vec3_norm(vec3_add(cam.coords.forward, ray.dir));
+	return (ray);
 }

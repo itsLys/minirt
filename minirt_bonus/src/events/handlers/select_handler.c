@@ -1,16 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse.c                                            :+:      :+:    :+:   */
+/*   select_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/14 15:58:35 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/30 10:17:39 by ihajji           ###   ########.fr       */
+/*   Created: 2025/09/24 10:47:48 by ihajji            #+#    #+#             */
+/*   Updated: 2025/09/24 11:23:46 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	select_next_light(t_data *data)
+{
+	t_obj			*obj;
+
+	obj = *(data->scene.obj_lst);
+	if (data->scene.selected.light == NULL)
+		data->scene.selected.light = obj;
+	else if (data->scene.selected.light && data->scene.selected.light->next)
+	{
+		if (data->scene.selected.light->next->type == T_LS)
+			data->scene.selected.light = data->scene.selected.light->next;
+		else
+			data->scene.selected.light = obj;
+	}
+}
 
 void	select_object(int x, int y, t_data *data)
 {
@@ -31,12 +47,4 @@ void	select_object(int x, int y, t_data *data)
 	}
 	else
 		data->scene.selected.type = T_CAM;
-}
-
-int	handle_button(int code, int x, int y, t_data *data) // prop remove
-{
-	if (code == 1)
-		select_object(x, y, data);
-	printf("mouse button pressed: %d\n", code);
-	return (0);
 }

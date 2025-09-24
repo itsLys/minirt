@@ -12,49 +12,56 @@ AR			= ar rcs
 INCLUDES	= -I./headers/ -I./libft/headers/
 LIBFT_DIR	= libft
 LIBFT		= $(addprefix $(LIBFT_DIR)/, libft.a)
-SRC			= src/main.c \
-			  src/error.c \
-			  src/testing.c \
+SRC         = src/camera.c \
+			  src/color/color.c \
 			  src/destructors.c \
-			  src/gnl/get_next_line.c \
-			  src/gnl/get_next_line_utils.c \
-			  src/init/get_values.c \
-			  src/init/init_objs.c \
-			  src/init/init_rays.c \
-			  src/init/init_offsets.c \
-			  src/init/init_data.c \
-			  src/init/parse_scene.c \
-			  src/init/parse_file.c \
-			  src/init/parse_line.c \
-			  src/vec3/vec3_ops.c \
-			  src/vec3/vec3_math.c \
-			  src/vec3/vec3_create.c \
-			  src/vec3/vec3_utils.c \
-			  src/vec3/vec3_transform.c \
-			  src/objects/lst_utils.c \
-              src/objects/obj_sort.c \
-			  src/mlx/events.c \
-			  src/mlx/window.c \
-			  src/camera/cam_setup.c \
-			  src/events/keys.c \
-			  src/events/loop.c \
-			  src/events/mouse.c \
+			  src/events/handlers/handlers.c \
 			  src/events/handlers/move_handler.c \
 			  src/events/handlers/props_handler.c \
 			  src/events/handlers/rotate_handler.c \
-			  src/render/draw.c \
+			  src/events/handlers/select_handler.c \
+			  src/events/keys.c \
+			  src/events/loop.c \
+			  src/exit.c \
+			  src/gnl/get_next_line.c \
+			  src/gnl/get_next_line_utils.c \
+			  src/hit/hit.c \
 			  src/hit/intersect.c \
 			  src/hit/quadratic.c \
 			  src/hit/trace.c \
-			  src/hit/hit.c \
-			  src/color/compute.c \
-			  src/color/color.c \
-			  src/color/rgb_ops.c \
-			  src/color/rgb_conv.c \
+			  src/init/init_data.c \
+			  src/init/init_mlx.c \
+			  src/init/init_pre_calc.c \
+			  src/init/init_program.c \
+			  src/main.c \
+			  src/mlx/events.c \
+			  src/mlx/window.c \
+			  src/objects/lst_utils.c \
+			  src/objects/obj_sort.c \
+			  src/parser/parse_file.c \
+			  src/parser/parse_line.c \
+			  src/parser/parse_objs.c \
+			  src/parser/parse_params/parse_numbers.c \
+			  src/parser/parse_params/parse_strings.c \
+			  src/parser/parse_params/parse_surface.c \
+			  src/parser/parse_params/parse_textures.c \
+			  src/parser/parse_params/parse_vectors.c \
+			  src/parser/parse_scene.c \
+			  src/parser/utils.c \
+			  src/printting.c \
+			  src/render/draw.c \
+			  src/rgb/rgb_conv.c \
+			  src/rgb/rgb_ops.c \
+			  src/textures.c \
 			  src/threads/threads.c \
 			  src/threads/workers.c \
-			  src/rays/pixel_map.c \
-			  src/utils/utils.c 
+			  src/comparison.c \
+			  src/vec3/vec3_create.c \
+			  src/vec3/vec3_math.c \
+			  src/vec3/vec3_ops.c \
+			  src/vec3/vec3_transform.c \
+			  src/vec3/vec3_utils.c 
+
 OBJ			= $(patsubst src/%.c, obj/%.o, $(SRC))
 all: $(NAME)
 	@echo "$(GREEN)$(BOLD)$(NAME) done!$(RESET)"

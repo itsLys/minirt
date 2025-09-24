@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   textures.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/23 11:29:57 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/23 11:30:02 by ihajji           ###   ########.fr       */
+/*   Created: 2025/09/24 11:20:11 by ihajji            #+#    #+#             */
+/*   Updated: 2025/09/24 11:22:06 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef TEXTURES_H
+# define TEXTURES_H
 
-void	print_error(char *err)
-{
-	write(STDERR_FILENO, "Error\n", 6);
-	if (err)
-		write(STDERR_FILENO, err, ft_strlen(err));
-	write(STDERR_FILENO, ERR_USAGE, ft_strlen(ERR_USAGE));
-}
+#include "types.h"
+
+void	link_amb_texture(t_data *data);
+void	link_object_texture(t_data *data);
+#endif // !TEXTURES_H

@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:09:21 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/23 13:09:28 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/24 11:50:19 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void	init_mlx(t_data *data)
 			&data->img.line_len, &data->img.endian);
 	if (data->img.addr == NULL)
 		exit_error(NULL, data);
-	setup_mlx(data);
+	setup_hooks(data);
 }

@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/21 10:55:20 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/24 11:23:59 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@
 # include "ray.h"
 # include "threads.h"
 # include "destructors.h"
+# include "transform.h"
+# include "textures.h"
 
 // BUG: testing debugging
 void		print_scene(t_data *data);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_rays.c                                        :+:      :+:    :+:   */
+/*   init_pre_calc.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 16:11:09 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/23 13:17:48 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/24 11:19:32 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,5 @@ void	init_offsets(t_vec2 **offsets, t_data *data)
 	*offsets = malloc(sizeof(t_vec2) * WIDTH * HEIGHT);
 	if (*offsets == NULL)
 		clean_exit(data, FAILIURE);
-	set_offsets(offsets, data);
+	set_offsets(offsets, data->scene.cam);
 }

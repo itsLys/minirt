@@ -6,35 +6,21 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 15:58:32 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/16 11:02:40 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/24 10:56:02 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static void	select_next_light(t_data *data)
-{
-	t_obj			*obj;
-
-	obj = *(data->scene.obj_lst);
-	if (data->scene.selected.light == NULL)
-		data->scene.selected.light = obj;
-	else if (data->scene.selected.light && data->scene.selected.light->next)
-	{
-		if (data->scene.selected.light->next->type == T_LS)
-			data->scene.selected.light = data->scene.selected.light->next;
-		else
-			data->scene.selected.light = obj;
-	}
-	data->scene.selected.type = T_LIGHT;
-}
 
 static void	handle_obj_select(int code, t_data *data)
 {
 	if (code == XK_c)
 		data->scene.selected.type = T_CAM;
 	else if (code == XK_l)
+	{
+		data->scene.selected.type = T_LIGHT;
 		select_next_light(data);
+	}
 }
 
 static void	handle_rotation(int code, t_data *data)

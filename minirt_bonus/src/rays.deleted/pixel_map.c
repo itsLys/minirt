@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events.c                                           :+:      :+:    :+:   */
+/*   pixel_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/14 15:56:03 by ihajji            #+#    #+#             */
+/*   Created: 2025/08/17 16:48:20 by ihajji            #+#    #+#             */
 /*   Updated: 2025/09/24 11:11:49 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// void	setup_mlx(t_data *data)
+// FIX: functiopn hanging alone ina  loan file
+// t_ray	map_pixel(int x, int y, t_data *data)
 // {
-// 	mlx_hook(data->win, DestroyNotify, NoEventMask, &clean_exit, data);
-// 	mlx_hook(data->win, KeyPress, KeyPressMask, &handle_keypress, data);
-// 	mlx_hook(data->win, ButtonPress, ButtonPressMask, &handle_button, data);
-// 	mlx_loop_hook(data->mlx, &render_img, data);
+// 	t_ray	ray;
+// 	t_cam	cam;
+//
+// 	cam = data->scene.cam;
+// 	ray.orig = cam.pos;
+// 	ray.dir = vec3_add(vec3_scale(data->offsets[y * WIDTH + x].x, cam.coords.right),
+// 			vec3_scale(data->offsets[y * WIDTH + x].y, cam.coords.up));
+// 	ray.dir = vec3_norm(vec3_add(cam.coords.forward, ray.dir));
+// 	return (ray);
 // }
-// FIX: change place

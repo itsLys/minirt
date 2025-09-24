@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads.h                                          :+:      :+:    :+:   */
+/*   transform.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/16 11:38:42 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/24 11:19:17 by ihajji           ###   ########.fr       */
+/*   Created: 2025/09/24 11:14:16 by ihajji            #+#    #+#             */
+/*   Updated: 2025/09/24 11:17:46 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef THREADS_H
-# define THREADS_H
+#ifndef TRANSFORM_H
+# define TRANSFORM_H
 
-# include "types.h"
+#include "types.h"
 
-void	init_threads(t_worker *worker, int n);
-void	join_threads(t_worker *worker, int n);
-void	spawn_mapping_workers(t_data *data);
-void	set_worker_bounds(t_worker *worker);
-void	work_rendering(t_worker *worker);
-void	work_directions(t_worker *worker);
+void	rotate_y(int code, t_local_coords *coords);
+void	rotate_z(int code, t_local_coords *coords);
+void	rotate_x(int code, t_local_coords *coords);
+void	handle_translate(int code, t_vec3 *point, t_cam cam);
 
-#endif // !THREADS_H
+#endif // !TRANSFORM_H

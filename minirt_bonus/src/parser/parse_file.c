@@ -6,23 +6,11 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:53:50 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/23 13:06:13 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/24 11:27:57 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-int	check_file_ext(char *filename)
-{
-	char	*ext;
-
-	ext = ft_strnstr(filename, EXT, ft_strlen(filename));
-	if (ext == NULL)
-		return (ERROR);
-	if (ext[3])
-		return (ERROR);
-	return (SUCCESS);
-}
 
 int	parse_file(char *filename, t_data *data)
 {

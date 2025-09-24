@@ -59,3 +59,14 @@ void	destroy_scene(t_data *data)
 	destroy_objects(data->scene.obj_lst);
 	destroy_textures(data->mlx, data->scene.tx_lst);
 }
+
+void	destroy_mlx(t_data *data)
+{
+	if (data->img.img)
+		mlx_destroy_image(data->mlx, data->img.img);
+	if (data->win)
+		mlx_destroy_window(data->mlx, data->win);
+	if (data->mlx)
+		mlx_destroy_display(data->mlx);
+	free(data->mlx);
+}
