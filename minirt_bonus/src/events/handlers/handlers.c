@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 10:51:43 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/24 11:49:36 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/24 13:19:42 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ void	handle_obj_move(int code, t_data *data)
 void	handle_coords_rotate(int code, t_local_coords *coords)
 {
 	if (code == XK_w || code == XK_s)
-		rotate_x(code, coords);
+		rotate_tilt(code, coords);
 	else if (code == XK_a || code == XK_d)
-		rotate_y(code, coords);
+		rotate_spin(code, coords);
 	else if (code == XK_q || code == XK_e)
-		rotate_z(code, coords);
+		rotate_turn(code, coords);
 }
 
 int	handle_button(int code, int x, int y, t_data *data)

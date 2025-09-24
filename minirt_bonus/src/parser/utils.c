@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 12:50:31 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/24 11:28:02 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/24 13:20:18 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,13 @@ void	check_tx_duplicate(char *name, t_texture *lst, t_data *data)
 
 void	init_local_coords(t_obj *obj)
 {
-	obj->coords.forward = vec3_cross(vec3(1, 0, 0), obj->coords.up);
-	obj->coords.right = vec3_cross(obj->coords.forward, obj->coords.up);
+	t_vec3	tmp_right;
+
+	tmp_right = vec3(1, 0, 0);
+	if (is_close(fabs(vec3_dot(tmp_right, obj->coords.up)), 1))
+		tmp_right = vec3(0, -1, 0);
+	obj->coords.forward = vec3_norm(vec3_cross(obj->coords.up, tmp_right));
+	obj->coords.right = vec3_norm(vec3_cross(obj->coords.forward, obj->coords.up));
 }
 
 void	skip_trailing(char *line, t_data *data)

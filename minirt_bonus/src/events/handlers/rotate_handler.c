@@ -6,13 +6,13 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 10:38:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/24 11:13:19 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/24 13:14:52 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rotate_x(int code, t_local_coords *coords)
+void	rotate_tilt(int code, t_local_coords *coords)
 {
 	if (code == XK_s)
 		coords->forward = rotate(coords->forward, coords->right, ROTATE_STEP);
@@ -21,7 +21,7 @@ void	rotate_x(int code, t_local_coords *coords)
 	coords->up = vec3_cross(coords->right, coords->forward);
 }
 
-void	rotate_z(int code, t_local_coords *coords)
+void	rotate_turn(int code, t_local_coords *coords)
 {
 	if (code == XK_e)
 		coords->up = rotate(coords->up, coords->forward, ROTATE_STEP);
@@ -30,7 +30,7 @@ void	rotate_z(int code, t_local_coords *coords)
 	coords->right = vec3_norm(vec3_cross(coords->forward, coords->up));
 }
 
-void	rotate_y(int code, t_local_coords *coords)
+void	rotate_spin(int code, t_local_coords *coords)
 {
 	if (code == XK_a)
 		coords->right = rotate(coords->right, coords->up, CAM_ROTATE_STEP);
