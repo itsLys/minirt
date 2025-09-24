@@ -52,6 +52,12 @@ void	prepare_scene(t_data *data)
 }
 
 // BUG: giving ambient a texture name without initializing the texture is validated (which is worng)
+// TODO: add configurable directions for objects
+// dynamic tiles per axis unit
+// bumpmap
+// checkboard
+// test
+//
 int	main(int ac, char **av)
 {
 	t_data	data;
