@@ -103,8 +103,13 @@ t_rgb	sample_sp_color(t_hit hit)
 
 	t_int_vec2 tx_index;
 
+	u = fmod(u * 1.0, 1.0);
+	v = fmod(v * 1.0, 1.0); // FIX: turn into dynamic texture number, increase and decrease via keys
+											  //
 	tx_index.x = u * (hit.obj->tx->width - 1);
 	tx_index.y = v * (hit.obj->tx->height - 1);
+
+											   //
 	color = hit.obj->tx->img.addr + tx_index.y * hit.obj->tx->img.line_len + tx_index.x * (hit.obj->tx->img.bpp / 8); // could turn it into a func like put_pixel
 	return int_to_rgb(*((int *)color));
 }
@@ -124,6 +129,9 @@ t_rgb	sample_cy_color(t_hit hit, t_cy *cy)
 	char	*color;
 	t_int_vec2 tx_index;
 
+	u = fmod(u * 5.0, 1.0);
+	v = fmod(v * 10.0, 1.0); // FIX: turn into dynamic texture number, increase and decrease via keys
+							//
 	tx_index.x = u * (hit.obj->tx->width - 1);
 	tx_index.y = v * (hit.obj->tx->height - 1);
 	color = hit.obj->tx->img.addr + tx_index.y * hit.obj->tx->img.line_len + tx_index.x * (hit.obj->tx->img.bpp / 8); // could turn it into a func like put_pixel
@@ -138,8 +146,8 @@ t_rgb	sample_pl_color(t_hit hit)
 	double	x_local = vec3_dot(rel, hit.obj->coords.forward);
 	double	y_local = vec3_dot(rel, hit.obj->coords.right);
 
-	double u = x_local / 5; // turn this into a dynamic number with events and keys
-	double v = y_local / 5;
+	double u = x_local / 50; // turn this into a dynamic number with events and keys
+	double v = y_local / 50;
 	u = u - floor(u);  // equivalent to fmod(u, 1.0) but works for negatives
 	v = v - floor(v);
 	char	*color;
@@ -178,6 +186,6 @@ t_rgb	trace_ray(t_ray ray, t_data *data)
 	obj = *(data->scene.obj_lst);
 	record_hit(&obj, &hit, ray);
 	if (hit.obj && hit.obj->tx)
-		sample_color(hit);
+		hit.color = sample_color(hit);
 	return (compute_color(ray, hit, data));
 }

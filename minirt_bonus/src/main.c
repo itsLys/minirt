@@ -51,6 +51,7 @@ void	prepare_scene(t_data *data)
 	sort_objects(data->scene.obj_lst);
 }
 
+// BUG: giving ambient a texture name without initializing the texture is validated (which is worng)
 int	main(int ac, char **av)
 {
 	t_data	data;

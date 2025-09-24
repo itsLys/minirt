@@ -27,11 +27,6 @@ void	destroy_objects(t_obj **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		if ((*lst)->type != T_LS)
-		{
-			free((*lst)->tx_id_1); // FIX: free after initialization, maybe not for printing??
-			free((*lst)->tx_id_2);
-		}
 		obj_free(*lst);
 		*lst = tmp;
 	}

@@ -123,6 +123,9 @@ t_rgb	sample_bg_color(t_ray ray, t_data *data)
 	px_co.x = ray.px.x / (WIDTH - 1.0);
 	px_co.y = ray.px.y / (HEIGHT - 1.0);
 
+	px_co.x = fmod(px_co.x * 1.0, 1.0);
+	px_co.y = fmod(px_co.y * 1.0, 1.0); // FIX: turn into dynamic texture number, increase and decrease via keys
+
 	tx_index.x = px_co.x * (data->scene.amb.tx->width - 1);
 	tx_index.y = px_co.y * (data->scene.amb.tx->height - 1);
 
