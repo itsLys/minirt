@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 13:20:23 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/24 11:19:57 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/25 15:46:19 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ void	link_amb_texture(t_data *data)
 		if (amb->tx_name && ft_strcmp(amb->tx_name, tx->name) == 0)
 		{
 			amb->tx = tx;
-			return ;
+			break ;
 		}
 		tx = tx->next;
 	}
+	if (amb->tx)
+		amb->color = rgb_clamp(compute_avg(amb->tx));
 }
-

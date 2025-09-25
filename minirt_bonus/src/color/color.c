@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:07:31 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/08 12:17:29 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/09/25 16:14:20 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ static inline t_rgb	compute_amb(t_rgb obj, t_amb_light amb)
 {
 	t_rgb color;
 
-	color.r = 0.75 * amb.ratio * amb.color.r * obj.r;
-	color.g = 0.75 * amb.ratio * amb.color.g * obj.g;
-	color.b = 0.75 * amb.ratio * amb.color.b * obj.b;
+	color.r = amb.ratio * amb.color.r * obj.r;
+	color.g = amb.ratio * amb.color.g * obj.g;
+	color.b = amb.ratio * amb.color.b * obj.b;
 	return (color);
 }
 static t_rgb	compute_defuse(t_hit hit, t_obj *light_obj, t_light *light)
@@ -78,18 +78,11 @@ static t_rgb compute_spacular(t_hit hit, t_obj *l_obj, t_light *light, t_cam cam
 	double	angle;
 	double	shininess;
 
-	// printf("type?:	");
-	// print_obj_type(hit.obj);
-	// print_vec3(hit.obj->pos);
-	// printf("\n");
-	// printf("shine:	%d\n", hit.obj->shine);
-	// printf("ref:	%lf\n", hit.obj->reflect);
 	light_dir = vec3_norm(vec3_subtract(l_obj->pos, hit.point));
 	ref_vec = vec3_scale(2 * vec3_dot(hit.normal, light_dir), hit.normal);
 	ref_vec = vec3_subtract(ref_vec, light_dir);
 	angle = fmax(0, vec3_dot(ref_vec, vec3_norm(vec3_subtract(cam.pos, hit.point))));
 	shininess = pow(angle, hit.obj->shine);
-	// shininess = pow(angle, 25);
 	color.r = hit.obj->ref * shininess * light->ratio * l_obj->color.r;
 	color.g = hit.obj->ref * shininess * light->ratio * l_obj->color.g;
 	color.b = hit.obj->ref * shininess * light->ratio * l_obj->color.b;
@@ -101,9 +94,7 @@ t_rgb compute_light(t_hit hit, t_obj *l_obj, t_light *light, t_data *data)
 	t_rgb	diffuse;
 	t_rgb	spacular;
 	t_rgb	color;
-	// t_rgb 	amb;
-	//
-	// amb = data->scene.amb_light.color;
+
 	if (is_shadow(hit, l_obj, data) == true)
 		return rgb(0, 0, 0);
 	diffuse = compute_defuse(hit, l_obj, light);
@@ -114,54 +105,68 @@ t_rgb compute_light(t_hit hit, t_obj *l_obj, t_light *light, t_data *data)
 	return color;
 }
 
-t_rgb	sample_bg_color(t_ray ray, t_data *data)
+t_rgb sample_color(t_vec2 coords, t_texture *tx)
 {
-	t_vec2	px_co;
-	t_int_vec2	tx_index;
-	char *color;
+	int	x;
+	int	y;
 
-	px_co.x = ray.px.x / (WIDTH - 1.0);
-	px_co.y = ray.px.y / (HEIGHT - 1.0);
+	x = coords.x * (tx->width - 1);
+	y = coords.x * (tx->height - 1);
 
-	px_co.x = fmod(px_co.x * 1.0, 1.0);
-	px_co.y = fmod(px_co.y * 1.0, 1.0); // FIX: turn into dynamic texture number, increase and decrease via keys
+	return img_get_pixel(tx->img, x, y);
+}
 
-	tx_index.x = px_co.x * (data->scene.amb.tx->width - 1);
-	tx_index.y = px_co.y * (data->scene.amb.tx->height - 1);
+t_rgb	sample_bg_color(int x, int y, t_texture *tx)
+{
+	t_vec2	coords;
 
-	color = data->scene.amb.tx->img.addr + tx_index.y * data->scene.amb.tx->img.line_len + tx_index.x * (data->scene.amb.tx->img.bpp / 8);
-	return int_to_rgb(*((int *)color));
+	coords.x = x / (WIDTH - 1.0);
+	coords.y = y / (HEIGHT - 1.0);
+
+	coords.x = fmod(coords.x * 1.0, 1.0);
+	coords.y = fmod(coords.y * 1.0, 1.0);
+
+	return sample_color(coords,  tx);
+}
+
+t_rgb	compute_lights(t_hit hit, t_data *data)
+{
+	t_rgb	sum;
+	t_rgb	light;
+	t_obj	*obj;
+
+	sum = int_to_rgb(0);
+	obj = *(data->scene.obj_lst);
+	while (obj)
+	{
+		if (obj && obj->type == T_LS)
+		{
+			light = compute_light(hit, obj, (t_light *)(obj->shape), data);
+			sum = rgb_add(sum, light);
+		}
+		obj = obj->next;
+	}
+	return sum;
+}
+
+t_rgb	compute_bg_color(int x, int y, t_amb_light amb)
+{
+	if (amb.tx)
+		return rgb_scale(amb.ratio, sample_bg_color(x, y, amb.tx));
+	return rgb_scale(amb.ratio, amb.color);
+
 }
 
 t_rgb	compute_color(t_ray ray, t_hit hit, t_data *data)
 {
 	t_rgb	amb;
 	t_rgb	combined;
-	t_rgb	light;
 	t_rgb	sum;
-	t_obj	*obj;
 
 	if (hit.hit == false)
-	{
-		if (data->scene.amb.tx)
-			return sample_bg_color(ray, data);
-		return rgb_scale(data->scene.amb.ratio, data->scene.amb.color);
-	}
+		return compute_bg_color(ray.px.x, ray.px.y, data->scene.amb);
 	amb = compute_amb(hit.color, data->scene.amb);
-	obj = *(data->scene.obj_lst);
-	sum = (t_rgb) {0, 0, 0};
-	while (obj)
-	{
-		if (obj && obj->type == T_LS)
-		{
-			light = compute_light(hit, obj, (t_light *)(obj->shape), data);
-			sum.r += light.r;
-			sum.g += light.g;
-			sum.b += light.b;
-		}
-		obj = obj->next;
-	}
-	combined = rgb(sum.r + amb.r, sum.g + amb.g, sum.b + amb.b);
+	sum = compute_lights(hit, data);
+	combined = rgb_add(sum, amb);
 	return combined;
 }
-

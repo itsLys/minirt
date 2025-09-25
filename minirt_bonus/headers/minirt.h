@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:10:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/24 11:23:59 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/25 16:25:41 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,8 @@ void	skip_trailing(char *line, t_data *data);
 void	texture_add(t_texture *tx, t_texture **list);
 
 void	init_texture(char *line, t_data *data);
-void	img_put_pixel(t_img img, int x, int y, int color);
+void	img_put_pixel(t_img img, int x, int y, t_rgb color);
+t_rgb	img_get_pixel(t_img img, int x, int y);
+t_rgb compute_avg(t_texture	*tx);
+t_rgb sample_tx_color(t_vec2 coords, t_texture *tx);
 #endif

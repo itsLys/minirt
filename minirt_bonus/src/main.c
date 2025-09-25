@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/09 10:09:09 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/24 11:19:45 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/09/25 15:46:45 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ void	prepare_scene(t_data *data)
 	sort_objects(data->scene.obj_lst);
 }
 
-// BUG: giving ambient a texture name without initializing the texture is validated (which is worng)
-// TODO: add configurable directions for objects
-// dynamic tiles per axis unit
-// bumpmap
-// checkboard
-// test
+//  BUG: giving ambient a texture name without initializing the texture is validated (which is worng)
+//  TODO: add configurable directions for objects, prob not
+//	   dynamic tiles per axis unit
+//	   bumpmap
+//	   checkboard
+//	   test
 //
 int	main(int ac, char **av)
 {
