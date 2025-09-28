@@ -96,6 +96,7 @@ t_rgb	sample_sp_color(t_hit hit)
 	double	theta;
 	double	phi;
 
+	// express the normal in local coords
 	n.x = vec3_dot(hit.normal, hit.obj->coords.right);
 	n.y = vec3_dot(hit.normal, hit.obj->coords.up);
 	n.z = vec3_dot(hit.normal, hit.obj->coords.forward);
@@ -103,8 +104,8 @@ t_rgb	sample_sp_color(t_hit hit)
 	phi = acos(n.y);
 	coords.x = (theta + M_PI) / (2 * M_PI);
 	coords.y = phi / M_PI;
-	coords.x = fmod(coords.x * 1.0, 1.0);
-	coords.y = fmod(coords.y * 1.0, 1.0); // FIX: turn into dynamic texture number, increase and decrease via keys
+	coords.x = fmod(coords.x * 3.0, 1.0);
+	coords.y = fmod(coords.y * 3.0, 1.0); // FIX: turn into dynamic texture number, increase and decrease via keys
 
 	return sample_tx_color(coords, hit.obj->tx);
 }

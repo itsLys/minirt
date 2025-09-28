@@ -34,7 +34,7 @@ void	fill_pattern(t_texture *tx, t_rgb c1, t_rgb c2)
 				color = c1;
 			else
 				color = c2;
-			img_put_pixel(tx->img, i, j, rgb_to_int(color));
+			img_put_pixel(tx->img, i, j, color);
 			j++;
 		}
 		i++;

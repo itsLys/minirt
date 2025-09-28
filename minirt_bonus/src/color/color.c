@@ -105,13 +105,13 @@ t_rgb compute_light(t_hit hit, t_obj *l_obj, t_light *light, t_data *data)
 	return color;
 }
 
-t_rgb sample_color(t_vec2 coords, t_texture *tx)
+t_rgb sample_tx_color(t_vec2 coords, t_texture *tx)
 {
 	int	x;
 	int	y;
 
 	x = coords.x * (tx->width - 1);
-	y = coords.x * (tx->height - 1);
+	y = coords.y * (tx->height - 1);
 
 	return img_get_pixel(tx->img, x, y);
 }
@@ -126,7 +126,7 @@ t_rgb	sample_bg_color(int x, int y, t_texture *tx)
 	coords.x = fmod(coords.x * 1.0, 1.0);
 	coords.y = fmod(coords.y * 1.0, 1.0);
 
-	return sample_color(coords,  tx);
+	return sample_tx_color(coords,  tx);
 }
 
 t_rgb	compute_lights(t_hit hit, t_data *data)

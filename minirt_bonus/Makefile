@@ -15,6 +15,8 @@ LIBFT		= $(addprefix $(LIBFT_DIR)/, libft.a)
 SRC         = src/camera.c \
 			  src/color/color.c \
 			  src/destructors.c \
+			  src/main.c \
+			  src/printting.c \
 			  src/events/handlers/handlers.c \
 			  src/events/handlers/move_handler.c \
 			  src/events/handlers/props_handler.c \
@@ -33,8 +35,8 @@ SRC         = src/camera.c \
 			  src/init/init_mlx.c \
 			  src/init/init_pre_calc.c \
 			  src/init/init_program.c \
-			  src/main.c \
 			  src/mlx/events.c \
+			  src/mlx/images.c \
 			  src/mlx/window.c \
 			  src/objects/lst_utils.c \
 			  src/objects/obj_sort.c \
@@ -48,7 +50,6 @@ SRC         = src/camera.c \
 			  src/parser/parse_params/parse_vectors.c \
 			  src/parser/parse_scene.c \
 			  src/parser/utils.c \
-			  src/printting.c \
 			  src/render/draw.c \
 			  src/rgb/rgb_conv.c \
 			  src/rgb/rgb_ops.c \
@@ -60,6 +61,7 @@ SRC         = src/camera.c \
 			  src/vec3/vec3_math.c \
 			  src/vec3/vec3_ops.c \
 			  src/vec3/vec3_transform.c \
+			  src/uncategorized.c \
 			  src/vec3/vec3_utils.c 
 
 OBJ			= $(patsubst src/%.c, obj/%.o, $(SRC))
