@@ -71,6 +71,11 @@ void	link_amb_texture(t_data *data)
 		}
 		tx = tx->next;
 	}
-	if (amb->tx)
-		amb->color = rgb_clamp(compute_avg(amb->tx));
+	if (amb->tx_name)
+	{
+		if (amb->tx)
+			amb->color = rgb_clamp(compute_avg(amb->tx));
+		else
+			exit_error(ERR_AMB_LIGHT ERR_COULDNT_LOAD, data);
+	}
 }

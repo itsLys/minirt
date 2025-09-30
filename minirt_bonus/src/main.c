@@ -51,7 +51,7 @@ void	prepare_scene(t_data *data)
 	sort_objects(data->scene.obj_lst);
 }
 
-//  BUG: giving ambient a texture name without initializing the texture is validated (which is worng)
+//  BUG: sphere texture is incorrect. FIXED: know why
 //  TODO: add configurable directions for objects, prob not
 //	   dynamic tiles per axis unit
 //	   bumpmap

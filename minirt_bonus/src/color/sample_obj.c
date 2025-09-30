@@ -24,8 +24,8 @@ t_rgb	sample_sp_color(t_hit hit)
 	phi = acos(local.y);
 	coords.x = (theta + M_PI) / (2 * M_PI);
 	coords.y = phi / M_PI;
-	coords.x = fmod(coords.x * 2.0, 1.0);
-	coords.y = fmod(coords.y * 2.0, 1.0); // FIX: turn into dynamic texture number, increase and decrease via keys
+	coords.x = fmod(coords.x * 1.0, 1.0);
+	coords.y = fmod(coords.y * 1.0, 1.0); // FIX: turn into dynamic texture number, increase and decrease via keys
 	return sample_tx_color(coords, hit.obj->tx);
 }
 
