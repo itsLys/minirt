@@ -64,7 +64,7 @@ t_rgb compute_avg(t_texture	*tx);
 t_rgb sample_tx_color(t_vec2 coords, t_texture *tx);
 t_rgb	sample_color(t_hit hit);
 t_vec3 world_to_local(t_hit hit, t_local_coords coords);
-t_rgb	sample_sp_color(t_hit hit);
+t_rgb	sample_sp_color(t_hit hit, t_sp *sp);
 t_rgb	sample_cy_color(t_hit hit, t_cy *cy);
 t_rgb	sample_pl_color(t_hit hit);
 t_rgb	sample_bg_color(int x, int y, t_texture *tx);

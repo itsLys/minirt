@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-t_rgb	sample_sp_color(t_hit hit)
+t_rgb	sample_sp_color(t_hit hit, t_sp *sp)
 {
 	t_vec2 coords;
 	t_vec3 local;
@@ -21,7 +21,7 @@ t_rgb	sample_sp_color(t_hit hit)
 
 	local = world_to_local(hit, hit.obj->coords);
 	theta = atan2(local.z, local.x);
-	phi = acos(local.y);
+	phi = acos(local.y / sp->r);
 	coords.x = (theta + M_PI) / (2 * M_PI);
 	coords.y = phi / M_PI;
 	coords.x = fmod(coords.x * 1.0, 1.0);

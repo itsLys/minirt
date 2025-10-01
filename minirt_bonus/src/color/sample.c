@@ -28,7 +28,7 @@ t_rgb	sample_bg_color(int x, int y, t_texture *tx)
 t_rgb	sample_color(t_hit hit)
 {
 	if (hit.obj->type == T_SP)
-		return sample_sp_color(hit);
+		return sample_sp_color(hit, hit.obj->shape);
 	else if (hit.obj->type == T_PL)
 		return sample_pl_color(hit);
 	else if (hit.obj->type == T_CY)

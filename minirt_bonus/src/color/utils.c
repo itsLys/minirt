@@ -18,8 +18,9 @@ t_vec3 world_to_local(t_hit hit, t_local_coords coords)
 	t_vec3 rel;
 
 	rel = vec3_subtract(hit.point, hit.obj->pos);
-	if (hit.obj->type == T_SP)
-		rel = hit.normal;
+	// if (hit.obj->type == T_SP)
+	// 	rel = vec3_norm(rel);
+		// rel = hit.normal;
 	local.x = vec3_dot(rel, coords.right);
 	local.y = vec3_dot(rel, coords.up);
 	local.z = vec3_dot(rel, coords.forward);
