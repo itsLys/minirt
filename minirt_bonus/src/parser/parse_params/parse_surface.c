@@ -24,5 +24,7 @@ void	get_surface_props(t_obj *obj, char *line, t_data *data)
 		exit_error(ERR_WRONG_SHINE, data);
 	obj->tx = NULL;
 	obj->bmp = NULL;
+	obj->tiles.x = 1;
+	obj->tiles.y = 1;
 	skip_trailing(line, data);
 }

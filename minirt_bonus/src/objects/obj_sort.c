@@ -23,6 +23,7 @@ static void	save_content(t_obj *tmp, t_obj *obj)
 	tmp->tx_id_1 = obj->tx_id_1;
 	tmp->tx_id_2 = obj->tx_id_2;
 	tmp->tx = obj->tx;
+	tmp->tiles = obj->tiles;
 	tmp->bmp = obj->bmp;
 	tmp->shape = obj->shape;
 }
@@ -38,6 +39,7 @@ static void	swap_content(t_obj *n1, t_obj *n2)
 	n1->tx_id_1 = n2->tx_id_1;
 	n1->tx_id_2 = n2->tx_id_2;
 	n1->tx = n2->tx;
+	n1->tiles = n2->tiles;
 	n1->bmp = n2->bmp;
 	n1->shape = n2->shape;
 }
@@ -53,6 +55,7 @@ static void	restore_content(t_obj *tmp, t_obj *obj)
 	obj->tx_id_1 = tmp->tx_id_1;
 	obj->tx_id_2 = tmp->tx_id_2;
 	obj->tx = tmp->tx;
+	obj->tiles = tmp->tiles;
 	obj->bmp = tmp->bmp;
 	obj->shape = tmp->shape;
 }

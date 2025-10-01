@@ -12,38 +12,6 @@
 
 #include "minirt.h"
 
-// void	get_obj_tx(t_obj *obj, char **line, t_data *data)
-// {
-// 	char *id;
-//
-// 	obj->tx_id_1 = NULL;
-// 	obj->tx_id_2 = NULL;
-// 	id = get_string(line, data);
-// 	if (id == NULL)
-// 		return ;
-// 	obj->tx_id_1 = id; // FIX: free this at exit
-// 	id = get_string(line, data);
-// 	if (id == NULL)
-// 		return ;
-// 	obj->tx_id_2 = id; // FIX: free this at exit
-// }
-//
-// void	get_surface_props(t_obj *obj, char *line, t_data *data)
-// {
-// 	// get the name now, init later
-// 	obj->color = get_rgb(&line, data);
-// 	obj->ref = get_double(&line, data);
-// 	obj->shine = get_integer(&line, data);
-// 	get_obj_tx(obj, &line, data);
-// 	if (obj->ref < 0.0 || obj->ref > 1.0)
-// 		exit_error(ERR_WRONG_REF, data);
-// 	if (obj->shine < 0 || obj->shine > 200)
-// 		exit_error(ERR_WRONG_SHINE, data);
-// 	obj->tx = NULL;
-// 	obj->bmp = NULL;
-// 	skip_trailing(line, data);
-// }
-
 void	parse_plane(char *line, t_data *data)
 {
 	t_obj	*obj;

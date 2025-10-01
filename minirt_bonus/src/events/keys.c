@@ -34,6 +34,23 @@ static void	handle_rotation(int code, t_data *data)
 		handle_coords_rotate(code, &(data->scene.selected.obj->coords));
 }
 
+static void	handle_tiling(int code, t_data *data)
+{
+	t_vec2	*tiles;
+	if (data->scene.selected.type == T_OBJ)
+	{
+		tiles = &(data->scene.selected.obj->tiles);
+		if (code == XK_g)
+			tiles->x = fmin(100, tiles->x + 1);
+		else if (code == XK_h)
+			tiles->x = fmax(1, tiles->x - 1);
+		if (code == XK_t)
+			tiles->y = fmin(100, tiles->y + 1);
+		else if (code == XK_y)
+			tiles->y = fmax(1, tiles->y - 1);
+	}
+}
+
 int	handle_keypress(int code, t_data *data)
 {
 	if (code == XK_Up || code == XK_Down || code == XK_Left || code == XK_Right
@@ -51,5 +68,7 @@ int	handle_keypress(int code, t_data *data)
 		handle_rotation(code, data);
 	else if (code == XK_p)
 		print_scene(data);
+	else if (code == XK_g || code == XK_h || code == XK_t || code == XK_y)
+		handle_tiling(code, data);
 	return (0);
 }

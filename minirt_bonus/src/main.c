@@ -51,7 +51,7 @@ void	prepare_scene(t_data *data)
 	sort_objects(data->scene.obj_lst);
 }
 
-//  BUG: sphere texture is incorrect. FIXED: know why
+// BUG: giving an object a texture that deosn't exist is passed (invalid)
 //  TODO: add configurable directions for objects, prob not
 //	   dynamic tiles per axis unit
 //	   bumpmap

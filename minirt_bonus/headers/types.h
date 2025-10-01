@@ -182,6 +182,7 @@ typedef struct s_obj
 	char			*tx_id_1;
 	char			*tx_id_2;
 	t_texture		*tx;
+	t_vec2			tiles;
 	t_texture		*bmp;
 	void			*shape;
 	struct s_obj	*next;
