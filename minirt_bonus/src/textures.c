@@ -12,10 +12,12 @@
 
 #include "minirt.h"
 
-static void	assign_object_texture(t_obj *obj, t_texture *tx)
+static void	assign_obj_tx(t_obj *obj, t_texture *tx)
 {
-	if (tx->type == TX_COLOR || tx->type == TX_PATT)
+	if ((tx->type == TX_COLOR || tx->type == TX_PATT))
 		obj->tx = tx;
+	else if (tx->type == TX_BUMP)
+		obj->bmp = tx;
 }
 
 static void	validate_object_texture(t_obj *obj, t_data *data)
@@ -34,12 +36,14 @@ static void	find_texture(t_obj *obj, t_data *data)
 	while (tx)
 	{
 		if (obj->tx_id_1 && ft_strcmp(obj->tx_id_1, tx->name) == 0)
-			assign_object_texture(obj, tx);
+			assign_obj_tx(obj, tx);
 		if (obj->tx_id_2 && ft_strcmp(obj->tx_id_2, tx->name) == 0)
 			obj->bmp = tx;
-		validate_object_texture(obj, data);
+		if (obj->tx && obj->bmp)
+			break;
 		tx = tx->next;
 	}
+	validate_object_texture(obj, data);
 }
 
 void	link_object_texture(t_data *data)

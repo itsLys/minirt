@@ -22,7 +22,7 @@ t_rgb	sample_sp_color(t_hit hit, t_sp *sp)
 	local = world_to_local(hit, hit.obj->coords);
 	theta = atan2(local.z, local.x);
 	phi = acos(local.y / sp->r);
-	coords.x = (theta + M_PI) / (2 * M_PI);
+	coords.x = theta / (2 * M_PI);
 	coords.y = phi / M_PI;
 	coords.x = fmod(coords.x * hit.obj->tiles.x, 1.0);
 	coords.y = fmod(coords.y * hit.obj->tiles.y, 1.0); // FIX: turn into dynamic texture number, increase and decrease via keys
