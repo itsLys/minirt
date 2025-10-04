@@ -80,10 +80,12 @@ void	print_color_props(t_obj *obj)
 			(int)(obj->color.b * 255.999));
 	printf("%.2lf	", obj->ref);
 	printf("%d	", obj->shine);
-	if (obj->tx_id_1)
-		printf("%s	", obj->tx_id_1);
-	if (obj->tx_id_2)
-		printf("%s	", obj->tx_id_2);
+	if (obj->bmp_id)
+		printf("%s	", obj->bmp_id);
+	if (obj->tx_id)
+		printf("%s	", obj->tx_id);
+	if (obj->tx_id)
+		printf("%d	%d\n", obj->tiles.x, obj->tiles.y);
 }
 
 void	print_sp(t_obj *obj)
@@ -199,6 +201,7 @@ void	print_textures(t_texture *lst)
 		printf("t	");
 		printf("%s			", lst->name);
 		print_texture_type(lst);
+		printf("%s			", lst->path);
 		printf("\n");
 		lst = lst->next;
 	}

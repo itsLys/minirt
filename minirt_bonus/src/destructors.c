@@ -42,6 +42,7 @@ void	destroy_textures(void *mlx, t_texture **lst)
 		tmp = (*lst)->next;
 		mlx_destroy_image(mlx, (*lst)->img.img);
 		free((*lst)->name);
+		free((*lst)->path);
 		free(*lst);
 		*lst = tmp;
 	}

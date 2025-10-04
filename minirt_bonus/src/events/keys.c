@@ -36,16 +36,16 @@ static void	handle_rotation(int code, t_data *data)
 
 static void	handle_tiling(int code, t_data *data)
 {
-	t_vec2	*tiles;
+	t_int_vec2	*tiles;
 	if (data->scene.selected.type == T_OBJ)
 	{
 		tiles = &(data->scene.selected.obj->tiles);
 		if (code == XK_g)
-			tiles->x = fmin(100, tiles->x + 1);
+			tiles->x = tiles->x + 1;
 		else if (code == XK_h)
 			tiles->x = fmax(1, tiles->x - 1);
 		if (code == XK_t)
-			tiles->y = fmin(100, tiles->y + 1);
+			tiles->y = tiles->y + 1;
 		else if (code == XK_y)
 			tiles->y = fmax(1, tiles->y - 1);
 	}

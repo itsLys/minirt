@@ -35,8 +35,8 @@ void	obj_free(t_obj *obj)
 	free(obj->shape);
 	if (obj->type != T_LS)
 	{
-		free(obj->tx_id_1);
-		free(obj->tx_id_2);
+		free(obj->bmp_id);
+		free(obj->tx_id);
 	}
 	free(obj);
 }

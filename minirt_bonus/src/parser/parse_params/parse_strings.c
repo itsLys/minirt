@@ -21,7 +21,7 @@ char *get_string(char **line, t_data *data)
 	i = 0;
 	while (ft_isspace(**line))
 		(*line)++;
-	if ((**line) == '\n')
+	if ((**line) == '\n' || ft_isdigit(**line))
 		return NULL;
 	while (**line && **line != '\n' && !ft_isspace(**line) && i < PATH_MAX)
 	{
@@ -41,18 +41,20 @@ char *get_string(char **line, t_data *data)
 
 void	get_obj_tx(t_obj *obj, char **line, t_data *data)
 {
-	char *id;
+	char	*id_1;
+	char	*id_2;
 
-	obj->tx_id_1 = NULL;
-	obj->tx_id_2 = NULL;
-	id = get_string(line, data);
-	if (id == NULL)
+	id_1 = get_string(line, data);
+	if (id_1 == NULL)
 		return ;
-	obj->tx_id_1 = id; // FIX: free this at exit
-	id = get_string(line, data);
-	if (id == NULL)
-		return ;
-	obj->tx_id_2 = id; // FIX: free this at exit
+	id_2 = get_string(line, data);
+	if (id_2)
+	{
+		obj->bmp_id = id_1;
+		obj->tx_id = id_2;
+	}
+	else if (id_2 == NULL)
+		obj->tx_id = id_1;
 }
 
 t_texture_type	get_type(char **line, t_data *data)

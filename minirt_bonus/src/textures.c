@@ -12,14 +12,6 @@
 
 #include "minirt.h"
 
-static void	assign_obj_tx(t_obj *obj, t_texture *tx)
-{
-	if ((tx->type == TX_COLOR || tx->type == TX_PATT))
-		obj->tx = tx;
-	else if (tx->type == TX_BUMP)
-		obj->bmp = tx;
-}
-
 static void	validate_object_texture(t_obj *obj, t_data *data)
 {
 	if (obj->tx && obj->tx->type != TX_COLOR && obj->tx->type != TX_PATT)
@@ -28,22 +20,36 @@ static void	validate_object_texture(t_obj *obj, t_data *data)
 		exit_error(ERR_TX ERR_TYPE_MISS, data);
 }
 
-static void	find_texture(t_obj *obj, t_data *data)
+static void	find_bmp(t_obj *obj, t_data *data)
+{
+	t_texture	*bmp;
+
+	bmp = *(data->scene.tx_lst);
+	while (bmp)
+	{
+		if (ft_strcmp(obj->bmp_id, bmp->name) == 0)
+		{
+			obj->bmp = bmp;
+			return ;
+		}
+		bmp = bmp->next;
+	}
+}
+
+static void	find_tx(t_obj *obj, t_data *data)
 {
 	t_texture	*tx;
 
 	tx = *(data->scene.tx_lst);
 	while (tx)
 	{
-		if (obj->tx_id_1 && ft_strcmp(obj->tx_id_1, tx->name) == 0)
-			assign_obj_tx(obj, tx);
-		if (obj->tx_id_2 && ft_strcmp(obj->tx_id_2, tx->name) == 0)
-			obj->bmp = tx;
-		if (obj->tx && obj->bmp)
-			break;
+		if (ft_strcmp(obj->tx_id, tx->name) == 0)
+		{
+			obj->tx = tx;
+			return ;
+		}
 		tx = tx->next;
 	}
-	validate_object_texture(obj, data);
 }
 
 void	link_object_texture(t_data *data)
@@ -53,8 +59,12 @@ void	link_object_texture(t_data *data)
 	obj = *(data->scene.obj_lst);
 	while (obj)
 	{
+		if (obj->type != T_LS && obj->tx_id)
+			find_tx(obj, data);
+		if (obj->type != T_LS && obj->bmp_id)
+			find_bmp(obj, data);
 		if (obj->type != T_LS)
-			find_texture(obj, data);
+			validate_object_texture(obj, data);
 		obj = obj->next;
 	}
 }

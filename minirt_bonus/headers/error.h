@@ -43,6 +43,7 @@
 # define ERR_TX_TYPE "Wrong texture type\n"
 # define ERR_DUP_TX "Duplicated texture\n"
 # define ERR_TYPE_MISS "Texture type missmatch\n"
+# define ERR_WRONG_TILES "Wrong tiles per axis\n"
 
 # define ERR_USAGE " \
 	`./minirt -h` for help\n \

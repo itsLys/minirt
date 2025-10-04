@@ -81,6 +81,7 @@ typedef struct s_img
 typedef struct s_texture
 {
 	char				*name;
+	char				*path;
 	t_texture_type		type;
 	t_img				img;
 	int					width;
@@ -179,11 +180,11 @@ typedef struct s_obj
 	t_rgb			color;
 	double			ref;
 	int				shine;
-	char			*tx_id_1;
-	char			*tx_id_2;
-	t_texture		*tx;
-	t_vec2			tiles;
+	char			*bmp_id; // FIX: fix in sort
+	char			*tx_id;
 	t_texture		*bmp;
+	t_texture		*tx;
+	t_int_vec2		tiles;
 	void			*shape;
 	struct s_obj	*next;
 }	t_obj; // FIX: in sorting

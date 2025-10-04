@@ -12,19 +12,36 @@
 
 #include "minirt.h"
 
+void	init_surface_props_defaults(t_obj *obj)
+{
+	if (obj->type == T_PL)
+		obj->tiles = (t_int_vec2){10, 10};
+	else
+		obj->tiles = (t_int_vec2){1, 1};
+	obj->tx = NULL;
+	obj->bmp = NULL;
+	obj->tx_id = NULL;
+	obj->bmp_id = NULL;
+}
+
 void	get_surface_props(t_obj *obj, char *line, t_data *data)
 {
+	init_surface_props_defaults(obj);
 	obj->color = get_rgb(&line, data);
 	obj->ref = get_double(&line, data);
 	obj->shine = get_integer(&line, data);
 	get_obj_tx(obj, &line, data);
+	if (obj->tx_id)
+	{
+		obj->tiles.x = get_integer(&line, data);
+		obj->tiles.y = get_integer(&line, data);
+	}
 	if (obj->ref < 0.0 || obj->ref > 1.0)
 		exit_error(ERR_WRONG_REF, data);
-	if (obj->shine < 0 || obj->shine > 200)
+	if (obj->shine < 1 || obj->shine > 500)
 		exit_error(ERR_WRONG_SHINE, data);
-	obj->tx = NULL;
-	obj->bmp = NULL;
-	obj->tiles.x = 1;
-	obj->tiles.y = 1;
+	if (obj->tx && (obj->tiles.x < 0 || obj->tiles.y < 0)) // FIX: don't empose the 100 limit in keys
+		exit_error(ERR_WRONG_TILES, data);
+	// TODO: test negative and absurd tiles per axis
 	skip_trailing(line, data);
 }

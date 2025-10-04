@@ -62,16 +62,12 @@ void	get_pattern(t_texture *tx, char **line, t_data *data)
 
 void	get_image(t_texture *tx, char **line, t_data *data)
 {
-	char *path;
-
-	path = get_string(line, data);
-	if (path == NULL)
+	tx->path = get_string(line, data); // FIX: free at exit
+	if (tx->path == NULL)
 		exit_error(ERR_TX ERR_REL_PATH, data);
-	if (path && path[0] == '/')
-		return free(path), exit_error(ERR_TX ERR_REL_PATH, data); //  add freeing of the texture and img destroying
-	printf("%p\n", data->mlx);
-	tx->img.img = mlx_xpm_file_to_image(data->mlx, path, &(tx->width), &(tx->height));
-	free(path);
+	if (tx->path && tx->path[0] == '/')
+		exit_error(ERR_TX ERR_REL_PATH, data); //  add freeing of the texture and img destroying
+	tx->img.img = mlx_xpm_file_to_image(data->mlx, tx->path, &(tx->width), &(tx->height));
 	if (tx->img.img == NULL)
 		exit_error("ERR_TEXTURE ERR_COULDNT_LOAD", data);
 	tx->img.addr = mlx_get_data_addr(tx->img.img, &(tx->img.bpp), &(tx->img.line_len), &(tx->img.endian));
