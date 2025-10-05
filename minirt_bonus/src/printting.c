@@ -98,7 +98,6 @@ void	print_sp(t_obj *obj)
 	printf("%.2lf		", sp->r * 2);
 	printf("\t\t");
 	print_color_props(obj);
-	printf("\n");
 }
 
 void	print_pl(t_obj *obj)
@@ -113,7 +112,6 @@ void	print_pl(t_obj *obj)
 			obj->coords.up.y,
 			obj->coords.up.z);
 	print_color_props(obj);
-	printf("\n");
 }
 
 void	print_cy(t_obj *obj)
@@ -130,7 +128,6 @@ void	print_cy(t_obj *obj)
 	printf("%.2lf		", cy->r * 2);
 	printf("%.2lf		", cy->h);
 	print_color_props(obj);
-	printf("\n");
 }
 
 void	print_cn(t_obj *obj)
@@ -147,7 +144,6 @@ void	print_cn(t_obj *obj)
 	printf("%.2lf		", cn->angle * (180 / M_PI));
 	printf("%.2lf		", cn->h);
 	print_color_props(obj);
-	printf("\n");
 }
 
 void	print_light(t_obj *obj)
@@ -201,7 +197,7 @@ void	print_textures(t_texture *lst)
 		printf("t	");
 		printf("%s			", lst->name);
 		print_texture_type(lst);
-		printf("%s			", lst->path);
+		printf("	%s			", lst->path);
 		printf("\n");
 		lst = lst->next;
 	}

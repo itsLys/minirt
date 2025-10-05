@@ -24,8 +24,8 @@ t_rgb	sample_sp_color(t_hit hit, t_sp *sp)
 	phi = acos(local.y / sp->r);
 	coords.x = theta / (2 * M_PI);
 	coords.y = phi / M_PI;
-	coords.x = fmod(coords.x * hit.obj->tiles.x, 1.0);
-	coords.y = fmod(coords.y * hit.obj->tiles.y, 1.0); // FIX: turn into dynamic texture number, increase and decrease via keys
+	coords.x = fabs(fmod(coords.x * hit.obj->tiles.x, 1.0));
+	coords.y = fabs(fmod(coords.y * hit.obj->tiles.y, 1.0)); // FIX: turn into dynamic texture number, increase and decrease via keys
 	return sample_tx_color(coords, hit.obj->tx);
 }
 
@@ -39,8 +39,8 @@ t_rgb	sample_cy_color(t_hit hit, t_cy *cy)
 	tetha = atan2(local.z, local.x);
 	coords.x = fmod((tetha / (2 * M_PI)), 1.0) ;
 	coords.y = 1.0 - (local.y + cy->h / 2.0) / cy->h;
-	coords.x = fmod(coords.x * hit.obj->tiles.x, 1.0);
-	coords.y = fmod(coords.y * hit.obj->tiles.y, 1.0); // FIX: turn into dynamic texture number, increase and decrease via keys
+	coords.x = fabs(fmod(coords.x * hit.obj->tiles.x, 1.0));
+	coords.y = fabs(fmod(coords.y * hit.obj->tiles.y, 1.0)); // FIX: turn into dynamic texture number, increase and decrease via keys
 	return sample_tx_color(coords, hit.obj->tx);
 }
 
