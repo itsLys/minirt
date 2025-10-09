@@ -26,7 +26,6 @@ static void	init_scene(t_data *data)
 	data->scene.selected.type = T_CAM;
 	data->scene.selected.light = NULL;
 	data->scene.amb.tx = NULL;
-	data->scene.amb.tx_name = NULL;
 	*(data->scene.obj_lst) = NULL;
 	*(data->scene.tx_lst) = NULL;
 }

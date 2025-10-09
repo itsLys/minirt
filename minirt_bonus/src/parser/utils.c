@@ -34,6 +34,17 @@ void	check_tx_duplicate(char *name, t_texture *lst, t_data *data)
 	}
 }
 
+t_texture *find_tx(char *name, t_texture *lst)
+{
+	while (lst)
+	{
+		if (ft_strcmp(lst->name, name) == 0)
+			return lst;
+		lst = lst->next;
+	}
+	return  NULL;
+}
+
 void	init_local_coords(t_obj *obj)
 {
 	t_vec3	tmp_right;

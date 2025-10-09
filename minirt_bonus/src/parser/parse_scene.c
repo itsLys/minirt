@@ -12,23 +12,38 @@
 
 #include "minirt.h"
 
+static void	init_amb_tx(char **line, t_data *data)
+{
+	t_texture	*tx;
+	char		*path;
+
+	path = get_string(line, data);
+	if (path == NULL)
+		return;
+	tx = malloc(sizeof(t_texture));
+	if (tx == NULL)
+		return free(path), exit_error(NULL, data);
+	tx->path = path;
+	tx->type = TX_COLOR;
+	get_image(tx, data);
+	data->scene.amb.tx = tx; // FIX: this is not part of the texture list, must be freeed seperately
+}
+
 void	parse_ambient_light(char *line, t_data *data)
 {
 	double		ratio;
 	t_rgb		rgb;
-	char		*tx_name;
 
 	if (data->scene.amb.on == true)
 		exit_error(ERR_AMB_LIGHT ERR_MULTI, data);
 	ratio = get_double(&line, data);
 	rgb = get_rgb(&line, data);
-	tx_name = get_string(&line, data);
 	if (ratio < 0.0 || ratio > 1.0)
 		exit_error(ERR_AMB_LIGHT ERR_RATIO, data);
 	data->scene.amb.ratio = ratio;
 	data->scene.amb.color = rgb;
-	data->scene.amb.tx_name = tx_name;
 	data->scene.amb.on = true;
+	init_amb_tx(&line, data);
 	skip_trailing(line, data);
 }
 

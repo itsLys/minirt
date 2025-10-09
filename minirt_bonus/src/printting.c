@@ -44,8 +44,8 @@ void	print_amb_light(t_amb_light amb)
 			(int)(amb.color.r * 255.999),
 			(int)(amb.color.g * 255.999),
 			(int)(amb.color.b * 255.999));
-	if (amb.tx_name)
-		printf("%s	", amb.tx_name);
+	if (amb.tx)
+		printf("%s	", amb.tx->path);
 	printf("\n");
 }
 
@@ -80,11 +80,11 @@ void	print_color_props(t_obj *obj)
 			(int)(obj->color.b * 255.999));
 	printf("%.2lf	", obj->ref);
 	printf("%d	", obj->shine);
-	if (obj->bmp_id)
-		printf("%s	", obj->bmp_id);
-	if (obj->tx_id)
-		printf("%s	", obj->tx_id);
-	if (obj->tx_id)
+	if (obj->bmp)
+		printf("%s	", obj->bmp->name);
+	if (obj->tx)
+		printf("%s	", obj->tx->name);
+	if (obj->tx)
 		printf("%d	%d\n", obj->tiles.x, obj->tiles.y);
 }
 
@@ -197,6 +197,17 @@ void	print_textures(t_texture *lst)
 		printf("t	");
 		printf("%s			", lst->name);
 		print_texture_type(lst);
+		if (lst->type == TX_PATT)
+		{
+			printf("%d, %d, %d		",
+					(int)(lst->c1.r * 255.999),
+					(int)(lst->c1.g * 255.999),
+					(int)(lst->c1.b * 255.999));
+			printf("%d, %d, %d		",
+					(int)(lst->c2.r * 255.999),
+					(int)(lst->c2.g * 255.999),
+					(int)(lst->c2.b * 255.999));
+		}
 		printf("	%s			", lst->path);
 		printf("\n");
 		lst = lst->next;

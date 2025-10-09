@@ -38,10 +38,12 @@
 # define ERR_NOT_FOUND "Parameter not found!\n"
 # define ERR_WRONG_REF "Wrong reflectivness\n"
 # define ERR_WRONG_SHINE "Wrong shininess\n"
+
 # define ERR_REL_PATH "Invalid relative path\n"
 # define ERR_COULDNT_LOAD "Coulnd't load texture\n"
 # define ERR_TX_TYPE "Wrong texture type\n"
 # define ERR_DUP_TX "Duplicated texture\n"
+# define ERR_TX_NOT_FOUND "Texture not found\n"
 # define ERR_TYPE_MISS "Texture type missmatch\n"
 # define ERR_WRONG_TILES "Wrong tiles per axis\n"
 

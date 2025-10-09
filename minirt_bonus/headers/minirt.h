@@ -74,5 +74,6 @@ t_rgb compute_spacular(t_hit hit, t_obj *l_obj, t_light *light, t_cam cam);
 t_rgb compute_light(t_hit hit, t_obj *l_obj, t_light *light, t_data *data);
 t_rgb	compute_lights(t_hit hit, t_data *data);
 bool	is_shadow(t_hit hit, t_obj *light, t_data *data);
+t_texture *find_tx(char *name, t_texture *lst);
 
 #endif

@@ -41,20 +41,20 @@ char *get_string(char **line, t_data *data)
 
 void	get_obj_tx(t_obj *obj, char **line, t_data *data)
 {
-	char	*id_1;
-	char	*id_2;
+	char		*name;
+	t_texture	*tx;
 
-	id_1 = get_string(line, data);
-	if (id_1 == NULL)
+	name = get_string(line, data);
+	if (name == NULL)
 		return ;
-	id_2 = get_string(line, data);
-	if (id_2)
-	{
-		obj->bmp_id = id_1;
-		obj->tx_id = id_2;
-	}
-	else if (id_2 == NULL)
-		obj->tx_id = id_1;
+	tx = find_tx(name, *(data->scene.tx_lst));
+	if (tx == NULL)
+		return free(name), exit_error(ERR_TX_NOT_FOUND, data);
+	if (tx->type == TX_BUMP)
+		obj->bmp = tx;
+	else
+		obj->tx = tx;
+	free(name);
 }
 
 t_texture_type	get_type(char **line, t_data *data)

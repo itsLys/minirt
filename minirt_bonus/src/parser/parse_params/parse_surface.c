@@ -20,8 +20,6 @@ void	init_surface_props_defaults(t_obj *obj)
 		obj->tiles = (t_int_vec2){1, 1};
 	obj->tx = NULL;
 	obj->bmp = NULL;
-	obj->tx_id = NULL;
-	obj->bmp_id = NULL;
 }
 
 void	get_surface_props(t_obj *obj, char *line, t_data *data)
@@ -31,7 +29,8 @@ void	get_surface_props(t_obj *obj, char *line, t_data *data)
 	obj->ref = get_double(&line, data);
 	obj->shine = get_integer(&line, data);
 	get_obj_tx(obj, &line, data);
-	if (obj->tx_id)
+	get_obj_tx(obj, &line, data);
+	if (obj->tx || obj->bmp)
 	{
 		obj->tiles.x = get_integer(&line, data);
 		obj->tiles.y = get_integer(&line, data);
@@ -40,7 +39,7 @@ void	get_surface_props(t_obj *obj, char *line, t_data *data)
 		exit_error(ERR_WRONG_REF, data);
 	if (obj->shine < 1 || obj->shine > 500)
 		exit_error(ERR_WRONG_SHINE, data);
-	if (obj->tx && (obj->tiles.x < 0 || obj->tiles.y < 0)) // FIX: don't empose the 100 limit in keys
+	if (obj->tx && (obj->tiles.x < 0 || obj->tiles.y < 0))
 		exit_error(ERR_WRONG_TILES, data);
 	// TODO: test negative and absurd tiles per axis
 	skip_trailing(line, data);

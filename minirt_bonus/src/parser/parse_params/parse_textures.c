@@ -43,33 +43,26 @@ void	fill_pattern(t_texture *tx, t_rgb c1, t_rgb c2)
 
 void	get_pattern(t_texture *tx, char **line, t_data *data)
 {
-	t_rgb c1;
-	t_rgb c2;
-
-	c1 = get_rgb(line, data);
-	c2 = get_rgb(line, data);
+	tx->c1 = get_rgb(line, data);
+	tx->c2 = get_rgb(line, data);
 	tx->height = PATT_H;
 	tx->width = PATT_W;
-	tx->tiles = 50; // MAKE A MECHANISM BY WHICH YOU INCREASE THE NUMBER OF THESE
 	tx->img.img = mlx_new_image(data->mlx, tx->width, tx->height);
 	if (tx->img.img == NULL)
 		exit_error(NULL, data);
 	tx->img.addr  = mlx_get_data_addr(tx->img.img, &(tx->img.bpp), &(tx->img.line_len), &(tx->img.endian));
 	if (tx->img.addr == NULL)
 		exit_error(NULL, data);
-	fill_pattern(tx, c1, c2);
+	fill_pattern(tx, tx->c1, tx->c2);
 }
 
-void	get_image(t_texture *tx, char **line, t_data *data)
+void	get_image(t_texture *tx, t_data *data)
 {
-	tx->path = get_string(line, data); // FIX: free at exit
-	if (tx->path == NULL)
-		exit_error(ERR_TX ERR_REL_PATH, data);
 	if (tx->path && tx->path[0] == '/')
 		exit_error(ERR_TX ERR_REL_PATH, data); //  add freeing of the texture and img destroying
 	tx->img.img = mlx_xpm_file_to_image(data->mlx, tx->path, &(tx->width), &(tx->height));
 	if (tx->img.img == NULL)
-		exit_error("ERR_TEXTURE ERR_COULDNT_LOAD", data);
+		exit_error(ERR_TX ERR_COULDNT_LOAD, data);
 	tx->img.addr = mlx_get_data_addr(tx->img.img, &(tx->img.bpp), &(tx->img.line_len), &(tx->img.endian));
 	if (tx->img.addr == NULL)
 		exit_error(NULL, data);
@@ -80,7 +73,12 @@ void	get_texture(t_texture *tx, char **line, t_data *data)
 	if (tx->type == TX_PATT)
 		get_pattern(tx, line, data);
 	else if (tx->type == TX_BUMP || tx->type == TX_COLOR)
-		get_image(tx, line, data);
+	{
+		tx->path = get_string(line, data); // FIX: free at exit
+		if (tx->path == NULL)
+			exit_error(ERR_TX ERR_REL_PATH, data);
+		get_image(tx, data);
+	}
 }
 
 void	parse_texture(char *line, t_data *data)

@@ -87,6 +87,8 @@ typedef struct s_texture
 	int					width;
 	int					height;
 	int					tiles;
+	t_rgb				c1;
+	t_rgb				c2;
 	struct s_texture	*next;
 }	t_texture;
 
@@ -120,7 +122,6 @@ typedef struct s_amb_light
 	bool				on;
 	t_rgb				color;
 	double				ratio;
-	char				*tx_name;
 	t_texture			*tx;
 }	t_amb_light;
 
@@ -180,8 +181,6 @@ typedef struct s_obj
 	t_rgb			color;
 	double			ref;
 	int				shine;
-	char			*bmp_id; // FIX: fix in sort
-	char			*tx_id;
 	t_texture		*bmp;
 	t_texture		*tx;
 	t_int_vec2		tiles;

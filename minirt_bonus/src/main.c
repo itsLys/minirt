@@ -46,8 +46,8 @@ void	prepare_scene(t_data *data)
 	validate_scene(data->scene, data);
 	init_offsets(&(data->offsets), data);
 	init_cam_rays(data);
-	link_object_texture(data);
-	link_amb_texture(data);
+	// link_object_texture(data);
+	// link_amb_texture(data);
 	sort_objects(data->scene.obj_lst);
 }
 

@@ -27,7 +27,7 @@ t_rgb			get_rgb(char **line, t_data *data);
 
 // parse textures
 void		get_texture(t_texture *tx, char **line, t_data *data);
-void		get_image(t_texture *tx, char **line, t_data *data);
+void		get_image(t_texture *tx, t_data *data);
 void		get_pattern(t_texture *tx, char **line, t_data *data);
 void		fill_pattern(t_texture *tx, t_rgb c1, t_rgb c2);
 void		parse_texture(char *line, t_data *data);
