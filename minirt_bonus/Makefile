@@ -14,11 +14,12 @@ LIBFT_DIR	= libft
 LIBFT		= $(addprefix $(LIBFT_DIR)/, libft.a)
 SRC         = src/camera.c \
 			  src/color/color.c \
+			  src/color/bump_map.c \
 			  src/color/light.c \
 			  src/color/sample.c \
-			  src/color/sample_obj.c \
 			  src/color/shadow.c \
 			  src/color/utils.c \
+			  src/color/texture_ratio.c \
 			  src/destructors.c \
 			  src/main.c \
 			  src/printting.c \
