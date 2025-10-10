@@ -16,15 +16,15 @@
 # include "types.h"
 
 // rgb ops
-t_rgb		rgb(double r, double g, double b);
-t_rgb		rgb_add(t_rgb c1, t_rgb c2);
-t_rgb		rgb_mult(t_rgb c1, t_rgb c2);
-t_rgb		rgb_scale(double k, t_rgb c);
-t_rgb		rgb_clamp(t_rgb c);
-t_rgb		int_to_rgb(int c);
-int			rgb_to_int(t_rgb c);
+t_rgb	rgb(double r, double g, double b);
+t_rgb	rgb_add(t_rgb c1, t_rgb c2);
+t_rgb	rgb_mult(t_rgb c1, t_rgb c2);
+t_rgb	rgb_scale(double k, t_rgb c);
+t_rgb	rgb_clamp(t_rgb c);
+t_rgb	int_to_rgb(int c);
+int		rgb_to_int(t_rgb c);
 
 // compute
-t_rgb		compute_color(t_ray ray, t_hit hit, t_data *data);
+t_rgb	compute_color(t_ray ray, t_hit hit, t_data *data);
 
 #endif // ! COLOR_H

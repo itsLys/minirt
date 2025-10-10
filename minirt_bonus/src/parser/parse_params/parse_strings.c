@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-char *get_string(char **line, t_data *data)
+char	*get_string(char **line, t_data *data)
 {
 	char	buffer[PATH_MAX];
 	char	*str;
@@ -22,17 +22,17 @@ char *get_string(char **line, t_data *data)
 	while (ft_isspace(**line))
 		(*line)++;
 	if ((**line) == '\n' || ft_isdigit(**line))
-		return NULL;
+		return (NULL);
 	while (**line && **line != '\n' && !ft_isspace(**line) && i < PATH_MAX)
 	{
 		buffer[i++] = **line;
 		(*line)++;
 	}
 	if (i == PATH_MAX)
-		return  NULL;
+		return (NULL);
 	buffer[i] = 0;
 	if (buffer[0] == 0)
-		return NULL;
+		return (NULL);
 	str = ft_strdup(buffer);
 	if (str == NULL)
 		exit_error(NULL, data);
@@ -49,7 +49,7 @@ void	get_obj_tx(t_obj *obj, char **line, t_data *data)
 		return ;
 	tx = find_tx(name, *(data->scene.tx_lst));
 	if (tx == NULL)
-		return free(name), exit_error(ERR_TX_NOT_FOUND, data);
+		return (free(name), exit_error(ERR_TX_NOT_FOUND, data));
 	if (tx->type == TX_BUMP)
 		obj->bmp = tx;
 	else
@@ -74,6 +74,5 @@ t_texture_type	get_type(char **line, t_data *data)
 	else
 		type = TX_INVALID;
 	free(str);
-	return type;
+	return (type);
 }
-

@@ -35,6 +35,8 @@ SRC         = src/camera.c \
 			  src/gnl/get_next_line_utils.c \
 			  src/hit/hit.c \
 			  src/hit/intersect.c \
+			  src/hit/check_intersect.c \
+			  src/hit/intersect_utils.c \
 			  src/hit/quadratic.c \
 			  src/hit/trace.c \
 			  src/init/init_data.c \
@@ -59,7 +61,6 @@ SRC         = src/camera.c \
 			  src/render/draw.c \
 			  src/rgb/rgb_conv.c \
 			  src/rgb/rgb_ops.c \
-			  src/textures.c \
 			  src/threads/threads.c \
 			  src/threads/workers.c \
 			  src/comparison.c \
@@ -67,7 +68,6 @@ SRC         = src/camera.c \
 			  src/vec3/vec3_math.c \
 			  src/vec3/vec3_ops.c \
 			  src/vec3/vec3_transform.c \
-			  src/uncategorized.c \
 			  src/vec3/vec3_utils.c 
 
 OBJ			= $(patsubst src/%.c, obj/%.o, $(SRC))

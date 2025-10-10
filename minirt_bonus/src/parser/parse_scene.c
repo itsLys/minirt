@@ -12,6 +12,8 @@
 
 #include "minirt.h"
 
+// FIX: this is not part of the texture list, 
+// must be freeed seperately
 static void	init_amb_tx(char **line, t_data *data)
 {
 	t_texture	*tx;
@@ -19,20 +21,20 @@ static void	init_amb_tx(char **line, t_data *data)
 
 	path = get_string(line, data);
 	if (path == NULL)
-		return;
+		return ;
 	tx = malloc(sizeof(t_texture));
 	if (tx == NULL)
-		return free(path), exit_error(NULL, data);
+		return (free(path), exit_error(NULL, data));
 	tx->path = path;
 	tx->type = TX_COLOR;
 	get_image(tx, data);
-	data->scene.amb.tx = tx; // FIX: this is not part of the texture list, must be freeed seperately
+	data->scene.amb.tx = tx;
 }
 
 void	parse_ambient_light(char *line, t_data *data)
 {
-	double		ratio;
-	t_rgb		rgb;
+	double	ratio;
+	t_rgb	rgb;
 
 	if (data->scene.amb.on == true)
 		exit_error(ERR_AMB_LIGHT ERR_MULTI, data);

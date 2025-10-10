@@ -18,8 +18,8 @@ static void	init_scene(t_data *data)
 	data->scene.obj_lst = malloc(sizeof(t_obj *));
 	if (data->scene.obj_lst == NULL || data->scene.tx_lst == NULL)
 		return (free(data->scene.obj_lst),
-				free(data->scene.tx_lst),
-				exit_error(NULL, data));
+			free(data->scene.tx_lst),
+			exit_error(NULL, data));
 	data->scene.light_on = false;
 	data->scene.amb.on = false;
 	data->scene.cam.on = false;
@@ -30,9 +30,10 @@ static void	init_scene(t_data *data)
 	*(data->scene.tx_lst) = NULL;
 }
 
-static void	init_workers(t_worker *worker, t_data *data, void (*func)(t_worker *))
+static void	init_workers(t_worker *worker, t_data *data,
+		void (*func)(t_worker *))
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < SPLIT * SPLIT)

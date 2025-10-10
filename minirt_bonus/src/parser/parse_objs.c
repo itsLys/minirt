@@ -30,6 +30,7 @@ void	parse_plane(char *line, t_data *data)
 	init_local_coords(obj);
 }
 
+// FIX: add a forward and up direction axis
 void	parse_sphere(char *line, t_data *data)
 {
 	t_obj	*obj;
@@ -43,7 +44,7 @@ void	parse_sphere(char *line, t_data *data)
 	obj->shape = sp;
 	obj->type = T_SP;
 	obj->pos = get_vec3(&line, data);
-	obj->coords.up = vec3_norm(vec3(0, 1, 0)); // FIX: add a forward and up direction axis
+	obj->coords.up = vec3_norm(vec3(0, 1, 0));
 	sp->r = get_double(&line, data) / 2;
 	if (sp->r < 0)
 		exit_error(ERR_SP ERR_DIAM_POS, data);
@@ -73,15 +74,15 @@ void	parse_cylinder(char *line, t_data *data)
 	init_local_coords(obj);
 }
 
-void    parse_cone(char *line, t_data *data)
+void	parse_cone(char *line, t_data *data)
 {
 	t_obj	*obj;
 	t_cn	*cn;
 
-	cn  = malloc(sizeof(t_cn));
+	cn = malloc(sizeof(t_cn));
 	obj = malloc(sizeof(t_obj));
 	if (obj == NULL || cn == NULL)
-		return free(cn), exit_error(NULL, data);
+		return (free(cn), exit_error(NULL, data));
 	obj_lst_add(obj, data->scene.obj_lst);
 	obj->shape = cn;
 	obj->type = T_CN;
@@ -95,15 +96,15 @@ void    parse_cone(char *line, t_data *data)
 	init_local_coords(obj);
 }
 
-void    parse_light(char *line, t_data *data)
+void	parse_light(char *line, t_data *data)
 {
 	t_obj	*obj;
 	t_light	*light;
 
-	light  = malloc(sizeof(t_light));
+	light = malloc(sizeof(t_light));
 	obj = malloc(sizeof(t_obj));
 	if (obj == NULL || light == NULL)
-		return free(light), exit_error(NULL, data);
+		return (free(light), exit_error(NULL, data));
 	obj_lst_add(obj, data->scene.obj_lst);
 	obj->shape = light;
 	obj->type = T_LS;

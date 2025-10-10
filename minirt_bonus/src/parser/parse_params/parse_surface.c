@@ -22,6 +22,7 @@ void	init_surface_props_defaults(t_obj *obj)
 	obj->bmp = NULL;
 }
 
+// TODO: test negative and absurd tiles per axis
 void	get_surface_props(t_obj *obj, char *line, t_data *data)
 {
 	init_surface_props_defaults(obj);
@@ -41,6 +42,5 @@ void	get_surface_props(t_obj *obj, char *line, t_data *data)
 		exit_error(ERR_WRONG_SHINE, data);
 	if (obj->tx && (obj->tiles.x < 0 || obj->tiles.y < 0))
 		exit_error(ERR_WRONG_TILES, data);
-	// TODO: test negative and absurd tiles per axis
 	skip_trailing(line, data);
 }

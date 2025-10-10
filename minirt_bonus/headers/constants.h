@@ -14,18 +14,18 @@
 # define CONSTANTS_H
 
 // project name
-# define MINIRT_PROJECT	"miniRT"
+# define MINIRT_PROJECT "miniRT"
 
 // file extention
 # define EXT ".rt"
 
 // windows dimensions
-# define WIDTH	1080
+# define WIDTH 1080
 # define HEIGHT 720
 
 // pattern defaults
-#define PATT_H 512
-#define PATT_W 512
+# define PATT_H 512
+# define PATT_W 512
 
 // constants
 # define SPLIT 4

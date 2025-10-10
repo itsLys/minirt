@@ -14,12 +14,11 @@
 
 # define DESTRUCTORS_H
 
-#include "types.h"
+# include "types.h"
 
 void	destroy_workers(t_data *data);
 void	destroy_objects(t_obj **lst);
 void	destroy_textures(void *mlx, t_texture **lst);
-// void	destroy_patterns(t_pattern **lst);
 void	destroy_scene(t_data *data);
 
 #endif // !DESTRUCTORS_H

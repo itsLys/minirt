@@ -13,7 +13,7 @@
 #ifndef TRANSFORM_H
 # define TRANSFORM_H
 
-#include "types.h"
+# include "types.h"
 
 void	rotate_tilt(int code, t_local_coords *coords);
 void	rotate_turn(int code, t_local_coords *coords);

@@ -14,15 +14,16 @@
 
 void	*routine(void *arg)
 {
-	t_worker *worker;
-	worker = (t_worker *) arg;
+	t_worker	*worker;
+
+	worker = (t_worker *)arg;
 	worker->function(worker);
-	return NULL;
+	return (NULL);
 }
 
 void	init_threads(t_worker *worker, int n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < n)

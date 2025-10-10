@@ -13,7 +13,7 @@
 #ifndef TEXTURES_H
 # define TEXTURES_H
 
-#include "types.h"
+# include "types.h"
 
 void	link_amb_texture(t_data *data);
 void	link_object_texture(t_data *data);

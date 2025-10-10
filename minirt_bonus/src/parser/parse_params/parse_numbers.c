@@ -24,8 +24,6 @@ static int	parse_num(char *str)
 	return (n);
 }
 
-#include <assert.h>
-#include <ctype.h>
 int	get_integer(char **line, t_data *data)
 {
 	int	n;

@@ -14,8 +14,9 @@
 
 void	set_directions(t_data *data, t_int_vec2 start, t_int_vec2 end) // move
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	t_vec3	ray_dir;
 
 	i = start.x;
 	while (i < end.x)
@@ -23,14 +24,15 @@ void	set_directions(t_data *data, t_int_vec2 start, t_int_vec2 end) // move
 		j = start.y;
 		while (j < end.y)
 		{
-			data->rays.dirs[j * WIDTH + i] = map_pixel(i, j, data).dir;
+			ray_dir = map_pixel(i, j, data->scene.cam, data).dir;
+			data->rays.dirs[j * WIDTH + i] = ray_dir;
 			j++;
 		}
 		i++;
 	}
 }
 
-void	set_offsets(t_vec2 **offsets, t_cam cam) // FIX: make it take cam instead of data
+void	set_offsets(t_vec2 **offsets, t_cam cam)
 {
 	int		i;
 	int		j;
@@ -54,6 +56,7 @@ void	set_offsets(t_vec2 **offsets, t_cam cam) // FIX: make it take cam instead o
 		i++;
 	}
 }
+
 void	setup_viewport(t_cam *cam)
 {
 	double	fov_r;
@@ -65,22 +68,29 @@ void	setup_viewport(t_cam *cam)
 
 void	setup_cam_coords(t_cam *cam)
 {
-	t_local_coords *coords;
+	t_local_coords	*coords;
 
 	coords = &(cam->coords);
 	coords->right = vec3_norm(vec3_cross(coords->forward, vec3(0, 1, 0)));
 	coords->up = vec3_cross(coords->right, coords->forward);
 }
 
-t_ray	map_pixel(int x, int y, t_data *data)
+t_ray	map_pixel(int x, int y, t_cam cam, t_data *data)
 {
 	t_ray	ray;
-	t_cam	cam;
+	t_vec2	offsets;
+	t_vec3	ray_up;
+	t_vec3	ray_right;
+	t_vec3	ray_forward;
 
 	cam = data->scene.cam;
 	ray.orig = cam.pos;
-	ray.dir = vec3_add(vec3_scale(data->offsets[y * WIDTH + x].x, cam.coords.right),
-			vec3_scale(data->offsets[y * WIDTH + x].y, cam.coords.up));
-	ray.dir = vec3_norm(vec3_add(cam.coords.forward, ray.dir));
+	offsets.x = data->offsets[y * WIDTH + x].x;
+	offsets.y = data->offsets[y * WIDTH + x].y;
+	ray_right = vec3_scale(offsets.x, cam.coords.right);
+	ray_up = vec3_scale(offsets.y, cam.coords.up);
+	ray_forward = vec3_add(ray_right, ray_up);
+	ray_forward = vec3_add(cam.coords.forward, ray_forward);
+	ray.dir = vec3_norm(ray_forward);
 	return (ray);
 }

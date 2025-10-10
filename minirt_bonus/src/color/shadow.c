@@ -46,4 +46,3 @@ bool	is_shadow(t_hit hit, t_obj *light, t_data *data)
 	}
 	return (false);
 }
-

@@ -14,7 +14,7 @@
 
 void	select_next_light(t_data *data)
 {
-	t_obj			*obj;
+	t_obj	*obj;
 
 	obj = *(data->scene.obj_lst);
 	if (data->scene.selected.light == NULL)
@@ -34,7 +34,7 @@ void	select_object(int x, int y, t_data *data)
 	t_hit	hit;
 	t_obj	*obj;
 
-	ray = map_pixel(x, y, data);
+	ray = map_pixel(x, y, data->scene.cam, data);
 	hit.t = INFINITY;
 	hit.hit = false;
 	hit.obj = NULL;

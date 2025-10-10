@@ -6,13 +6,13 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 16:17:58 by yel-guad          #+#    #+#             */
-/*   Updated: 2025/10/09 17:37:47 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/10 18:32:48 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-#define STRENGTH -5
+#define STRENGTH -3
 
 static double	gray_ratio(t_rgb color)
 {
@@ -27,19 +27,21 @@ static void	compute_tangent_bitangent(t_hit hit, t_vec3 *t, t_vec3 *b)
 
 static t_vec2	compute_height_gradient(t_texture *tx, t_vec2 crds)
 {
-	t_vec2	g;
-	int		x;
-	int		y;
+	t_vec2			g;
+	int				x;
+	int				y;
+	t_pixel_neigh	p;
 
-	double (pr), (pl), (pd), (pu);
 	x = (int)(crds.x * (tx->width - 1));
 	y = (int)(crds.y * (tx->height - 1));
-	pr = gray_ratio(img_get_pixel(tx->img, (x + 1) % tx->width, y));
-	pl = gray_ratio(img_get_pixel(tx->img, (x -1 + tx->width) % tx->width, y));
-	pd = gray_ratio(img_get_pixel(tx->img, x, (y + 1) % tx->height));
-	pu = gray_ratio(img_get_pixel(tx->img, x, (y -1 + tx->height) % tx->height));
-	g.x = (pr - pl);
-	g.y = (pd - pu);
+	p.r = gray_ratio(img_get_pixel(tx->img, (x + 1) % tx->width, y));
+	p.l = gray_ratio(img_get_pixel(tx->img,
+				(x - 1 + tx->width) % tx->width, y));
+	p.d = gray_ratio(img_get_pixel(tx->img, x, (y + 1) % tx->height));
+	p.u = gray_ratio(img_get_pixel(tx->img, x,
+				(y - 1 + tx->height) % tx->height));
+	g.x = (p.r - p.l);
+	g.y = (p.d - p.u);
 	return (g);
 }
 

@@ -27,16 +27,3 @@ void	handle_translate(int code, t_vec3 *point, t_cam cam)
 	else if (code == XK_Page_Down)
 		*point = translate(*point, vec3_scale(-MOVE_STEP, cam.coords.up));
 }
-//
-// void	handle_obj_move(int code, t_data *data)
-// {
-// 	if (data->scene.selected.type == T_CAM)
-// 	{
-// 		handle_translate(code, &(data->scene.cam.pos), data->scene.cam);
-// 		data->rays.orig = data->scene.cam.pos;
-// 	}
-// 	else if (data->scene.selected.type == T_LIGHT)
-// 		handle_translate(code, &(data->scene.selected.light->pos), data->scene.cam);
-// 	else if (data->scene.selected.type == T_OBJ)
-// 		handle_translate(code, &(data->scene.selected.obj->pos), data->scene.cam);
-// }

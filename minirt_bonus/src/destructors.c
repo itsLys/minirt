@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-void	 destroy_workers(t_data *data)
+void	destroy_workers(t_data *data)
 {
 	join_threads(data->mapping_workers, SPLIT * SPLIT);
 	join_threads(data->render_workers, SPLIT * SPLIT);

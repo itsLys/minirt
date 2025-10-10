@@ -54,7 +54,7 @@ static void	restore_content(t_obj *tmp, t_obj *obj)
 	obj->shape = tmp->shape;
 }
 
-void	swap_nodes(t_obj **n1, t_obj **n2)// remove from header
+void	swap_nodes(t_obj **n1, t_obj **n2) // remove from header
 {
 	t_obj	tmp;
 

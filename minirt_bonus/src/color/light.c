@@ -14,7 +14,7 @@
 
 t_rgb	compute_amb(t_rgb obj, t_amb_light amb)
 {
-	t_rgb color;
+	t_rgb	color;
 
 	color.r = amb.ratio * amb.color.r * obj.r;
 	color.g = amb.ratio * amb.color.g * obj.g;
@@ -24,8 +24,8 @@ t_rgb	compute_amb(t_rgb obj, t_amb_light amb)
 
 t_rgb	compute_defuse(t_hit hit, t_obj *light_obj, t_light *light)
 {
-	t_rgb color;
-	t_vec3 light_dir;
+	t_rgb	color;
+	t_vec3	light_dir;
 	double	angle;
 
 	light_dir = vec3_norm(vec3_subtract(light_obj->pos, hit.point));
@@ -36,39 +36,40 @@ t_rgb	compute_defuse(t_hit hit, t_obj *light_obj, t_light *light)
 	return (color);
 }
 
-t_rgb compute_spacular(t_hit hit, t_obj *l_obj, t_light *light, t_cam cam)
+t_rgb	compute_spacular(t_hit hit, t_obj *l_obj, t_light *light, t_cam cam)
 {
-	t_rgb color;
-	t_vec3 ref_vec;
-	t_vec3 light_dir;
+	t_rgb	color;
+	t_vec3	ref_vec;
+	t_vec3	light_dir;
 	double	angle;
 	double	shininess;
 
 	light_dir = vec3_norm(vec3_subtract(l_obj->pos, hit.point));
 	ref_vec = vec3_scale(2 * vec3_dot(hit.normal, light_dir), hit.normal);
 	ref_vec = vec3_subtract(ref_vec, light_dir);
-	angle = fmax(0, vec3_dot(ref_vec, vec3_norm(vec3_subtract(cam.pos, hit.point))));
+	angle = fmax(0, vec3_dot(ref_vec, vec3_norm(vec3_subtract(cam.pos,
+						hit.point))));
 	shininess = pow(angle, hit.obj->shine);
 	color.r = hit.obj->ref * shininess * light->ratio * l_obj->color.r;
 	color.g = hit.obj->ref * shininess * light->ratio * l_obj->color.g;
 	color.b = hit.obj->ref * shininess * light->ratio * l_obj->color.b;
-	return color;
+	return (color);
 }
 
-t_rgb compute_light(t_hit hit, t_obj *l_obj, t_light *light, t_data *data)
+t_rgb	compute_light(t_hit hit, t_obj *l_obj, t_light *light, t_data *data)
 {
 	t_rgb	diffuse;
 	t_rgb	spacular;
 	t_rgb	color;
 
 	if (is_shadow(hit, l_obj, data) == true)
-		return rgb(0, 0, 0);
+		return (rgb(0, 0, 0));
 	diffuse = compute_defuse(hit, l_obj, light);
 	spacular = compute_spacular(hit, l_obj, light, data->scene.cam);
 	color.r = diffuse.r + spacular.r;
 	color.g = diffuse.g + spacular.g;
 	color.b = diffuse.b + spacular.b;
-	return color;
+	return (color);
 }
 
 t_rgb	compute_lights(t_hit hit, t_data *data)
@@ -88,5 +89,5 @@ t_rgb	compute_lights(t_hit hit, t_data *data)
 		}
 		obj = obj->next;
 	}
-	return sum;
+	return (sum);
 }

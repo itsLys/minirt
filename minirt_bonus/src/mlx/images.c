@@ -17,7 +17,7 @@ t_rgb	img_get_pixel(t_img img, int x, int y)
 	char	*pixel;
 
 	pixel = img.addr + (y * img.line_len + x * (img.bpp / 8));
-	return int_to_rgb((*(int *)pixel));
+	return (int_to_rgb((*(int *)pixel)));
 }
 
 void	img_put_pixel(t_img img, int x, int y, t_rgb color)

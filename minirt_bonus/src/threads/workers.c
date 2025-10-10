@@ -12,9 +12,9 @@
 
 #include "minirt.h"
 
+// TODO: fham
 void	set_worker_bounds(t_worker *worker)
 {
-	// TODO: fham
 	t_int_vec2	tile;
 	t_int_vec2	start;
 	t_int_vec2	end;
@@ -57,8 +57,9 @@ void	work_directions(t_worker *worker)
 
 void	spawn_mapping_workers(t_data *data)
 {
-	static int	thread_number = SPLIT * SPLIT;
+	static int	thread_number;
 
+	thread_number = SPLIT * SPLIT;
 	init_threads(data->mapping_workers, thread_number);
 	join_threads(data->mapping_workers, thread_number);
 }

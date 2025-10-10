@@ -15,8 +15,8 @@
 
 # include "types.h"
 
-t_ray		map_pixel(int x, int y, t_data *data);
-t_rgb		trace_ray(t_ray ray, t_data *data);
-void		record_hit(t_obj **obj, t_hit *hit, t_ray ray);
+t_ray	map_pixel(int x, int y, t_cam cam, t_data *data);
+t_rgb	trace_ray(t_ray ray, t_data *data);
+void	record_hit(t_obj **obj, t_hit *hit, t_ray ray);
 
 #endif // !RAY_H

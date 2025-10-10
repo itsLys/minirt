@@ -25,15 +25,18 @@ t_cam_rays	init_mem(t_data *data)
 void	init_cam_rays(t_data *data)
 {
 	t_cam_rays	rays;
-	t_int_vec2	start = {0, 0};
-	t_int_vec2	end = {WIDTH, HEIGHT};
+	t_int_vec2	start;
+	t_int_vec2	end;
 
+	start.x = 0;
+	start.y = 0;
+	end.x = WIDTH;
+	end.y = HEIGHT;
 	rays = init_mem(data);
 	rays.orig = data->scene.cam.pos;
 	data->rays = rays;
 	set_directions(data, start, end);
 }
-
 
 void	init_offsets(t_vec2 **offsets, t_data *data)
 {

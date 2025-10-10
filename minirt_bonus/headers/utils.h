@@ -15,10 +15,10 @@
 
 # include "types.h"
 
-bool		is_close(double n, double m);
-bool		greater_than(double n, double m);
-bool		is_less_then(double n, double m);
-void		print_error(char *err);
-int			clean_exit(t_data *data, int status);
-void		exit_error(char *msg, t_data *data);
+bool	is_close(double n, double m);
+bool	greater_than(double n, double m);
+bool	is_less_then(double n, double m);
+void	print_error(char *err);
+int		clean_exit(t_data *data, int status);
+void	exit_error(char *msg, t_data *data);
 #endif // !UTILS_H

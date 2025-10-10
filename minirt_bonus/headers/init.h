@@ -23,10 +23,10 @@ void	init_sphere(char *line, t_data *data);
 void	init_cylinder(char *line, t_data *data);
 void	init_cone(char *line, t_data *data);
 void	init_data(t_data *data);
-void	init_offsets(t_vec2	**offsets, t_data *data);
+void	init_offsets(t_vec2 **offsets, t_data *data);
 void	init_cam_rays(t_data *data);
 int		init_program(char *file, t_data *data);
 
 // TODO: change location
-void		setup_cam_coords(t_cam *cam);
+void	setup_cam_coords(t_cam *cam);
 #endif // !INIT_H

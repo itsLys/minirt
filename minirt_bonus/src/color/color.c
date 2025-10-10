@@ -15,9 +15,8 @@
 t_rgb	compute_bg_color(int x, int y, t_amb_light amb)
 {
 	if (amb.tx)
-		return rgb_scale(amb.ratio, sample_bg_color(x, y, amb.tx));
-	return rgb_scale(amb.ratio, amb.color);
-
+		return (rgb_scale(amb.ratio, sample_bg_color(x, y, amb.tx)));
+	return (rgb_scale(amb.ratio, amb.color));
 }
 
 t_rgb	compute_color(t_ray ray, t_hit hit, t_data *data)
@@ -27,9 +26,9 @@ t_rgb	compute_color(t_ray ray, t_hit hit, t_data *data)
 	t_rgb	sum;
 
 	if (hit.hit == false)
-		return compute_bg_color(ray.px.x, ray.px.y, data->scene.amb);
+		return (compute_bg_color(ray.px.x, ray.px.y, data->scene.amb));
 	amb = compute_amb(hit.color, data->scene.amb);
 	sum = compute_lights(hit, data);
 	combined = rgb_add(sum, amb);
-	return combined;
+	return (combined);
 }

@@ -15,9 +15,11 @@
 void	rotate_tilt(int code, t_local_coords *coords)
 {
 	if (code == XK_s)
-		coords->forward = rotate(coords->forward, coords->right, ROTATE_STEP);
+		coords->forward = rotate(coords->forward,
+				coords->right, ROTATE_STEP);
 	else if (code == XK_w)
-		coords->forward = rotate(coords->forward, coords->right, ROTATE_STEP * -1);
+		coords->forward = rotate(coords->forward,
+				coords->right, ROTATE_STEP * -1);
 	coords->up = vec3_cross(coords->right, coords->forward);
 }
 

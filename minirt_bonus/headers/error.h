@@ -61,6 +61,7 @@
 	cy	<x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B> <reflectivness> <shininess> <texture/pattern name>\n \
 	cn	<x,y,z> <axis_x,axis_y,axis_z> <angle> <height> <R,G,B> <reflectivness> <shininess> <texture/pattern name>\n \
 	"
-// TODO: orientation and axis don't have to be normalized, normalize them at parse time
-	// if number of tiles is not given, assume  a default
+// TODO: orientation and axis don't have to be normalized,
+	// normalize them at parse time
+// if number of tiles is not given, assume  a default
 #endif // !ERROR_H

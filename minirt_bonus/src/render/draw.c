@@ -31,7 +31,6 @@ void	draw_image(t_data *data, t_int_vec2 start, t_int_vec2 end)
 			ray.px.y = j;
 			ray.dir = rays.dirs[i + j * WIDTH];
 			ray.orig = rays.orig;
-			// ray = map_pixel(i, j, worker->data);
 			color = trace_ray(ray, data);
 			img_put_pixel(data->img, i, j, rgb_clamp(color));
 			j++;

@@ -253,7 +253,7 @@ void	print_obj_type(t_obj *obj)
 	if (obj == NULL)
 	{
 		printf("DOESN'T EXIST\n");
-		return;
+		return ;
 	}
 	if (obj->type == T_SP)
 		printf("SPHERE\n");
@@ -266,3 +266,5 @@ void	print_obj_type(t_obj *obj)
 	else if (obj->type == T_LS)
 		printf("LIGHT\n");
 }
+
+// WARN: fix norm of this

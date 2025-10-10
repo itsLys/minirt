@@ -46,18 +46,9 @@ void	prepare_scene(t_data *data)
 	validate_scene(data->scene, data);
 	init_offsets(&(data->offsets), data);
 	init_cam_rays(data);
-	// link_object_texture(data);
-	// link_amb_texture(data);
 	sort_objects(data->scene.obj_lst);
 }
 
-// BUG: giving an object a texture that deosn't exist is passed (invalid)
-//  TODO: add configurable directions for objects, prob not
-//	   dynamic tiles per axis unit
-//	   bumpmap
-//	   checkboard
-//	   test
-//
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -69,7 +60,7 @@ int	main(int ac, char **av)
 	if (init_program(av[1], &data) == ERROR)
 		return (EXIT_FAILURE);
 	prepare_scene(&data);
-	print_scene(&data); // FIX: add texture rel path for printing later
+	print_scene(&data);
 	mlx_loop(data.mlx);
 }
 

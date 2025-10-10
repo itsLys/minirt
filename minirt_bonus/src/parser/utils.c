@@ -34,15 +34,15 @@ void	check_tx_duplicate(char *name, t_texture *lst, t_data *data)
 	}
 }
 
-t_texture *find_tx(char *name, t_texture *lst)
+t_texture	*find_tx(char *name, t_texture *lst)
 {
 	while (lst)
 	{
 		if (ft_strcmp(lst->name, name) == 0)
-			return lst;
+			return (lst);
 		lst = lst->next;
 	}
-	return  NULL;
+	return (NULL);
 }
 
 void	init_local_coords(t_obj *obj)
@@ -53,7 +53,8 @@ void	init_local_coords(t_obj *obj)
 	if (is_close(fabs(vec3_dot(tmp_right, obj->coords.up)), 1))
 		tmp_right = vec3(0, -1, 0);
 	obj->coords.forward = vec3_norm(vec3_cross(obj->coords.up, tmp_right));
-	obj->coords.right = vec3_norm(vec3_cross(obj->coords.forward, obj->coords.up));
+	obj->coords.right = vec3_norm(vec3_cross(obj->coords.forward,
+				obj->coords.up));
 }
 
 void	skip_trailing(char *line, t_data *data)
@@ -63,4 +64,3 @@ void	skip_trailing(char *line, t_data *data)
 	if (*line != '\n' && *line != '\0')
 		exit_error(ERR_EXTRA_PARAM, data);
 }
-
