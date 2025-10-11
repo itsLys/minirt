@@ -14,21 +14,20 @@
 
 int	parse_file(char *filename, t_data *data)
 {
-	int		fd;
 	char	*line;
 
 	if (check_file_ext(filename) == ERROR)
 		return (ERROR);
-	fd = open(filename, O_RDONLY);
-	if (fd == ERROR)
+	data->fd = open(filename, O_RDONLY);
+	if (data->fd == ERROR)
 		return (exit_error(strerror(errno), data), ERROR);
 	while (1)
 	{
-		line = get_next_line(fd);
+		line = get_next_line(data->fd);
 		while (line && ft_strisempty(line))
 		{
 			free(line);
-			line = get_next_line(fd);
+			line = get_next_line(data->fd);
 		}
 		if (line == NULL)
 			break ;

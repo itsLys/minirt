@@ -18,5 +18,6 @@ int	init_program(char *file, t_data *data)
 	init_mlx(data);
 	if (parse_file(file, data) == ERROR)
 		return (ERROR);
+	init_window(data);
 	return (SUCCESS);
 }

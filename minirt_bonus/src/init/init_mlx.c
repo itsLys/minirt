@@ -12,11 +12,8 @@
 
 #include "minirt.h"
 
-void	init_mlx(t_data *data)
+void	init_window(t_data *data)
 {
-	data->mlx = mlx_init();
-	if (data->mlx == NULL)
-		exit_error(NULL, data);
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, MINIRT_PROJECT);
 	if (data->win == NULL)
 		exit_error(NULL, data);
@@ -28,4 +25,11 @@ void	init_mlx(t_data *data)
 	if (data->img.addr == NULL)
 		exit_error(NULL, data);
 	setup_hooks(data);
+}
+
+void	init_mlx(t_data *data)
+{
+	data->mlx = mlx_init();
+	if (data->mlx == NULL)
+		exit_error(NULL, data);
 }

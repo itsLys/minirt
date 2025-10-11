@@ -20,6 +20,7 @@
 
 void	destroy_mlx(t_data *data);
 void	init_mlx(t_data *data);
+void	init_window(t_data *data);
 void	setup_hooks(t_data *data);
 int		render_img(t_data *data);
 void	draw_image(t_data *data, t_int_vec2 start, t_int_vec2 end);

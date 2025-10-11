@@ -257,6 +257,7 @@ struct					s_data
 {
 	void				*mlx;
 	void				*win;
+	int					fd;
 	t_img				img;
 	t_scene				scene;
 	t_cam_rays			rays;

@@ -14,6 +14,7 @@
 
 int	clean_exit(t_data *data, int status)
 {
+	close(data->fd);
 	destroy_scene(data);
 	destroy_workers(data);
 	destroy_mlx(data);

@@ -53,10 +53,10 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 
-	if (ac >= 2 && ft_strcmp(av[1], "-h") == 0)
-		print_help();
 	if (ac != 2)
 		return (print_error("Wrong args\n"), FAILIURE);
+	if (ac == 2 && ft_strcmp(av[1], "-h") == 0)
+		return (print_help(), SUCCESS);
 	if (init_program(av[1], &data) == ERROR)
 		return (EXIT_FAILURE);
 	prepare_scene(&data);
