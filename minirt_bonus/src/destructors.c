@@ -40,10 +40,10 @@ void	destroy_textures(void *mlx, t_texture **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->next;
-		mlx_destroy_image(mlx, (*lst)->img.img);
+		if ((*lst)->img.img)
+			mlx_destroy_image(mlx, (*lst)->img.img);
+		free((*lst)->path);
 		free((*lst)->name);
-		if ((*lst)->type == TX_BUMP || (*lst)->type == TX_COLOR)
-			free((*lst)->path);
 		free(*lst);
 		*lst = tmp;
 	}
@@ -52,6 +52,11 @@ void	destroy_textures(void *mlx, t_texture **lst)
 
 void	destroy_scene(t_data *data)
 {
+
+	if (data->scene.amb.tx && data->scene.amb.tx->img.img)
+		mlx_destroy_image(data->mlx, data->scene.amb.tx->img.img);
+	if (data->scene.amb.tx && data->scene.amb.tx->path)
+		free(data->scene.amb.tx->path);
 	free(data->scene.amb.tx);
 	destroy_objects(data->scene.obj_lst);
 	destroy_textures(data->mlx, data->scene.tx_lst);

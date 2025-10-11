@@ -9,7 +9,7 @@ for file in "$DIR"/*; do
 	echo "Testing invlid file: $file"
 
 	# run bin
-	if "$EXEC" "$file"; then
+	if "$EXEC" "$file" 2> /dev/null; then
 		echo "ERROR: $EXEC on $file succeeded (expected failiure)"
 		exit 1
 	else

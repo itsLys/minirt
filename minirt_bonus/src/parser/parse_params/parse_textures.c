@@ -96,6 +96,8 @@ void	parse_texture(char *line, t_data *data)
 	tx = malloc(sizeof(t_texture));
 	if (tx == NULL)
 		return (exit_error(NULL, data));
+	tx->img.img = NULL;
+	tx->path = NULL;
 	texture_add(tx, data->scene.tx_lst);
 	tx->name = get_string(&line, data);
 	check_tx_duplicate(tx->name, lst, data);

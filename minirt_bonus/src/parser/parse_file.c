@@ -17,7 +17,7 @@ int	parse_file(char *filename, t_data *data)
 	char	*line;
 
 	if (check_file_ext(filename) == ERROR)
-		return (ERROR);
+		return (exit_error(ERR_FILE_EXTENSION, data), ERROR);
 	data->fd = open(filename, O_RDONLY);
 	if (data->fd == ERROR)
 		return (exit_error(strerror(errno), data), ERROR);

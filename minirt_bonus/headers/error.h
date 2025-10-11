@@ -13,6 +13,9 @@
 #ifndef ERROR_H
 # define ERROR_H
 
+// ERR FILE
+# define ERR_FILE_EXTENSION "Wrong file extension\n"
+
 // ERR OBJS
 # define ERR_AMB_LIGHT "Ambient: "
 # define ERR_CAM "Camera: "
