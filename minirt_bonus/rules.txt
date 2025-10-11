@@ -5,48 +5,46 @@
 # ────────────────
 #  GENERAL RULES
 # ────────────────
-- Each non-empty line describes exactly ONE element of the scene.
-- The first token in the line is the type identifier (one or two letters).
+- Each line describes exactly ONE element of the scene.
+- The first token in the line is the type id e.g: "[sp]here, [l]ight".
 - Element lines can appear in ANY order.
 - Blank lines may appear between elements.
 - Parameters are separated by one or more spaces or tabs.
-- No newlines are allowed inside an element line.
 - Numeric and vector values must be within valid ranges.
-- Orientation/normal vectors will be normalized at parse time.
-- Uppercase types (A, C, L):
+- Orientation/normalized may not be noramlized, will be normalized at parse time.
+- Types (A, C, l):
     • A (ambient) → must appear exactly once.
     • C (camera) → must appear exactly once.
     • l (light)  → must appear at least once.
-- Lowercase types (sp, pl, cy, cn) can appear zero or more times.
+- Lowercase types (sp, pl, cy, cn, t) can appear zero or more times.
 
 # ────────────────
 #  TEXTURE / PATTERN DECLARATION
 # ────────────────
-t <texture_name> <texture_type> <texture_relative_path>
-    # Declares a texture. The name is referenced by objects or ambient.
-    # <texture_type> could be "image" or "bump".
-
-c <pattern_name> <R,G,B> <R,G,B> [<number>]
-    # Declares a checkerboard pattern.
+t <tx_name> <tx_type> <tx_relative_path>
+t <tx_name> <tx_type> <R,G,B> <R,G,B>
+    # Declares a texture. The name must be unique and is referenced by objects or ambient.
+    # <texture_type> could be "color" or "bump" or "patt".
 
 # ────────────────
 #  AMBIENT LIGHT
 # ────────────────
-A <ambient_ratio> <R,G,B> [<texture_name>]
-    # <ambient_ratio> ∈ [0.0, 1.0]
-    # Optional <texture_name> replaces background color.
+A <amb_ratio> <R,G,B> [<tx_relative_path>]
+    # <amb_ratio> between [0.0, 1.0]
+	# <R,G,B> rgb colors [0, 255]
+    # Optional: <texture_path> replaces background color.
 
 # ────────────────
 #  CAMERA
 # ────────────────
 C <x,y,z> <orient_x,orient_y,orient_z> <FOV>
-    # <FOV> ∈ [0, 180]
+    # <FOV> [0, 180]
 
 # ────────────────
 #  LIGHT
 # ────────────────
 l <x,y,z> <brightness> <R,G,B>
-    # <brightness> ∈ [0.0, 1.0]
+    # <brightness> [0.0, 1.0]
 
 # ────────────────
 #  OBJECTS
@@ -54,34 +52,34 @@ l <x,y,z> <brightness> <R,G,B>
 #  RULES:
 #   - All objects MUST provide <R,G,B>
 #   - Optionally, they can provide:
-#       • a texture name (declared with `t`)
-#       • a bumpmap name (declared with `t` and type="bump")
+#       • a texture name
+#       • a bumpmap name
 #       • both (texture and bumpmap)
 #       • or neither (plain RGB only)
 #   - If a given name is not declared, the program must exit with error.
 #   - If both color and texture are given, texture overrides the RGB color.
 
 # ─ Sphere
-sp <x,y,z> <north_x,north_y,north_z> <seam_x,seam_y,seam_z> \
-   <diameter> <R,G,B> <reflectiveness> <shininess> [<texture_name> [<bumpmap_name>]]
+sp <x,y,z> <diameter> <R,G,B> <ref> <shine> [<bmp_name/tx_name> <tiles_x> <tiles_y>]
+    # <ref> refletcivness [0.0, 1.0]
+    # <shine> shininess integer [1 500]
+	# <tiles_x> repition of texture along x axis
+	# <tiles_y> repition of texture along y axis
 
 # ─ Plane
-pl <x,y,z> <face_x,face_y,face_z> \
-   <R,G,B> <reflectiveness> <shininess> [<texture_name> [<bumpmap_name>] [<tiles_per_axis>]]
+pl <x,y,z> <face_x,face_y,face_z> <R,G,B> <ref> <shine> [<bmp_name/tx_name> <tiles_x> <tiles_y>]
 
 # ─ Cylinder
-cy <x,y,z> <axis_x,axis_y,axis_z> \
-   <diameter> <height> <R,G,B> <reflectiveness> <shininess> [<texture_name> [<bumpmap_name>]]
+cy <x,y,z> <axis_x,axis_y,axis_z> <diameter> <height> <R,G,B> <ref> <shine> [<bmp_name/tx_name> <tiles_x> <tiles_y>]
 
 # ─ Cone
-cn <x,y,z> <axis_x,axis_y,axis_z> \
-   <angle> <height> <R,G,B> <reflectiveness> <shininess> [<texture_name> [<bumpmap_name>]]
+cn <x,y,z> <axis_x,axis_y,axis_z> <angle> <height> <R,G,B> <ref> <shine> [<bmp_name/tx_name> <tiles_x> <tiles_y>]
 
 # ==========================================================
 #  VALIDATION RULES
 # ==========================================================
-- All referenced <texture_name> or <pattern_name> must be declared.
-- If a referenced name is undeclared → terminate with error.
-- Orientation and normal vectors are normalized after parsing.
-- If both RGB and texture are given → use texture (color is ignored).
+- All referenced <texture_name> or <pattern_name> must be declare before referencing.
+- If a referenced name is undeclared (yet to be declared) → terminate with error.
+- Orientation and normal vectors are normalized at parse time.
+- If both RGB and texture are given (color is ignored).
 - Bumpmaps never affect color — they only modify the shading normal.

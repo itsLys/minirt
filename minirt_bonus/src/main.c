@@ -67,3 +67,4 @@ int	main(int ac, char **av)
 // TODO: test: non exisent files
 // text: duplicate texture names: invalid
 // test: duplicate color texture, bumpmap texture, patter texture
+// TEST: shininess exponent absurd values
