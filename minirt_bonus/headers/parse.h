@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:38:47 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/24 11:46:40 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/11 11:35:34 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void			get_obj_tx(t_obj *obj, char **line, t_data *data);
 void			get_surface_props(t_obj *obj, char *line, t_data *data);
 t_vec3			get_vec3(char **line, t_data *data);
 t_rgb			get_rgb(char **line, t_data *data);
+double          get_double_parameter(char **line, t_data *data);
+int             get_integer_parameter(char **line, t_data *data);
 
 // parse textures
 void			get_texture(t_texture *tx, char **line, t_data *data);

@@ -60,7 +60,6 @@ int	parse_file(char *filename, t_data *data)
 	fd = open(filename, O_RDONLY);
 	if (fd == ERROR)
 		return (print_error(strerror(errno)), ERROR);
-	int i = 1;
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -73,7 +72,6 @@ int	parse_file(char *filename, t_data *data)
 			break ;
 		if (process_line(line, data) == ERROR)
 			return (ERROR);
-		printf("line %d done\n", i++);
 		free(line);
 	}
 	return (SUCCESS);

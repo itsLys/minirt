@@ -6,9 +6,10 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:56:27 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/11 10:48:02 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/11 11:38:37 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minirt.h"
 
@@ -38,7 +39,7 @@ void	parse_ambient_light(char *line, t_data *data)
 
 	if (data->scene.amb.on == true)
 		exit_error(ERR_AMB_LIGHT ERR_MULTI, data);
-	ratio = get_double(&line, data);
+	ratio = get_double_parameter(&line, data);
 	rgb = get_rgb(&line, data);
 	if (ratio < 0.0 || ratio > 1.0)
 		exit_error(ERR_AMB_LIGHT ERR_RATIO, data);
@@ -59,7 +60,7 @@ void	parse_camera(char *line, t_data *data)
 		exit_error(ERR_CAM ERR_MULTI, data);
 	pos = get_vec3(&line, data);
 	norm = vec3_norm(get_vec3(&line, data));
-	fov = get_double(&line, data);
+	fov = get_double_parameter(&line, data);
 	if (fov < 0.0 || fov > 180.0)
 		exit_error(ERR_CAM ERR_FOV, data);
 	data->scene.cam.pos = pos;

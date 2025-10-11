@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_numbers.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 12:56:08 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/24 11:33:06 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/11 11:24:18 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	get_integer(char **line, t_data *data)
 	int	i;
 
 	i = 0;
-	while (ft_isspace(**line))
-		(*line)++;
 	n = parse_num(*line);
 	while (ft_isdigit(**line))
 	{
@@ -49,8 +47,6 @@ double	get_double(char **line, t_data *data)
 	int		i;
 
 	i = 0;
-	while (ft_isspace(**line))
-		(*line)++;
 	f = ft_atof(*line);
 	if (**line == '-' || **line == '+')
 		(*line)++;
