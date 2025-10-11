@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:35:54 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/08 12:08:17 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/11 10:29:42 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,11 @@ t_hit	resolve_sp_hit(t_ray ray, t_obj *obj, t_sp *sp, t_quad quad);
 t_hit	resolve_cn_hit(t_ray ray, t_obj *obj, t_quad quad, t_cn *cn);
 void	resolve_hit(t_hit *hit, t_quad quad);
 void	solve_quadratic(t_quad *quad);
+
+// utils
+int			check_cn_height_intersect(double t, t_ray ray, t_obj *obj,
+				t_cn *cn);
+int			check_cy_height_intersect(double t, t_ray ray, t_obj *obj,
+				t_cy *cy);
 
 #endif // !INTERSECT_H

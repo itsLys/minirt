@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   textures.h                                         :+:      :+:    :+:   */
+/*   print.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/11 10:20:33 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/11 10:22:16 by ihajji           ###   ########.fr       */
+/*   Created: 2025/10/11 10:32:21 by ihajji            #+#    #+#             */
+/*   Updated: 2025/10/11 10:33:35 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEXTURES_H
-# define TEXTURES_H
+#ifndef PRINT_H
+# define PRINT_H
 
 #include "types.h"
 
-void		texture_add(t_texture *tx, t_texture **list);
-t_texture	*find_tx(char *name, t_texture *lst);
+void		print_scene(t_data *data);
+void		print_light(t_obj *obj);
+void		print_cn(t_obj *obj);
+void		print_cy(t_obj *obj);
+void		print_pl(t_obj *obj);
+void		print_sp(t_obj *obj);
+void		print_pos(t_obj *obj);
+void		print_color_props(t_obj *obj);
+void		print_camera(t_cam cam);
+void		print_amb_light(t_amb_light amb);
+void		print_textures(t_texture *lst);
 
-#endif // !TEXTURES_H
+#endif // !PRINT_H
+
 
