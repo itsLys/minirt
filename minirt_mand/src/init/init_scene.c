@@ -19,7 +19,7 @@ void	init_ambient_light(char *line, t_data *data)
 
 	if (data->scene.amb_light.on == true)
 		exit_error(ERR_AMB_LIGHT ERR_MULTI, data);
-	ratio = get_double(&line, data);
+	ratio = get_double_parameter(&line, data);
 	if (ratio < 0.0 || ratio > 1.0)
 		exit_error(ERR_AMB_LIGHT ERR_RATIO, data);
 	rgb = get_rgb(&line, data);
@@ -41,7 +41,7 @@ void	init_light(char *line, t_data *data)
 	if (data->scene.light.on == true)
 		exit_error(ERR_LIGHT ERR_MULTI, data);
 	pos = get_vec3(&line, data);
-	ratio = get_double(&line, data);
+	ratio = get_double_parameter(&line, data);
 	rgb = get_rgb(&line, data);
 	while (ft_isspace(*line))
 		line++;
@@ -65,7 +65,7 @@ void	init_camera(char *line, t_data *data)
 		exit_error(ERR_CAM ERR_MULTI, data);
 	pos = get_vec3(&line, data);
 	norm = get_vec3(&line, data);
-	fov = get_double(&line, data);
+	fov = get_double_parameter(&line, data);
 	while (ft_isspace(*line))
 		line++;
 	if (*line != '\n' && *line != '\0')

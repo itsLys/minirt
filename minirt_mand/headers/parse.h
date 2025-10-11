@@ -21,5 +21,8 @@ double		get_double(char **line, t_data *data);
 t_rgb		get_rgb(char **line, t_data *data);
 t_vec3		get_vec3(char **line, t_data *data);
 int			get_integer(char **line, t_data *data);
+double      get_double_parameter(char **line, t_data *data);
+int         parse_num(char *str);
+
 
 #endif // !PARSE_H

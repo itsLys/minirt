@@ -12,6 +12,18 @@
 
 #include "minirt.h"
 
+int	parse_num(char *str)
+{
+	int	n;
+
+	n = 0;
+	if (*str == '\0')
+		return (ERROR);
+	while (*str && *str >= '0' && *str <= '9')
+		n = (*(str++) - '0') + n * 10;
+	return (n);
+}
+
 static int	check_file_ext(char *filename)
 {
 	char	*ext;
@@ -48,6 +60,7 @@ int	parse_file(char *filename, t_data *data)
 	fd = open(filename, O_RDONLY);
 	if (fd == ERROR)
 		return (print_error(strerror(errno)), ERROR);
+	int i = 1;
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -60,6 +73,7 @@ int	parse_file(char *filename, t_data *data)
 			break ;
 		if (process_line(line, data) == ERROR)
 			return (ERROR);
+		printf("line %d done\n", i++);
 		free(line);
 	}
 	return (SUCCESS);

@@ -12,16 +12,11 @@
 
 #include "minirt.h"
 
-int	parse_num(char *str)
+double	get_double_parameter(char **line, t_data *data)
 {
-	int	n;
-
-	n = 0;
-	if (*str == '\0')
-		return (ERROR);
-	while (*str && *str >= '0' && *str <= '9')
-		n = (*(str++) - '0') + n * 10;
-	return (n);
+	while (ft_isspace(**line))
+		(*line)++;
+	return (get_double(line, data));
 }
 
 int	get_integer(char **line, t_data *data)
@@ -30,8 +25,6 @@ int	get_integer(char **line, t_data *data)
 	int	i;
 
 	i = 0;
-	while (ft_isspace(**line))
-		(*line)++;
 	n = parse_num(*line);
 	while (ft_isdigit(**line))
 	{
@@ -48,6 +41,8 @@ t_rgb	get_rgb(char **line, t_data *data)
 	t_rgb	rgb;
 	int		tmp;
 
+	while (ft_isspace(**line))
+		(*line)++;
 	tmp = get_integer(line, data);
 	if (tmp > 255)
 		exit_error(ERR_RGB, data);
@@ -73,8 +68,6 @@ double	get_double(char **line, t_data *data)
 	int		i;
 
 	i = 0;
-	while (ft_isspace(**line))
-		(*line)++;
 	f = ft_atof(*line);
 	if (**line == '-' || **line == '+')
 		(*line)++;
@@ -96,6 +89,8 @@ t_vec3	get_vec3(char **line, t_data *data)
 {
 	t_vec3	vec3;
 
+	while (ft_isspace(**line))
+		(*line)++;
 	vec3.x = get_double(line, data);
 	if (*(*line)++ != ',')
 		exit_error(ERR_COORDS, data);

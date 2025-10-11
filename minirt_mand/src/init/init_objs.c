@@ -48,7 +48,7 @@ void	init_sphere(char *line, t_data *data)
 	obj->type = T_SP;
 	obj_lst_add(obj, data->scene.obj_list);
 	obj->pos = get_vec3(&line, data);
-	sp->d = get_double(&line, data);
+	sp->d = get_double_parameter(&line, data);
 	if (sp->d < 0)
 		exit_error(ERR_SP ERR_DIAM_POS, data);
 	sp->r = sp->d / 2.0;
@@ -75,11 +75,11 @@ void	init_cylinder(char *line, t_data *data)
 	cy->norm = get_vec3(&line, data);
 	if (!is_close(vec3_len(cy->norm), 1.0))
 		exit_error(ERR_CY ERR_NORM_VAL, data);
-	cy->d = get_double(&line, data);
+	cy->d = get_double_parameter(&line, data);
 	if (cy->d < 0)
 		exit_error(ERR_CY ERR_DIAM_POS, data);
 	cy->r = cy->d / 2.0;
-	cy->h = get_double(&line, data);
+	cy->h = get_double_parameter(&line, data);
 	obj->color = get_rgb(&line, data);
 	while (ft_isspace(*line))
 		line++;
