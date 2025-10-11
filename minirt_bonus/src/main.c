@@ -68,3 +68,8 @@ int	main(int ac, char **av)
 // text: duplicate texture names: invalid
 // test: duplicate color texture, bumpmap texture, patter texture
 // TEST: shininess exponent absurd values
+// TEST: memory leaks valid invalid
+// TEST: wrong texture path
+// TEST: numerical first letter path
+// FIX:  check if tx or bmp exist before taking the two integer tiles
+// FIX: texture is validated even if it deson't load (ambient)
