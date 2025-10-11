@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 09:49:02 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/11 10:01:55 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/11 11:01:52 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ void	print_color_props(t_obj *obj)
 	if (obj->tx)
 		printf("%s	", obj->tx->name);
 	if (obj->tx)
-		printf("%d	%d\n", obj->tiles.x, obj->tiles.y);
+		printf("%d	%d", obj->tiles.x, obj->tiles.y);
 }
