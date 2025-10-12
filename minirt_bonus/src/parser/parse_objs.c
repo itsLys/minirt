@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:58:29 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/11 11:38:22 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/12 09:35:00 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,10 @@ void	parse_cone(char *line, t_data *data)
 	obj->type = T_CN;
 	obj->pos = get_vec3(&line, data);
 	obj->coords.up = vec3_norm(get_vec3(&line, data));
-	cn->angle = get_double_parameter(&line, data) * M_PI / 180.0;
+	cn->angle = get_double_parameter(&line, data);
+	if (fabs(fmod(cn->angle, 360.0)) == 180.0)
+		exit_error("use a different angle for cone\n", data);
+	cn->angle = cn->angle * M_PI / 360;
 	cn->h = get_double_parameter(&line, data);
 	if (cn->h < 0)
 		exit_error("ERR_CN ERR_HEIGHT_POS", data);

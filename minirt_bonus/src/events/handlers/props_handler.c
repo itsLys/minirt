@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 10:07:22 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/24 11:23:47 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/12 09:36:31 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	handle_cn_props(int code, t_cn *cn)
 		cn->h = cn->h + DIAMETER_STEP;
 	else if (code == XK_n)
 		cn->h = fmax(cn->h - DIAMETER_STEP, 0.0);
+	if (fabs(fmod(cn->angle, 360.0)) == 180.0)
+		cn->angle = cn->angle - 1;
 }
 
 void	handle_sp_props(int code, t_sp *sp)
