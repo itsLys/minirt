@@ -15,7 +15,8 @@
 static void	destroy_data(t_data *data)
 {
 	get_next_line(FREE_BUFFER);
-	close(data->fd);
+	if (data->fd >= 0)
+		close(data->fd);
 	free(data->line);
 	destroy_scene(data);
 	destroy_workers(data);

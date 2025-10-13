@@ -50,10 +50,12 @@ void	get_obj_tx(t_obj *obj, char **line, t_data *data)
 	tx = find_tx(name, *(data->scene.tx_lst));
 	if (tx == NULL)
 		return (free(name), exit_error(ERR_TX_NOT_FOUND, data));
-	if (tx->type == TX_BUMP)
+	if (tx->type == TX_BUMP && obj->bmp == NULL)
 		obj->bmp = tx;
-	else
+	else if ((tx->type == TX_COLOR || tx->type == TX_PATT) && obj->tx == NULL)
 		obj->tx = tx;
+	else if (obj->tx || obj->bmp)
+		return (free(name), exit_error(ERR_TYPE_MISS, data));
 	free(name);
 }
 

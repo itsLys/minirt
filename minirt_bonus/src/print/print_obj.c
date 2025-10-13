@@ -62,7 +62,7 @@ void	print_cn(t_obj *obj)
 		obj->coords.up.x,
 		obj->coords.up.y,
 		obj->coords.up.z);
-	printf("%.2lf		", cn->angle * (180 / M_PI));
+	printf("%.2lf		", cn->angle * (360 / M_PI));
 	printf("%.2lf		", cn->h);
 	print_color_props(obj);
 }

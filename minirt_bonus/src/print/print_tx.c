@@ -15,11 +15,11 @@
 void	print_texture_type(t_texture *lst)
 {
 	if (lst->type == TX_COLOR)
-		printf("color");
+		printf("color ");
 	else if (lst->type == TX_BUMP)
-		printf("bump");
+		printf("bump ");
 	else if (lst->type == TX_PATT)
-		printf("patt");
+		printf("patt ");
 }
 
 void	print_textures(t_texture *lst)
@@ -31,16 +31,17 @@ void	print_textures(t_texture *lst)
 		print_texture_type(lst);
 		if (lst->type == TX_PATT)
 		{
-			printf("%d, %d, %d		",
-				(int)(lst->c1.r * 255.999),
-				(int)(lst->c1.g * 255.999),
-				(int)(lst->c1.b * 255.999));
-			printf("%d, %d, %d		",
-				(int)(lst->c2.r * 255.999),
-				(int)(lst->c2.g * 255.999),
-				(int)(lst->c2.b * 255.999));
+			printf("%d,%d,%d		",
+					(int)(lst->c1.r * 255.999),
+					(int)(lst->c1.g * 255.999),
+					(int)(lst->c1.b * 255.999));
+			printf("%d,%d,%d		",
+					(int)(lst->c2.r * 255.999),
+					(int)(lst->c2.g * 255.999),
+					(int)(lst->c2.b * 255.999));
 		}
-		printf("	%s			", lst->path);
+		if (lst->type != TX_PATT)
+			printf("	%s			", lst->path);
 		printf("\n");
 		lst = lst->next;
 	}
