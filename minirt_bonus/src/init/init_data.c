@@ -51,6 +51,7 @@ void	init_data(t_data *data)
 {
 	init_scene(data);
 	data->fd = -1;
+	data->line = NULL;
 	data->mlx = NULL;
 	data->img.img = NULL;
 	data->win = NULL;
