@@ -16,7 +16,7 @@ void	print_amb_light(t_amb_light amb)
 {
 	printf("A	");
 	printf("%.2lf				", amb.ratio);
-	printf("%d, %d, %d			",
+	printf("%d,%d,%d			",
 		(int)(amb.color.r * 255.999),
 		(int)(amb.color.g * 255.999),
 		(int)(amb.color.b * 255.999));
@@ -28,11 +28,11 @@ void	print_amb_light(t_amb_light amb)
 void	print_camera(t_cam cam)
 {
 	printf("C	");
-	printf("%.2lf, %.2lf, %.2lf		",
+	printf("%.2lf,%.2lf,%.2lf		",
 		cam.pos.x,
 		cam.pos.y,
 		cam.pos.z);
-	printf("%.2lf, %.2lf, %.2lf		",
+	printf("%.2lf,%.2lf,%.2lf		",
 		cam.coords.forward.x,
 		cam.coords.forward.y,
 		cam.coords.forward.z);

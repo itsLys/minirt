@@ -14,7 +14,7 @@
 
 void	print_pos(t_obj *obj)
 {
-	printf("%.2lf, %.2lf, %.2lf		",
+	printf("%.2lf,%.2lf,%.2lf		",
 		obj->pos.x,
 		obj->pos.y,
 		obj->pos.z);
@@ -22,7 +22,7 @@ void	print_pos(t_obj *obj)
 
 void	print_color_props(t_obj *obj)
 {
-	printf("%d, %d, %d		",
+	printf("%d,%d,%d		",
 		(int)(obj->color.r * 255.999),
 		(int)(obj->color.g * 255.999),
 		(int)(obj->color.b * 255.999));

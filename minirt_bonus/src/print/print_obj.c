@@ -28,7 +28,7 @@ void	print_pl(t_obj *obj)
 {
 	printf("pl	");
 	print_pos(obj);
-	printf("%.2lf, %.2lf, %.2lf		",
+	printf("%.2lf,%.2lf,%.2lf		",
 		obj->coords.up.x,
 		obj->coords.up.y,
 		obj->coords.up.z);
@@ -42,7 +42,7 @@ void	print_cy(t_obj *obj)
 	printf("cy	");
 	cy = (t_cy *)(obj->shape);
 	print_pos(obj);
-	printf("%.2lf, %.2lf, %.2lf		",
+	printf("%.2lf,%.2lf,%.2lf		",
 		obj->coords.up.x,
 		obj->coords.up.y,
 		obj->coords.up.z);
@@ -58,7 +58,7 @@ void	print_cn(t_obj *obj)
 	printf("cn	");
 	cn = (t_cn *)(obj->shape);
 	print_pos(obj);
-	printf("%.2lf, %.2lf, %.2lf		",
+	printf("%.2lf,%.2lf,%.2lf		",
 		obj->coords.up.x,
 		obj->coords.up.y,
 		obj->coords.up.z);
@@ -76,7 +76,7 @@ void	print_light(t_obj *obj)
 	print_pos(obj);
 	printf("%.2lf		", light->ratio);
 	printf("\t\t");
-	printf("%d, %d, %d		",
+	printf("%d,%d,%d		",
 		(int)(obj->color.r * 255.999),
 		(int)(obj->color.g * 255.999),
 		(int)(obj->color.b * 255.999));
