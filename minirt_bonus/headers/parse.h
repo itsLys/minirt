@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:38:47 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/11 11:35:34 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/13 12:54:24 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void			parse_cone(char *line, t_data *data);
 void			parse_cylinder(char *line, t_data *data);
 void			parse_sphere(char *line, t_data *data);
 void			parse_plane(char *line, t_data *data);
+void            parse_rectangle(char *line, t_data *data);
 
 // parse scene
 void			parse_ambient_light(char *line, t_data *data);

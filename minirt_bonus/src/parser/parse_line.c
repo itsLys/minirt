@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 10:17:38 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/24 11:28:21 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/13 12:56:51 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static int	init_config(char *line, t_data *data)
 		parse_cylinder(line + 2, data);
 	else if (!ft_strncmp(line, "cn", 2) && ft_isspace(line[i + 2]))
 		parse_cone(line + 2, data);
+	else if (!ft_strncmp(line, "rc", 2) && ft_isspace(line[i + 2]))
+		parse_rectangle(line + 2, data);
 	else
 		return (exit_error(ERR_PARAM, data), ERROR);
 	return (SUCCESS);

@@ -6,11 +6,22 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:01:38 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/12 09:37:08 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/13 14:42:15 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	record_hit(t_obj **obj, t_hit *hit, t_ray ray)
+{
+	while (*obj && (*obj)->type == T_LS)
+		(*obj) = (*obj)->next;
+	check_sp_intersect(obj, hit, ray);
+	check_pl_intersect(obj, hit, ray);
+	check_cy_intersect(obj, hit, ray);
+	check_cn_intersect(obj, hit, ray);
+	check_rc_intersect(obj, hit, ray);
+}
 
 t_rgb	trace_ray(t_ray ray, t_data *data)
 {

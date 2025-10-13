@@ -6,10 +6,9 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:58:29 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/12 09:35:00 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/13 15:01:52 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minirt.h"
 
@@ -100,23 +99,24 @@ void	parse_cone(char *line, t_data *data)
 	init_local_coords(obj);
 }
 
-void	parse_light(char *line, t_data *data)
+void	parse_rectangle(char *line, t_data *data)
 {
 	t_obj	*obj;
-	t_light	*light;
+	t_rc	*rc;
 
-	light = malloc(sizeof(t_light));
+	rc = malloc(sizeof(t_rc));
 	obj = malloc(sizeof(t_obj));
-	if (obj == NULL || light == NULL)
-		return (free(light), exit_error(NULL, data));
+	if (!obj || !rc)
+		return (free(rc), exit_error(NULL, data));
 	obj_lst_add(obj, data->scene.obj_lst);
-	obj->shape = light;
-	obj->type = T_LS;
+	obj->shape = rc;
+	obj->type = T_RC;
 	obj->pos = get_vec3(&line, data);
-	light->ratio = get_double_parameter(&line, data);
-	obj->color = get_rgb(&line, data);
-	if (light->ratio < 0.0 || light->ratio > 1.0)
-		exit_error(ERR_LIGHT ERR_RATIO, data);
-	data->scene.light_on = true;
-	skip_trailing(line, data);
+	obj->coords.up = vec3_norm(get_vec3(&line, data));
+	rc->length = get_double_parameter(&line, data);
+	rc->width = get_double_parameter(&line, data);
+	if (rc->length <= 0 || rc->width <= 0)
+		exit_error("length and width must be > 0", data);
+	get_surface_props(obj, line, data);
+	init_local_coords(obj);
 }

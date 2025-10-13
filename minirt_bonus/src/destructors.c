@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destructors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 16:03:40 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/23 13:18:56 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/13 15:02:09 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	destroy_textures(void *mlx, t_texture **lst)
 
 void	destroy_scene(t_data *data)
 {
-
 	if (data->scene.amb.tx && data->scene.amb.tx->img.img)
 		mlx_destroy_image(data->mlx, data->scene.amb.tx->img.img);
 	if (data->scene.amb.tx && data->scene.amb.tx->path)

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 14:26:40 by ihajji            #+#    #+#             */
-/*   Updated: 2024/12/07 14:48:17 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/13 14:56:39 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "get_next_line.h"
 
 // static void	*ft_calloc(size_t nmemb, size_t size)
@@ -80,8 +81,7 @@ char	*get_next_line(int fd)
 	if (fd == FREE_BUFFER)
 	{
 		free(last);
-		// last = NULL;
-		return NULL;
+		return (NULL);
 	}
 	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
 		return (NULL);

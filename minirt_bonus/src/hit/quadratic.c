@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   quadratic.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:05:01 by ihajji            #+#    #+#             */
-/*   Updated: 2025/08/20 17:05:08 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/13 14:51:56 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	resolve_hit(t_hit *hit, t_quad quad)
+{
+	hit->hit = true;
+	if (quad.t1 < EPS && quad.t2 < EPS)
+		hit->hit = false;
+	else if (quad.t1 > EPS)
+		hit->t = quad.t1;
+	else
+		hit->t = quad.t2;
+}
 
 void	solve_quadratic(t_quad *quad)
 {

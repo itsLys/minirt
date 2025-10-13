@@ -6,10 +6,9 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:56:27 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/11 11:38:37 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/13 15:02:19 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minirt.h"
 
@@ -69,5 +68,26 @@ void	parse_camera(char *line, t_data *data)
 	data->scene.cam.on = true;
 	setup_cam_coords(&(data->scene.cam));
 	setup_viewport(&(data->scene.cam));
+	skip_trailing(line, data);
+}
+
+void	parse_light(char *line, t_data *data)
+{
+	t_obj	*obj;
+	t_light	*light;
+
+	light = malloc(sizeof(t_light));
+	obj = malloc(sizeof(t_obj));
+	if (obj == NULL || light == NULL)
+		return (free(light), exit_error(NULL, data));
+	obj_lst_add(obj, data->scene.obj_lst);
+	obj->shape = light;
+	obj->type = T_LS;
+	obj->pos = get_vec3(&line, data);
+	light->ratio = get_double_parameter(&line, data);
+	obj->color = get_rgb(&line, data);
+	if (light->ratio < 0.0 || light->ratio > 1.0)
+		exit_error(ERR_LIGHT ERR_RATIO, data);
+	data->scene.light_on = true;
 	skip_trailing(line, data);
 }

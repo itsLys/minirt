@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:04:42 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/10 18:19:57 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/13 14:53:15 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,15 @@ t_hit	intersect_cn(t_ray ray, t_obj *obj, t_cn *cn)
 	quad.c -= oc_dot_norm * oc_dot_norm;
 	solve_quadratic(&quad);
 	return (resolve_cn_hit(ray, obj, quad, cn));
+}
+
+t_hit	intersect_rc(t_ray ray, t_obj *obj, t_rc *rc)
+{
+	double	a;
+	double	b;
+
+	(void) rc;
+	a = vec3_dot(vec3_subtract(obj->pos, ray.orig), obj->coords.up);
+	b = vec3_dot(ray.dir, obj->coords.up);
+	return (resolve_rc_hit(ray, obj, a, b));
 }

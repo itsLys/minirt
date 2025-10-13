@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:23:27 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/16 11:17:04 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/13 12:59:18 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef enum s_obj_type
 	T_SP,
 	T_PL,
 	T_CY,
-	T_CN
+	T_CN,
+	T_RC
 }						t_obj_type;
 
 typedef enum s_selected_type
@@ -166,6 +167,15 @@ typedef struct s_pl
 	double				w;
 	int					n;
 }						t_pl;
+
+typedef struct s_rc
+{
+	double				h;
+	double				w;
+	int					n;
+	double				length;
+	double				width;
+}						t_rc;
 
 typedef struct s_cy
 {
