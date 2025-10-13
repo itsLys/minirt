@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 16:37:57 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/30 16:42:23 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/13 10:28:49 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,10 @@ t_rgb	compute_lights(t_hit hit, t_data *data)
 
 	sum = int_to_rgb(0);
 	obj = *(data->scene.obj_lst);
-	while (obj)
+	while (obj && obj->type == T_LS)
 	{
-		if (obj && obj->type == T_LS)
-		{
-			light = compute_light(hit, obj, (t_light *)(obj->shape), data);
-			sum = rgb_add(sum, light);
-		}
+		light = compute_light(hit, obj, (t_light *)(obj->shape), data);
+		sum = rgb_add(sum, light);
 		obj = obj->next;
 	}
 	return (sum);
