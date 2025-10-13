@@ -12,9 +12,11 @@
 
 #include "minirt.h"
 
-int	clean_exit(t_data *data, int status)
+static void	destroy_data(t_data *data)
 {
+	get_next_line(FREE_BUFFER);
 	close(data->fd);
+	free(data->line);
 	destroy_scene(data);
 	destroy_workers(data);
 	destroy_mlx(data);
@@ -22,6 +24,11 @@ int	clean_exit(t_data *data, int status)
 		free(data->rays.dirs);
 	if (data->offsets)
 		free(data->offsets);
+}
+
+int	clean_exit(t_data *data, int status)
+{
+	destroy_data(data);
 	exit(status);
 }
 

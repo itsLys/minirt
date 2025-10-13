@@ -14,8 +14,6 @@
 
 int	parse_file(char *filename, t_data *data)
 {
-	char	*line;
-
 	if (check_file_ext(filename) == ERROR)
 		return (exit_error(ERR_FILE_EXTENSION, data), ERROR);
 	data->fd = open(filename, O_RDONLY);
@@ -23,17 +21,19 @@ int	parse_file(char *filename, t_data *data)
 		return (exit_error(strerror(errno), data), ERROR);
 	while (1)
 	{
-		line = get_next_line(data->fd);
-		while (line && ft_strisempty(line))
+		data->line = get_next_line(data->fd);
+		while (data->line && ft_strisempty(data->line))
 		{
-			free(line);
-			line = get_next_line(data->fd);
+			free(data->line);
+			data->line = get_next_line(data->fd);
 		}
-		if (line == NULL)
+		if (data->line == NULL)
 			break ;
-		if (parse_line(line, data) == ERROR)
+		if (parse_line(data->line, data) == ERROR)
 			return (ERROR);
-		free(line);
+		free(data->line);
+		data->line = NULL;
 	}
+	get_next_line(FREE_BUFFER);
 	return (SUCCESS);
 }
