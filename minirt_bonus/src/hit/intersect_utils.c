@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:24:49 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/13 14:53:38 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/13 16:36:28 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ bool	check_rc_height_length(t_obj *obj, t_vec3 hitpoint)
 	v = vec3_subtract(hitpoint, obj->pos);
 	a = fabs(vec3_dot(v, obj->coords.forward));
 	b = fabs(vec3_dot(v, obj->coords.right));
-	if (a > rc->width || b > rc->length)
+	if (a < -rc->width / 2.0 || a > rc->width / 2.0
+		|| b < -rc->length / 2.0 || b > rc->length / 2.0)
 		return (false);
 	return (true);
 }

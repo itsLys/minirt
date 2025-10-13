@@ -6,13 +6,13 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 09:14:21 by yel-guad          #+#    #+#             */
-/*   Updated: 2025/10/13 15:47:37 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/13 16:35:35 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_vec2	sphere_ratio(t_hit hit, t_sp *sp)
+t_vec2	sphere_ratio(t_hit hit, t_sp *sp)
 {
 	t_vec2	coords;
 	t_vec3	local;
@@ -29,7 +29,7 @@ static t_vec2	sphere_ratio(t_hit hit, t_sp *sp)
 	return (coords);
 }
 
-static t_vec2	cylinder_ratio(t_hit hit, t_cy *cy)
+t_vec2	cylinder_ratio(t_hit hit, t_cy *cy)
 {
 	t_vec3	local;
 	t_vec2	coords;
@@ -44,7 +44,7 @@ static t_vec2	cylinder_ratio(t_hit hit, t_cy *cy)
 	return (coords);
 }
 
-static t_vec2	plane_ratio(t_hit hit, t_pl *pl)
+t_vec2	plane_ratio(t_hit hit, t_pl *pl)
 {
 	t_vec3	local;
 	t_vec2	coords;
@@ -62,7 +62,7 @@ static t_vec2	plane_ratio(t_hit hit, t_pl *pl)
 	return (coords);
 }
 
-static t_vec2	cone_ratio(t_hit hit, t_cn *cn)
+t_vec2	cone_ratio(t_hit hit, t_cn *cn)
 {
 	t_vec3	local;
 	t_vec2	coords;
@@ -77,7 +77,7 @@ static t_vec2	cone_ratio(t_hit hit, t_cn *cn)
 	return (coords);
 }
 
-static t_vec2	rectangle_ratio(t_hit hit, t_rc *rc)
+t_vec2	rectangle_ratio(t_hit hit, t_rc *rc)
 {
 	t_vec3	local;
 	t_vec3	v;
@@ -87,22 +87,13 @@ static t_vec2	rectangle_ratio(t_hit hit, t_rc *rc)
 	v = vec3_subtract(hit.point, hit.obj->pos);
 	coords.x = vec3_dot(v, hit.obj->coords.forward);
 	coords.y = vec3_dot(v, hit.obj->coords.right);
-	coords.x = (coords.x + rc->width/2.0) / rc->width;
-	coords.y = (coords.y + rc->length/2.0) / rc->length;
+	coords.x = (coords.x + rc->width / 2.0) / rc->width;
+	coords.y = (coords.y + rc->length / 2.0) / rc->length;
+	coords.x = fmod(coords.x * hit.obj->tiles.x, 1.0);
+	coords.y = fmod(coords.y * hit.obj->tiles.y, 1.0);
+	if (coords.x < 0)
+		coords.x = 1 + coords.x;
+	if (coords.y < 0)
+		coords.y = 1 + coords.y;
 	return (coords);
-}
-
-t_vec2	compute_texture_ratio(t_hit hit)
-{
-	if (hit.obj->type == T_SP)
-		return (sphere_ratio(hit, hit.obj->shape));
-	else if (hit.obj->type == T_PL)
-		return (plane_ratio(hit, hit.obj->shape));
-	else if (hit.obj->type == T_CY)
-		return (cylinder_ratio(hit, hit.obj->shape));
-	else if (hit.obj->type == T_CN)
-		return (cone_ratio(hit, hit.obj->shape));
-	else if (hit.obj->type == T_RC)
-		return (rectangle_ratio(hit, hit.obj->shape));
-	return ((t_vec2){-1, -1});
 }
