@@ -27,11 +27,12 @@ t_hit	resolve_sp_hit(t_ray ray, t_obj *obj, t_sp *sp, t_quad quad)
 {
 	t_hit	hit;
 
+	(void) sp;
 	resolve_hit(&hit, quad);
 	if (hit.hit == false)
 		return ((t_hit){.hit = false});
 	hit.point = vec3_add(ray.orig, vec3_scale(hit.t, ray.dir));
-	hit.normal = vec3_scale(1.0 / sp->r, vec3_subtract(hit.point, obj->pos));
+	hit.normal = vec3_norm(vec3_subtract(hit.point, obj->pos));
 	if (vec3_dot(ray.dir, hit.normal) > 0)
 		hit.normal = vec3_negate(hit.normal);
 	return (hit);
@@ -40,9 +41,9 @@ t_hit	resolve_sp_hit(t_ray ray, t_obj *obj, t_sp *sp, t_quad quad)
 t_hit	resolve_cy_hit(t_ray ray, t_obj *obj, t_cy *cy, t_quad quad)
 {
 	t_hit	hit;
-	int		f;
+	int		inside;
 
-	f = 0;
+	inside = false;
 	resolve_hit(&hit, quad);
 	if (hit.hit == false)
 		return ((t_hit){.hit = false});
@@ -52,7 +53,7 @@ t_hit	resolve_cy_hit(t_ray ray, t_obj *obj, t_cy *cy, t_quad quad)
 	{
 		hit.t = quad.t2;
 		hit.hit = check_cy_height_intersect(quad.t2, ray, obj, cy);
-		f = 1;
+		inside = true;
 	}
 	if (hit.hit == false)
 		return (hit);
@@ -61,7 +62,7 @@ t_hit	resolve_cy_hit(t_ray ray, t_obj *obj, t_cy *cy, t_quad quad)
 				obj->coords.up), obj->coords.up);
 	hit.normal = vec3_subtract(hit.point, vec3_add(obj->pos, hit.normal));
 	hit.normal = vec3_norm(hit.normal);
-	if (f)
+	if (inside)
 		hit.normal = vec3_negate(hit.normal);
 	return (hit);
 }
@@ -103,6 +104,8 @@ t_hit	resolve_cn_hit(t_ray ray, t_obj *obj, t_quad quad, t_cn *cn)
 		hit.t = quad.t2;
 		hit.hit = check_cn_height_intersect(quad.t2, ray, obj, cn);
 	}
+	if (hit.hit == false)
+		return (hit);
 	hit.point = vec3_add(ray.orig, vec3_scale(hit.t, ray.dir));
 	hit.normal = vec3_subtract(hit.point, obj->pos);
 	term1 = vec3_scale(vec3_dot(hit.normal, obj->coords.up), obj->coords.up);
