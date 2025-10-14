@@ -24,6 +24,7 @@ void	handle_coords_rotate(int code, t_local_coords *coords);
 void	handle_sp_props(int code, t_sp *sp);
 void	handle_cn_props(int code, t_cn *cn);
 void	handle_cy_props(int code, t_cy *cy);
+void	handle_rc_props(int code, t_rc *rc);
 void	handle_light_props(int code, t_light *light);
 void	handle_cam_props(int code, t_cam *cam);
 void	select_next_light(t_data *data);

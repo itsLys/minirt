@@ -22,6 +22,8 @@ static t_hit	record_shadow(t_obj *obj, t_ray ray)
 		return (intersect_cy(ray, obj, (t_cy *)(obj->shape)));
 	if (obj->type == T_CN)
 		return (intersect_cn(ray, obj, (t_cn *)(obj->shape)));
+	if (obj->type == T_RC)
+		return (intersect_rc(ray, obj, (t_rc *)(obj->shape)));
 	return ((t_hit){0});
 }
 

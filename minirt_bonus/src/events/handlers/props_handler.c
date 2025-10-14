@@ -62,3 +62,18 @@ void	handle_sp_props(int code, t_sp *sp)
 	else if (code == XK_minus)
 		sp->r = fmax(sp->r - DIAMETER_STEP, 0.0);
 }
+
+// FIX: refactor change  place
+void	handle_rc_props(int code, t_rc *rc)
+{
+	if (code == XK_equal)
+		rc->width = rc->width + DIAMETER_STEP;
+	else if (code == XK_minus)
+		rc->width = fmax(rc->width - DIAMETER_STEP, 0.0);
+	else if (code == XK_m)
+		rc->length = rc->length + DIAMETER_STEP;
+	else if (code == XK_n)
+		rc->length = fmax(rc->length - DIAMETER_STEP, 0.0);
+	if (fabs(fmod(rc->width, 360.0)) == 180.0)
+		rc->width = rc->width - 1;
+}

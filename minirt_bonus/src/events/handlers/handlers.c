@@ -22,16 +22,19 @@ void	handle_props(int code, t_data *data)
 	}
 	else if (data->scene.selected.type == T_LIGHT)
 		handle_light_props(code,
-			(t_light *)(data->scene.selected.light->shape));
+				(t_light *)(data->scene.selected.light->shape));
 	else if (data->scene.selected.type == T_OBJ
-		&& data->scene.selected.obj->type == T_CY)
+			&& data->scene.selected.obj->type == T_CY)
 		handle_cy_props(code, (t_cy *)(data->scene.selected.obj->shape));
 	else if (data->scene.selected.type == T_OBJ
-		&& data->scene.selected.obj->type == T_CN)
+			&& data->scene.selected.obj->type == T_CN)
 		handle_cn_props(code, (t_cn *)(data->scene.selected.obj->shape));
 	else if (data->scene.selected.type == T_OBJ
-		&& data->scene.selected.obj->type == T_SP)
+			&& data->scene.selected.obj->type == T_SP)
 		handle_sp_props(code, (t_sp *)(data->scene.selected.obj->shape));
+	else if (data->scene.selected.type == T_OBJ
+			&& data->scene.selected.obj->type == T_RC)
+		handle_rc_props(code, (t_rc *)(data->scene.selected.obj->shape));
 }
 
 void	handle_obj_move(int code, t_data *data)
@@ -43,10 +46,10 @@ void	handle_obj_move(int code, t_data *data)
 	}
 	else if (data->scene.selected.type == T_LIGHT)
 		handle_translate(code, &(data->scene.selected.light->pos),
-			data->scene.cam);
+				data->scene.cam);
 	else if (data->scene.selected.type == T_OBJ)
 		handle_translate(code, &(data->scene.selected.obj->pos),
-			data->scene.cam);
+				data->scene.cam);
 }
 
 void	handle_coords_rotate(int code, t_local_coords *coords)

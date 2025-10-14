@@ -163,16 +163,11 @@ typedef struct s_sp
 
 typedef struct s_pl
 {
-	double				h;
-	double				w;
-	int					n;
+
 }						t_pl;
 
 typedef struct s_rc
 {
-	double				h;
-	double				w;
-	int					n;
 	double				length;
 	double				width;
 }						t_rc;
