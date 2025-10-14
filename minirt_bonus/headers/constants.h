@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   constants.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:19:43 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/23 13:04:50 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/14 15:20:52 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define PATT_W 512
 
 // constants
-# define SPLIT 4
+# define SPLIT 5
 # define EPS 1e-6
 # define CAM_ROTATE_STEP 0.025
 # define ROTATE_STEP 0.05

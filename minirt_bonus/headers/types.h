@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:23:27 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/13 12:59:18 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/14 15:45:47 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,8 +241,10 @@ typedef struct s_hit
 	double				t;
 	t_vec3				point;
 	t_vec3				normal;
+	t_vec3				normal_bumped;
 	t_rgb				color;
 	t_obj				*obj;
+	int					inside;
 }						t_hit;
 
 // global data

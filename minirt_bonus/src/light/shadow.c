@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shadow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 16:39:14 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/30 16:42:43 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/14 16:17:16 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,19 @@ bool	is_shadow(t_hit hit, t_obj *light, t_data *data)
 {
 	t_hit	tmp;
 	t_obj	*obj;
-	t_ray	ray;
+	t_ray	ls_ray;
 	double	light_distance;
 
-	ray.orig = hit.point;
-	ray.dir = vec3_subtract(light->pos, hit.point);
-	light_distance = vec3_len(ray.dir);
-	ray.dir = vec3_norm(ray.dir);
+	ls_ray.orig = hit.point;
+	ls_ray.dir = vec3_subtract(light->pos, hit.point);
+	light_distance = vec3_len(ls_ray.dir);
+	ls_ray.dir = vec3_norm(ls_ray.dir);
 	obj = *(data->scene.obj_lst);
+	if (vec3_dot(ls_ray.dir, hit.normal) < 0)
+		return (true);
 	while (obj)
 	{
-		tmp = record_shadow(obj, ray);
+		tmp = record_shadow(obj, ls_ray);
 		if (tmp.hit && tmp.t > EPS && is_less_then(tmp.t, light_distance))
 			return (true);
 		obj = obj->next;
