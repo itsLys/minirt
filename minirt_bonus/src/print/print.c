@@ -26,6 +26,8 @@ void	print_objects(t_obj *obj)
 			print_light(obj);
 		else if (obj->type == T_CN)
 			print_cn(obj);
+		else if (obj->type == T_RC)
+			print_rc(obj);
 		printf("\n");
 		obj = obj->next;
 	}

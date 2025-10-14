@@ -12,12 +12,12 @@
 
 #include "minirt.h"
 
-void	print_pos(t_obj *obj)
+void	print_vec3(t_vec3 vec)
 {
 	printf("%.2lf,%.2lf,%.2lf		",
-		obj->pos.x,
-		obj->pos.y,
-		obj->pos.z);
+		vec.x,
+		vec.y,
+		vec.z);
 }
 
 void	print_color_props(t_obj *obj)

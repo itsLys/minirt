@@ -18,7 +18,7 @@ void	print_sp(t_obj *obj)
 
 	printf("sp	");
 	sp = (t_sp *)(obj->shape);
-	print_pos(obj);
+	print_vec3(obj->pos);
 	printf("%.2lf		", sp->r * 2);
 	printf("\t\t");
 	print_color_props(obj);
@@ -27,11 +27,8 @@ void	print_sp(t_obj *obj)
 void	print_pl(t_obj *obj)
 {
 	printf("pl	");
-	print_pos(obj);
-	printf("%.2lf,%.2lf,%.2lf		",
-		obj->coords.up.x,
-		obj->coords.up.y,
-		obj->coords.up.z);
+	print_vec3(obj->pos);
+	print_vec3(obj->coords.up);
 	print_color_props(obj);
 }
 
@@ -41,11 +38,8 @@ void	print_cy(t_obj *obj)
 
 	printf("cy	");
 	cy = (t_cy *)(obj->shape);
-	print_pos(obj);
-	printf("%.2lf,%.2lf,%.2lf		",
-		obj->coords.up.x,
-		obj->coords.up.y,
-		obj->coords.up.z);
+	print_vec3(obj->pos);
+	print_vec3(obj->coords.up);
 	printf("%.2lf		", cy->r * 2);
 	printf("%.2lf		", cy->h);
 	print_color_props(obj);
@@ -57,23 +51,34 @@ void	print_cn(t_obj *obj)
 
 	printf("cn	");
 	cn = (t_cn *)(obj->shape);
-	print_pos(obj);
-	printf("%.2lf,%.2lf,%.2lf		",
-		obj->coords.up.x,
-		obj->coords.up.y,
-		obj->coords.up.z);
+	print_vec3(obj->pos);
+	print_vec3(obj->coords.up);
 	printf("%.2lf		", cn->angle * (360 / M_PI));
 	printf("%.2lf		", cn->h);
 	print_color_props(obj);
 }
 
+void	print_rc(t_obj *obj)
+{
+	t_rc *rc;
+
+	printf("rc	");
+	rc = (t_rc *)(obj->shape);
+	print_vec3(obj->pos);
+	print_vec3(obj->coords.up);
+	printf("%.2lf		", rc->length); // REFACTOR: change later to height
+	printf("%.2lf		", rc->width);
+	print_color_props(obj);
+}
+
+// FIX: change place
 void	print_light(t_obj *obj)
 {
 	t_light	*light;
 
 	printf("l	");
 	light = (t_light *)(obj->shape);
-	print_pos(obj);
+	print_vec3(obj->pos);
 	printf("%.2lf		", light->ratio);
 	printf("\t\t");
 	printf("%d,%d,%d		",

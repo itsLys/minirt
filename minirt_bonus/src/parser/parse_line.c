@@ -35,6 +35,8 @@ static int	init_config(char *line, t_data *data)
 		parse_cone(line + 2, data);
 	else if (!ft_strncmp(line, "rc", 2) && ft_isspace(line[i + 2]))
 		parse_rectangle(line + 2, data);
+	else if (!ft_strncmp(line, "#", 1))
+		return 0;
 	else
 		return (exit_error(ERR_PARAM, data), ERROR);
 	return (SUCCESS);
