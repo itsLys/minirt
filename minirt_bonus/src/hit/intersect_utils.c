@@ -52,7 +52,7 @@ bool	check_rc_height_length(t_obj *obj, t_vec3 hitpoint)
 	a = fabs(vec3_dot(v, obj->coords.forward));
 	b = fabs(vec3_dot(v, obj->coords.right));
 	if (a < -rc->width / 2.0 || a > rc->width / 2.0
-		|| b < -rc->length / 2.0 || b > rc->length / 2.0)
+		|| b < -rc->height / 2.0 || b > rc->height / 2.0)
 		return (false);
 	return (true);
 }

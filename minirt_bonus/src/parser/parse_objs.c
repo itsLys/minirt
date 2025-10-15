@@ -113,10 +113,10 @@ void	parse_rectangle(char *line, t_data *data)
 	obj->type = T_RC;
 	obj->pos = get_vec3(&line, data);
 	obj->coords.up = vec3_norm(get_vec3(&line, data));
-	rc->length = get_double_parameter(&line, data);
 	rc->width = get_double_parameter(&line, data);
-	if (rc->length <= 0 || rc->width <= 0)
-		exit_error("length and width must be > 0", data);
+	rc->height = get_double_parameter(&line, data);
+	if (rc->height <= 0 || rc->width <= 0)
+		exit_error("ERR_RC ERR_WIDTH_HEIGHT", data);
 	get_surface_props(obj, line, data);
 	init_local_coords(obj);
 }

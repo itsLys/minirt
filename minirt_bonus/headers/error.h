@@ -23,16 +23,17 @@
 # define ERR_SP "Sphere: "
 # define ERR_PL "Plane: "
 # define ERR_CN "Cone: "
+# define ERR_RC "Rectangle: "
 # define ERR_LIGHT "Light: "
 # define ERR_PARAM "Wrong parameter field\n"
 # define ERR_TX "Texture: "
-
 // ERR PARAMS
 # define ERR_RGB "RGB is not correct\n"
 # define ERR_DIAM_POS "Diameter must be 0\n"
 # define ERR_DBL "Double is not correct\n"
 # define ERR_INT "Integer is not correct\n"
 # define ERR_RATIO "Ratio is not correct\n"
+# define ERR_WIDTH_HEIGHT "Width and Height is not correct\n"
 # define ERR_NORM_VAL "Normalized value is not correct\n"
 # define ERR_FOV "Fov is not correct\n"
 # define ERR_COORDS "Wrong coordination form!\n"

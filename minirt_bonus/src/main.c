@@ -71,8 +71,3 @@ int	main(int ac, char **av)
 // TEST: memory leaks valid invalid
 // TEST: wrong texture path
 // TEST: numerical first letter path
-// FIX:  check if tx or bmp exist before taking the two integer tiles
-// FIX: texture is validated even if it deson't load (ambient)
-// FIX: change length to height
-// FIX: change width and length (rc) order
-// FIX: add width and length manipulation to events (rc)

@@ -71,9 +71,9 @@ void	handle_rc_props(int code, t_rc *rc)
 	else if (code == XK_minus)
 		rc->width = fmax(rc->width - DIAMETER_STEP, 0.0);
 	else if (code == XK_m)
-		rc->length = rc->length + DIAMETER_STEP;
+		rc->height = rc->height + DIAMETER_STEP;
 	else if (code == XK_n)
-		rc->length = fmax(rc->length - DIAMETER_STEP, 0.0);
+		rc->height = fmax(rc->height - DIAMETER_STEP, 0.0);
 	if (fabs(fmod(rc->width, 360.0)) == 180.0)
 		rc->width = rc->width - 1;
 }

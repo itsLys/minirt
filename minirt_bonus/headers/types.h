@@ -168,8 +168,8 @@ typedef struct s_pl
 
 typedef struct s_rc
 {
-	double				length;
 	double				width;
+	double				height;
 }						t_rc;
 
 typedef struct s_cy

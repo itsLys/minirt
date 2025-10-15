@@ -66,8 +66,8 @@ void	print_rc(t_obj *obj)
 	rc = (t_rc *)(obj->shape);
 	print_vec3(obj->pos);
 	print_vec3(obj->coords.up);
-	printf("%.2lf		", rc->length); // REFACTOR: change later to height
 	printf("%.2lf		", rc->width);
+	printf("%.2lf		", rc->height); // REFACTOR: change later to height
 	print_color_props(obj);
 }
 
