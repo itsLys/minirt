@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 10:11:18 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/13 09:32:38 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/15 08:55:42 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static void	init_workers(t_worker *worker, t_data *data,
 void	init_data(t_data *data)
 {
 	init_scene(data);
+	ft_memset(data->keys, 0, sizeof(data->keys));
 	data->fd = -1;
 	data->line = NULL;
 	data->mlx = NULL;

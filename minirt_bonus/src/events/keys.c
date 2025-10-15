@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 15:58:32 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/10 18:26:36 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/15 08:51:20 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ static void	handle_tiling(int code, t_data *data)
 
 int	handle_keypress(int code, t_data *data)
 {
+	if (code < 65536)
+		data->keys[code] = 1;
+	
 	if (code == XK_Up || code == XK_Down || code == XK_Left || code == XK_Right
 		|| code == XK_Page_Up || code == XK_Page_Down)
 		handle_obj_move(code, data);

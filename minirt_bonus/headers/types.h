@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:23:27 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/14 15:45:47 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/15 08:49:06 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,6 +272,7 @@ struct					s_data
 	t_vec2				*offsets;
 	t_worker			*render_workers;
 	t_worker			*mapping_workers;
+	int					keys[65536];
 };
 
 #endif // !TYPES_H
