@@ -14,29 +14,26 @@
 
 static int	init_config(char *line, t_data *data)
 {
-	int	i;
-
-	i = 0;
-	if (line[i] == 'A' && ft_isspace(line[i + 1]))
+	if (!ft_strncmp(line, "A", 1) && ft_isspace(line[1]))
 		parse_ambient_light(line + 1, data);
-	else if (line[i] == 'C' && ft_isspace(line[i + 1]))
+	else if (!ft_strncmp(line, "C", 1) && ft_isspace(line[1]))
 		parse_camera(line + 1, data);
-	else if (line[i] == 'l' && ft_isspace(line[i + 1]))
+	else if (!ft_strncmp(line, "l", 1) && ft_isspace(line[1]))
 		parse_light(line + 1, data);
-	else if (line[i] == 't' && ft_isspace(line[i + 1]))
+	else if (!ft_strncmp(line, "t", 1) && ft_isspace(line[1]))
 		parse_texture(line + 1, data);
-	else if (!ft_strncmp(line, "pl", 2) && ft_isspace(line[i + 2]))
+	else if (!ft_strncmp(line, "pl", 2) && ft_isspace(line[2]))
 		parse_plane(line + 2, data);
-	else if (!ft_strncmp(line, "sp", 2) && ft_isspace(line[i + 2]))
+	else if (!ft_strncmp(line, "sp", 2) && ft_isspace(line[2]))
 		parse_sphere(line + 2, data);
-	else if (!ft_strncmp(line, "cy", 2) && ft_isspace(line[i + 2]))
+	else if (!ft_strncmp(line, "cy", 2) && ft_isspace(line[2]))
 		parse_cylinder(line + 2, data);
-	else if (!ft_strncmp(line, "cn", 2) && ft_isspace(line[i + 2]))
+	else if (!ft_strncmp(line, "cn", 2) && ft_isspace(line[2]))
 		parse_cone(line + 2, data);
-	else if (!ft_strncmp(line, "rc", 2) && ft_isspace(line[i + 2]))
+	else if (!ft_strncmp(line, "rc", 2) && ft_isspace(line[2]))
 		parse_rectangle(line + 2, data);
 	else if (!ft_strncmp(line, "#", 1))
-		return 0;
+		return (SUCCESS);
 	else
 		return (exit_error(ERR_PARAM, data), ERROR);
 	return (SUCCESS);
