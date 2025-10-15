@@ -32,13 +32,13 @@ void	print_textures(t_texture *lst)
 		if (lst->type == TX_PATT)
 		{
 			printf("%d,%d,%d		",
-					(int)(lst->c1.r * 255.999),
-					(int)(lst->c1.g * 255.999),
-					(int)(lst->c1.b * 255.999));
+				(int)(lst->c1.r * 255.999),
+				(int)(lst->c1.g * 255.999),
+				(int)(lst->c1.b * 255.999));
 			printf("%d,%d,%d		",
-					(int)(lst->c2.r * 255.999),
-					(int)(lst->c2.g * 255.999),
-					(int)(lst->c2.b * 255.999));
+				(int)(lst->c2.r * 255.999),
+				(int)(lst->c2.g * 255.999),
+				(int)(lst->c2.b * 255.999));
 		}
 		if (lst->type != TX_PATT)
 			printf("	%s			", lst->path);

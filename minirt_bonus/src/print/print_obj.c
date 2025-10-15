@@ -60,29 +60,13 @@ void	print_cn(t_obj *obj)
 
 void	print_rc(t_obj *obj)
 {
-	t_rc *rc;
+	t_rc	*rc;
 
 	printf("rc	");
 	rc = (t_rc *)(obj->shape);
 	print_vec3(obj->pos);
 	print_vec3(obj->coords.up);
 	printf("%.2lf		", rc->width);
-	printf("%.2lf		", rc->height); // REFACTOR: change later to height
+	printf("%.2lf		", rc->height);
 	print_color_props(obj);
-}
-
-// FIX: change place
-void	print_light(t_obj *obj)
-{
-	t_light	*light;
-
-	printf("l	");
-	light = (t_light *)(obj->shape);
-	print_vec3(obj->pos);
-	printf("%.2lf		", light->ratio);
-	printf("\t\t");
-	printf("%d,%d,%d		",
-		(int)(obj->color.r * 255.999),
-		(int)(obj->color.g * 255.999),
-		(int)(obj->color.b * 255.999));
 }

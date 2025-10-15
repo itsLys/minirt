@@ -13,15 +13,14 @@
 #ifndef TEXTURES_H
 # define TEXTURES_H
 
-#include "types.h"
+# include "types.h"
 
 void		texture_add(t_texture *tx, t_texture **list);
 t_texture	*find_tx(char *name, t_texture *lst);
-t_vec2	sphere_ratio(t_hit hit, t_sp *sp);
-t_vec2	cylinder_ratio(t_hit hit, t_cy *cy);
-t_vec2	plane_ratio(t_hit hit, t_pl *pl);
-t_vec2	cone_ratio(t_hit hit, t_cn *cn);
-t_vec2	rectangle_ratio(t_hit hit, t_rc *rc);
+t_vec2		sphere_ratio(t_hit hit, t_sp *sp);
+t_vec2		cylinder_ratio(t_hit hit, t_cy *cy);
+t_vec2		plane_ratio(t_hit hit, t_pl *pl);
+t_vec2		cone_ratio(t_hit hit, t_cn *cn);
+t_vec2		rectangle_ratio(t_hit hit, t_rc *rc);
 
 #endif // !TEXTURES_H
-

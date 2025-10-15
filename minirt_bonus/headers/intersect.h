@@ -15,7 +15,6 @@
 
 # include "types.h"
 
-
 void	check_sp_intersect(t_obj **obj, t_hit *hit, t_ray ray);
 void	check_pl_intersect(t_obj **obj, t_hit *hit, t_ray ray);
 void	check_cy_intersect(t_obj **obj, t_hit *hit, t_ray ray);

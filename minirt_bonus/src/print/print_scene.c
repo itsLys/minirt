@@ -25,6 +25,21 @@ void	print_amb_light(t_amb_light amb)
 	printf("\n");
 }
 
+void	print_light(t_obj *obj)
+{
+	t_light	*light;
+
+	printf("l	");
+	light = (t_light *)(obj->shape);
+	print_vec3(obj->pos);
+	printf("%.2lf		", light->ratio);
+	printf("\t\t");
+	printf("%d,%d,%d		",
+		(int)(obj->color.r * 255.999),
+		(int)(obj->color.g * 255.999),
+		(int)(obj->color.b * 255.999));
+}
+
 void	print_camera(t_cam cam)
 {
 	printf("C	");

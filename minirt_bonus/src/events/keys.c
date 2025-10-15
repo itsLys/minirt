@@ -56,7 +56,6 @@ int	handle_keypress(int code, t_data *data)
 {
 	if (code < 65536)
 		data->keys[code] = 1;
-
 	if (code == XK_Up || code == XK_Down || code == XK_Left || code == XK_Right
 		|| code == XK_Page_Up || code == XK_Page_Down)
 		handle_obj_move(code, data);

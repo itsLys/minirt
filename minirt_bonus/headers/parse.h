@@ -24,8 +24,8 @@ void			get_obj_tx(t_obj *obj, char **line, t_data *data);
 void			get_surface_props(t_obj *obj, char *line, t_data *data);
 t_vec3			get_vec3(char **line, t_data *data);
 t_rgb			get_rgb(char **line, t_data *data);
-double          get_double_parameter(char **line, t_data *data);
-int             get_integer_parameter(char **line, t_data *data);
+double			get_double_parameter(char **line, t_data *data);
+int				get_integer_parameter(char **line, t_data *data);
 
 // parse textures
 void			get_texture(t_texture *tx, char **line, t_data *data);
@@ -40,7 +40,7 @@ void			parse_cone(char *line, t_data *data);
 void			parse_cylinder(char *line, t_data *data);
 void			parse_sphere(char *line, t_data *data);
 void			parse_plane(char *line, t_data *data);
-void            parse_rectangle(char *line, t_data *data);
+void			parse_rectangle(char *line, t_data *data);
 
 // parse scene
 void			parse_ambient_light(char *line, t_data *data);

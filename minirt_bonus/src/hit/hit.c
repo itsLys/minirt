@@ -16,7 +16,7 @@ t_hit	resolve_sp_hit(t_ray ray, t_obj *obj, t_sp *sp, t_quad quad)
 {
 	t_hit	hit;
 
-	(void) sp;
+	(void)sp;
 	hit.inside = false;
 	resolve_hit(&hit, quad);
 	if (hit.hit == false)
@@ -51,7 +51,8 @@ t_hit	resolve_cy_hit(t_ray ray, t_obj *obj, t_cy *cy, t_quad quad)
 		return (hit);
 	hit.point = vec3_add(ray.orig, vec3_scale(hit.t, ray.dir));
 	hit.normal = vec3_scale(vec3_dot(vec3_subtract(hit.point, obj->pos),
-				obj->coords.up), obj->coords.up);
+				obj->coords.up),
+			obj->coords.up);
 	hit.normal = vec3_subtract(hit.point, vec3_add(obj->pos, hit.normal));
 	hit.normal = vec3_norm(hit.normal);
 	if (hit.inside)
@@ -136,7 +137,8 @@ t_hit	resolve_cn_hit(t_ray ray, t_obj *obj, t_quad quad, t_cn *cn)
 	term1 = vec3_scale(vec3_dot(hit.normal, obj->coords.up), obj->coords.up);
 	term2 = vec3_scale(cosf(cn->angle) * cosf(cn->angle), hit.normal);
 	hit.normal = vec3_norm(vec3_subtract(term1, term2));
-	if (vec3_dot(ray.dir, hit.normal) > 0) // if (hit.inside == true) must work too but not working
+	if (vec3_dot(ray.dir, hit.normal) > 0)
+	// BUG: if (hit.inside == true) must work too but not working
 		hit.normal = vec3_negate(hit.normal);
 	return (hit);
 }

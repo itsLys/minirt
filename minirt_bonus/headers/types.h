@@ -163,7 +163,6 @@ typedef struct s_sp
 
 typedef struct s_pl
 {
-
 }						t_pl;
 
 typedef struct s_rc
