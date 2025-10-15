@@ -1,8 +1,8 @@
-A   0.25                14,14,15          ../night_sky.xpm
-C   19.65,0.00,20.35      -0.71,0.00,-0.71      39.00
+A       0.25                            14,14,15                        ../night_sky.xpm
+C       30.76,0.00,-15.24               -0.86,0.00,0.51         39.00
 
-t   earth            color   ../earth.xpm
-t   earth_bmp            bump    ../earth_bmp.xpm
+t       earth                  			color   ../earth.xpm
+t       earth_bmp                       bump    ../earth_bmp.xpm
 
-l   185.03,0.00,15.32     1.00                255,255,255
-sp  0.00,0.00,0.00        10.00               200,200,200       0.25    5   earth_bmp    earth    1   1
+l       351.74,-26.25,137.85            0.90                            255,255,255
+sp      0.00,0.00,0.00          		10.00                           200,200,200             0.95    1      earth_bmp       earth   1       1

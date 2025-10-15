@@ -25,35 +25,38 @@ t_rgb	compute_amb(t_rgb obj, t_amb_light amb)
 t_rgb	compute_defuse(t_hit hit, t_obj *light_obj, t_light *light)
 {
 	t_rgb	color;
-	t_vec3	light_dir;
+	t_vec3	point_to_light;
 	double	angle;
 
-	light_dir = vec3_norm(vec3_subtract(light_obj->pos, hit.point));
-	angle = fmax(0, vec3_dot(hit.normal_bumped, light_dir));
-	color.r = angle * light->ratio * light_obj->color.r * hit.color.r;
-	color.g = angle * light->ratio * light_obj->color.g * hit.color.g;
-	color.b = angle * light->ratio * light_obj->color.b * hit.color.b;
+	point_to_light = vec3_subtract(light_obj->pos, hit.point);
+	point_to_light = vec3_norm(point_to_light);
+	angle = fmax(0, vec3_dot(hit.normal_bumped, point_to_light));
+	color.r = hit.color.r * light->ratio * light_obj->color.r * angle;
+	color.g = hit.color.g * light->ratio * light_obj->color.g * angle;
+	color.b = hit.color.b * light->ratio * light_obj->color.b * angle;
 	return (color);
 }
 
-t_rgb	compute_spacular(t_hit hit, t_obj *l_obj, t_light *light, t_cam cam)
+t_rgb	compute_spacular(t_hit hit, t_obj *light_obj, t_light *light, t_cam cam)
 {
 	t_rgb	color;
-	t_vec3	ref_vec;
-	t_vec3	light_dir;
+	t_vec3	reflected_light;
+	t_vec3	point_to_light;
+	t_vec3	point_to_camera;
 	double	angle;
-	double	shininess;
 
-	light_dir = vec3_norm(vec3_subtract(l_obj->pos, hit.point));
-	ref_vec = vec3_scale(2 * vec3_dot(hit.normal_bumped, light_dir),
-			hit.normal_bumped);
-	ref_vec = vec3_subtract(ref_vec, light_dir);
-	angle = fmax(0, vec3_dot(ref_vec, vec3_norm(vec3_subtract(cam.pos,
-						hit.point))));
-	shininess = pow(angle, hit.obj->shine);
-	color.r = hit.obj->ref * shininess * light->ratio * l_obj->color.r;
-	color.g = hit.obj->ref * shininess * light->ratio * l_obj->color.g;
-	color.b = hit.obj->ref * shininess * light->ratio * l_obj->color.b;
+	point_to_light = vec3_subtract(light_obj->pos, hit.point);
+	point_to_light = vec3_norm(point_to_light);
+	point_to_camera = vec3_subtract(cam.pos, hit.point);
+	point_to_camera = vec3_norm(point_to_camera);
+	angle = 2 * vec3_dot(hit.normal_bumped, point_to_light);
+	reflected_light = vec3_scale(angle, hit.normal_bumped);
+	reflected_light = vec3_subtract(reflected_light, point_to_light);
+	angle = fmax(0, vec3_dot(reflected_light, point_to_camera));
+	angle = pow(angle, hit.obj->shine);
+	color.r =  hit.obj->ref * angle * light->ratio * light_obj->color.r;
+	color.g =  hit.obj->ref * angle * light->ratio * light_obj->color.g;
+	color.b =  hit.obj->ref * angle * light->ratio * light_obj->color.b;
 	return (color);
 }
 
@@ -66,6 +69,7 @@ t_rgb	compute_light(t_hit hit, t_obj *l_obj, t_light *light, t_data *data)
 	if (is_shadow(hit, l_obj, data) == true)
 		return (rgb(0, 0, 0));
 	diffuse = compute_defuse(hit, l_obj, light);
+	// diffuse = (rgb(0, 0, 0)); // REMOVE
 	spacular = compute_spacular(hit, l_obj, light, data->scene.cam);
 	color.r = diffuse.r + spacular.r;
 	color.g = diffuse.g + spacular.g;
