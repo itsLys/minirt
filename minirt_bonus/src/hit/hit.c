@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 12:09:07 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/14 15:33:30 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/15 10:00:31 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_hit	resolve_pl_hit(t_ray ray, t_obj *obj, double a, double b)
 	hit.normal = obj->coords.up;
 	if (vec3_dot(ray.dir, hit.normal) > 0)
 	{
-		hit.inside = true;	
+		hit.inside = true;
 		hit.normal = vec3_scale(-1, hit.normal);
 	}
 	return (hit);
@@ -106,7 +106,7 @@ t_hit	resolve_rc_hit(t_ray ray, t_obj *obj, double a, double b)
 	hit.normal = obj->coords.up;
 	if (vec3_dot(ray.dir, hit.normal) > 0)
 	{
-		hit.inside = true;	
+		hit.inside = true;
 		hit.normal = vec3_scale(-1, hit.normal);
 	}
 	return (hit);
@@ -114,10 +114,9 @@ t_hit	resolve_rc_hit(t_ray ray, t_obj *obj, double a, double b)
 
 t_hit	resolve_cn_hit(t_ray ray, t_obj *obj, t_quad quad, t_cn *cn)
 {
-	t_vec3	term1;
-	t_vec3	term2;
 	t_hit	hit;
 
+	t_vec3 (term1), (term2);
 	hit.inside = false;
 	resolve_hit(&hit, quad);
 	if (hit.hit == false)
@@ -137,7 +136,7 @@ t_hit	resolve_cn_hit(t_ray ray, t_obj *obj, t_quad quad, t_cn *cn)
 	term1 = vec3_scale(vec3_dot(hit.normal, obj->coords.up), obj->coords.up);
 	term2 = vec3_scale(cosf(cn->angle) * cosf(cn->angle), hit.normal);
 	hit.normal = vec3_norm(vec3_subtract(term1, term2));
-	if (vec3_dot(ray.dir, hit.normal) > 0)
+	if (vec3_dot(ray.dir, hit.normal) > 0) // if (hit.inside == true) must work too but not working
 		hit.normal = vec3_negate(hit.normal);
 	return (hit);
 }

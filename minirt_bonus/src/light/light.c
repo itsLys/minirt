@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/30 16:37:57 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/14 16:15:33 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/15 09:51:50 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ t_rgb	compute_spacular(t_hit hit, t_obj *l_obj, t_light *light, t_cam cam)
 	double	shininess;
 
 	light_dir = vec3_norm(vec3_subtract(l_obj->pos, hit.point));
-	ref_vec = vec3_scale(2 * vec3_dot(hit.normal_bumped, light_dir), hit.normal_bumped);
+	ref_vec = vec3_scale(2 * vec3_dot(hit.normal_bumped, light_dir),
+			hit.normal_bumped);
 	ref_vec = vec3_subtract(ref_vec, light_dir);
 	angle = fmax(0, vec3_dot(ref_vec, vec3_norm(vec3_subtract(cam.pos,
 						hit.point))));

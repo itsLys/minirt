@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 16:17:58 by yel-guad          #+#    #+#             */
-/*   Updated: 2025/10/14 16:08:58 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/15 09:51:18 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,14 @@ void	apply_bump_map(t_hit *hit, t_vec2 coords)
 	g = compute_height_gradient(tx, coords);
 	if (hit->obj->type == T_PL || hit->obj->type == T_RC)
 	{
-		tangent = hit->obj->coords.forward;	
-		bitangent = hit->obj->coords.right;	
+		tangent = hit->obj->coords.forward;
+		bitangent = hit->obj->coords.right;
 	}
 	else
 		compute_tangent_bitangent(*hit, &tangent, &bitangent);
-	hit->normal_bumped = vec3_add(hit->normal, vec3_scale(STRENGTH * g.x, tangent));
-	hit->normal_bumped = vec3_add(hit->normal_bumped, vec3_scale(STRENGTH * g.y, bitangent));
+	hit->normal_bumped = vec3_add(hit->normal,
+			vec3_scale(STRENGTH * g.x, tangent));
+	hit->normal_bumped = vec3_add(hit->normal_bumped,
+			vec3_scale(STRENGTH * g.y, bitangent));
 	hit->normal_bumped = vec3_norm(hit->normal_bumped);
 }

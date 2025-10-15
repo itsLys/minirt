@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 15:58:33 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/15 08:56:39 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/15 09:58:45 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,8 @@ void	handle_rotation(int code, t_data *data)
 		handle_coords_rotate(code, &(data->scene.selected.obj->coords));
 }
 
-int	render_img(t_data *data)
+static void	handle_held_keys(t_data *data)
 {
-	static int	threads_number;
-
 	if (data->keys[XK_Up])
 		handle_obj_move(XK_Up, data);
 	if (data->keys[XK_Down])
@@ -51,7 +49,6 @@ int	render_img(t_data *data)
 		handle_obj_move(XK_Left, data);
 	if (data->keys[XK_Right])
 		handle_obj_move(XK_Right, data);
-
 	if (data->keys[XK_w])
 		handle_rotation(XK_w, data);
 	if (data->keys[XK_s])
@@ -60,11 +57,19 @@ int	render_img(t_data *data)
 		handle_rotation(XK_a, data);
 	if (data->keys[XK_d])
 		handle_rotation(XK_d, data);
-
+	if (data->keys[XK_q])
+		handle_rotation(XK_q, data);
+	if (data->keys[XK_e])
+		handle_rotation(XK_e, data);
 	if (data->keys[XK_Escape])
 		clean_exit(data, SUCCESS);
-		
-	// Already exists
+}
+
+int	render_img(t_data *data)
+{
+	static int	threads_number;
+
+	handle_held_keys(data);
 	threads_number = SPLIT * SPLIT;
 	init_threads(data->render_workers, threads_number);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
