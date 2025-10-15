@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/21 10:11:18 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/15 08:55:42 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/15 14:53:44 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	init_workers(t_worker *worker, t_data *data,
 	int	i;
 
 	i = 0;
-	while (i < SPLIT * SPLIT)
+	while (i < SPLIT)
 	{
 		worker[i].tid = 0;
 		worker[i].number = i;
@@ -58,8 +58,8 @@ void	init_data(t_data *data)
 	data->win = NULL;
 	data->offsets = NULL;
 	data->rays.dirs = NULL;
-	data->render_workers = malloc(sizeof(t_worker) * SPLIT * SPLIT);
-	data->mapping_workers = malloc(sizeof(t_worker) * SPLIT * SPLIT);
+	data->render_workers = malloc(sizeof(t_worker) * SPLIT);
+	data->mapping_workers = malloc(sizeof(t_worker) * SPLIT);
 	if (data->render_workers == NULL || data->mapping_workers == NULL)
 		return (free(data->render_workers), exit_error(NULL, data));
 	init_workers(data->mapping_workers, data, work_directions);

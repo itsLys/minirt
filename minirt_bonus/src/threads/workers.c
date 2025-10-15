@@ -3,32 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   workers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 10:42:59 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/21 11:04:31 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/15 15:09:42 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// TODO: fham
 void	set_worker_bounds(t_worker *worker)
 {
-	t_int_vec2	tile;
-	t_int_vec2	start;
-	t_int_vec2	end;
+	int	d;
 
-	tile.x = worker->number % SPLIT;
-	tile.y = worker->number / SPLIT;
-	start.x = (WIDTH * tile.x) / SPLIT;
-	start.y = (HEIGHT * tile.y) / SPLIT;
-	end.x = ((WIDTH * (tile.x + 1)) / SPLIT);
-	end.y = ((HEIGHT * (tile.y + 1)) / SPLIT);
-	worker->start.x = start.x;
-	worker->start.y = start.y;
-	worker->end.x = end.x;
-	worker->end.y = end.y;
+	d = HEIGHT/SPLIT;
+	worker->start.y = worker->number * d;
+	if (worker->number == SPLIT - 1)
+		worker->end.y = HEIGHT -1;
+	else
+		worker->end.y = (worker->number + 1) * d;
+	worker->start.x = 0;
+	worker->end.x = WIDTH;
 }
 
 void	work_rendering(t_worker *worker)
@@ -59,7 +54,7 @@ void	spawn_mapping_workers(t_data *data)
 {
 	static int	thread_number;
 
-	thread_number = SPLIT * SPLIT;
+	thread_number = SPLIT;
 	init_threads(data->mapping_workers, thread_number);
 	join_threads(data->mapping_workers, thread_number);
 }

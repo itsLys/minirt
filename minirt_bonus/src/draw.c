@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 16:00:53 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/25 15:59:35 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/15 14:52:50 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	draw_image(t_data *data, t_int_vec2 start, t_int_vec2 end)
 	t_rgb		color;
 
 	rays = data->rays;
-	i = start.x;
-	while (i < end.x)
+	i = 0;
+	while (i < WIDTH)
 	{
 		j = start.y;
 		while (j < end.y)

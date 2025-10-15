@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:19:43 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/15 09:25:26 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/15 15:07:09 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define PATT_W 512
 
 // constants
-# define SPLIT 5
+# define SPLIT 24
 # define EPS 1e-6
 # define CAM_ROTATE_STEP 0.025
 # define ROTATE_STEP 0.05

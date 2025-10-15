@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/20 16:03:40 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/13 15:02:09 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/15 15:00:10 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	destroy_workers(t_data *data)
 {
-	join_threads(data->mapping_workers, SPLIT * SPLIT);
-	join_threads(data->render_workers, SPLIT * SPLIT);
+	join_threads(data->mapping_workers, SPLIT);
+	join_threads(data->render_workers, SPLIT);
 	free(data->mapping_workers);
 	free(data->render_workers);
 }

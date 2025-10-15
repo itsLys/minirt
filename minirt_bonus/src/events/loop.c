@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 15:58:33 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/15 09:58:45 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/15 14:53:33 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	render_img(t_data *data)
 	static int	threads_number;
 
 	handle_held_keys(data);
-	threads_number = SPLIT * SPLIT;
+	threads_number = SPLIT;
 	init_threads(data->render_workers, threads_number);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 	join_threads(data->render_workers, threads_number);
