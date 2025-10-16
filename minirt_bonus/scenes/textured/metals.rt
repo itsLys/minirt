@@ -1,0 +1,22 @@
+A   0.75                200,200,200
+C   0.00,0.00,20.00     0.00,0.00,-1.00     48.00
+
+t   steel           color   ../metal_kit/steel.xpm
+t   zinc            color   ../metal_kit/zinc.xpm
+t   zinc_bmp            bump    ../metal_kit/zinc_bmp.xpm
+t   gold            color   ../metal_kit/gold.xpm
+t   gold_bmp            bump    ../metal_kit/gold_bmp.xpm
+t   steel2          color   ../metal_kit/steel2.xpm
+t   steel2_bmp          bump    ../metal_kit/steel2_bmp.xpm
+t   matte           color   ../metal_kit/matte.xpm
+t   matte_bmp           bump    ../metal_kit/matte_bmp.xpm
+t   earth           color   ../earth_kit/earth.xpm
+t   earth_bmp           bump    ../earth_kit/earth_bmp.xpm
+
+l   -30.50,1.00,67.50       0.50                255,255,250
+cy  0.00,0.00,0.00      0.20,0.98,0.00      2.00        6.00        180,80,5        0.25    40  steel   2   2
+cy  -4.00,0.00,0.00     0.20,0.98,0.00      2.00        6.00        180,80,5        0.45    80  zinc_bmp    zinc    2   2
+cy  -8.00,0.00,0.00     0.20,0.98,0.00      2.00        6.00        180,80,5        0.55    120 gold_bmp    gold    2   2
+cy  4.00,0.00,0.00      0.20,0.98,0.00      2.00        6.00        180,80,5        0.70    220 steel2_bmp  steel2  2   2
+cy  8.00,0.00,0.00      0.20,0.98,0.00      2.00        6.00        180,80,5        0.10    10  matte_bmp   matte   2   2
+cy  12.00,0.00,0.00     0.20,0.98,0.00      2.00        6.00        180,80,5        1.0    200  earth_bmp   earth   2   2
