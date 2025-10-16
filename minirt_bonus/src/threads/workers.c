@@ -16,10 +16,10 @@ void	set_worker_bounds(t_worker *worker)
 {
 	int	d;
 
-	d = HEIGHT/SPLIT;
+	d = HEIGHT / SPLIT;
 	worker->start.y = worker->number * d;
 	if (worker->number == SPLIT - 1)
-		worker->end.y = HEIGHT -1;
+		worker->end.y = HEIGHT - 1;
 	else
 		worker->end.y = (worker->number + 1) * d;
 	worker->start.x = 0;

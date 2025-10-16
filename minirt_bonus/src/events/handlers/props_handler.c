@@ -6,28 +6,11 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 10:07:22 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/12 09:36:31 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/16 10:46:43 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-void	handle_cam_props(int code, t_cam *cam)
-{
-	if (code == XK_equal)
-		cam->fov = fmin(cam->fov + FOV_STEP, FOV_MAX);
-	else if (code == XK_minus)
-		cam->fov = fmax(cam->fov - FOV_STEP, 0.0);
-	setup_viewport(cam);
-}
-
-void	handle_light_props(int code, t_light *light)
-{
-	if (code == XK_equal)
-		light->ratio = fmin(light->ratio + RATIO_STEP, RATIO_MAX);
-	else if (code == XK_minus)
-		light->ratio = fmax(light->ratio - RATIO_STEP, RATIO_MIN);
-}
 
 void	handle_cy_props(int code, t_cy *cy)
 {

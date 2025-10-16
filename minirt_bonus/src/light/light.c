@@ -54,9 +54,9 @@ t_rgb	compute_spacular(t_hit hit, t_obj *light_obj, t_light *light, t_cam cam)
 	reflected_light = vec3_subtract(reflected_light, point_to_light);
 	angle = fmax(0, vec3_dot(reflected_light, point_to_camera));
 	angle = pow(angle, hit.obj->shine);
-	color.r =  hit.obj->ref * angle * light->ratio * light_obj->color.r;
-	color.g =  hit.obj->ref * angle * light->ratio * light_obj->color.g;
-	color.b =  hit.obj->ref * angle * light->ratio * light_obj->color.b;
+	color.r = hit.obj->ref * angle * light->ratio * light_obj->color.r;
+	color.g = hit.obj->ref * angle * light->ratio * light_obj->color.g;
+	color.b = hit.obj->ref * angle * light->ratio * light_obj->color.b;
 	return (color);
 }
 
@@ -69,7 +69,6 @@ t_rgb	compute_light(t_hit hit, t_obj *l_obj, t_light *light, t_data *data)
 	if (is_shadow(hit, l_obj, data) == true)
 		return (rgb(0, 0, 0));
 	diffuse = compute_defuse(hit, l_obj, light);
-	// diffuse = (rgb(0, 0, 0)); // REMOVE
 	spacular = compute_spacular(hit, l_obj, light, data->scene.cam);
 	color.r = diffuse.r + spacular.r;
 	color.g = diffuse.g + spacular.g;
