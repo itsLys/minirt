@@ -35,6 +35,8 @@ void	get_surface_props(t_obj *obj, char *line, t_data *data)
 	{
 		obj->tiles.x = get_integer_parameter(&line, data);
 		obj->tiles.y = get_integer_parameter(&line, data);
+		if (obj->tiles.x <= 0 || obj->tiles.y <= 0)
+			exit_error(ERR_TX ERR_WRONG_TILES, data);
 	}
 	if (obj->ref < 0.0 || obj->ref > 1.0)
 		exit_error(ERR_WRONG_REF, data);
