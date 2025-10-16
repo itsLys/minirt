@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:24:49 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/13 16:36:28 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/16 11:07:45 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,17 @@ bool	check_rc_height_length(t_obj *obj, t_vec3 hitpoint)
 		|| b < -rc->height / 2.0 || b > rc->height / 2.0)
 		return (false);
 	return (true);
+}
+
+t_vec3	cn_hit_normal(t_obj *obj, t_vec3 point, t_cn *cn)
+{
+	t_vec3	normal;
+	t_vec3	term1;
+	t_vec3	term2;
+
+	normal = vec3_subtract(point, obj->pos);
+	term1 = vec3_scale(vec3_dot(normal, obj->coords.up), obj->coords.up);
+	term2 = vec3_scale(cosf(cn->angle) * cosf(cn->angle), normal);
+	normal = vec3_norm(vec3_subtract(term1, term2));
+	return (normal);
 }

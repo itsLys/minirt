@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:35:54 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/13 14:51:13 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/16 11:22:23 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	solve_quadratic(t_quad *quad);
 bool	check_cn_height_intersect(double t, t_ray ray, t_obj *obj, t_cn *cn);
 bool	check_cy_height_intersect(double t, t_ray ray, t_obj *obj, t_cy *cy);
 bool	check_rc_height_length(t_obj *obj, t_vec3 hitpoint);
+t_vec3	cn_hit_normal(t_obj *obj, t_vec3 point, t_cn *cn);
 
 #endif // !INTERSECT_H

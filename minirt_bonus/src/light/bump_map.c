@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 16:17:58 by yel-guad          #+#    #+#             */
-/*   Updated: 2025/10/15 09:51:18 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/16 11:21:57 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,14 @@ static double	gray_ratio(t_rgb color)
 	return (0.299 * color.r + 0.587 * color.g + 0.114 * color.b);
 }
 
-static void	compute_tangent_bitangent(t_hit hit, t_vec3 *t, t_vec3 *b)
+static void	compute_tan_bitan(t_hit hit, t_vec3 *t, t_vec3 *b, t_obj_type type)
 {
-	*t = vec3_norm(vec3_cross(hit.obj->coords.up, hit.normal));
+	t_vec3	up;
+
+	up = hit.obj->coords.up;
+	if (type == T_CN)
+		up = vec3_negate(up);
+	*t = vec3_norm(vec3_cross(up, hit.normal));
 	*b = vec3_cross(*t, hit.normal);
 }
 
@@ -60,7 +65,7 @@ void	apply_bump_map(t_hit *hit, t_vec2 coords)
 		bitangent = hit->obj->coords.right;
 	}
 	else
-		compute_tangent_bitangent(*hit, &tangent, &bitangent);
+		compute_tan_bitan(*hit, &tangent, &bitangent, hit->obj->type);
 	hit->normal_bumped = vec3_add(hit->normal,
 			vec3_scale(STRENGTH * g.x, tangent));
 	hit->normal_bumped = vec3_add(hit->normal_bumped,

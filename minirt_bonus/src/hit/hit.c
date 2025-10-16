@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/23 12:09:07 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/15 10:00:31 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/16 11:07:41 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ t_hit	resolve_cn_hit(t_ray ray, t_obj *obj, t_quad quad, t_cn *cn)
 {
 	t_hit	hit;
 
-	t_vec3 (term1), (term2);
 	hit.inside = false;
 	resolve_hit(&hit, quad);
 	if (hit.hit == false)
@@ -128,17 +127,15 @@ t_hit	resolve_cn_hit(t_ray ray, t_obj *obj, t_quad quad, t_cn *cn)
 	{
 		hit.t = quad.t2;
 		hit.hit = check_cn_height_intersect(quad.t2, ray, obj, cn);
-		hit.inside = true;
 	}
 	if (hit.hit == false)
 		return (hit);
 	hit.point = vec3_add(ray.orig, vec3_scale(hit.t, ray.dir));
-	hit.normal = vec3_subtract(hit.point, obj->pos);
-	term1 = vec3_scale(vec3_dot(hit.normal, obj->coords.up), obj->coords.up);
-	term2 = vec3_scale(cosf(cn->angle) * cosf(cn->angle), hit.normal);
-	hit.normal = vec3_norm(vec3_subtract(term1, term2));
+	hit.normal = cn_hit_normal(obj, hit.point, cn);
 	if (vec3_dot(ray.dir, hit.normal) > 0)
-	// BUG: if (hit.inside == true) must work too but not working
+	{
+		hit.inside = true;
 		hit.normal = vec3_negate(hit.normal);
+	}
 	return (hit);
 }
