@@ -11,6 +11,13 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
+# define CLEAR   "\033[K\r"
+
+static void	print_current_line(void)
+{
+	static int	i;
+	printf(CLEAR "current line:	%d", ++i);
+}
 
 int	parse_file(char *filename, t_data *data)
 {
@@ -22,10 +29,12 @@ int	parse_file(char *filename, t_data *data)
 	while (1)
 	{
 		data->line = get_next_line(data->fd);
+		print_current_line();
 		while (data->line && ft_strisempty(data->line))
 		{
 			free(data->line);
 			data->line = get_next_line(data->fd);
+			print_current_line();
 		}
 		if (data->line == NULL)
 			break ;

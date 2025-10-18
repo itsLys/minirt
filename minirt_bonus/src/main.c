@@ -63,11 +63,5 @@ int	main(int ac, char **av)
 	print_scene(&data);
 	mlx_loop(data.mlx);
 }
-
-// TODO: test: non exisent files
-// text: duplicate texture names: invalid
-// test: duplicate color texture, bumpmap texture, patter texture
-// TEST: shininess exponent absurd values
-// TEST: memory leaks valid invalid
-// TEST: wrong texture path
-// TEST: numerical first letter path
+// FIX: fix printing for mandatory
+// FIX: mand structure

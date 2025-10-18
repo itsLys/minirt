@@ -67,12 +67,9 @@ static void	handle_held_keys(t_data *data)
 
 int	render_img(t_data *data)
 {
-	static int	threads_number;
-
 	handle_held_keys(data);
-	threads_number = SPLIT;
-	init_threads(data->render_workers, threads_number);
+	init_threads(data->render_workers, SPLIT);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
-	join_threads(data->render_workers, threads_number);
+	join_threads(data->render_workers, SPLIT);
 	return (0);
 }

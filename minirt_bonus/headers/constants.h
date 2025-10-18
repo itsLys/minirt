@@ -20,7 +20,7 @@
 # define EXT ".rt"
 
 // windows dimensions
-# define WIDTH 1080
+# define WIDTH 	720
 # define HEIGHT 720
 
 // pattern defaults

@@ -12,6 +12,8 @@
 
 #include "minirt.h"
 
+// R(t)
+
 t_hit	intersect_sp(t_ray ray, t_obj *obj, t_sp *sp)
 {
 	t_quad	quad;
@@ -20,7 +22,7 @@ t_hit	intersect_sp(t_ray ray, t_obj *obj, t_sp *sp)
 	oc = vec3_subtract(ray.orig, obj->pos);
 	quad.a = 1;
 	quad.b = 2 * vec3_dot(ray.dir, oc);
-	quad.c = vec3_dot(oc, oc) - sp->r * sp->r;
+	quad.c = -sp->r * sp->r + vec3_dot(oc, oc) ;
 	solve_quadratic(&quad);
 	return (resolve_sp_hit(ray, obj, sp, quad));
 }
