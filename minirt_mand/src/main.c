@@ -16,6 +16,9 @@ int	clean_exit(t_data *data, int status)
 {
 	destroy_mlx(data);
 	free(data->mlx);
+	free(data->line);
+	if (data->fd >= 0)
+		close(data->fd);
 	obj_lst_free(data->scene.obj_list);
 	if (data->scene.rays.dirs)
 		destroy_cam_rays(data->scene.rays);

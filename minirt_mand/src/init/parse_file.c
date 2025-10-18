@@ -50,29 +50,26 @@ int	process_line(char *line, t_data *data)
 
 int	parse_file(char *filename, t_data *data)
 {
-	int		fd;
-	char	*line;
-
 	data->scene.obj_list = malloc(sizeof(t_obj *));
 	*(data->scene.obj_list) = NULL;
 	if (check_file_ext(filename) == ERROR)
 		return (ERROR);
-	fd = open(filename, O_RDONLY);
-	if (fd == ERROR)
+	data->fd = open(filename, O_RDONLY);
+	if (data->fd == ERROR)
 		return (print_error(strerror(errno)), ERROR);
 	while (1)
 	{
-		line = get_next_line(fd);
-		while (line && ft_strisempty(line))
+		data->line = get_next_line(data->fd);
+		while (data->line && ft_strisempty(data->line))
 		{
-			free(line);
-			line = get_next_line(fd);
+			free(data->line);
+			data->line = get_next_line(data->fd);
 		}
-		if (line == NULL)
+		if (data->line == NULL)
 			break ;
-		if (process_line(line, data) == ERROR)
+		if (process_line(data->line, data) == ERROR)
 			return (ERROR);
-		free(line);
+		free(data->line);
 	}
 	return (SUCCESS);
 }

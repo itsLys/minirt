@@ -158,6 +158,8 @@ typedef struct s_data
 {
 	t_selected		selected;
 	t_scene			scene;
+	char			*line;
+	int				fd;
 	t_vec2			*offsets;
 	void			*mlx;
 	void			*win;
