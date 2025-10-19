@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 09:14:21 by yel-guad          #+#    #+#             */
-/*   Updated: 2025/10/17 18:14:08 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/19 15:29:24 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,9 @@ t_vec2	rectangle_ratio(t_hit hit, t_rc *rc)
 	t_vec2	coords;
 
 	local = world_to_local(hit, hit.obj->coords);
-	coords.y = (local.z + rc->height / 2.0) / rc->height;
-	coords.x = (local.x + rc->width / 2.0) / rc->width;
-	coords.y = fmod(coords.y * hit.obj->tiles.y, 1.0);
+	coords.x = (local.z + rc->width / 2.0) / rc->width;
+	coords.y = (local.x + rc->height / 2.0) / rc->height;
 	coords.x = fmod(coords.x * hit.obj->tiles.x, 1.0);
-	if (coords.x < 0)
-		coords.x = 1 + coords.x;
-	if (coords.y < 0)
-		coords.y = 1 + coords.y;
+	coords.y = fmod(coords.y * hit.obj->tiles.y, 1.0);
 	return (coords);
 }
