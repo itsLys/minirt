@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 12:45:21 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/24 11:31:47 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/19 10:50:44 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	get_texture(t_texture *tx, char **line, t_data *data)
 	else if (tx->type == TX_BUMP || tx->type == TX_COLOR)
 	{
 		tx->path = get_string(line, data);
+		tx->strength = STRENGTH;
 		if (tx->path == NULL)
 			exit_error(ERR_TX ERR_REL_PATH, data);
 		get_image(tx, data);

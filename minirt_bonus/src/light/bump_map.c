@@ -6,13 +6,11 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/07 16:17:58 by yel-guad          #+#    #+#             */
-/*   Updated: 2025/10/16 11:21:57 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/19 11:12:01 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-#define STRENGTH -3
 
 static double	gray_ratio(t_rgb color)
 {
@@ -58,6 +56,9 @@ void	apply_bump_map(t_hit *hit, t_vec2 coords)
 	t_vec3		bitangent;
 
 	tx = hit->obj->bmp;
+	if (fabs(vec3_dot(hit->normal, hit->obj->coords.up)) > 0.9999
+		&& hit->obj->type != T_PL && hit->obj->type != T_RC)
+		return ;
 	g = compute_height_gradient(tx, coords);
 	if (hit->obj->type == T_PL || hit->obj->type == T_RC)
 	{
@@ -67,8 +68,8 @@ void	apply_bump_map(t_hit *hit, t_vec2 coords)
 	else
 		compute_tan_bitan(*hit, &tangent, &bitangent, hit->obj->type);
 	hit->normal_bumped = vec3_add(hit->normal,
-			vec3_scale(STRENGTH * g.x, tangent));
+			vec3_scale(hit->obj->tx->strength * g.x, tangent));
 	hit->normal_bumped = vec3_add(hit->normal_bumped,
-			vec3_scale(STRENGTH * g.y, bitangent));
+			vec3_scale(hit->obj->tx->strength * g.y, bitangent));
 	hit->normal_bumped = vec3_norm(hit->normal_bumped);
 }

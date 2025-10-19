@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:23:27 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/15 08:49:06 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/19 10:54:54 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_texture
 	int					width;
 	int					height;
 	int					tiles;
+	int					strength;
 	t_rgb				c1;
 	t_rgb				c2;
 	struct s_texture	*next;

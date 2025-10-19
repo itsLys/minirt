@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 10:38:04 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/15 09:40:10 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/19 11:09:40 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	rotate_tilt(int code, t_local_coords *coords)
 {
-	if (code == XK_s)
+	if (code == XK_w)
 		coords->forward = rotate(coords->forward,
 				coords->right, CAM_ROTATE_STEP);
-	else if (code == XK_w)
+	else if (code == XK_s)
 		coords->forward = rotate(coords->forward,
 				coords->right, CAM_ROTATE_STEP * -1);
 	coords->up = vec3_norm(vec3_cross(coords->right, coords->forward));

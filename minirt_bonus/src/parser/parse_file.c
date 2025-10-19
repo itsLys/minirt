@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:53:50 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/24 11:27:57 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/19 11:13:46 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-# define CLEAR   "\033[K\r"
+
+#define CLEAR "\033[K\r"
 
 static void	print_current_line(void)
 {
 	static int	i;
+
 	printf(CLEAR "current line:	%d", ++i);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handlers.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:40:36 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/24 11:50:02 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/19 10:54:03 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,9 @@ void	handle_light_props(int code, t_light *light);
 void	handle_cam_props(int code, t_cam *cam);
 void	select_next_light(t_data *data);
 void	select_object(int x, int y, t_data *data);
+void	handle_rotation(int code, t_data *data);
+void	handle_obj_select(int code, t_data *data);
+void	handle_strength(int code, t_data *data);
+void	handle_tiling(int code, t_data *data);
+
 #endif // !HANDLERS_H

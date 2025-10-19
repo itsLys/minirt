@@ -28,6 +28,7 @@ SRC         = src/camera.c \
 			  src/events/handlers/scene_props_handler.c \
 			  src/events/handlers/rotate_handler.c \
 			  src/events/handlers/select_handler.c \
+			  src/events/handlers/handle_moves.c \
 			  src/events/keys.c \
 			  src/events/loop.c \
 			  src/exit.c \

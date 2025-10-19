@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:04:42 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/13 14:53:15 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/19 11:14:07 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ t_hit	intersect_sp(t_ray ray, t_obj *obj, t_sp *sp)
 	oc = vec3_subtract(ray.orig, obj->pos);
 	quad.a = 1;
 	quad.b = 2 * vec3_dot(ray.dir, oc);
-	quad.c = -sp->r * sp->r + vec3_dot(oc, oc) ;
+	quad.c = -sp->r * sp->r + vec3_dot(oc, oc);
 	solve_quadratic(&quad);
 	return (resolve_sp_hit(ray, obj, sp, quad));
 }
+/*
+∣(P−C)−((P−C)⋅A)A∣^2=r^2
+*/
 
 t_hit	intersect_cy(t_ray ray, t_obj *obj, t_cy *cy)
 {
