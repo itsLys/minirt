@@ -6,13 +6,19 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:04:42 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/19 11:14:07 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/20 12:21:52 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-// R(t)
+/*
+	∣P(t)−C∣^2=r^2 && P(t) = O + tD
+	...
+	(D⋅D)t^2+2*(D⋅(O−C))t+((O−C)⋅(O−C)−r^2)=0
+	\___/    \_________/  \_______________/
+	  A    		  B	  	   		  C
+*/
 
 t_hit	intersect_sp(t_ray ray, t_obj *obj, t_sp *sp)
 {
@@ -27,7 +33,11 @@ t_hit	intersect_sp(t_ray ray, t_obj *obj, t_sp *sp)
 	return (resolve_sp_hit(ray, obj, sp, quad));
 }
 /*
-∣(P−C)−((P−C)⋅A)A∣^2=r^2
+	∣(P−C)−((P−C)⋅A)A∣^2=r^2 && P(t) = O + tD
+	...
+	|(D⋅D)^2-(D⋅V)|t^2 + 2*((O-C)⋅D)-(O-C)⋅V*(D⋅V)t + (O-C)⋅(O-C)-(D⋅V)^2-r^2
+	\_____________/      \_______________________/    \_____________________/
+       A    					 B							 C
 */
 
 t_hit	intersect_cy(t_ray ray, t_obj *obj, t_cy *cy)
@@ -47,6 +57,16 @@ t_hit	intersect_cy(t_ray ray, t_obj *obj, t_cy *cy)
 	return (resolve_cy_hit(ray, obj, cy, quad));
 }
 
+<<<<<<< Updated upstream
+=======
+/*
+	(P(t) - P​) ⋅ N = 0 && P(t) = O + tD
+	...
+	(P - O)⋅N + (D⋅N)t = 0
+	\________/  \___/    
+        A    	  B
+*/
+>>>>>>> Stashed changes
 t_hit	intersect_pl(t_ray ray, t_obj *obj, t_pl *pl)
 {
 	double	a;
@@ -57,6 +77,16 @@ t_hit	intersect_pl(t_ray ray, t_obj *obj, t_pl *pl)
 	b = vec3_dot(ray.dir, obj->coords.up);
 	return (resolve_pl_hit(ray, obj, a, b));
 }
+/*
+	∣P−C∣^2cos^2(θ)−((P−C)⋅A)^2=0 
+	...
+	[(cos^2θ)(D⋅D)−(D⋅A)^2]t^2 + 2[(cos^2θ)(CO⋅D)−(CO⋅A)(D⋅A)]t +
+	\_____________________/      \___________________________/
+			   A							 B
+	[(cos^2θ)(CO⋅CO)−(CO⋅A)^2] = 0
+	\________________________/
+			   C
+*/
 
 t_hit	intersect_cn(t_ray ray, t_obj *obj, t_cn *cn)
 {
