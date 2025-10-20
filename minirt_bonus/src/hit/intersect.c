@@ -38,7 +38,7 @@ t_hit	intersect_cy(t_ray ray, t_obj *obj, t_cy *cy)
 
 	oc = vec3_subtract(ray.orig, obj->pos);
 	dot = vec3_dot(ray.dir, obj->coords.up);
-	quad.a = vec3_dot(ray.dir, ray.dir) - (dot * dot);
+	quad.a = 1 - (dot * dot);
 	quad.b = 2 * (vec3_dot(oc, ray.dir) - vec3_dot(oc, obj->coords.up)
 			* vec3_dot(ray.dir, obj->coords.up));
 	dot = vec3_dot(oc, obj->coords.up);
@@ -47,7 +47,6 @@ t_hit	intersect_cy(t_ray ray, t_obj *obj, t_cy *cy)
 	return (resolve_cy_hit(ray, obj, cy, quad));
 }
 
-// FIX: use pl
 t_hit	intersect_pl(t_ray ray, t_obj *obj, t_pl *pl)
 {
 	double	a;

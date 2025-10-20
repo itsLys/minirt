@@ -18,7 +18,5 @@ t_rgb	sample_bg_color(int x, int y, t_texture *tx)
 
 	coords.x = x / (WIDTH - 1.0);
 	coords.y = y / (HEIGHT - 1.0);
-	coords.x = fmod(coords.x * 1.0, 1.0);
-	coords.y = fmod(coords.y * 1.0, 1.0);
 	return (sample_tx_color(coords, tx));
 }

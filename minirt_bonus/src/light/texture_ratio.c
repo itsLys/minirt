@@ -29,21 +29,6 @@ t_vec2	sphere_ratio(t_hit hit, t_sp *sp)
 	return (coords);
 }
 
-t_vec2	cylinder_ratio(t_hit hit, t_cy *cy)
-{
-	t_vec3	local;
-	t_vec2	coords;
-	double	tetha;
-
-	local = world_to_local(hit, hit.obj->coords);
-	tetha = atan2(local.z, local.x);
-	coords.x = fmod(((tetha + M_PI) / (2 * M_PI)), 1.0);
-	coords.y = 1.0 - (local.y + cy->h / 2.0) / cy->h;
-	coords.x = fmod(coords.x * hit.obj->tiles.x, 1.0);
-	coords.y = fmod(coords.y * hit.obj->tiles.y, 1.0);
-	return (coords);
-}
-
 t_vec2	plane_ratio(t_hit hit, t_pl *pl)
 {
 	t_vec3	local;
@@ -62,6 +47,21 @@ t_vec2	plane_ratio(t_hit hit, t_pl *pl)
 	return (coords);
 }
 
+t_vec2	cylinder_ratio(t_hit hit, t_cy *cy)
+{
+	t_vec3	local;
+	t_vec2	coords;
+	double	tetha;
+
+	local = world_to_local(hit, hit.obj->coords);
+	tetha = atan2(local.z, local.x);
+	coords.x = (tetha + M_PI) / (2 * M_PI);
+	coords.y = 1.0 - (local.y + cy->h / 2.0) / cy->h;
+	coords.x = fmod(coords.x * hit.obj->tiles.x, 1.0);
+	coords.y = fmod(coords.y * hit.obj->tiles.y, 1.0);
+	return (coords);
+}
+
 t_vec2	cone_ratio(t_hit hit, t_cn *cn)
 {
 	t_vec3	local;
@@ -70,10 +70,10 @@ t_vec2	cone_ratio(t_hit hit, t_cn *cn)
 
 	local = world_to_local(hit, hit.obj->coords);
 	theta = atan2(local.z, local.x);
-	coords.x = 1 - fmod((theta + M_PI) / (2 * M_PI), 1.0);
+	coords.x = 1 - (theta + M_PI) / (2 * M_PI);
 	coords.y = local.y / cn->h;
-	coords.x = fabs(fmod(coords.x * hit.obj->tiles.x, 1.0));
-	coords.y = fabs(fmod(coords.y * hit.obj->tiles.y, 1.0));
+	coords.x = fmod(coords.x * hit.obj->tiles.x, 1.0);
+	coords.y = fmod(coords.y * hit.obj->tiles.y, 1.0);
 	return (coords);
 }
 

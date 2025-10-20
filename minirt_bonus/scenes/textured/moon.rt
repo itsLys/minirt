@@ -1,8 +1,8 @@
-A   0.25                	14,14,15            ../night_sky.xpm
+A   0.95                	255,255,255            ../night_sky.xpm
 C   62.01,0.00,-75.20       -0.64,0.00,0.77     12.00
 
 t   moon            color   ../moon_kit/moon.xpm
 t   moon_bmp        bump    ../moon_kit/moon_bmp.xpm
 
-l   120.32,0.00,27.85       1.00                255,255,255
+l   120.32,0.00,27.85       0.00                255,255,255
 sp  0.00,0.00,0.00      	10.00               200,200,200     0.25    1   moon_bmp    moon    1   1

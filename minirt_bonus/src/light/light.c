@@ -12,16 +12,19 @@
 
 #include "minirt.h"
 
-t_rgb	compute_amb(t_rgb obj, t_amb_light amb)
+// Ia = ka.Ia
+// FIX: must take hit color not obj color
+t_rgb	compute_amb(t_rgb hit_color, t_amb_light amb)
 {
 	t_rgb	color;
 
-	color.r = amb.ratio * amb.color.r * obj.r;
-	color.g = amb.ratio * amb.color.g * obj.g;
-	color.b = amb.ratio * amb.color.b * obj.b;
+	color.r = amb.ratio * amb.color.r * hit_color.r;
+	color.g = amb.ratio * amb.color.g * hit_color.g;
+	color.b = amb.ratio * amb.color.b * hit_color.b;
 	return (color);
 }
 
+//Id = kd.Il.max(0, N, L)
 t_rgb	compute_defuse(t_hit hit, t_obj *light_obj, t_light *light)
 {
 	t_rgb	color;
@@ -37,6 +40,7 @@ t_rgb	compute_defuse(t_hit hit, t_obj *light_obj, t_light *light)
 	return (color);
 }
 
+// Is = ks.Il.max(0, R.V)^n
 t_rgb	compute_spacular(t_hit hit, t_obj *light_obj, t_light *light, t_cam cam)
 {
 	t_rgb	color;

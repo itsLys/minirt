@@ -66,7 +66,7 @@ t_hit	resolve_pl_hit(t_ray ray, t_obj *obj, double a, double b)
 	t_hit	hit;
 
 	hit.inside = false;
-	if (b < EPS && b > -EPS)
+	if (b == 0)
 		return ((t_hit){.hit = false});
 	t = a / b;
 	if (t < EPS)
@@ -80,7 +80,7 @@ t_hit	resolve_pl_hit(t_ray ray, t_obj *obj, double a, double b)
 	if (vec3_dot(ray.dir, hit.normal) > 0)
 	{
 		hit.inside = true;
-		hit.normal = vec3_scale(-1, hit.normal);
+		hit.normal = vec3_negate(hit.normal);
 	}
 	return (hit);
 }
@@ -91,7 +91,7 @@ t_hit	resolve_rc_hit(t_ray ray, t_obj *obj, double a, double b)
 	t_hit	hit;
 
 	hit.inside = false;
-	if (b < EPS && b > -EPS)
+	if (b == 0)
 		return ((t_hit){.hit = false});
 	t = a / b;
 	if (t < EPS)
@@ -108,7 +108,7 @@ t_hit	resolve_rc_hit(t_ray ray, t_obj *obj, double a, double b)
 	if (vec3_dot(ray.dir, hit.normal) > 0)
 	{
 		hit.inside = true;
-		hit.normal = vec3_scale(-1, hit.normal);
+		hit.normal = vec3_negate(hit.normal);
 	}
 	return (hit);
 }
