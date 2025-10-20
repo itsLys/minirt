@@ -56,14 +56,8 @@ void	apply_bump_map(t_hit *hit, t_vec2 coords)
 	t_vec3		bitangent;
 
 	tx = hit->obj->bmp;
-<<<<<<< Updated upstream
 	if (fabs(vec3_dot(hit->normal, hit->obj->coords.up)) > 0.9999
 		&& hit->obj->type != T_PL && hit->obj->type != T_RC)
-=======
-	if (fabs(vec3_dot(hit->obj->coords.up, hit->normal)) > 0.9999
-			&& hit->obj->type != T_PL &&
-			hit->obj->type != T_RC)
->>>>>>> Stashed changes
 		return ;
 	g = compute_height_gradient(tx, coords);
 	if (hit->obj->type == T_PL || hit->obj->type == T_RC)

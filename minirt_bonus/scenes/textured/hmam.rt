@@ -3,8 +3,8 @@ C   16.75,-7.25,-35.25      0.00,0.00,1.00      71.00
 
 t   zelij4          color   ../zelij4.xpm
 t   zelij5          color   ../zelij5.xpm
-t   zelij4_bmp          bump   ../moon_bmp.xpm
-t   zelij5_bmp          bump   ../moon_bmp.xpm
+t   zelij4_bmp          bump   ../zelij4.xpm
+t   zelij5_bmp          bump   ../zelij5.xpm
 
 
 l   15.00,7.00,33.00        0.30                255,120,0
