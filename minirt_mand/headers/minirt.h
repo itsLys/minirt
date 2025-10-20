@@ -37,10 +37,14 @@
 # include "scene.h"
 # include "ray.h"
 
-// BUG: testing debugging
 void		print_scene(t_data *data);
-void		print_ray(int x, int y, t_ray ray);
+void		print_cy(t_obj *obj);
+void		print_pl(t_obj *obj);
+void		print_sp(t_obj *obj);
+void		print_color_props(t_obj *obj);
 void		print_vec3(t_vec3 vec);
-// BUG: END
+void		print_camera(t_cam cam);
+void		print_light(t_light light);
+void		print_amb_light(t_light amb);
 
 #endif

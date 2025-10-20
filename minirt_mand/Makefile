@@ -14,7 +14,10 @@ LIBFT_DIR	= libft
 LIBFT		= $(addprefix $(LIBFT_DIR)/, libft.a)
 SRC			= src/main.c \
 			  src/error.c \
-			  src/testing.c \
+			  src/print/print.c \
+			  src/print/print_obj.c \
+			  src/print/print_params.c \
+			  src/print/print_scene.c \
 			  src/gnl/get_next_line.c \
 			  src/gnl/get_next_line_utils.c \
 			  src/init/get_values.c \
@@ -49,7 +52,7 @@ SRC			= src/main.c \
 			  src/color/rgb_ops.c \
 			  src/color/rgb_conv.c \
 			  src/rays/pixel_map.c \
-			  src/utils/utils.c 
+			  src/utils/utils.c
 OBJ			= $(patsubst src/%.c, obj/%.o, $(SRC))
 all: $(NAME)
 	@echo "$(GREEN)$(BOLD)$(NAME) done!$(RESET)"
