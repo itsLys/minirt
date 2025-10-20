@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 17:04:42 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/20 12:21:52 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/20 13:06:23 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ t_hit	intersect_cy(t_ray ray, t_obj *obj, t_cy *cy)
 	return (resolve_cy_hit(ray, obj, cy, quad));
 }
 
-<<<<<<< Updated upstream
-=======
 /*
 	(P(t) - P​) ⋅ N = 0 && P(t) = O + tD
 	...
@@ -66,7 +64,7 @@ t_hit	intersect_cy(t_ray ray, t_obj *obj, t_cy *cy)
 	\________/  \___/    
         A    	  B
 */
->>>>>>> Stashed changes
+
 t_hit	intersect_pl(t_ray ray, t_obj *obj, t_pl *pl)
 {
 	double	a;

@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:19:43 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/19 15:21:28 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/20 13:09:46 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define FOV_STEP 1.0
 # define RATIO_MAX 1.0
 # define RATIO_MIN 0.0
-# define RATIO_STEP 0.1
+# define RATIO_STEP 0.02
 # define DIAMETER_STEP 0.175
 # define STRENGTH -1
 # define BG_COLOR 0x00202020

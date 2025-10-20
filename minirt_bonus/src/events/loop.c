@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 15:58:33 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/19 10:05:30 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/20 13:07:04 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,13 @@ int	handle_keypress(int code, t_data *data)
 {
 	if (code < 65536)
 		data->keys[code] = 1;
-	if (code == XK_p)
+	if (code == XK_c)
+		handle_obj_select(XK_c, data);
+	else if (code == XK_l)
+		handle_obj_select(XK_l, data);
+	else if (code == XK_p)
 		print_scene(data);
-	else if (data->keys[XK_Escape])
+	else if (code == XK_Escape)
 		clean_exit(data, SUCCESS);
 	return (0);
 }

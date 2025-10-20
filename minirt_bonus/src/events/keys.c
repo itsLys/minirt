@@ -6,7 +6,7 @@
 /*   By: yel-guad <yel-guad@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 15:58:32 by ihajji            #+#    #+#             */
-/*   Updated: 2025/10/19 11:14:31 by yel-guad         ###   ########.fr       */
+/*   Updated: 2025/10/20 13:04:50 by yel-guad         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,6 @@ void	handle_held_keys2(t_data *data)
 		handle_strength(XK_z, data);
 	else if (data->keys[XK_x])
 		handle_strength(XK_x, data);
-	if (data->keys[XK_c])
-		handle_obj_select(XK_c, data);
-	if (data->keys[XK_l])
-		handle_obj_select(XK_l, data);
 	if (data->keys[XK_equal])
 		handle_props(XK_equal, data);
 	else if (data->keys[XK_minus])
