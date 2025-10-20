@@ -14,10 +14,11 @@
 
 int	clean_exit(t_data *data, int status)
 {
+	get_next_line(FREE_BUFFER);
 	destroy_mlx(data);
 	free(data->mlx);
 	free(data->line);
-	if (data->fd >= 0)
+	if (data->fd != -1)
 		close(data->fd);
 	obj_lst_free(data->scene.obj_list);
 	if (data->scene.rays.dirs)

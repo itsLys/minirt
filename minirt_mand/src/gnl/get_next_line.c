@@ -77,6 +77,11 @@ char	*get_next_line(int fd)
 	static char	*last;
 	char		*line;
 
+	if (fd == FREE_BUFFER)
+	{
+		free(last);
+		return (NULL);
+	}
 	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
 		return (NULL);
 	line = NULL;

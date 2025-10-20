@@ -1,1 +1,0 @@
-get integer doesn't support numbers with sign '+' like '+10' only format like '123'

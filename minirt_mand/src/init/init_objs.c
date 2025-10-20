@@ -75,11 +75,12 @@ void	init_cylinder(char *line, t_data *data)
 	cy->norm = get_vec3(&line, data);
 	if (!is_close(vec3_len(cy->norm), 1.0))
 		exit_error(ERR_CY ERR_NORM_VAL, data);
-	cy->d = get_double_parameter(&line, data);
+	cy->d = get_double_parameter(&line, data) / 2;
 	if (cy->d < 0)
 		exit_error(ERR_CY ERR_DIAM_POS, data);
-	cy->r = cy->d / 2.0;
 	cy->h = get_double_parameter(&line, data);
+	if (cy->h < 0)
+		exit_error(ERR_CY ERR_HEIGHT, data);
 	obj->color = get_rgb(&line, data);
 	while (ft_isspace(*line))
 		line++;

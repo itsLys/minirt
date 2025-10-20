@@ -24,7 +24,8 @@
 
 // ERR PARAMS
 # define ERR_RGB "RGB is not correct\n"
-# define ERR_DIAM_POS "Diameter must be 0\n"
+# define ERR_DIAM_POS "Diameter must be >= 0\n"
+# define ERR_HEIGHT "Height must be >= 0\n"
 # define ERR_DBL "Double is not correct\n"
 # define ERR_INT "Integer is not correct\n"
 # define ERR_RATIO "Ratio is not correct\n"
@@ -35,6 +36,7 @@
 # define ERR_MULTI "Can only be declared once!\n"
 # define ERR_NOT_FOUND "Parameter not found!\n"
 
+# define ERR_EXT "Wrong file extension\n"
 // ERR USAGE
 # define ERR_USAGE " \
 	`./minirt -h` for help\n \

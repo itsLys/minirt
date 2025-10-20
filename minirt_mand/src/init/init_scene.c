@@ -105,6 +105,8 @@ int	init_config(char *line, t_data *data)
 void	init_data(t_data *data)
 {
 	data->mlx = NULL;
+	data->line = NULL;
+	data->fd = -1;
 	data->img.img_ptr = NULL;
 	data->win = NULL;
 	data->offsets = NULL;
@@ -113,4 +115,6 @@ void	init_data(t_data *data)
 	data->scene.amb_light.on = false;
 	data->scene.light.on = false;
 	data->scene.cam.on = false;
+	data->scene.obj_list = malloc(sizeof(t_obj *));
+	*(data->scene.obj_list) = NULL;
 }

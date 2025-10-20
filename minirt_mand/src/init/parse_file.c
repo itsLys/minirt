@@ -50,10 +50,8 @@ int	process_line(char *line, t_data *data)
 
 int	parse_file(char *filename, t_data *data)
 {
-	data->scene.obj_list = malloc(sizeof(t_obj *));
-	*(data->scene.obj_list) = NULL;
 	if (check_file_ext(filename) == ERROR)
-		return (ERROR);
+		exit_error(ERR_EXT, data);
 	data->fd = open(filename, O_RDONLY);
 	if (data->fd == ERROR)
 		return (print_error(strerror(errno)), ERROR);

@@ -19,6 +19,7 @@
 # endif // !BUFFER_SIZE
 
 # define NL '\n'
+# define FREE_BUFFER -2024
 # include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
