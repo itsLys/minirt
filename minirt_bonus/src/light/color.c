@@ -16,7 +16,7 @@ t_rgb	compute_bg_color(int x, int y, t_amb_light amb)
 {
 	if (amb.tx)
 		return (rgb_scale(amb.ratio, sample_bg_color(x, y, amb.tx)));
-	return (amb.color);
+	return (rgb_scale(amb.ratio, amb.color));
 }
 
 t_rgb	compute_color(t_ray ray, t_hit hit, t_data *data)

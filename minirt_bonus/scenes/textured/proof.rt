@@ -1,0 +1,8 @@
+A   1.00                255,255,255
+C   2.32,40.07,30.47        -0.13,-0.84,-0.53       48.00
+
+t   earth_bmp           bump    ../earth_kit/earth_bmp.xpm
+t   earth           color   ../earth_kit/earth.xpm
+
+l   -34.35,9.61,-12.82      0.40                255,255,250
+cn  0.00,6.00,0.00      0.19,-0.94,0.28     1253.26     1.07        180,80,5        0.50    100 earth_bmp   earth   1   1
