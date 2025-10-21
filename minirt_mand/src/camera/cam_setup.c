@@ -23,7 +23,12 @@ void	setup_viewport(t_cam *cam)
 
 void	init_cam(t_cam *cam)
 {
-	cam->right = vec3_norm(vec3_cross(cam->forward, vec3(0, 1, 0)));
+	t_vec3	tmp;
+
+	tmp = vec3(0,1,0);
+	if (is_close(fabs(vec3_dot(tmp, cam->forward))), 1)
+		tmp = vec3(1,0,0);
+	cam->right = vec3_norm(vec3_cross(cam->forward, tmp));
 	cam->up = vec3_cross(cam->right, cam->forward);
 	setup_viewport(cam);
 }
