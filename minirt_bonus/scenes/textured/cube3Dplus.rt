@@ -1,0 +1,29 @@
+A       0.99                            200,200,200
+C       0.00,11.50,14.25                0.00,0.00,-1.00         30.00
+
+t       black_white                     patt 255,255,255                0,0,0
+t       matte_bmp                       bump    ../metal_kit/matte_bmp.xpm
+t       matte                   color   ../metal_kit/matte.xpm
+t       e_wall                  color   ../cub3D/east-walls.xpm
+t       w_wall                  color   ../cub3D/west-walls.xpm
+t       e_wall_bmp                  bump   ../cub3D/east-walls.xpm
+t       w_wall_bmp                  bump   ../cub3D/west-walls.xpm
+
+l       2.75,34.00,-81.75               1                            255,255,0
+l       -20.00,20.00,-100.00            1                            255,0,0
+l       25.00,20.00,-110.00             1                            0,255,255
+
+sp      25.00,20.00,-210.00             11.75                           200,200,0               0.25       100 matte 1 1
+cy      3.50,40.00,-222.25     0.00,-1.00,0.00         9.75         17.05           10,80,155      0.50    100 matte 1 1
+cn      -20.00,30.00,-190.00   0.00,-1.00,0.00         60.00        10.98           180,80,5       0.50    100 matte 1 1
+
+pl      0.00,1.00,-1065.00     0.00,0.00,1.00          0,0,0        0.20    100
+pl      0.00,0.00,0.00         0.00,1.00,0.00          50,50,50     0.20    25      black_white    100     100
+
+cy      0.00,1.79,-36.28       0.00,-0.22,0.97        5.45         50.00           180,80,5       1.00    100     matte_bmp       matte   10      20
+
+
+rc      -50.00,5.00,-100.00    1.00,0.00,0.00          800.00       10.00           0,255,255      0.20    25      e_wall w_wall_bmp  8       1
+rc      50.00,5.00,-100.00     1.00,0.00,0.00          800.00       10.00           0,255,255      0.20    25      w_wall e_wall_bmp  8       1
+
+# ©: w_wall & e_wall texturse from abenzaho 

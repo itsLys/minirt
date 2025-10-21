@@ -1,0 +1,35 @@
+A   0.7                200,200,200   ../night_sky.xpm
+C   0.00,1.00,-15.00     0.00,0.00,-1.00     30
+
+l   10.00,10.00,-50.00       0.90                255,0,0
+# l   -10.00,10.00,-50.00       0.50                0,255,0
+
+t   e_wall                color   ../cub3D/east-walls.xpm
+t   w_wall                color   ../cub3D/wast-walls.xpm
+
+t   matte               color   ../metal_kit/matte.xpm
+t   matte_bmp           bump    ../metal_kit/matte_bmp.xpm
+
+t       moon_bmp                        bump    ../moon_kit/moon_bmp.xpm
+t       moon                    color   ../moon_kit/moon.xpm
+
+sp  40.00,50.00,-280.00      10.00               0,200,200     0.10    100  moon moon_bmp   1 1
+
+rc  -3.00,2.00,-15.00     1.00,0.00,0.00   64 4    0,255,255     0.20    25 e_wall     2  1
+rc   3.00,2.00,-15.00     -1.00,0.00,0.00   64 4    0,255,255     0.20    25 e_wall     2  1
+rc   0.00,2.00,-55.00     0.00,0.00,1.00   4 32    0,255,255     0.20    25 w_wall     1  1
+
+rc   0.00,5.00,-500.00     0.00,0.00,1.00   10 100    0,255,255     0.20    25 w_wall     1  2
+rc   0.00,5.00,-500.00     0.00,0.00,1.00   10 100    0,255,255     0.20    25 w_wall     1  2
+
+
+rc  -50.00,5.00,-100.00     1.00,0.00,0.00   800 10    0,255,255     0.20    25 e_wall     8  1
+rc   50.00,5.00,-100.00     -1.00,0.00,0.00   800 10    0,255,255     0.20    25 e_wall     8  1
+
+t   black_white         patt    255,255,255        0,0,0
+
+pl  0.00,0.00,0.00     0.00,1.00,0.00      50,50,50     0.20    25 matte matte_bmp 100 100
+
+
+# © w_wall & e_wall texturse from abenzaho 
+
