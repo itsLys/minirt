@@ -2,10 +2,9 @@ A   0.7                200,200,200   ../night_sky.xpm
 C   0.00,1.00,-15.00     0.00,0.00,-1.00     30
 
 l   10.00,10.00,-50.00       0.90                255,0,0
-# l   -10.00,10.00,-50.00       0.50                0,255,0
 
 t   e_wall                color   ../cub3D/east-walls.xpm
-t   w_wall                color   ../cub3D/wast-walls.xpm
+t   w_wall                color   ../cub3D/west-walls.xpm
 
 t   matte               color   ../metal_kit/matte.xpm
 t   matte_bmp           bump    ../metal_kit/matte_bmp.xpm
