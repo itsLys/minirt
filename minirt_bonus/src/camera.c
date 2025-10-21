@@ -71,9 +71,9 @@ void	setup_cam_coords(t_cam *cam)
 	t_local_coords	*coords;
 	t_vec3			tmp;
 
-	tmp = vec3(0,1,0);
+	tmp = vec3(0, 1, 0);
 	if (is_close(fabs(vec3_dot(tmp, cam->coords.forward)), 1))
-		tmp = vec3(1,0,0);
+		tmp = vec3(1, 0, 0);
 	coords = &(cam->coords);
 	coords->right = vec3_norm(vec3_cross(coords->forward, tmp));
 	coords->up = vec3_cross(coords->right, coords->forward);
