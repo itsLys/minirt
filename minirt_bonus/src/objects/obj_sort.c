@@ -15,27 +15,29 @@
 static void	save_content(t_obj *tmp, t_obj *obj)
 {
 	tmp->type = obj->type;
-	tmp->pos = obj->pos;
 	tmp->coords = obj->coords;
+	tmp->pos = obj->pos;
 	tmp->color = obj->color;
 	tmp->ref = obj->ref;
 	tmp->shine = obj->shine;
+	tmp->bmp_strenght = obj->bmp_strenght;
+	tmp->bmp = obj->bmp;
 	tmp->tx = obj->tx;
 	tmp->tiles = obj->tiles;
-	tmp->bmp = obj->bmp;
 	tmp->shape = obj->shape;
 }
 
 static void	swap_content(t_obj *n1, t_obj *n2)
 {
 	n1->type = n2->type;
-	n1->pos = n2->pos;
 	n1->coords = n2->coords;
+	n1->pos = n2->pos;
 	n1->color = n2->color;
 	n1->ref = n2->ref;
 	n1->shine = n2->shine;
-	n1->tx = n2->tx;
+	n1->bmp_strenght = n2->bmp_strenght;
 	n1->bmp = n2->bmp;
+	n1->tx = n2->tx;
 	n1->tiles = n2->tiles;
 	n1->shape = n2->shape;
 }
@@ -43,14 +45,15 @@ static void	swap_content(t_obj *n1, t_obj *n2)
 static void	restore_content(t_obj *tmp, t_obj *obj)
 {
 	obj->type = tmp->type;
-	obj->pos = tmp->pos;
 	obj->coords = tmp->coords;
+	obj->pos = tmp->pos;
 	obj->color = tmp->color;
 	obj->ref = tmp->ref;
 	obj->shine = tmp->shine;
+	obj->bmp_strenght = tmp->bmp_strenght;
+	obj->bmp = tmp->bmp;
 	obj->tx = tmp->tx;
 	obj->tiles = tmp->tiles;
-	obj->bmp = tmp->bmp;
 	obj->shape = tmp->shape;
 }
 

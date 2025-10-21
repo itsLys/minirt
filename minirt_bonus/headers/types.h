@@ -194,6 +194,7 @@ typedef struct s_obj
 	t_rgb				color;
 	double				ref;
 	int					shine;
+	double				bmp_strenght;
 	t_texture			*bmp;
 	t_texture			*tx;
 	t_int_vec2			tiles;

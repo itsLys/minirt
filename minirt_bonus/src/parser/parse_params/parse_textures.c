@@ -57,7 +57,6 @@ void	get_pattern(t_texture *tx, char **line, t_data *data)
 	fill_pattern(tx, tx->c1, tx->c2);
 }
 
-// FIX: add freeing of the texture and img destroying
 void	get_image(t_texture *tx, t_data *data)
 {
 	if (tx->path && tx->path[0] == '/')
@@ -72,7 +71,6 @@ void	get_image(t_texture *tx, t_data *data)
 		exit_error(NULL, data);
 }
 
-// FIX: free at exit
 void	get_texture(t_texture *tx, char **line, t_data *data)
 {
 	if (tx->type == TX_PATT)
@@ -87,7 +85,6 @@ void	get_texture(t_texture *tx, char **line, t_data *data)
 	}
 }
 
-// FIX: add name freeing at exit
 void	parse_texture(char *line, t_data *data)
 {
 	t_texture	*tx;

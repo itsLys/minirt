@@ -22,7 +22,6 @@ void	init_surface_props_defaults(t_obj *obj)
 	obj->bmp = NULL;
 }
 
-// TODO: test negative and absurd tiles per axis
 void	get_surface_props(t_obj *obj, char *line, t_data *data)
 {
 	init_surface_props_defaults(obj);

@@ -12,18 +12,6 @@
 
 #include "get_next_line.h"
 
-// static void	*ft_calloc(size_t nmemb, size_t size)
-// {
-// 	char	*mem;
-//
-// 	mem = malloc(nmemb * size);
-// 	if (!mem)
-// 		return (NULL);
-// 	while (size--)
-// 		mem[size] = 0;
-// 	return (mem);
-// }
-
 static char	*extract_line(char **last)
 {
 	char	*tmp;

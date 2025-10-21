@@ -13,7 +13,6 @@
 #include "minirt.h"
 
 // Ia = ka.Ia
-// FIX: must take hit color not obj color
 t_rgb	compute_amb(t_rgb hit_color, t_amb_light amb)
 {
 	t_rgb	color;

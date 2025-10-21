@@ -22,6 +22,7 @@ void	parse_plane(char *line, t_data *data)
 	if (!obj || !pl)
 		return (free(pl), exit_error(NULL, data));
 	obj_lst_add(obj, data->scene.obj_lst);
+	obj->bmp_strenght = STRENGTH;
 	obj->shape = pl;
 	obj->type = T_PL;
 	obj->pos = get_vec3(&line, data);
@@ -32,7 +33,6 @@ void	parse_plane(char *line, t_data *data)
 	init_local_coords(obj);
 }
 
-// FIX: add a forward and up direction axis
 void	parse_sphere(char *line, t_data *data)
 {
 	t_obj	*obj;
@@ -43,6 +43,7 @@ void	parse_sphere(char *line, t_data *data)
 	if (!obj || !sp)
 		return (free(sp), exit_error(NULL, data));
 	obj_lst_add(obj, data->scene.obj_lst);
+	obj->bmp_strenght = STRENGTH;
 	obj->shape = sp;
 	obj->type = T_SP;
 	obj->pos = get_vec3(&line, data);
@@ -64,6 +65,7 @@ void	parse_cylinder(char *line, t_data *data)
 	if (obj == NULL || cy == NULL)
 		return (free(cy), exit_error(NULL, data));
 	obj_lst_add(obj, data->scene.obj_lst);
+	obj->bmp_strenght = STRENGTH;
 	obj->shape = cy;
 	obj->type = T_CY;
 	obj->pos = get_vec3(&line, data);
@@ -88,6 +90,7 @@ void	parse_cone(char *line, t_data *data)
 	if (obj == NULL || cn == NULL)
 		return (free(cn), exit_error(NULL, data));
 	obj_lst_add(obj, data->scene.obj_lst);
+	obj->bmp_strenght = STRENGTH;
 	obj->shape = cn;
 	obj->type = T_CN;
 	obj->pos = get_vec3(&line, data);
@@ -115,6 +118,7 @@ void	parse_rectangle(char *line, t_data *data)
 	if (!obj || !rc)
 		return (free(rc), exit_error(NULL, data));
 	obj_lst_add(obj, data->scene.obj_lst);
+	obj->bmp_strenght = STRENGTH;
 	obj->shape = rc;
 	obj->type = T_RC;
 	obj->pos = get_vec3(&line, data);

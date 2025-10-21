@@ -12,36 +12,14 @@
 
 #include "minirt.h"
 
-void	handle_rotation(int code, t_data *data)
-{
-	if (data->scene.selected.type == T_CAM)
-	{
-		handle_coords_rotate(code, &(data->scene.cam.coords));
-		spawn_mapping_workers(data);
-	}
-	else if (data->scene.selected.type == T_OBJ)
-		handle_coords_rotate(code, &(data->scene.selected.obj->coords));
-}
-
-void	handle_obj_select(int code, t_data *data)
-{
-	if (code == XK_c)
-		data->scene.selected.type = T_CAM;
-	else if (code == XK_l)
-	{
-		data->scene.selected.type = T_LIGHT;
-		select_next_light(data);
-	}
-}
-
 void	handle_strength(int code, t_data *data)
 {
 	if (data->scene.selected.type == T_OBJ)
 	{
 		if (code == XK_z)
-			data->scene.selected.obj->tx->strength -= 1;
+			data->scene.selected.obj->bmp_strenght -= 0.1;
 		else if (code == XK_x)
-			data->scene.selected.obj->tx->strength += 1;
+			data->scene.selected.obj->bmp_strenght += 0.1;
 	}
 }
 

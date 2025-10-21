@@ -58,7 +58,7 @@ t_hit	intersect_cy(t_ray ray, t_obj *obj, t_cy *cy)
 }
 
 /*
-	(P(t) - P​) ⋅ N = 0 && P(t) = O + tD
+	(P(t) - P) ⋅ N = 0 && P(t) = O + tD
 	...
 	(P - O)⋅N + (D⋅N)t = 0
 	\________/  \___/    

@@ -6,7 +6,7 @@
 /*   By: ihajji <ihajji@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/24 10:47:48 by ihajji            #+#    #+#             */
-/*   Updated: 2025/09/24 11:23:46 by ihajji           ###   ########.fr       */
+/*   Updated: 2025/10/20 16:04:29 by ihajji           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,15 @@ void	select_object(int x, int y, t_data *data)
 	}
 	else
 		data->scene.selected.type = T_CAM;
+}
+
+void	handle_obj_select(int code, t_data *data)
+{
+	if (code == XK_c)
+		data->scene.selected.type = T_CAM;
+	else if (code == XK_l)
+	{
+		data->scene.selected.type = T_LIGHT;
+		select_next_light(data);
+	}
 }

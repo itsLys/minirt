@@ -46,7 +46,6 @@ void	handle_sp_props(int code, t_sp *sp)
 		sp->r = fmax(sp->r - DIAMETER_STEP, 0.0);
 }
 
-// FIX: refactor change  place
 void	handle_rc_props(int code, t_rc *rc)
 {
 	if (code == XK_equal)

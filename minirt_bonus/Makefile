@@ -23,12 +23,12 @@ SRC         = src/camera.c \
 			  src/destructors.c \
 			  src/main.c \
 			  src/events/handlers/handlers.c \
+			  src/events/handlers/texture_handler.c \
 			  src/events/handlers/move_handler.c \
 			  src/events/handlers/props_handler.c \
 			  src/events/handlers/scene_props_handler.c \
 			  src/events/handlers/rotate_handler.c \
 			  src/events/handlers/select_handler.c \
-			  src/events/handlers/handle_moves.c \
 			  src/events/keys.c \
 			  src/events/loop.c \
 			  src/exit.c \
@@ -44,9 +44,7 @@ SRC         = src/camera.c \
 			  src/init/init_mlx.c \
 			  src/init/init_pre_calc.c \
 			  src/init/init_program.c \
-			  src/mlx/events.c \
 			  src/mlx/images.c \
-			  src/mlx/window.c \
 			  src/objects/lst_utils.c \
 			  src/objects/obj_sort.c \
 			  src/parser/parse_file.c \

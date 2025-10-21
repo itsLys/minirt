@@ -112,5 +112,3 @@ void	print_scene(t_data *data)
    printf("LIGHT\n");
    }
    */
-
-// WARN: fix norm of this

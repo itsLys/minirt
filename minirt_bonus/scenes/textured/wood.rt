@@ -1,0 +1,61 @@
+A   0.97                255,255,255
+C   28.66,5.00,14.28        -0.90,0.00,-0.43        90.00
+
+
+l   -30.00,11.25,17.25      1               255,255,255
+
+t	grass								color ../wood_kit/grass.xpm
+t	grass_bmp								bump ../wood_kit/grass_bmp.xpm
+
+t   black_painted_planks           		color   ../wood_kit/black_painted_planks.xpm
+t   black_painted_planks_bmp           	bump   ../wood_kit/black_painted_planks_bmp.xpm
+
+
+t   diagonal_parquet           		color   ../wood_kit/diagonal_parquet.xpm
+t   diagonal_parquet_bmp           	bump   ../wood_kit/diagonal_parquet_bmp.xpm
+
+
+t   rosewood_veneer1           		color   ../wood_kit/rosewood_veneer1.xpm
+t   rosewood_veneer1_bmp           	bump   ../wood_kit/rosewood_veneer1_bmp.xpm
+
+t   wooden_gate           		color   ../wood_kit/wooden_gate.xpm
+t   wooden_gate_bmp           	bump   ../wood_kit/wooden_gate_bmp.xpm
+
+t   earth_test           		color   ../earth_kit/earth.xpm
+
+rc  0.00,0.00,0.00     		1.00,0.00,0.00      4.00        4.00        180,80,5        0.50    70 black_painted_planks black_painted_planks_bmp 1 1 
+rc  2.00,-2.00,0.00     	0.00,1.00,0.00      4.00        4.00        180,80,5        0.50    70 black_painted_planks black_painted_planks_bmp 1 1
+rc  2.00,2.00,0.00     		0.00,1.00,0.00      4.00        4.00        180,80,5        0.50    70 black_painted_planks black_painted_planks_bmp 1 1
+rc  2.00,0.00,2.00     		0.00,0.00,1.00      4.00        4.00        180,80,5        0.50    70 black_painted_planks black_painted_planks_bmp 1 1
+rc  2.00,0.00,-2.00    		0.00,0.00,1.00      4.00        4.00        180,80,5        0.50    70 black_painted_planks black_painted_planks_bmp 1 1
+rc  4.00,0.00,0.00     		1.00,0.00,0.00      4.00        4.00        180,80,5        0.50    70 black_painted_planks black_painted_planks_bmp 1 1
+
+rc  5.00,0.00,0.00     		1.00,0.00,0.00      4.00        4.00        180,80,5        0.50    70  diagonal_parquet diagonal_parquet_bmp 1 1 
+rc  7.00,-2.00,0.00     	0.00,1.00,0.00      4.00        4.00        180,80,5        0.50    70  diagonal_parquet diagonal_parquet_bmp 1 1
+rc  7.00,2.00,0.00     		0.00,1.00,0.00      4.00        4.00        180,80,5        0.50    70  diagonal_parquet diagonal_parquet_bmp 1 1
+rc  7.00,0.00,2.00     		0.00,0.00,1.00      4.00        4.00        180,80,5        0.50    70  diagonal_parquet diagonal_parquet_bmp 1 1
+rc  7.00,0.00,-2.00    		0.00,0.00,1.00      4.00        4.00        180,80,5        0.50    70  diagonal_parquet diagonal_parquet_bmp 1 1
+rc  9.00,0.00,0.00     		1.00,0.00,0.00      4.00        4.00        180,80,5        0.50    70  diagonal_parquet diagonal_parquet_bmp 1 1
+
+rc  10.00,0.00,0.00     	1.00,0.00,0.00      4.00        4.00        180,80,5        0.50    70  rosewood_veneer1 rosewood_veneer1_bmp 1 1 
+rc  12.00,-2.00,0.00     	0.00,1.00,0.00      4.00        4.00        180,80,5        0.50    70  rosewood_veneer1 rosewood_veneer1_bmp 1 1
+rc  12.00,2.00,0.00     	0.00,1.00,0.00      4.00        4.00        180,80,5        0.50    70  rosewood_veneer1 rosewood_veneer1_bmp 1 1
+rc  12.00,0.00,2.00     	0.00,0.00,1.00      4.00        4.00        180,80,5        0.50    70  rosewood_veneer1 rosewood_veneer1_bmp 1 1
+rc  12.00,0.00,-2.00    	0.00,0.00,1.00      4.00        4.00        180,80,5        0.50    70  rosewood_veneer1 rosewood_veneer1_bmp 1 1
+rc  14.00,0.00,0.00     	1.00,0.00,0.00      4.00        4.00        180,80,5        0.50    70  rosewood_veneer1 rosewood_veneer1_bmp 1 1
+
+rc  15.00,0.00,0.00     	1.00,0.00,0.00      4.00        4.00        180,80,5        0.50    70  wooden_gate wooden_gate_bmp 1 1 
+rc  17.00,-2.00,0.00     	0.00,1.00,0.00      4.00        4.00        180,80,5        0.50    70  wooden_gate wooden_gate_bmp 1 1
+rc  17.00,2.00,0.00     	0.00,1.00,0.00      4.00        4.00        180,80,5        0.50    70  wooden_gate wooden_gate_bmp 1 1
+rc  17.00,0.00,2.00     	0.00,0.00,1.00      4.00        4.00        180,80,5        0.50    70  wooden_gate wooden_gate_bmp 1 1
+rc  17.00,0.00,-2.00    	0.00,0.00,1.00      4.00        4.00        180,80,5        0.50    70  wooden_gate wooden_gate_bmp 1 1
+rc  19.00,0.00,0.00     	1.00,0.00,0.00      4.00        4.00        180,80,5        0.50    70  wooden_gate wooden_gate_bmp 1 1
+
+rc  20.00,0.00,-20.00     	1.00,0.00,0.00      4.00        4.00        180,80,5        0.50    70  earth_test 1 1 
+rc  22.00,-2.00,-20.00     	0.00,1.00,0.00      4.00        4.00        180,80,5        0.50    70  earth_test 1 1
+rc  22.00,2.00,-20.00     	0.00,1.00,0.00      4.00        4.00        180,80,5        0.50    70  earth_test 1 1
+rc  22.00,0.00,-18.00     	0.00,0.00,1.00      4.00        4.00        180,80,5        0.50    70  earth_test 1 1
+rc  22.00,0.00,-18.00    	0.00,0.00,1.00      4.00        4.00        180,80,5        0.50    70  earth_test 1 1
+rc  24.00,0.00,-20.00     	1.00,0.00,0.00      4.00        4.00        180,80,5        0.50    70  earth_test 1 1
+
+pl  0.00,-2.00,0.00      0.00,1.00,0.00      200,200,200     0.10    20 grass grass_bmp 20 20

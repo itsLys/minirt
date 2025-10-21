@@ -12,22 +12,6 @@
 
 #include "minirt.h"
 
-// WARN: RGB FOR LIGHT IS NOT IN MANDATORY
-
-/* LEGACY
-   void rotate_cy(int code, t_cy *cy, t_cam cam)
-   {
-   if (code == XK_d) // rotate around cam forw
-   cy->norm = rotate(cy->norm, cam.forward, ROTATE_STEP);
-   else if (code == XK_a)
-   cy->norm = rotate(cy->norm, cam.forward, ROTATE_STEP * -1);
-   else if (code == XK_w)
-   cy->norm = rotate(cy->norm, cam.right, ROTATE_STEP);
-   else if (code == XK_s)
-   cy->norm = rotate(cy->norm, cam.right, ROTATE_STEP * -1);
-   }
-   */
-
 static void	handle_obj_select(int code, t_data *data)
 {
 	if (code == XK_c)

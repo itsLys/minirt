@@ -12,8 +12,6 @@
 
 #include "minirt.h"
 
-// FIX: this is not part of the texture list, 
-// must be freeed seperately
 static void	init_amb_tx(char **line, t_data *data)
 {
 	t_texture	*tx;
